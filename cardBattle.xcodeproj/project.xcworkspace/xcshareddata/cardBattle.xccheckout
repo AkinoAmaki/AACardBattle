@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>99085379-07B4-4AD1-83B1-F8207E64F78F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>cardBattle</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
+		<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cardBattle.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>03A33C91-CEBC-4A91-93C4-831CCEAD8930</key>
+		<string>../../../名刺バトラー/Mbattler_20130721</string>
+		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AACardBattle</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>03A33C91-CEBC-4A91-93C4-831CCEAD8930</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Mbattler_20130721</string>
+		</dict>
+	</array>
+</dict>
+</plist>
