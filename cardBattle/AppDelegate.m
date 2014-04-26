@@ -93,6 +93,13 @@
     _cardList_pngName  = [[NSArray alloc] initWithObjects:@"dummy.png",@"card1.png",	@"card2.png",	@"card3.png",	@"card4.png",	@"card5.png",	@"card6.png",	@"card7.png",	@"card8.png",	@"card9.png",	@"card10.png",	@"card11.png",	@"card12.png",	@"card13.png",	@"card14.png",	@"card15.png",	@"card16.png",	@"card17.png",	@"card18.png",	@"card19.png",	@"card20.png",/*	@"card21.png",	@"card22.png",	@"card23.png",	@"card24.png",	@"card25.png",	@"card26.png",	@"card27.png",	@"card28.png",	@"card29.png",	@"card30.png",	@"card31.png",	@"card32.png",	@"card33.png",	@"card34.png",	@"card35.png",	@"card36.png",	@"card37.png",	@"card38.png",	@"card39.png",	@"card40.png",	@"card41.png",	@"card42.png",	@"card43.png",	@"card44.png",	@"card45.png",	@"card46.png",	@"card47.png",	@"card48.png",	@"card49.png",	@"card50.png",	@"card51.png",	@"card52.png",	@"card53.png",	@"card54.png",	@"card55.png",	@"card56.png",	@"card57.png",	@"card58.png",	@"card59.png",	@"card60.png",	@"card61.png",	@"card62.png",	@"card63.png",	@"card64.png",	@"card65.png",	@"card66.png",	@"card67.png",	@"card68.png",	@"card69.png",	@"card70.png",	@"card71.png",	@"card72.png",	@"card73.png",	@"card74.png",	@"card75.png",	@"card76.png",	@"card77.png",	@"card78.png",	@"card79.png",	@"card80.png",	@"card81.png",	@"card82.png",	@"card83.png",	@"card84.png",	@"card85.png",	@"card86.png",	@"card87.png",	@"card88.png",	@"card89.png",	@"card90.png",	@"card91.png",	@"card92.png",	@"card93.png",	@"card94.png",	@"card95.png",	@"card96.png",	@"card97.png",	@"card98.png",	@"card99.png",	@"card100.png",	@"card101.png",	@"card102.png",	@"card103.png",	@"card104.png",	@"card105.png",	@"card106.png",	@"card107.png",	@"card108.png",	@"card109.png",	@"card110.png",	@"card111.png",	@"card112.png",	@"card113.png",	@"card114.png",	@"card115.png",	@"card116.png",	@"card117.png",	@"card118.png",	@"card119.png",	@"card120.png",	@"card121.png",	@"card122.png",	@"card123.png",	@"card124.png",	@"card125.png",	@"card126.png",	@"card127.png",	@"card128.png",	@"card129.png",	@"card130.png",	@"card131.png",	@"card132.png",	@"card133.png",	@"card134.png",	@"card135.png",	@"card136.png",	@"card137.png",	@"card138.png",	@"card139.png",	@"card140.png",	@"card141.png",	@"card142.png",	@"card143.png",	@"card144.png",	@"card145.png",	@"card146.png",	@"card147.png",	@"card148.png",	@"card149.png",	@"card150.png",	@"card151.png",	@"card152.png",	@"card153.png",	@"card154.png",	@"card155.png",	@"card156.png",	@"card157.png",	@"card158.png",	@"card159.png",	@"card160.png",	@"card161.png",	@"card162.png",	@"card163.png",	@"card164.png",	@"card165.png",	@"card166.png",	@"card167.png",	@"card168.png",	@"card169.png",	@"card170.png",	@"card171.png",	@"card172.png",	@"card173.png",	@"card174.png",	@"card175.png",	@"card176.png",	@"card177.png",	@"card178.png",	@"card179.png",	@"card180.png",	@"card181.png",	@"card182.png",	@"card183.png",	@"card184.png",	@"card185.png",	@"card186.png",	@"card187.png",	@"card188.png",	@"card189.png",	@"card190.png",	@"card191.png",	@"card192.png",	@"card193.png",	@"card194.png",	@"card195.png",	@"card196.png",	@"card197.png",	@"card198.png",	@"card199.png",	@"card200.png",	@"card201.png",	@"card202.png",	@"card203.png",	@"card204.png",	@"card205.png",
 	*/
             nil];
+    
+    NSNumber *energy  = [NSNumber numberWithInt:ENERGYCARD];
+    NSNumber *field  = [NSNumber numberWithInt:FIELDCARD];
+    NSNumber *sorcery = [NSNumber numberWithInt:SORCERYCARD];
+    
+    _cardList_type = [[NSArray alloc] initWithObjects: energy, energy, energy, energy, energy, sorcery, field,sorcery,sorcery,field,field,field,field,field,field,field,field,field,field,field, nil];
+    _cardList_cost = [[NSArray alloc] initWithObjects: @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", nil];
 
     
     NSLog(@"%f：%f",[[UIScreen mainScreen] bounds].size.width ,[[UIScreen mainScreen] bounds].size.height);
@@ -120,8 +127,8 @@
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     _doIUseCard = NO; //自分がこのターンカードを使用したか
     _myFieldCard = [[NSMutableArray alloc] init]; //自分の場カードのカードナンバー
-    _myEnergyCard = [[NSMutableArray alloc] init]; //自分のエネルギーカードのカードナンバー
-    _canIPlaySorceryCard = YES; //自分が魔法カードを手札からプレイできるか
+    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
+    _canIPlaySorceryCard =YES; //自分が魔法カードを手札からプレイできるか
     _canIPlayFieldCard = YES; //自分が場カードを手札からプレイできるか
     _canIActivateFieldCard = YES; //自分が場カードの能力を起動できるか
     _canIPlayEnergyCard = YES; //自分がエネルギーカードを手札からプレイできるか
@@ -156,7 +163,7 @@
     _enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
     _doEnemyUseCard = NO; //相手がこのターンカードを使用したか
     _enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
-    _enemyEnergyCard = [[NSMutableArray alloc] init]; //相手のエネルギーカードのカードナンバー
+    _enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
     _canEnemyPlaySorceryCard = YES; //相手が魔法カードを手札からプレイできるか
     _canEnemyPlayFieldCard = YES; //相手が場カードを手札からプレイできるか
     _canEnemyActivateFieldCard = YES; //相手が場カードの能力を起動できるか

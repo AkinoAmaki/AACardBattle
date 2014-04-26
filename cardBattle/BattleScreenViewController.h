@@ -35,9 +35,9 @@
 @interface BattleScreenViewController : BattleCaliculate{
     BattleCaliculate *bc;
     int drawCount; //自分の引いたカード枚数を管理
-    int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
+    int selectedCardOrder; //現在選択されているカードは、手札の左から数えて何番目かを管理する（1番目なら0が入る）
     int selectedCardNum; //現在選択されているカードのカード番号を管理する
-    int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から１，２，３，…と続く）
+    int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
     int mySelectColor; //特定の色を選ぶ際、自分がどの色を選んだかを管理する。
@@ -80,7 +80,8 @@
 @property UITextView *myCardTextView_middle;//左下に設置している、中くらいの大きさのカードのテキスト
 @property UIImageView *myCard;
 
-//選択されたカードを縁取るカード画像
+//選択されたキャラクター・カードを縁取るカード画像
+@property UIImageView *border_character;
 @property UIImageView *border_middleCard;
 
 //山札画像
@@ -91,12 +92,30 @@
 @property UITextView *enemyLibraryCount;
 @property UIImageView *enemyGetCard;
 
+//エネルギー表示
+@property UIImageView *allEnergy; //５色のエネルギーの画像とテキストをまとめる
+@property UIImageView *whiteEnergyImage; //白色のエネルギーの画像
+@property UIImageView *blueEnergyImage; //青色のエネルギーの画像
+@property UIImageView *blackEnergyImage; //黒色のエネルギーの画像
+@property UIImageView *redEnergyImage; //赤色のエネルギーの画像
+@property UIImageView *greenEnergyImage; //緑色のエネルギーの画像
+@property UITextView  *whiteEnergyText;  //白色のエネルギーの数値
+@property UITextView  *blueEnergyText;  //青色のエネルギーの数値
+@property UITextView  *blackEnergyText;  //黒色のエネルギーの数値
+@property UITextView  *redEnergyText;  //赤色のエネルギーの数値
+@property UITextView  *greenEnergyText;  //緑色のエネルギーの数値
+
+
+//OKボタン
+@property UIButton *okButton;
+
 //キャラクターを選択するビュー
 @property UIImageView *characterField;
 
 
-//各種アラートビューを実装
+//各種アラートビューを実装(ボタン押下時にアクションを起こす必要のあるものに限る)
 @property UIAlertView *putACardToLibraryTopOrBottom;
+@property UIAlertView *doIUseEnergycard;
 
 - (IBAction)keisan:(id)sender;
 

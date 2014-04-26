@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#define ENERGYCARD 1
+#define FIELDCARD 2
+#define SORCERYCARD 3
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
@@ -79,7 +82,7 @@
 @property BOOL doIUseCard; //自分がこのターンカードを使用したか
 @property int myUsingCardNumber; //自分が使用したカードの番号
 @property (nonatomic, retain) NSMutableArray *myFieldCard; //自分の場カードのカードナンバー
-@property (nonatomic, retain) NSMutableArray *myEnergyCard; //自分のエネルギーカードのカードナンバー
+@property (nonatomic, retain) NSMutableArray *myEnergyCard; //自分のエネルギーカードの数
 @property BOOL canIPlaySorceryCard; //自分が魔法カードを手札からプレイできるか
 @property BOOL canIPlayFieldCard; //自分が場カードを手札からプレイできるか
 @property BOOL canIActivateFieldCard; //自分が場カードの能力を起動できるか
@@ -116,7 +119,7 @@
 @property BOOL doEnemyUseCard; //相手がこのターンカードを使用したか
 @property int enemyUsingCardNumber; //相手が使用したカードの番号
 @property (nonatomic, retain) NSMutableArray *enemyFieldCard; //相手の場カードのカードナンバー
-@property (nonatomic, retain) NSMutableArray *enemyEnergyCard; //相手のエネルギーカードのカードナンバー
+@property (nonatomic, retain) NSMutableArray *enemyEnergyCard; //相手のエネルギーカードの数
 @property BOOL canEnemyPlaySorceryCard; //相手が魔法カードを手札からプレイできるか
 @property BOOL canEnemyPlayFieldCard; //相手が場カードを手札からプレイできるか
 @property BOOL canEnemyActivateFieldCard; //相手が場カードの能力を起動できるか

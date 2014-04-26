@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1D265219061E1500B43A76 /* border_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D265119061E1500B43A76 /* border_character.png */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
 		0F5B7A0018D8A56A00A3D9E7 /* border_smallCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */; };
 		0F5B7A0218D949D600A3D9E7 /* anime.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B7A0118D949D600A3D9E7 /* anime.png */; };
 		0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5EE52318F1A5B500785996 /* characterSelect.png */; };
+		0F6EB3BC190BFD8100BD0E41 /* blackEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */; };
+		0F6EB3BD190BFD8100BD0E41 /* blueEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B8190BFD8100BD0E41 /* blueEnergyImage.png */; };
+		0F6EB3BE190BFD8100BD0E41 /* greenEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */; };
+		0F6EB3BF190BFD8100BD0E41 /* redEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3BA190BFD8100BD0E41 /* redEnergyImage.png */; };
+		0F6EB3C0190BFD8100BD0E41 /* whiteEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */; };
 		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F178B18F19461004E58BF /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177618F19461004E58BF /* card0.png */; };
@@ -85,12 +91,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F1D265119061E1500B43A76 /* border_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_character.png; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
 		0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_smallCard.png; sourceTree = "<group>"; };
 		0F5B7A0118D949D600A3D9E7 /* anime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anime.png; sourceTree = "<group>"; };
 		0F5EE52318F1A5B500785996 /* characterSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characterSelect.png; sourceTree = "<group>"; };
+		0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackEnergyImage.png; sourceTree = "<group>"; };
+		0F6EB3B8190BFD8100BD0E41 /* blueEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueEnergyImage.png; sourceTree = "<group>"; };
+		0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage.png; sourceTree = "<group>"; };
+		0F6EB3BA190BFD8100BD0E41 /* redEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redEnergyImage.png; sourceTree = "<group>"; };
+		0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteEnergyImage.png; sourceTree = "<group>"; };
 		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F177618F19461004E58BF /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card0.png; path = cardBattle/img/smallcard/card0.png; sourceTree = SOURCE_ROOT; };
@@ -264,7 +276,13 @@
 				0F5B7A0118D949D600A3D9E7 /* anime.png */,
 				0FD1D9FD18DF22AB00E03D23 /* library.png */,
 				0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */,
+				0F1D265119061E1500B43A76 /* border_character.png */,
 				0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */,
+				0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */,
+				0F6EB3B8190BFD8100BD0E41 /* blueEnergyImage.png */,
+				0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */,
+				0F6EB3BA190BFD8100BD0E41 /* redEnergyImage.png */,
+				0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */,
 				0F5EE52318F1A5B500785996 /* characterSelect.png */,
 				0F9F177218EC607D004E58BF /* cancel.png */,
 				0F9F177318EC607D004E58BF /* ok.png */,
@@ -434,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F9F179918F19461004E58BF /* card14.png in Resources */,
+				0F6EB3BE190BFD8100BD0E41 /* greenEnergyImage.png in Resources */,
 				0F5B7A0018D8A56A00A3D9E7 /* border_smallCard.png in Resources */,
 				0F9F179B18F19461004E58BF /* card16.png in Resources */,
 				0F9F179218F19461004E58BF /* card7.png in Resources */,
@@ -447,10 +466,12 @@
 				0FDB985E18D0A92700C7566E /* cancelButton.png in Resources */,
 				0FDB980E18CB620800C7566E /* Images.xcassets in Resources */,
 				0F9F179518F19461004E58BF /* card10.png in Resources */,
+				0F6EB3BF190BFD8100BD0E41 /* redEnergyImage.png in Resources */,
 				0FDCA49518CACFC2003459F8 /* InfoPlist.strings in Resources */,
 				0FDCA49E18CACFC2003459F8 /* Main.storyboard in Resources */,
 				0F9F178C18F19461004E58BF /* card1.png in Resources */,
 				0F9F178E18F19461004E58BF /* card3.png in Resources */,
+				0F1D265219061E1500B43A76 /* border_character.png in Resources */,
 				0FDB981518CB655100C7566E /* c0r.PNG in Resources */,
 				0FDB985918D0A55C00C7566E /* dummy.png in Resources */,
 				0F9F17A618F19BA8004E58BF /* syobon.png in Resources */,
@@ -467,6 +488,8 @@
 				0F9F178B18F19461004E58BF /* card0.png in Resources */,
 				0F9F17A418F19BA8004E58BF /* giko.png in Resources */,
 				0F9F179818F19461004E58BF /* card13.png in Resources */,
+				0F6EB3C0190BFD8100BD0E41 /* whiteEnergyImage.png in Resources */,
+				0F6EB3BD190BFD8100BD0E41 /* blueEnergyImage.png in Resources */,
 				0FDB981818CB655100C7566E /* c7r.PNG in Resources */,
 				0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
@@ -481,6 +504,7 @@
 				0F9F179718F19461004E58BF /* card12.png in Resources */,
 				0F9F179D18F19461004E58BF /* card18.png in Resources */,
 				0F9F177418EC607D004E58BF /* cancel.png in Resources */,
+				0F6EB3BC190BFD8100BD0E41 /* blackEnergyImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
