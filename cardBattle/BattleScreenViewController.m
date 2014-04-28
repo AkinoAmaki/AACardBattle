@@ -14,6 +14,7 @@
 
 @implementation BattleScreenViewController
 
+#pragma mark 初期化
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,6 +25,8 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,11 +36,9 @@
 
     drawCount = 0;
     selectedCardOrder = -1;
-    selectedCardNum = -1;
+    app.myUsingCardNumber = -1;
     selectedCardTag = -1;
     selectCardTag = -1;
-    mySelectColor = -1;
-    enemySelectColor = -1;
     
     _bc = [[BattleCaliculate alloc] init];
     
@@ -206,18 +207,7 @@
     [_allImageView addSubview: _allEnergy];
     _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
     
-    [self.view addSubview:_allImageView];
-
-    app.myLifeGage = 20;
-    app.myCharacterAttackPower = 3;
-    app.myCharacterDeffencePower = 0;
-    app.enemySelectCharacter = 99;
-    app.enemyLifeGage = 20;
-    app.enemyCharacterAttackPower = 3;
-    app.enemyCharacterDeffencePower = 0;
-    app.numberOfMyCard = 3;
-    app.numberOfEnemyCard = 3;
-    
+    [self.view addSubview:_allImageView];    
     
 //--------------------------デバッグ用ボタン-----------------------------------
     
@@ -300,34 +290,34 @@
     switch (sender.view.tag) {
         case 1:
             app.mySelectCharacter = GIKO;
-            app.myCharacterAttackPower = app.myGikoAttackPower;
-            app.myCharacterDeffencePower = app.myGikoDeffencePower;
+            app.myCharacterFundamentalAttackPower = app.myGikoFundamentalAttackPower;
+            app.myCharacterFundamentalDeffencePower = app.myGikoFundamentalDeffencePower;
             NSLog(@"選択キャラ：ギコ");
             break;
         case 2:
             
             app.mySelectCharacter = MONAR;
-            app.myCharacterAttackPower = app.myMonarAttackPower;
-            app.myCharacterDeffencePower = app.myMonarDeffencePower;
+            app.myCharacterFundamentalAttackPower = app.myMonarFundamentalAttackPower;
+            app.myCharacterFundamentalDeffencePower = app.myMonarFundamentalDeffencePower;
             NSLog(@"選択キャラ：モナー");
             break;
         case 3:
             app.mySelectCharacter = SYOBON;
-            app.myCharacterAttackPower = app.mySyobonAttackPower;
-            app.myCharacterDeffencePower = app.mySyobonDeffencePower;
+            app.myCharacterFundamentalAttackPower = app.mySyobonFundamentalAttackPower;
+            app.myCharacterFundamentalDeffencePower = app.mySyobonFundamentalDeffencePower;
             NSLog(@"選択キャラ：ショボン");
             break;
         case 4:
             app.mySelectCharacter = YARUO;
-            app.myCharacterAttackPower = app.myYaruoAttackPower;
-            app.myCharacterDeffencePower = app.myYaruoDeffencePower;
+            app.myCharacterFundamentalAttackPower = app.myYaruoFundamentalAttackPower;
+            app.myCharacterFundamentalDeffencePower = app.myYaruoFundamentalDeffencePower;
             NSLog(@"選択キャラ：やる夫");
             break;
         default:
             break;
     }
-    NSLog(@"攻撃力：%d",app.myCharacterAttackPower);
-    NSLog(@"防御力：%d",app.myCharacterDeffencePower);
+    NSLog(@"攻撃力：%d",app.myCharacterFundamentalAttackPower);
+    NSLog(@"防御力：%d",app.myCharacterFundamentalDeffencePower);
 }
 
 
@@ -346,17 +336,6 @@
         
     }
     
-    //各種数値を初期化
-    [_border_middleCard removeFromSuperview];
-    [_border_character removeFromSuperview];
-    selectedCardOrder = -1;
-    selectedCardNum = -1;
-    selectedCardTag = -1;
-    selectCardTag = -1;
-    mySelectColor = -1;
-    enemySelectColor = -1;
-    app.mySelectCharacter = -1;
-    
     NSLog(@"自分の手札：%@",app.myHand);
     NSLog(@"自分の墓地：%@",app.myTomb);
     
@@ -366,14 +345,14 @@
 }
 
 -(void)cardActivate{
-    switch (selectedCardNum) {
+    switch (app.myUsingCardNumber) {
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:3];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
             break;
         case 7:
             //対象キャラの防御力ずっと＋３（W2)
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:3];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
             break;
         case 8:
             //自分のライフ＋３（W)
@@ -421,50 +400,50 @@
         case 16:
             //白色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == WHITE){
-                [self deffencePowerOperate:app.myGikoDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoDeffencePower point:1];
+                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
                 
             }
             break;
         case 17:
             //青色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == BLUE){
-                [self deffencePowerOperate:app.myGikoDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoDeffencePower point:1];
+                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
                 
             }
             break;
         case 18:
             //黒色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == BLACK){
-                [self deffencePowerOperate:app.myGikoDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoDeffencePower point:1];
+                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
                 
             }
             break;
         case 19:
             //赤色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == RED){
-                [self deffencePowerOperate:app.myGikoDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoDeffencePower point:1];
+                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
                 
             }
             break;
         case 20:
             //緑色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == GREEN){
-                [self deffencePowerOperate:app.myGikoDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoDeffencePower point:1];
+                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
+                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
                 
             }
             break;
@@ -586,7 +565,7 @@
             break;
         case 44:
             //対象キャラの攻撃力 −３（U1)
-            [self attackPowerOperate:app.enemyCharacterAttackPower point:-3];
+            [self attackPowerOperate:app.enemyCharacterFundamentalAttackPower point:-3];
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
@@ -625,7 +604,7 @@
                 int i1 = [app.myFieldCard count];
                 int myRemoveCount = 0;
                 for (int i = 0; i < i1; i++) {
-                    if([self distinguishCardColor:(int)[app.myFieldCard objectAtIndex:i]] == mySelectColor){
+                    if([self distinguishCardColor:(int)[app.myFieldCard objectAtIndex:i]] == app.mySelectColor){
                         [self setCardFromXTOY:app.myFieldCard cardNumber:i - myRemoveCount toField:app.myHand];
                         myRemoveCount++;
                     }
@@ -746,7 +725,7 @@
             break;
         case 66:
             //対象キャラの攻撃力＋３（R)
-            [self attackPowerOperate:app.myCharacterAttackPower point:3];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
             break;
         case 67:
             //相手のエネルギーカードを破壊(RR2)
@@ -842,14 +821,14 @@
             break;
         case 81:
             //攻撃力が＋５される代わりに防御力が０になる（R１)
-            [self attackPowerOperate:app.myGikoAttackPower point:5];
-            [self attackPowerOperate:app.myMonarAttackPower point:5];
-            [self attackPowerOperate:app.mySyobonAttackPower point:5];
-            [self attackPowerOperate:app.myYaruoAttackPower point:5];
-            [self deffencePowerOperate:app.myGikoDeffencePower point:app.myGikoDeffencePower * -1];
-            [self deffencePowerOperate:app.myMonarDeffencePower point:app.myMonarDeffencePower * -1];
-            [self deffencePowerOperate:app.mySyobonDeffencePower point:app.mySyobonDeffencePower * -1];
-            [self deffencePowerOperate:app.myYaruoDeffencePower point:app.myYaruoDeffencePower * -1];
+            [self attackPowerOperate:app.myGikoFundamentalAttackPower point:5];
+            [self attackPowerOperate:app.myMonarFundamentalAttackPower point:5];
+            [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:5];
+            [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:5];
+            [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:app.myGikoFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:app.myMonarFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:app.mySyobonFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:app.myYaruoFundamentalDeffencePower * -1];
             break;
         case 82:
             //相手がこのターンカードを使った場合、相手プレイヤーに3点のダメージ。使っていなければ1点ダメージ（RR)
@@ -872,17 +851,17 @@
             [self colorSelect];
             int num = 0;
             for (int i = 0; i < [app.myFieldCard count]; i++) {
-                if([self distinguishCardColor:[[app.myFieldCard objectAtIndex:i] intValue]] == mySelectColor){
+                if([self distinguishCardColor:[[app.myFieldCard objectAtIndex:i] intValue]] == app.mySelectColor){
                     num++;
                 }
             }
             for (int i = 0; i < [app.enemyFieldCard count]; i++) {
-                if([self distinguishCardColor:[[app.enemyFieldCard objectAtIndex:i] intValue]] == mySelectColor){
+                if([self distinguishCardColor:[[app.enemyFieldCard objectAtIndex:i] intValue]] == app.mySelectColor){
                     num++;
                 }
             }
             [self HPOperate:app.enemyLifeGage point:num];
-            mySelectColor = -1; //mySelectCharacerを初期化
+            app.mySelectColor = -1; //mySelectCharacerを初期化
             
             break;
         case 85:
@@ -903,10 +882,10 @@
                 int rand = random() % [app.enemyHand count];
                 [self discardFromHand:ENEMY cardNumber:rand];
             }
-            [self attackPowerOperate:app.enemyGikoAttackPower point:-5];
-            [self attackPowerOperate:app.enemyMonarAttackPower point:-5];
-            [self attackPowerOperate:app.enemySyobonAttackPower point:-5];
-            [self attackPowerOperate:app.enemyYaruoAttackPower point:-5];
+            [self attackPowerOperate:app.enemyGikoFundamentalAttackPower point:-5];
+            [self attackPowerOperate:app.enemyMonarFundamentalAttackPower point:-5];
+            [self attackPowerOperate:app.enemySyobonFundamentalAttackPower point:-5];
+            [self attackPowerOperate:app.enemyYaruoFundamentalAttackPower point:-5];
             
             break;
         case 88:
@@ -940,16 +919,16 @@
         case 93:
             //自分の選択キャラの攻撃力−１、２点ダメージ（R)
             if (app.mySelectCharacter == GIKO) {
-                [self attackPowerOperate:app.myGikoAttackPower point:-1];
+                [self attackPowerOperate:app.myGikoFundamentalAttackPower point:-1];
                 [self HPOperate:app.enemyLifeGage point:-2];
             }else if (app.mySelectCharacter == MONAR){
-                [self attackPowerOperate:app.myMonarAttackPower point:-1];
+                [self attackPowerOperate:app.myMonarFundamentalAttackPower point:-1];
                 [self HPOperate:app.enemyLifeGage point:-2];
             }else if (app.mySelectCharacter == SYOBON){
-                [self attackPowerOperate:app.mySyobonAttackPower point:-1];
+                [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:-1];
                 [self HPOperate:app.enemyLifeGage point:-2];
             }else if (app.mySelectCharacter == YARUO){
-                [self attackPowerOperate:app.myYaruoAttackPower point:-1];
+                [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:-1];
                 [self HPOperate:app.enemyLifeGage point:-2];
             }
             break;
@@ -1009,8 +988,8 @@
             break;
         case 102:
             //攻撃力と防御力が−１される代わりにブロックされない（B１)
-            [self attackPowerOperate:app.myCharacterAttackPower point:-1];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:-1];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:-1];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-1];
             [self forbidDeffence:app.enemyGikoDeffencePermitted];
             [self forbidDeffence:app.enemyMonarDeffencePermitted];
             [self forbidDeffence:app.enemySyobonDeffencePermitted];
@@ -1019,13 +998,13 @@
         case 103:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
             [self HPOperate:app.myLifeGage point:-3];
-            [self attackPowerOperate:app.myCharacterAttackPower point:5];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:5];
             
             break;
         case 104:
             //毎ターンライフを５点失う代わりに攻撃力が＋８される（BB2)
             [self HPOperate:app.myLifeGage point:-5];
-            [self attackPowerOperate:app.myCharacterAttackPower point:8];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:8];
             
             break;
         case 105:
@@ -1039,8 +1018,8 @@
         case 106:
             //エネルギーカードの種類数だけ、相手の攻撃力と防御力をマイナスさせる（B1)
             
-            [self attackPowerOperate:app.enemyCharacterAttackPower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
-            [self deffencePowerOperate:app.enemyCharacterDeffencePower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
+            [self attackPowerOperate:app.enemyCharacterFundamentalAttackPower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
+            [self deffencePowerOperate:app.enemyCharacterFundamentalDeffencePower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
             break;
         case 107:
             //場のカードを破壊するが、ライフを３点失う（B1)
@@ -1060,8 +1039,8 @@
             //TODO: app.mySelectCharacterとapp.myCharacterAttackPowerとapp.myCharacterDeffencePowerはターン終了時に初期化する
             
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:-1];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:-1];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:-1];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-1];
             [self getACard:MYSELF];
             
             break;
@@ -1110,8 +1089,8 @@
             break;
         case 116:
             //攻撃力は＋３されるが、防御力が半分になる（B)
-            [self attackPowerOperate:app.myCharacterAttackPower point:3];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:app.myCharacterDeffencePower / 2];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:app.myCharacterFundamentalDeffencePower / 2];
             
             break;
         case 117:
@@ -1152,8 +1131,8 @@
         case 122:
             //対象キャラは攻撃力＋２、防御力−２（B3)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:2];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:-2];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-2];
             break;
         case 123:
             //自分の場カードを破壊することで、対象プレイヤーはカードを２枚捨てる（B1)
@@ -1170,14 +1149,14 @@
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
             [self browseCardsInRegion:app.myHand];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self attackPowerOperate:app.myGikoAttackPower point:2];
-            [self deffencePowerOperate:app.myGikoDeffencePower point:2];
-            [self attackPowerOperate:app.myMonarAttackPower point:2];
-            [self deffencePowerOperate:app.myMonarDeffencePower point:2];
-            [self attackPowerOperate:app.mySyobonAttackPower point:2];
-            [self deffencePowerOperate:app.mySyobonDeffencePower point:2];
-            [self attackPowerOperate:app.myYaruoAttackPower point:2];
-            [self deffencePowerOperate:app.myYaruoDeffencePower point:2];
+            [self attackPowerOperate:app.myGikoFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:2];
+            [self attackPowerOperate:app.myMonarFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:2];
+            [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:2];
+            [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:2];
             break;
         case 125:
             //毎ターン相手に３点ダメージ（BB3)
@@ -1186,41 +1165,41 @@
         case 126:
             //対象キャラの攻撃力・防御力を１ターン＋３（G)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:3];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:3];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
             
             break;
         case 127:
             //対象キャラの攻撃力・防御力を１ターン＋７（G3)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:7];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:7];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:7];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:7];
             
             break;
         case 128:
             //対象キャラの攻撃力・防御力を１ターン＋１，カードを一枚引く（G)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:1];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:1];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:1];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:1];
             [self getACard:MYSELF];
             
             break;
         case 129:
             //１ターンの間、対象キャラの攻撃力・防御力を＋２，攻撃力そのままをダメージにする（G2)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:2];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:2];
-            [self deffencePowerOperate:app.enemyGikoDeffencePower point:app.enemyGikoDeffencePower * -1];
-            [self deffencePowerOperate:app.enemyMonarDeffencePower point:app.enemyMonarDeffencePower * -1];
-            [self deffencePowerOperate:app.enemySyobonDeffencePower point:app.enemySyobonDeffencePower * -1];
-            [self deffencePowerOperate:app.enemyYaruoDeffencePower point:app.enemyYaruoDeffencePower * -1];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:2];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:2];
+            [self deffencePowerOperate:app.enemyGikoFundamentalDeffencePower point:app.enemyGikoFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.enemyMonarFundamentalDeffencePower point:app.enemyMonarFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.enemySyobonFundamentalDeffencePower point:app.enemySyobonFundamentalDeffencePower * -1];
+            [self deffencePowerOperate:app.enemyYaruoFundamentalDeffencePower point:app.enemyYaruoFundamentalDeffencePower * -1];
             
             break;
         case 130:
             //対象キャラの攻撃力・防御力を１ターン＋4（G1)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterAttackPower point:4];
-            [self deffencePowerOperate:app.myCharacterDeffencePower point:4];
+            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:4];
+            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:4];
             break;
         case 131:
             //相手がカードを一枚（エネルギーカード除く）使うたびに剣士・魔法使い・格闘家の攻撃力を＋１する（G2)
@@ -1388,17 +1367,26 @@
 }
 
 - (void)resultFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    //!!!: デバッグ用にダミーで入れている相手のカードナンバー。不要になれば消す。
+    app.enemyUsingCardNumber = 6;
+    
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
+    NSLog(@"1");
     [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択キャラ：%@",[self myCharacterType]] Rectangle:CGRectMake(20, 20, 240, 20)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択キャラ：初期（後で実装）"] Rectangle:CGRectMake(20, 40, 240, 20)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：初期（後で実装）"] Rectangle:CGRectMake(20, 60, 240, 20)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：初期（後で実装）"] Rectangle:CGRectMake(20, 80, 240, 20)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：\n（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）（後で実装）"] Rectangle:CGRectMake(20, 80, 240, 320)];
+    NSLog(@"2");
+    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択キャラ：%@",[self enemyCharacterType]] Rectangle:CGRectMake(20, 40, 240, 20)];
+    NSLog(@"3");
+    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：%@",[app.cardList_cardName objectAtIndex:app.myUsingCardNumber]] Rectangle:CGRectMake(20, 60, 240, 20)];
+    NSLog(@"4");
+    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：%@",[app.cardList_cardName objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 80, 240, 20)];
+    NSLog(@"5");
+    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：%@",[app.cardList_text objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 80, 240, 320)];
+    NSLog(@"6");
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
@@ -1414,6 +1402,29 @@
     NSString *st = @"初期";
     
     switch (app.mySelectCharacter) {
+        case GIKO:
+            st = @"ギコ";
+            break;
+        case MONAR:
+            st = @"モナー";
+            break;
+        case SYOBON:
+            st = @"ショボン";
+            break;
+        case YARUO:
+            st = @"やる夫";
+            break;
+        default:
+            break;
+    }
+    
+    return st;
+}
+                                                
+- (NSString *)enemyCharacterType{
+    NSString *st = @"初期";
+    
+    switch (app.enemySelectCharacter) {
         case GIKO:
             st = @"ギコ";
             break;
@@ -1542,6 +1553,9 @@
     selectedCardOrder = (int)[_myCardImageViewArray indexOfObject:sender.view];
     int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
     int cardType = [[app.cardList_type objectAtIndex:cardNumber - 1 ] intValue];
+    app.myUsingCardNumber = cardNumber;
+    app.doIUseCard = YES;
+    
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
     NSLog(@"カードナンバー：%d",cardNumber);
@@ -1570,8 +1584,7 @@
     if(cardType == SORCERYCARD){
         //ソーサリーカードが選択された場合、使用するのに足るエネルギーを持っているか確認し、足りなければ弾く。加えて許可区分を確認し、不許可なら弾く。
         if([self doIHaveEnergyToUseCard:cardNumber]){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エネルギー不足" message:@"エネルギーが足りません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-            [alert show];
+
         }
         else if(app.canIPlaySorceryCard == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"ソーサリーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
@@ -1579,8 +1592,10 @@
         }else{
             if (sender.view.tag == selectedCardTag) {
                 selectedCardTag = -1;
-                selectedCardNum = -1;
+                app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
+                app.myUsingCardNumber = -1;
+                app.doIUseCard = NO;
                 [_border_middleCard removeFromSuperview];
                 NSLog(@"カードの選択をキャンセル");
                 [_myCardImageView_middle removeFromSuperview];
@@ -1589,15 +1604,15 @@
                 [_border_middleCard removeFromSuperview];
                 _border_middleCard.frame = sender.view.frame;
                 [_allImageView addSubview:_border_middleCard];
-                selectedCardNum = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
+                app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
                 selectedCardTag = (int)sender.view.tag; //デッキの配列番号と一致
                 
                 [_myCardImageView_middle removeFromSuperview];
-                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
+                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
                 [_allImageView addSubview:_myCardImageView_middle];
                 
                 [_myCardTextView_middle removeFromSuperview];
-                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
+                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
                 [_allImageView addSubview:_myCardTextView_middle];
             }
 
@@ -1608,8 +1623,7 @@
     else if (cardType == FIELDCARD){
         //フィールドカードが選択された場合、使用するのに足るエネルギーを持っているか確認し、足りなければ弾く。加えて許可区分を確認し、不許可なら弾く。
         if([self doIHaveEnergyToUseCard:cardNumber]){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エネルギー不足" message:@"エネルギーが足りません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-            [alert show];
+            
         }
         else if (app.canIPlayFieldCard == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"フィールドカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
@@ -1617,8 +1631,10 @@
         }else{
             if (sender.view.tag == selectedCardTag) {
                 selectedCardTag = -1;
-                selectedCardNum = -1;
+                app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
+                app.myUsingCardNumber = -1;
+                app.doIUseCard = NO;
                 [_border_middleCard removeFromSuperview];
                 NSLog(@"カードの選択をキャンセル");
                 [_myCardImageView_middle removeFromSuperview];
@@ -1627,15 +1643,15 @@
                 [_border_middleCard removeFromSuperview];
                 _border_middleCard.frame = sender.view.frame;
                 [_allImageView addSubview:_border_middleCard];
-                selectedCardNum = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
+                app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
                 selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致
                 
                 [_myCardImageView_middle removeFromSuperview];
-                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
+                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
                 [_allImageView addSubview:_myCardImageView_middle];
                 
                 [_myCardTextView_middle removeFromSuperview];
-                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
+                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
                 [_allImageView addSubview:_myCardTextView_middle];
             }
         }
@@ -1654,14 +1670,14 @@
             
             [_myCardImageView_middle removeFromSuperview];
             [_allImageView addSubview:_myCardImageView_middle];
-            selectedCardNum = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
+            app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
             selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致する
             
             [_myCardImageView_middle removeFromSuperview];
-            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
+            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
             [_allImageView addSubview:_myCardImageView_middle];
             [_myCardTextView_middle removeFromSuperview];
-            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
+            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
             [_allImageView addSubview:_myCardTextView_middle];
             
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
@@ -1992,19 +2008,19 @@
         case 0:
             if(app.mySelectCharacter == GIKO){
                 if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == MONAR){
                     result = 0;
                 }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterAttackPower;
+                    result = app.enemyCharacterFundamentalAttackPower;
                 }else if (app.enemySelectCharacter == YARUO){
                     result = 0;
                 }
             }else if (app.mySelectCharacter == MONAR){
                 if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterAttackPower;
+                    result = app.enemyCharacterFundamentalAttackPower;
                 }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == SYOBON){
                     result = 0;
                 }else if (app.enemySelectCharacter == YARUO){
@@ -2014,47 +2030,47 @@
                 if (app.enemySelectCharacter == GIKO) {
                     result = 0;
                 }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterAttackPower;
+                    result = app.enemyCharacterFundamentalAttackPower;
                 }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == YARUO){
                     result = 0;
                 }
             }else if (app.mySelectCharacter == YARUO){
                 if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                 }else if (app.enemySelectCharacter == YARUO){
                     result = 0;
                 }
             }
             NSLog(@"自分のライフ：%d",app.myLifeGage);
             NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
-            NSLog(@"自分の防御力：%d", app.myCharacterDeffencePower);
+            NSLog(@"自分の防御力：%d", app.myCharacterFundamentalDeffencePower);
             NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
-            NSLog(@"相手の攻撃力：%d", app.enemyCharacterAttackPower);
+            NSLog(@"相手の攻撃力：%d", app.enemyCharacterFundamentalAttackPower);
             
             break;
             
         case 1:
             if(app.enemySelectCharacter == GIKO){
                 if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == MONAR){
                     result = 0;
                 }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterAttackPower;;
+                    result = app.myCharacterFundamentalAttackPower;;
                 }else if (app.mySelectCharacter == YARUO){
                     result = 0;
                 }
             }else if (app.enemySelectCharacter == MONAR){
                 if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterAttackPower;;
+                    result = app.myCharacterFundamentalAttackPower;;
                 }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == SYOBON){
                     result = 0;
                 }else if (app.mySelectCharacter == YARUO){
@@ -2064,19 +2080,19 @@
                 if (app.mySelectCharacter == GIKO) {
                     result = 0;
                 }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterAttackPower;;
+                    result = app.myCharacterFundamentalAttackPower;;
                 }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == YARUO){
                     result = 0;
                 }
             }else if (app.enemySelectCharacter == YARUO){
                 if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                 }else if (app.mySelectCharacter == YARUO){
                     result = 0;
                 }
@@ -2332,12 +2348,12 @@
 - (void) selectColor :(UITapGestureRecognizer *)sender{
     [_border_middleCard removeFromSuperview];
     _border_middleCard.frame = sender.view.frame;
-    mySelectColor = (int)sender.view.tag;
+    app.mySelectColor = (int)sender.view.tag;
 }
 
 -(int)substituteSelectColorTagAndInitilizeIt{
-    int i = mySelectColor;
-    mySelectColor = -1;
+    int i = app.mySelectColor;
+    app.mySelectColor = -1;
     return i;
 }
 
@@ -2357,19 +2373,19 @@
             case 0:
                 //エネルギーカードを使用する場合は、手札からエネルギーカードをエネルギー置き場に移したうえでエネルギーをプラスする
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-                if(selectedCardNum == 1){
+                if(app.myUsingCardNumber == 1){
                     [app.myEnergyCard replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:0] intValue] + 1]];
                     NSLog(@"白エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:0] intValue]);
-                }else if (selectedCardNum == 2){
+                }else if (app.myUsingCardNumber == 2){
                     [app.myEnergyCard replaceObjectAtIndex:1 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:1] intValue] + 1]];
                     NSLog(@"青エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:1] intValue]);
-                }else if (selectedCardNum == 3){
+                }else if (app.myUsingCardNumber == 3){
                     [app.myEnergyCard replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:2] intValue] + 1]];
                     NSLog(@"黒エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:2] intValue]);
-                }else if (selectedCardNum == 4){
+                }else if (app.myUsingCardNumber == 4){
                     [app.myEnergyCard replaceObjectAtIndex:3 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:3] intValue] + 1]];
                     NSLog(@"赤エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:3] intValue]);
-                }else if (selectedCardNum == 5){
+                }else if (app.myUsingCardNumber == 5){
                     [app.myEnergyCard replaceObjectAtIndex:4 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:4] intValue] + 1]];
                     NSLog(@"緑エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:4] intValue]);
                 }
@@ -2382,15 +2398,26 @@
                 _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
                 _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
                 
-                NSLog(@"selectCardNum:%d",selectedCardNum);
+                
+                //後続でソーサリー・フィールドカードを使用する場合があるため、各種カード関係の変数を初期化しておく
+                selectedCardTag = -1;
+                app.myUsingCardNumber = -1;
+                selectedCardOrder = -1;
+                app.myUsingCardNumber = -1;
+                app.doIUseCard = NO;
+
+                NSLog(@"selectCardNum:%d",app.myUsingCardNumber);
                 NSLog(@"手札の内容：%@",app.myHand);
                 NSLog(@"墓地の内容：%@",app.myTomb);
                 
                 break;
             case 1:
-                //キャンセルボタンの場合は何もしない
-            default:
-                break;
+                //キャンセルボタンの場合は数値のみ初期化
+                selectedCardTag = -1;
+                app.myUsingCardNumber = -1;
+                selectedCardOrder = -1;
+                app.myUsingCardNumber = -1;
+                app.doIUseCard = NO;
         }
     }
 }
@@ -2469,6 +2496,91 @@
 //山札を切り直す
 - (void)shuffleLibrary{
     app.myDeckCardList = [app shuffledArray:app.myDeckCardList];
+}
+
+//ターン終了時に各種変数を初期化する
+- (void)intializeVariables{
+    
+    //常に初期化するもの
+    
+        //自分に関係する変数
+        [_border_middleCard removeFromSuperview];
+        [_border_character removeFromSuperview];
+        selectedCardOrder = -1;
+        selectedCardTag = -1;
+        selectCardTag = -1;
+        costLife = NO;
+        app.mySelectCharacter = -1;; //自分の選んだキャラクター
+        app.myCharacterFundamentalAttackPower = 0; //自分の選んだキャラクターの攻撃力
+        app.myCharacterFundamentalDeffencePower = 0; //自分の選んだキャラクターの防御力
+        app.doIUseCard = NO;//自分がこのターンカードを使用したか
+        app.myUsingCardNumber = -1; //自分が使用したカードの番号
+        app.myDamage = 0; //このターン自分に与えられるダメージ
+        app.mySelectColor = -1; //自分が選んだ色
+        app.denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
+        app.myGikoModifyingAttackPower = 0;
+        app.myGikoModifyingDeffencePower = 0;
+        app.myMonarModifyingAttackPower = 0;
+        app.myMonarModifyingDeffencePower = 0;
+        app.mySyobonModifyingAttackPower = 0;
+        app.mySyobonModifyingDeffencePower = 0;
+        app.myYaruoModifyingAttackPower = 0;
+        app.myYaruoModifyingDeffencePower = 0;
+        app.myCharacterModifyingAttackPower = 0;
+        app.myCharacterModifyingDeffencePower = 0;
+    
+        //相手に関係する変数
+        app.enemySelectCharacter = -1; //相手の選んだキャラクター
+        app.enemyCharacterFundamentalAttackPower = 0; //相手の選んだキャラクターの攻撃力
+        app.enemyCharacterFundamentalDeffencePower = 0; //相手の選んだキャラクターの防御力
+        app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
+        app.enemyUsingCardNumber = -1; //相手が使用したカードの番号
+        app.enemyDamage = 0; //このターン相手に与えられるダメージ
+        app.enemySelectColor = -1; //相手が選んだ色
+        app.denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
+        app.enemyGikoModifyingAttackPower = 0;
+        app.enemyGikoModifyingDeffencePower = 0;
+        app.enemyMonarModifyingAttackPower = 0;
+        app.enemyMonarModifyingDeffencePower = 0;
+        app.enemySyobonModifyingAttackPower = 0;
+        app.enemySyobonModifyingDeffencePower = 0;
+        app.enemyYaruoModifyingAttackPower = 0;
+        app.enemyYaruoModifyingDeffencePower = 0;
+        app.enemyCharacterModifyingAttackPower = 0;
+        app.enemyCharacterModifyingDeffencePower = 0;
+    
+    
+    //条件付きで初期化するもの
+        //自分に関係する変数
+        app.myGikoAttackPermitted = YES; //自分のギコの攻撃許可
+        app.myGikoDeffencePermitted = YES; //自分のギコの防御許可
+        app.myMonarAttackPermitted = YES; //自分のモナーの攻撃許可
+        app.myMonarDeffencePermitted = YES; //自分のモナーの防御許可
+        app.mySyobonAttackPermitted = YES; //自分のショボンの攻撃許可
+        app.mySyobonDeffencePermitted = YES; //自分のショボンの防御許可
+        app.myYaruoAttackPermitted = NO; //自分のやる夫の攻撃許可
+        app.myYaruoDeffencePermitted = YES; //自分のやる夫の防御許可
+        app.canIPlaySorceryCard = YES; //自分が魔法カードを手札からプレイできるか
+        app.canIPlayFieldCard = YES; //自分が場カードを手札からプレイできるか
+        app.canIActivateFieldCard = YES; //自分が場カードの能力を起動できるか
+        app.canIPlayEnergyCard = YES; //自分がエネルギーカードを手札からプレイできるか
+        app.canIActivateEnergyCard = YES; //自分がエネルギーカードを起動できるか
+    
+        //相手に関係する変数
+        app.enemyGikoAttackPermitted = YES; //相手のギコの攻撃許可
+        app.enemyGikoDeffencePermitted = YES; //相手のギコの防御許可
+        app.enemyMonarAttackPermitted = YES; //相手のモナーの攻撃許可
+        app.enemyMonarDeffencePermitted = YES; //相手のモナーの防御許可
+        app.enemySyobonAttackPermitted = YES; //相手のショボンの攻撃許可
+        app.enemySyobonDeffencePermitted = YES; //相手のショボンの防御許可
+        app.enemyYaruoAttackPermitted = NO; //相手のやる夫の攻撃許可
+        app.enemyYaruoDeffencePermitted = YES; //相手のやる夫の防御許可
+        app.canEnemyPlaySorceryCard = YES; //相手が魔法カードを手札からプレイできるか
+        app.canEnemyPlayFieldCard = YES; //相手が場カードを手札からプレイできるか
+        app.canEnemyActivateFieldCard = YES; //相手が場カードの能力を起動できるか
+        app.canEnemyPlayEnergyCard = YES; //相手がエネルギーカードを手札からプレイできるか
+        app.canEnemyActivateEnergyCard = YES; //相手がエネルギーカードを起動できるか
+
 }
 
 

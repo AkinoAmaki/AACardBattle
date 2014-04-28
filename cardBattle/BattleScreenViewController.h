@@ -37,18 +37,13 @@
     BattleCaliculate *bc;
     int drawCount; //自分の引いたカード枚数を管理
     int selectedCardOrder; //現在選択されているカードは、手札の左から数えて何番目かを管理する（1番目なら0が入る）
-    int selectedCardNum; //現在選択されているカードのカード番号を管理する
     int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
-    int mySelectColor; //特定の色を選ぶ際、自分がどの色を選んだかを管理する。
-    int enemySelectColor; //特定の色を選ぶ際、相手がどの色を選んだかを管理する。
-
 }
 
 @property int drawCount;
 @property int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
-@property int selectedCardNum; //現在選択されているカードのカード番号を管理する
 
 
 //
@@ -119,12 +114,6 @@
 @property UIAlertView *doIUseEnergycard;
 
 - (IBAction)keisan:(id)sender;
-
-
-@property (weak, nonatomic) IBOutlet UILabel *x;
-@property (weak, nonatomic) IBOutlet UILabel *y;
-@property (weak, nonatomic) IBOutlet UILabel *z;
-@property CMMotionManager *motionManager;
 
 
 

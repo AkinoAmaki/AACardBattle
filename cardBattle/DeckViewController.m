@@ -221,7 +221,6 @@
     }else{
         img = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:i]];
     }
-    [app.cardList_png addObject:img];
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
     imgView.userInteractionEnabled = YES;
     [imgView addGestureRecognizer:
@@ -232,9 +231,5 @@
     imgView.tag = i;
     [allImage addSubview:imgView];
 }
-
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-//    NSLog(@"ぬぬぬぬぬ");
-//}
 
 @end

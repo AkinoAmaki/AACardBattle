@@ -13,20 +13,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
-    
-    int mySelectCharacter;
-    int myLifeGage;
-    int myCharacterAttackPower;
-    int myCharacterDeffencePower;
-    int enemySelectCharacter;
-    int enemyLifeGage;
-    int enemyCharacterAttackPower;
-    int enemyCharacterDeffencePower;
-    int numberOfMyCard;
-    int numberOfEnemyCard;
-    
+
     NSArray *cardList_cardName;
-    NSMutableArray *cardList_png;
     NSArray *cardList_pngName;
     NSMutableArray *myDeck; //デッキに入っているカードを管理する配列(配列番号＝カード番号)
     NSMutableArray *myDeckCardList; //デッキに入っているカードを管理する配列（配列数＝カード枚数）
@@ -34,20 +22,12 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property int myLifeGage;
-
-@property int enemyLifeGage;
-
-@property int numberOfMyCard;
-@property int numberOfEnemyCard;
-
 
 
 //双方に関係する変数
 
-@property (nonatomic, retain) NSArray *cardList_cardName;
-@property (nonatomic, retain) NSMutableArray *cardList_png;
-@property (nonatomic, retain) NSArray *cardList_pngName;
+@property (nonatomic, retain) NSArray *cardList_cardName; //カードごとのカード名
+@property (nonatomic, retain) NSArray *cardList_pngName; //カードごとの画像名（拡張子含む）
 @property (nonatomic, retain) NSArray *cardList_type; //カードごとのカードタイプ
 @property (nonatomic, retain) NSArray *cardList_timing; //カードごとの発動タイミング
 @property (nonatomic, retain) NSArray *cardList_cost; //カードごとのマナコスト
@@ -56,21 +36,32 @@
 
 
 //自分に関係する変数
+@property int myLifeGage; //自分のライフポイント
 @property (nonatomic, retain) NSMutableArray *myDeck; //自分のデッキ
 @property (nonatomic, retain) NSMutableArray *myCards; //自分の持っている全てのカード
 @property (nonatomic, retain) NSMutableArray *myDeckCardList; //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
 @property (nonatomic, retain) NSMutableArray *myHand; //自分の手札
-@property int myGikoAttackPower; //自分のギコの攻撃力
-@property int myGikoDeffencePower; //自分のギコの防御力
-@property int myMonarAttackPower; //自分のモナーの攻撃力
-@property int myMonarDeffencePower; //自分のモナーの防御力
-@property int mySyobonAttackPower; //自分のショボンの攻撃力
-@property int mySyobonDeffencePower; //自分のショボンの防御力
-@property int myYaruoAttackPower; //自分のやる夫の攻撃力
-@property int myYaruoDeffencePower; //自分のやる夫の防御力
+@property int myGikoFundamentalAttackPower; //自分のギコの基本攻撃力
+@property int myGikoFundamentalDeffencePower; //自分のギコの基本防御力
+@property int myMonarFundamentalAttackPower; //自分のモナーの基本攻撃力
+@property int myMonarFundamentalDeffencePower; //自分のモナーの基本防御力
+@property int mySyobonFundamentalAttackPower; //自分のショボンの基本攻撃力
+@property int mySyobonFundamentalDeffencePower; //自分のショボンの基本防御力
+@property int myYaruoFundamentalAttackPower; //自分のやる夫の基本攻撃力
+@property int myYaruoFundamentalDeffencePower; //自分のやる夫の基本防御力
 @property int mySelectCharacter; //自分の選んだキャラクター
-@property int myCharacterAttackPower; //自分の選んだキャラクターの攻撃力
-@property int myCharacterDeffencePower; //自分の選んだキャラクターの防御力
+@property int myCharacterFundamentalAttackPower; //自分の選んだキャラクターの基本攻撃力
+@property int myCharacterFundamentalDeffencePower; //自分の選んだキャラクターの基本防御力
+@property int myGikoModifyingAttackPower; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myGikoModifyingDeffencePower; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myMonarModifyingAttackPower; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myMonarModifyingDeffencePower; //自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int mySyobonModifyingAttackPower; //自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int mySyobonModifyingDeffencePower; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myYaruoModifyingAttackPower; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myYaruoModifyingDeffencePower; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myCharacterModifyingAttackPower; //自分の選んだキャラクターの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int myCharacterModifyingDeffencePower; //自分の選んだキャラクターの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
 @property BOOL myGikoAttackPermitted; //自分のギコの攻撃許可
 @property BOOL myGikoDeffencePermitted; //自分のギコの防御許可
 @property BOOL myMonarAttackPermitted; //自分のモナーの攻撃許可
@@ -91,23 +82,34 @@
 @property BOOL canIActivateEnergyCard; //自分がエネルギーカードを起動できるか
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
 @property int myDamage; //このターン自分に与えられるダメージ
-
-
+@property int mySelectColor; //自分が選んだ色
 
 //相手に関係する変数
+@property int enemyLifeGage; //相手のライフポイント
 @property (nonatomic, retain) NSMutableArray *enemyDeckCardList; //相手のデッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
 @property (nonatomic, retain) NSMutableArray *enemyHand; //相手の手札
-@property int enemyGikoAttackPower; // 相手のギコの攻撃力
-@property int enemyGikoDeffencePower; //相手のギコの防御力
-@property int enemyMonarAttackPower; //相手のモナーの攻撃力
-@property int enemyMonarDeffencePower; //相手のモナーの防御力
-@property int enemySyobonAttackPower; //相手のショボンの攻撃力
-@property int enemySyobonDeffencePower; //相手のショボンの防御力
-@property int enemyYaruoAttackPower; //相手のやる夫の攻撃力
-@property int enemyYaruoDeffencePower; //相手のやる夫の防御力
+@property int enemyGikoFundamentalAttackPower; // 相手のギコの基本攻撃力
+@property int enemyGikoFundamentalDeffencePower; //相手のギコの基本防御力
+@property int enemyMonarFundamentalAttackPower; //相手のモナーの基本攻撃力
+@property int enemyMonarFundamentalDeffencePower; //相手のモナーの基本防御力
+@property int enemySyobonFundamentalAttackPower; //相手のショボンの基本攻撃力
+@property int enemySyobonFundamentalDeffencePower; //相手のショボンの基本防御力
+@property int enemyYaruoFundamentalAttackPower; //相手のやる夫の基本攻撃力
+@property int enemyYaruoFundamentalDeffencePower; //相手のやる夫の基本防御力
 @property int enemySelectCharacter; //相手の選んだキャラクター
-@property int enemyCharacterAttackPower; //相手の選んだキャラクターの攻撃力
-@property int enemyCharacterDeffencePower; //相手の選んだキャラクターの防御力
+@property int enemyCharacterFundamentalAttackPower; //相手の選んだキャラクターの基本攻撃力
+@property int enemyCharacterFundamentalDeffencePower; //相手の選んだキャラクターの基本防御力
+@property int enemyGikoModifyingAttackPower; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyGikoModifyingDeffencePower; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyMonarModifyingAttackPower; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyMonarModifyingDeffencePower; //相手のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemySyobonModifyingAttackPower; //相手のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemySyobonModifyingDeffencePower; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyYaruoModifyingAttackPower; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyYaruoModifyingDeffencePower; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyCharacterModifyingAttackPower; //相手の選んだキャラクターの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+@property int enemyCharacterModifyingDeffencePower; //相手の選んだキャラクターの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+
 @property BOOL enemyGikoAttackPermitted; //相手のギコの攻撃許可
 @property BOOL enemyGikoDeffencePermitted; //相手のギコの防御許可
 @property BOOL enemyMonarAttackPermitted; //相手のモナーの攻撃許可
@@ -128,6 +130,7 @@
 @property BOOL canEnemyActivateEnergyCard; //相手がエネルギーカードを起動できるか
 @property BOOL denyEnemyCardPlaying; //相手がカードのプレイを打ち消されたか
 @property int enemyDamage; //このターン相手に与えられるダメージ
+@property int enemySelectColor; //相手が選んだ色
 
 
 - (NSMutableArray *)shuffledArray :(NSMutableArray *)array;

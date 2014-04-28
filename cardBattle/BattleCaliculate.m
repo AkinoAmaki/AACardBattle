@@ -44,9 +44,9 @@ int manageCount;
         case 0:
                     if(app.mySelectCharacter == GIKO){
                         if (app.enemySelectCharacter == GIKO) {
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == MONAR){
-                            result = app.enemyCharacterAttackPower;
+                            result = app.enemyCharacterFundamentalAttackPower;
                         }else if (app.enemySelectCharacter == SYOBON){
                             result = 0;
                         }else if (app.enemySelectCharacter == YARUO){
@@ -56,47 +56,47 @@ int manageCount;
                         if (app.enemySelectCharacter == GIKO) {
                             result = 0;
                         }else if (app.enemySelectCharacter == MONAR){
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == SYOBON){
-                            result = app.enemyCharacterAttackPower;
+                            result = app.enemyCharacterFundamentalAttackPower;
                         }else if (app.enemySelectCharacter == YARUO){
                             result = 0;
                         }
                     }else if (app.mySelectCharacter == SYOBON){
                         if (app.enemySelectCharacter == GIKO) {
-                            result = app.enemyCharacterAttackPower;
+                            result = app.enemyCharacterFundamentalAttackPower;
                         }else if (app.enemySelectCharacter == MONAR){
                             result = 0;
                         }else if (app.enemySelectCharacter == SYOBON){
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == YARUO){
                             result = 0;
                         }
                     }else if (app.mySelectCharacter == YARUO){
                         if (app.enemySelectCharacter == GIKO) {
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == MONAR){
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == SYOBON){
-                            result = app.enemyCharacterAttackPower - app.myCharacterDeffencePower;
+                            result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
                         }else if (app.enemySelectCharacter == YARUO){
                             result = 0;
                         }
                     }
             NSLog(@"自分のライフ：%d",app.myLifeGage);
             NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
-            NSLog(@"自分の防御力：%d", app.myCharacterDeffencePower);
+            NSLog(@"自分の防御力：%d", app.myCharacterFundamentalDeffencePower);
             NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
-            NSLog(@"相手の攻撃力：%d", app.enemyCharacterAttackPower);
+            NSLog(@"相手の攻撃力：%d", app.enemyCharacterFundamentalAttackPower);
             
             break;
             
         case 1:
                     if(app.enemySelectCharacter == GIKO){
                         if (app.mySelectCharacter == GIKO) {
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == MONAR){
-                            result = app.myCharacterAttackPower;
+                            result = app.myCharacterFundamentalAttackPower;
                         }else if (app.mySelectCharacter == SYOBON){
                             result = 0;
                         }else if (app.mySelectCharacter == YARUO){
@@ -106,29 +106,29 @@ int manageCount;
                         if (app.mySelectCharacter == GIKO) {
                             result = 0;
                         }else if (app.mySelectCharacter == MONAR){
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == SYOBON){
-                            result = app.myCharacterAttackPower;
+                            result = app.myCharacterFundamentalAttackPower;
                         }else if (app.mySelectCharacter == YARUO){
                             result = 0;
                         }
                     }else if (app.enemySelectCharacter == SYOBON){
                         if (app.mySelectCharacter == GIKO) {
-                            result = app.myCharacterAttackPower;
+                            result = app.myCharacterFundamentalAttackPower;
                         }else if (app.mySelectCharacter == MONAR){
                             result = 0;
                         }else if (app.mySelectCharacter == SYOBON){
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == YARUO){
                             result = 0;
                         }
                     }else if (app.enemySelectCharacter == YARUO){
                         if (app.mySelectCharacter == GIKO) {
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == MONAR){
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == SYOBON){
-                            result = app.myCharacterAttackPower - app.enemyCharacterDeffencePower;
+                            result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
                         }else if (app.mySelectCharacter == YARUO){
                             result = 0;
                         }
