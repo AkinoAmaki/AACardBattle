@@ -191,8 +191,6 @@
     _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
     _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
     
-    NSLog(@"ぼぼぼ：%@",app.myEnergyCard);
-    
     [_allEnergy addSubview:_whiteEnergyText];
     [_allEnergy addSubview:_blueEnergyText];
     [_allEnergy addSubview:_blackEnergyText];
@@ -207,9 +205,6 @@
     
     [_allImageView addSubview: _allEnergy];
     _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
-    
-    
-    
     
     [self.view addSubview:_allImageView];
 
@@ -1598,11 +1593,11 @@
                 selectedCardTag = (int)sender.view.tag; //デッキの配列番号と一致
                 
                 [_myCardImageView_middle removeFromSuperview];
-                _myCardImageView_middle.image = [UIImage imageNamed:@"detailImage.png"];
+                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
                 [_allImageView addSubview:_myCardImageView_middle];
                 
                 [_myCardTextView_middle removeFromSuperview];
-                _myCardTextView_middle.text = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
                 [_allImageView addSubview:_myCardTextView_middle];
             }
 
@@ -1629,17 +1624,18 @@
                 [_myCardImageView_middle removeFromSuperview];
                 [_myCardTextView_middle removeFromSuperview];
             }else{
+                [_border_middleCard removeFromSuperview];
                 _border_middleCard.frame = sender.view.frame;
                 [_allImageView addSubview:_border_middleCard];
                 selectedCardNum = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
                 selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致
                 
                 [_myCardImageView_middle removeFromSuperview];
-                _myCardImageView_middle.image = [UIImage imageNamed:@"detailImage.png"];
+                _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
                 [_allImageView addSubview:_myCardImageView_middle];
                 
                 [_myCardTextView_middle removeFromSuperview];
-                _myCardTextView_middle.text = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
                 [_allImageView addSubview:_myCardTextView_middle];
             }
         }
@@ -1652,15 +1648,20 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"エネルギーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
+            [_border_middleCard removeFromSuperview];
+            _border_middleCard.frame = sender.view.frame;
+            [_allImageView addSubview:_border_middleCard];
+            
+            [_myCardImageView_middle removeFromSuperview];
+            [_allImageView addSubview:_myCardImageView_middle];
             selectedCardNum = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
             selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致する
             
             [_myCardImageView_middle removeFromSuperview];
-            _myCardImageView_middle.image = [UIImage imageNamed:@"detailImage.png"];
+            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",selectedCardNum]];
             [_allImageView addSubview:_myCardImageView_middle];
-            
             [_myCardTextView_middle removeFromSuperview];
-            _myCardTextView_middle.text = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:selectedCardNum]];
             [_allImageView addSubview:_myCardTextView_middle];
             
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];

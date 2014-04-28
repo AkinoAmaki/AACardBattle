@@ -52,6 +52,7 @@
 @property (nonatomic, retain) NSArray *cardList_timing; //カードごとの発動タイミング
 @property (nonatomic, retain) NSArray *cardList_cost; //カードごとのマナコスト
 @property (nonatomic, retain) NSArray *cardList_color; //カードごとの色
+@property (nonatomic, retain) NSArray *cardList_text; //カードごとの説明文
 
 
 //自分に関係する変数

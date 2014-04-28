@@ -94,6 +94,9 @@
 	*/
             nil];
     
+    
+    _cardList_text = [[NSArray alloc] initWithObjects:@"ぬる", @"1番目のカードだよ", @"2番目のカードだよ",	@"3番目のカードだよ", @"4番目のカードだよ", @"5番目のカードだよ", @"6番目のカードだよ", @"7番目のカードだよ", @"8番目のカードだよ", @"9番目のカードだよ", @"10番目のカードだよ", @"11番目のカードだよ", @"12番目のカードだよ", @"13番目のカードだよ", @"14番目のカードだよ", @"15番目のカードだよ", @"16番目のカードだよ", @"17番目のカードだよ", @"18番目のカードだよ", @"19番目のカードだよ", @"20番目のカードだよ",nil];
+    
     NSNumber *energy  = [NSNumber numberWithInt:ENERGYCARD];
     NSNumber *field  = [NSNumber numberWithInt:FIELDCARD];
     NSNumber *sorcery = [NSNumber numberWithInt:SORCERYCARD];

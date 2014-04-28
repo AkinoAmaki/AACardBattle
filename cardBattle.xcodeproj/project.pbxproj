@@ -19,6 +19,8 @@
 		0F6EB3BE190BFD8100BD0E41 /* greenEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */; };
 		0F6EB3BF190BFD8100BD0E41 /* redEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3BA190BFD8100BD0E41 /* redEnergyImage.png */; };
 		0F6EB3C0190BFD8100BD0E41 /* whiteEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */; };
+		0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */; };
+		0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB449190E019000BD0E41 /* DeviceMotion.m */; };
 		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F178B18F19461004E58BF /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177618F19461004E58BF /* card0.png */; };
@@ -103,6 +105,9 @@
 		0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage.png; sourceTree = "<group>"; };
 		0F6EB3BA190BFD8100BD0E41 /* redEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redEnergyImage.png; sourceTree = "<group>"; };
 		0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteEnergyImage.png; sourceTree = "<group>"; };
+		0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		0F6EB448190E019000BD0E41 /* DeviceMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMotion.h; sourceTree = "<group>"; };
+		0F6EB449190E019000BD0E41 /* DeviceMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMotion.m; sourceTree = "<group>"; };
 		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F177618F19461004E58BF /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card0.png; path = cardBattle/img/smallcard/card0.png; sourceTree = SOURCE_ROOT; };
@@ -179,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */,
 				0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */,
 				0FDCA48D18CACFC2003459F8 /* CoreGraphics.framework in Frameworks */,
 				0FDCA48F18CACFC2003459F8 /* UIKit.framework in Frameworks */,
@@ -312,6 +318,7 @@
 		0FDCA48918CACFC2003459F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */,
 				0FDB97F618CAD30200C7566E /* CoreLocation.framework */,
 				0FDCA48A18CACFC2003459F8 /* Foundation.framework */,
 				0FDCA48C18CACFC2003459F8 /* CoreGraphics.framework */,
@@ -339,6 +346,8 @@
 				0FDB980818CB599F00C7566E /* DeckScreenViewController.m */,
 				0FDB981918CF526100C7566E /* DeckViewController.h */,
 				0FDB981A18CF526100C7566E /* DeckViewController.m */,
+				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
+				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
 				0FDCA49118CACFC2003459F8 /* Supporting Files */,
 			);
 			path = cardBattle;
@@ -419,7 +428,7 @@
 		0FDCA47F18CACFC2003459F8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "秋乃雨弓";
 				TargetAttributes = {
 					0FDCA4A718CACFC2003459F8 = {
@@ -527,6 +536,7 @@
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
 				0FDB980018CAD4B100C7566E /* ConnectToServer.m in Sources */,
+				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */,
 				0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,
@@ -584,7 +594,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -623,7 +632,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -681,7 +689,6 @@
 		0FDCA4BD18CACFC2003459F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/cardBattle.app/cardBattle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -704,7 +711,6 @@
 		0FDCA4BE18CACFC2003459F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/cardBattle.app/cardBattle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

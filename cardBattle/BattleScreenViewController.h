@@ -11,6 +11,7 @@
 #import "DeckViewController.h"
 #import "BattleCaliculate.h"
 #import "DeckViewController.h"
+#import <CoreMotion/CoreMotion.h>
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -118,5 +119,16 @@
 @property UIAlertView *doIUseEnergycard;
 
 - (IBAction)keisan:(id)sender;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *x;
+@property (weak, nonatomic) IBOutlet UILabel *y;
+@property (weak, nonatomic) IBOutlet UILabel *z;
+@property CMMotionManager *motionManager;
+
+
+
+
+
 
 @end

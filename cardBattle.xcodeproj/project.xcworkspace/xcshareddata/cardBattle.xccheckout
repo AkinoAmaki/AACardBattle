@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>57B5888A-C56C-4319-821C-51B515F4E66B</string>
+	<string>7E3305AA-CA4D-4B76-8515-34F7D5F0D38F</string>
 	<key>IDESourceControlProjectName</key>
 	<string>cardBattle</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -17,7 +17,7 @@
 	<string>cardBattle.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>05C7DF7A-8201-4E15-9FB2-7B614FDF575A</key>
+		<key>8B929191-D6CB-4ED9-A265-2860C7133703</key>
 		<string>../../../名刺バトラー/Mbattler_20130721</string>
 		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
 		<string>../..</string>
@@ -42,7 +42,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>05C7DF7A-8201-4E15-9FB2-7B614FDF575A</string>
+			<string>8B929191-D6CB-4ED9-A265-2860C7133703</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Mbattler_20130721</string>
 		</dict>
