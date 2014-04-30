@@ -41,7 +41,9 @@
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
     int mySelectCharacterInCharacterField; //カード効果を伴って自分のキャラクターを選択する際のキャラクター
+    int cardType; //選択カードがソーサリー・フィールド・エネルギーのどれかを管理
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
+    BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
 }
 
 @property int drawCount;
@@ -113,6 +115,8 @@
 
 //各種アラートビューを実装(ボタン押下時にアクションを起こす必要のあるものに限る)
 @property UIAlertView *putACardToLibraryTopOrBottom;
+@property UIAlertView *doIUseSorcerycard;
+@property UIAlertView *doIUseFieldcard;
 @property UIAlertView *doIUseEnergycard;
 
 - (IBAction)keisan:(id)sender;
