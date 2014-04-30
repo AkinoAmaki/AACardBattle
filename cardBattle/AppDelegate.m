@@ -47,7 +47,7 @@
                                      [NSNumber numberWithInteger:2],
                                      [NSNumber numberWithInteger:2],
                                      [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
+                                     [NSNumber numberWithInteger:40],
                                      [NSNumber numberWithInteger:2],
                                      [NSNumber numberWithInteger:2],
                                      [NSNumber numberWithInteger:2],
@@ -152,7 +152,7 @@
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     _doIUseCard = NO; //自分がこのターンカードを使用したか
     _myFieldCard = [[NSMutableArray alloc] init]; //自分の場カードのカードナンバー
-    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
+    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
     _canIPlaySorceryCard =YES; //自分が魔法カードを手札からプレイできるか
     _canIPlayFieldCard = YES; //自分が場カードを手札からプレイできるか
     _canIActivateFieldCard = YES; //自分が場カードの能力を起動できるか

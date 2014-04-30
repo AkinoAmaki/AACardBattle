@@ -30,7 +30,7 @@
 #define CHARACTERHEIGHT 100
 #define MYSELF 0
 #define ENEMY 1
-
+#define FINISHED syncFinished = YES;
 
 
 @interface BattleScreenViewController : BattleCaliculate{
@@ -40,6 +40,8 @@
     int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
+    int mySelectCharacterInCharacterField; //カード効果を伴って自分のキャラクターを選択する際のキャラクター
+    BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
 }
 
 @property int drawCount;

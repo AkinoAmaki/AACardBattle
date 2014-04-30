@@ -336,6 +336,27 @@
         
     }
     
+            NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
+            NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
+            NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
+            NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
+            NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
+            NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
+            NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
+            NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
+            NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
+            NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
+            NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
+            NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
+            NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
+            NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
+            NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
+            NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
+    
+    
+    
+    [self intializeVariables];
+    
     NSLog(@"自分の手札：%@",app.myHand);
     NSLog(@"自分の墓地：%@",app.myTomb);
     
@@ -343,16 +364,22 @@
     NSLog(@"-----------------------------------");
     
 }
+#pragma mark カード効果実装
 
 -(void)cardActivate{
     switch (app.myUsingCardNumber) {
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
+            [self createCharacterField:_allImageView];
+            [self syncronize];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            
             break;
         case 7:
             //対象キャラの防御力ずっと＋３（W2)
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
+            [self createCharacterField:_allImageView];
+            [self syncronize];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:0];
             break;
         case 8:
             //自分のライフ＋３（W)
@@ -400,50 +427,50 @@
         case 16:
             //白色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == WHITE){
-                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
+                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
                 
             }
             break;
         case 17:
             //青色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == BLUE){
-                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
+                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
                 
             }
             break;
         case 18:
             //黒色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == BLACK){
-                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
+                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
                 
             }
             break;
         case 19:
             //赤色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == RED){
-                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
+                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
                 
             }
             break;
         case 20:
             //緑色からのダメージを１減らす（W1)
             if([self distinguishCardColor:app.enemyUsingCardNumber] == GREEN){
-                [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:1];
-                [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:1];
+                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
                 
             }
             break;
@@ -565,7 +592,8 @@
             break;
         case 44:
             //対象キャラの攻撃力 −３（U1)
-            [self attackPowerOperate:app.enemyCharacterFundamentalAttackPower point:-3];
+            [self createCharacterField:_allImageView];
+            [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
@@ -626,7 +654,7 @@
             _putACardToLibraryTopOrBottom = [[UIAlertView alloc] initWithTitle:@"選択" message:@"山札のどちらにおきますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"一番上", @"一番下", nil];
             break;
         case 50:
-            //攻撃キャラギコにする（U2)
+            //攻撃キャラをギコにする（U2)
             app.enemySelectCharacter = GIKO;
             break;
         case 51:
@@ -725,7 +753,8 @@
             break;
         case 66:
             //対象キャラの攻撃力＋３（R)
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 67:
             //相手のエネルギーカードを破壊(RR2)
@@ -821,14 +850,17 @@
             break;
         case 81:
             //攻撃力が＋５される代わりに防御力が０になる（R１)
-            [self attackPowerOperate:app.myGikoFundamentalAttackPower point:5];
-            [self attackPowerOperate:app.myMonarFundamentalAttackPower point:5];
-            [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:5];
-            [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:5];
-            [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:app.myGikoFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:app.myMonarFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:app.mySyobonFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:app.myYaruoFundamentalDeffencePower * -1];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
+            if(mySelectCharacterInCharacterField == GIKO){
+                [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) * -1 temporary:1];
+            }else if (mySelectCharacterInCharacterField == MONAR){
+                [self myDeffencePowerOperate:MONAR point:(app.myMonarFundamentalDeffencePower + app.myMonarModifyingDeffencePower) * -1 temporary:1];
+            }else if (mySelectCharacterInCharacterField == SYOBON){
+                [self myDeffencePowerOperate:SYOBON point:(app.mySyobonFundamentalDeffencePower + app.mySyobonModifyingDeffencePower) * -1 temporary:1];
+            }else{
+                [self myDeffencePowerOperate:YARUO point:(app.myYaruoFundamentalDeffencePower + app.myYaruoModifyingDeffencePower) * -1 temporary:1];
+            }
             break;
         case 82:
             //相手がこのターンカードを使った場合、相手プレイヤーに3点のダメージ。使っていなければ1点ダメージ（RR)
@@ -882,10 +914,10 @@
                 int rand = random() % [app.enemyHand count];
                 [self discardFromHand:ENEMY cardNumber:rand];
             }
-            [self attackPowerOperate:app.enemyGikoFundamentalAttackPower point:-5];
-            [self attackPowerOperate:app.enemyMonarFundamentalAttackPower point:-5];
-            [self attackPowerOperate:app.enemySyobonFundamentalAttackPower point:-5];
-            [self attackPowerOperate:app.enemyYaruoFundamentalAttackPower point:-5];
+            [self enemyAttackPowerOperate:GIKO point:-5 temporary:1];
+            [self enemyAttackPowerOperate:MONAR point:-5 temporary:1];
+            [self enemyAttackPowerOperate:SYOBON point:-5 temporary:1];
+            [self enemyAttackPowerOperate:YARUO point:-5 temporary:1];
             
             break;
         case 88:
@@ -918,19 +950,9 @@
             break;
         case 93:
             //自分の選択キャラの攻撃力−１、２点ダメージ（R)
-            if (app.mySelectCharacter == GIKO) {
-                [self attackPowerOperate:app.myGikoFundamentalAttackPower point:-1];
-                [self HPOperate:app.enemyLifeGage point:-2];
-            }else if (app.mySelectCharacter == MONAR){
-                [self attackPowerOperate:app.myMonarFundamentalAttackPower point:-1];
-                [self HPOperate:app.enemyLifeGage point:-2];
-            }else if (app.mySelectCharacter == SYOBON){
-                [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:-1];
-                [self HPOperate:app.enemyLifeGage point:-2];
-            }else if (app.mySelectCharacter == YARUO){
-                [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:-1];
-                [self HPOperate:app.enemyLifeGage point:-2];
-            }
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
+            [self HPOperate:app.enemyLifeGage point:-2];
             break;
         case 94:
             //対象のエネルギーカードを破壊する（R2)
@@ -988,8 +1010,9 @@
             break;
         case 102:
             //攻撃力と防御力が−１される代わりにブロックされない（B１)
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:-1];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-1];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self forbidDeffence:app.enemyGikoDeffencePermitted];
             [self forbidDeffence:app.enemyMonarDeffencePermitted];
             [self forbidDeffence:app.enemySyobonDeffencePermitted];
@@ -998,13 +1021,15 @@
         case 103:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
             [self HPOperate:app.myLifeGage point:-3];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:5];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
             
             break;
         case 104:
             //毎ターンライフを５点失う代わりに攻撃力が＋８される（BB2)
             [self HPOperate:app.myLifeGage point:-5];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:8];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:8 temporary:0];
             
             break;
         case 105:
@@ -1017,9 +1042,9 @@
             break;
         case 106:
             //エネルギーカードの種類数だけ、相手の攻撃力と防御力をマイナスさせる（B1)
-            
-            [self attackPowerOperate:app.enemyCharacterFundamentalAttackPower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
-            [self deffencePowerOperate:app.enemyCharacterFundamentalDeffencePower point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1];
+            [self createCharacterField:_allImageView];
+            [self enemyAttackPowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
+            [self enemyDeffencePowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             break;
         case 107:
             //場のカードを破壊するが、ライフを３点失う（B1)
@@ -1039,8 +1064,8 @@
             //TODO: app.mySelectCharacterとapp.myCharacterAttackPowerとapp.myCharacterDeffencePowerはターン終了時に初期化する
             
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:-1];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self getACard:MYSELF];
             
             break;
@@ -1089,8 +1114,17 @@
             break;
         case 116:
             //攻撃力は＋３されるが、防御力が半分になる（B)
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:app.myCharacterFundamentalDeffencePower / 2];
+            [self createCharacterField:_allImageView];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            if(mySelectCharacterInCharacterField == GIKO){
+                [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) / 2 temporary:1];
+            }else if (mySelectCharacterInCharacterField == MONAR){
+                [self myDeffencePowerOperate:MONAR point:(app.myMonarFundamentalDeffencePower + app.myMonarModifyingDeffencePower) / 2 temporary:1];
+            }else if (mySelectCharacterInCharacterField == SYOBON){
+                [self myDeffencePowerOperate:SYOBON point:(app.mySyobonFundamentalDeffencePower + app.mySyobonModifyingDeffencePower) / 2 temporary:1];
+            }else{
+                [self myDeffencePowerOperate:YARUO point:(app.myYaruoFundamentalDeffencePower + app.myYaruoModifyingDeffencePower) / 2 temporary:1];
+            }
             
             break;
         case 117:
@@ -1131,9 +1165,9 @@
         case 122:
             //対象キャラは攻撃力＋２、防御力−２（B3)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:-2];
-            break;
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:0];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-2 temporary:0];
+             break;
         case 123:
             //自分の場カードを破壊することで、対象プレイヤーはカードを２枚捨てる（B1)
             [self browseCardsInRegion:app.myFieldCard];
@@ -1149,14 +1183,14 @@
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
             [self browseCardsInRegion:app.myHand];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self attackPowerOperate:app.myGikoFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.myGikoFundamentalDeffencePower point:2];
-            [self attackPowerOperate:app.myMonarFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.myMonarFundamentalDeffencePower point:2];
-            [self attackPowerOperate:app.mySyobonFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.mySyobonFundamentalDeffencePower point:2];
-            [self attackPowerOperate:app.myYaruoFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.myYaruoFundamentalDeffencePower point:2];
+            [self myAttackPowerOperate:GIKO point:2 temporary:0];
+            [self myDeffencePowerOperate:GIKO point:2 temporary:0];
+            [self myAttackPowerOperate:MONAR point:2 temporary:0];
+            [self myDeffencePowerOperate:MONAR point:2 temporary:0];
+            [self myAttackPowerOperate:SYOBON point:2 temporary:0];
+            [self myDeffencePowerOperate:SYOBON point:2 temporary:0];
+            [self myAttackPowerOperate:YARUO point:2 temporary:0];
+            [self myDeffencePowerOperate:YARUO point:2 temporary:0];
             break;
         case 125:
             //毎ターン相手に３点ダメージ（BB3)
@@ -1165,41 +1199,45 @@
         case 126:
             //対象キャラの攻撃力・防御力を１ターン＋３（G)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:3];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:3];
-            
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 127:
             //対象キャラの攻撃力・防御力を１ターン＋７（G3)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:7];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:7];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
             
             break;
         case 128:
             //対象キャラの攻撃力・防御力を１ターン＋１，カードを一枚引く（G)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:1];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             [self getACard:MYSELF];
             
             break;
         case 129:
             //１ターンの間、対象キャラの攻撃力・防御力を＋２，攻撃力そのままをダメージにする（G2)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:2];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:2];
-            [self deffencePowerOperate:app.enemyGikoFundamentalDeffencePower point:app.enemyGikoFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.enemyMonarFundamentalDeffencePower point:app.enemyMonarFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.enemySyobonFundamentalDeffencePower point:app.enemySyobonFundamentalDeffencePower * -1];
-            [self deffencePowerOperate:app.enemyYaruoFundamentalDeffencePower point:app.enemyYaruoFundamentalDeffencePower * -1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
+            if(app.enemySelectCharacter == GIKO){
+                [self enemyDeffencePowerOperate:GIKO point:(app.enemyGikoFundamentalDeffencePower + app.enemyGikoModifyingDeffencePower) * -1 temporary:1];
+            }else if (app.enemySelectCharacter == MONAR){
+                [self enemyDeffencePowerOperate:MONAR point:(app.enemyMonarFundamentalDeffencePower + app.enemyMonarModifyingDeffencePower) * -1 temporary:1];
+            }else if (app.enemySelectCharacter == SYOBON){
+                [self enemyDeffencePowerOperate:SYOBON point:(app.enemySyobonFundamentalDeffencePower + app.enemySyobonModifyingDeffencePower) * -1 temporary:1];
+            }else{
+                [self enemyDeffencePowerOperate:YARUO point:(app.enemyYaruoFundamentalDeffencePower + app.enemyYaruoModifyingDeffencePower) * -1 temporary:1];
+            }
             
             break;
         case 130:
             //対象キャラの攻撃力・防御力を１ターン＋4（G1)
             [self createCharacterField:_allImageView];
-            [self attackPowerOperate:app.myCharacterFundamentalAttackPower point:4];
-            [self deffencePowerOperate:app.myCharacterFundamentalDeffencePower point:4];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             break;
         case 131:
             //相手がカードを一枚（エネルギーカード除く）使うたびに剣士・魔法使い・格闘家の攻撃力を＋１する（G2)
@@ -1735,15 +1773,106 @@
     return 0;
 }
 
-//対象キャラの攻撃力を操作する（対象キャラの攻撃力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
--(void)attackPowerOperate :(int)character point:(int)x{
-    character += x;
+//自分の対象キャラの攻撃力を操作する（対象キャラの攻撃力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
+-(void)myAttackPowerOperate:(int)character point:(int)x  temporary:(BOOL)temporary{
+    if(temporary == YES){
+        if(character == GIKO){
+            app.myGikoModifyingAttackPower += x;
+        }else if (character == MONAR){
+            app.myMonarModifyingAttackPower += x;
+        }else if (character == SYOBON){
+            app.mySyobonModifyingAttackPower += x;
+        }else if (character == YARUO){
+            app.myYaruoModifyingAttackPower += x;
+        }
+    }else{
+        if(character == GIKO){
+            app.myGikoFundamentalAttackPower += x;
+        }else if (character == MONAR){
+            app.myMonarFundamentalAttackPower += x;
+        }else if (character == SYOBON){
+            app.mySyobonFundamentalAttackPower += x;
+        }else if (character == YARUO){
+            app.myYaruoFundamentalAttackPower += x;
+        }
+    }
 }
 
-//対象キャラの防御力を操作する（対象キャラの防御力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
--(void)deffencePowerOperate :(int)character point:(int)x{
-    character += x;
+//自分の対象キャラの防御力を操作する（対象キャラの防御力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
+-(void)myDeffencePowerOperate:(int)character point:(int)x temporary:(BOOL)temporary{
+    if(temporary == YES){
+        if(character == GIKO){
+            app.myGikoModifyingDeffencePower += x;
+        }else if (character == MONAR){
+            app.myMonarModifyingDeffencePower += x;
+        }else if (character == SYOBON){
+            app.mySyobonModifyingDeffencePower += x;
+        }else if (character == YARUO){
+            app.myYaruoModifyingDeffencePower += x;
+        }
+    }else{
+        if(character == GIKO){
+            app.myGikoFundamentalDeffencePower += x;
+        }else if (character == MONAR){
+            app.myMonarFundamentalDeffencePower += x;
+        }else if (character == SYOBON){
+            app.mySyobonFundamentalDeffencePower += x;
+        }else if (character == YARUO){
+            app.myYaruoFundamentalDeffencePower += x;
+        }
+    }
 }
+
+//相手の対象キャラの攻撃力を操作する（対象キャラの攻撃力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
+-(void)enemyAttackPowerOperate :(int)character point:(int)x  temporary:(BOOL)temporary{
+    if(temporary == YES){
+        if(character == GIKO){
+            app.enemyGikoModifyingAttackPower += x;
+        }else if (character == MONAR){
+            app.enemyMonarModifyingAttackPower += x;
+        }else if (character == SYOBON){
+            app.enemySyobonModifyingAttackPower += x;
+        }else if (character == YARUO){
+            app.enemyYaruoModifyingAttackPower += x;
+        }
+    }else{
+        if(character == GIKO){
+            app.enemyGikoFundamentalAttackPower += x;
+        }else if (character == MONAR){
+            app.enemyMonarFundamentalAttackPower += x;
+        }else if (character == SYOBON){
+            app.enemySyobonFundamentalAttackPower += x;
+        }else if (character == YARUO){
+            app.enemyYaruoFundamentalAttackPower += x;
+        }
+    }
+}
+
+//相手の対象キャラの防御力を操作する（対象キャラの防御力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
+-(void)enemyDeffencePowerOperate:(int)character point:(int)x temporary:(BOOL)temporary{
+    if(temporary == YES){
+        if(character == GIKO){
+            app.enemyGikoModifyingDeffencePower += x;
+        }else if (character == MONAR){
+            app.enemyMonarModifyingDeffencePower += x;
+        }else if (character == SYOBON){
+            app.enemySyobonModifyingDeffencePower += x;
+        }else if (character == YARUO){
+            app.enemyYaruoModifyingDeffencePower += x;
+        }
+    }else{
+        if(character == GIKO){
+            app.enemyGikoFundamentalDeffencePower += x;
+        }else if (character == MONAR){
+            app.enemyMonarFundamentalDeffencePower += x;
+        }else if (character == SYOBON){
+            app.enemySyobonFundamentalDeffencePower += x;
+        }else if (character == YARUO){
+            app.enemyYaruoFundamentalDeffencePower += x;
+        }
+    }
+}
+
 
 //対象プレイヤーのHPを操作する（対象プレイヤーのHPを管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
 -(void)HPOperate :(int)lifeGage point:(int)x{
@@ -1872,10 +2001,13 @@
 //攻撃キャラを変更する（対象プレイヤー：変更後のキャラ）
 
 - (void)changeAttackCharacter :(int)man :(int)character{
+    [self createCharacterField:_allImageView];
     if (man == 0) {
-        app.mySelectCharacter = character;
+        mySelectCharacterInCharacterField = character;
+        app.mySelectCharacter = mySelectCharacterInCharacterField;
     }else{
-        app.enemySelectCharacter = character;
+        mySelectCharacterInCharacterField = character;
+        app.enemySelectCharacter = mySelectCharacterInCharacterField;
     }
 }
 
@@ -2193,7 +2325,7 @@
     _border_middleCard.frame = sender.view.frame;
     [_characterField addSubview:_border_middleCard];
     NSLog(@"sender.view.tag:%d", (int)sender.view.tag);
-    app.mySelectCharacter = (int)sender.view.tag;
+    mySelectCharacterInCharacterField = (int)sender.view.tag;
 }
 
 - (void)createOkButton:(CGRect)rect parentView:(UIImageView *)view tag:(int)tag{
@@ -2264,19 +2396,21 @@
             
         case 7:
             //キャラクター選択画面のOKボタンから飛んできた場合
-            if (app.mySelectCharacter == -1) {
+            if (mySelectCharacterInCharacterField == -1) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
                 [alert show];
             }else{
             [_characterField removeFromSuperview];
             }
+            FINISHED
 
             break;
             
         case 8:
             //キャラクター選択画面のキャンセルボタンから飛んできた場合
-            app.mySelectCharacter = -1;
+            mySelectCharacterInCharacterField = -1;
             [_characterField removeFromSuperview];
+            FINISHED
             break;
             
         case 9:
@@ -2528,6 +2662,8 @@
         app.myYaruoModifyingDeffencePower = 0;
         app.myCharacterModifyingAttackPower = 0;
         app.myCharacterModifyingDeffencePower = 0;
+        mySelectCharacterInCharacterField = -1;
+
     
         //相手に関係する変数
         app.enemySelectCharacter = -1; //相手の選んだキャラクター
@@ -2550,7 +2686,7 @@
         app.enemyCharacterModifyingDeffencePower = 0;
     
     
-    //条件付きで初期化するもの
+    //TODO: 条件付きで初期化するものの場合分けを行う
         //自分に関係する変数
         app.myGikoAttackPermitted = YES; //自分のギコの攻撃許可
         app.myGikoDeffencePermitted = YES; //自分のギコの防御許可
@@ -2583,5 +2719,12 @@
 
 }
 
+- (void)syncronize{
+    syncFinished = NO;
+    while (!syncFinished) {
+        NSLog(@"ループ中");
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    }
+}
 
 @end
