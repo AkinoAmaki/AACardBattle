@@ -45,6 +45,7 @@
     int cardType; //選択カードがソーサリー・フィールド・エネルギーのどれかを管理
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
+    BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
 }
 
 @property int drawCount;

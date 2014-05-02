@@ -42,6 +42,7 @@
     selectCardTag = -1;
     syncFinished = NO;
     doIUseCardInThisTurn = NO;
+    cardIsCompletlyUsed = NO;
     
     _bc = [[BattleCaliculate alloc] init];
     
@@ -325,6 +326,29 @@
 
 
 - (IBAction)nextTurn{
+    //ターン開始時
+    //[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目", turnCount]];
+    [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
+    [self syncronize];
+    [self activateFieldCardInTiming:0];
+    [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self syncronize];
+    
+    
+    //カード使用後
+    [self phaseNameFadeIn:@"カード使用フェイズです。使用するカードを選択してください。"];
+    [self syncronize];
+    
+    
+    //touchActionの入力を待つための同期処理
+    while (cardIsCompletlyUsed == NO) {
+        [self syncronize];
+    }
+    
+    [self activateFieldCardInTiming:1];
+    [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self syncronize];
+
     //ダメージ計算
     [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
     [self syncronize];
@@ -346,26 +370,13 @@
         [self getACard:MYSELF];
         
     }
+    [self getACard:MYSELF];
     [self intializeVariables];
-    
+    [self nextTurn];
     
     
     NSLog(@"-----------------------------------");
     
-    //ターン開始時
-    [self phaseNameFadeIn:@"ターン開始フェイズ"];
-    [self syncronize];
-    [self activateFieldCardInTiming:0];
-    [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
-    
-
-    //カード使用後
-    [self phaseNameFadeIn:@"カード使用フェイズ"];
-    [self syncronize];
-    [self activateFieldCardInTiming:1];
-    [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
     
 }
 #pragma mark カード効果実装
@@ -1537,14 +1548,14 @@
     
     _phaseNameView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phaseName"]];
     _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
-    [self insertTextViewToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(80,5,180,30)];
+    [self insertTextViewToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,180,60)];
     [_allImageView addSubview:_phaseNameView];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
+    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
     [UIView setAnimationDidStopSelector:@selector(resultFadeOutToTextField)];
     [UIView commitAnimations];
 }
@@ -1620,7 +1631,7 @@
     [NSThread sleepForTimeInterval:1];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
-    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
+    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -1631,7 +1642,6 @@
 
 - (void)removeView:(UIImageView *)view{
     [view removeFromSuperview];
-    NSLog(@"フィニッシュ");
     FINISHED
 }
 
@@ -1640,7 +1650,8 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選ばれていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"キャラクターを選択する", nil];
         [alert show];
     }else{
-        [self nextTurn];
+        cardIsCompletlyUsed = YES;
+        FINISHED
     }
     
     
@@ -1713,6 +1724,9 @@
             NSLog(@"現在の手札のカードナンバー：%d枚目:%d",i + 1,[[app.myHand objectAtIndex:i] intValue]);
         }
         NSLog(@"-----------------------------------");
+    
+    [self nextTurn];
+    
 }
 
 - (void)touchAction :(UILongPressGestureRecognizer *)sender{
@@ -2707,6 +2721,7 @@
     }else if (alertView == _doIUseSorcerycard){
         switch (buttonIndex) {
             case 0:
+                FINISHED
                 break;
             case 1:
                 selectedCardTag = -1;
@@ -2714,15 +2729,15 @@
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
+                doIUseCardInThisTurn = NO;
                 break;
             default:
                 break;
         }
-        FINISHED
     }else if (alertView == _doIUseFieldcard){
-        FINISHED
         switch (buttonIndex) {
             case 0:
+                FINISHED
                 break;
             case 1:
                 selectedCardTag = -1;
@@ -2730,6 +2745,7 @@
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
+                doIUseCardInThisTurn = NO;
                 break;
             default:
                 break;
@@ -2845,6 +2861,8 @@
         app.myCharacterModifyingAttackPower = 0;
         app.myCharacterModifyingDeffencePower = 0;
         mySelectCharacterInCharacterField = -1;
+        cardIsCompletlyUsed = NO;
+        doIUseCardInThisTurn = NO;
 
     
         //相手に関係する変数
@@ -2903,8 +2921,9 @@
 
 - (void)syncronize{
     syncFinished = NO;
+    int i = 0;
     while (!syncFinished) {
-        NSLog(@"ループ中");
+        //NSLog(@"ループ中：%d",++i);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     }
 }
