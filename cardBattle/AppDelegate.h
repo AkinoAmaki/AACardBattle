@@ -29,10 +29,13 @@
 @property (nonatomic, retain) NSArray *cardList_cardName; //カードごとのカード名
 @property (nonatomic, retain) NSArray *cardList_pngName; //カードごとの画像名（拡張子含む）
 @property (nonatomic, retain) NSArray *cardList_type; //カードごとのカードタイプ
-@property (nonatomic, retain) NSArray *cardList_timing; //カードごとの発動タイミング
 @property (nonatomic, retain) NSArray *cardList_cost; //カードごとのマナコスト
 @property (nonatomic, retain) NSArray *cardList_color; //カードごとの色
 @property (nonatomic, retain) NSArray *cardList_text; //カードごとの説明文
+@property (nonatomic, retain) NSArray *fieldCardList_turnStart; //ターン開始時に効果を発揮するカード一覧
+@property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
+@property (nonatomic, retain) NSArray *fieldCardList_damageCaliculate; //ダメージ計算時に効果を発揮するカード一覧
+@property (nonatomic, retain) NSArray *fieldCardList_turnEnd;   //ターン終了時に効果を発揮するカード一覧
 
 
 //自分に関係する変数

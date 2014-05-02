@@ -35,6 +35,7 @@
 
 @interface BattleScreenViewController : BattleCaliculate{
     BattleCaliculate *bc;
+    int turnCount; //ターン数を管理
     int drawCount; //自分の引いたカード枚数を管理
     int selectedCardOrder; //現在選択されているカードは、手札の左から数えて何番目かを管理する（1番目なら0が入る）
     int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
@@ -56,9 +57,22 @@
 //全部を載せるビュー
 @property UIImageView *allImageView;
 
+//各タイミングでの状況を管理するビュー
+    //フェイズ名を管理するビュー
+    @property UIImageView *phaseNameView;
 
-@property UIImageView *turnResultView;
-@property UIImage *turnResult;
+    //ターン開始時の状況を管理するビュー
+    @property UIImageView *turnStartView;
+
+    //カード使用後の状況を管理するビュー
+    @property UIImageView *afterCardUsedView;
+
+    //ダメージ計算時の状況を管理するビュー
+    @property UIImageView *damageCaliculateView;
+
+    //ターン終了時の状況を管理するビュー
+    @property UIImageView *turnResultView;
+    @property UIImage *turnResult;
 
 //領域（自分（相手）の手札・自分（相手）の山札・自分（相手）の場カード・自分（相手）のエネルギーカード等）にあるカードを見るビュー
 @property UIImageView *cardInRegion;

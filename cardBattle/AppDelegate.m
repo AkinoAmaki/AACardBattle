@@ -110,6 +110,11 @@
     _cardList_cost = [[NSArray alloc] initWithObjects: @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", nil];
 
     
+    _fieldCardList_turnStart = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:105],[NSNumber numberWithInt:143], nil];
+    _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:112],[NSNumber numberWithInt:132],[NSNumber numberWithInt:144], nil];
+    _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:27],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:147],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150],[NSNumber numberWithInt:151], nil];
+    _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:126],[NSNumber numberWithInt:148], nil];
+    
     NSLog(@"%f：%f",[[UIScreen mainScreen] bounds].size.width ,[[UIScreen mainScreen] bounds].size.height);
 
     
@@ -210,6 +215,16 @@
     _denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
     _enemyDamage = 0; //このターン相手に与えられるダメージ
     _enemySelectColor = -1; //相手が選んだ色
+    
+    
+    
+    
+    
+    // 一括でラベルのフォントをDidotのサイズ18.0fに統一する
+    [[UILabel appearance] setFont:[UIFont fontWithName:@"Osaka" size:15.0f]];
+    [[UITextView appearance] setFont:[UIFont fontWithName:@"Osaka" size:15.0f]];
+    
+    
     return YES;
 }
 							
@@ -248,5 +263,7 @@
     }
     return tmpArray;
 }
+
+
 
 @end
