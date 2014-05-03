@@ -86,6 +86,7 @@
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
 @property int myDamage; //このターン自分に与えられるダメージ
 @property int mySelectColor; //自分が選んだ色
+@property (nonatomic, retain) NSMutableArray *cardsIUsedInThisTurn; //このターン自分が使用したカード一覧
 
 //相手に関係する変数
 @property int enemyLifeGage; //相手のライフポイント
@@ -134,6 +135,7 @@
 @property BOOL denyEnemyCardPlaying; //相手がカードのプレイを打ち消されたか
 @property int enemyDamage; //このターン相手に与えられるダメージ
 @property int enemySelectColor; //相手が選んだ色
+@property (nonatomic, retain) NSMutableArray *cardsEnemyUsedInThisTurn; //このターン相手が使用したカード一覧
 
 
 - (NSMutableArray *)shuffledArray :(NSMutableArray *)array;

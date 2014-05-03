@@ -166,6 +166,7 @@
     _denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
     _myDamage = 0; //このターン自分に与えられるダメージ
     _mySelectColor = -1; //自分が選んだ色
+    _cardsIUsedInThisTurn = [[NSMutableArray alloc] init];
     
     
     
@@ -215,6 +216,7 @@
     _denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
     _enemyDamage = 0; //このターン相手に与えられるダメージ
     _enemySelectColor = -1; //相手が選んだ色
+    _cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
     
     
     

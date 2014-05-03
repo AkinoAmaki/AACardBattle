@@ -366,6 +366,34 @@
     [self activateFieldCardInTiming:3];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self syncronize];
+    
+    NSLog(@"-----------------------------------");
+    NSLog(@"%s",__func__);
+    NSLog(@"自分のHP：%d",app.myLifeGage);
+    NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
+    NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
+    NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
+    NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
+    NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
+    NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
+    NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
+    NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d\n",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
+    NSLog(@"相手のHP：%d",app.enemyLifeGage);
+    NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
+    NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
+    NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
+    NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
+    NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
+    NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
+    NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
+    NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
+    
+    NSLog(@"自分の手札：%@",app.myHand);
+    NSLog(@"自分のフィールドカード置き場：%@",app.myFieldCard);
+    NSLog(@"自分の墓地：%@",app.myTomb);
+    NSLog(@"-----------------------------------");
+    
+    
     if(app.mySelectCharacter == YARUO){
         [self getACard:MYSELF];
         
@@ -1413,7 +1441,7 @@
     
 }
 
-- (void)resultFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+- (void)turnStartFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
     
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
@@ -1421,21 +1449,48 @@
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
-    [self insertTextViewToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択キャラ：%@",[self myCharacterType]] Rectangle:CGRectMake(20, 60, 240, 20)];
-    [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択キャラ：%@",[self enemyCharacterType]] Rectangle:CGRectMake(20, 80, 240, 20)];
-    if(app.myUsingCardNumber == -1){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：なし"] Rectangle:CGRectMake(20, 100, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：%@",[app.cardList_cardName objectAtIndex:app.myUsingCardNumber]] Rectangle:CGRectMake(20, 100, 240, 20)];
+    NSLog(@"1");
+    [self insertTextViewToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(80,5,180,30)];
+    NSLog(@"2");
+    
+    
+    NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する自分のフィールドカード
+    NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する相手のフィールドカード
+    
+    //何枚発動するかを計算する
+    for (int i = 0; i < [app.myFieldCard count]; i++) {
+        for (int j = 0; j < [app.fieldCardList_turnStart count];  j++) {
+            if([[app.myFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnStart objectAtIndex:j]]){
+                [my1 addObject:[app.myFieldCard objectAtIndex:i]];
+            }
+        }
     }
-    if (app.enemyUsingCardNumber == -1) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：なし"] Rectangle:CGRectMake(20, 120, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：%@",[app.cardList_cardName objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 120, 240, 20)];
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：%@",[app.cardList_text objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 140, 240, 260)];
+    for (int i = 0; i < [app.enemyFieldCard count]; i++) {
+        for (int j = 0; j < [app.fieldCardList_turnStart count];  j++) {
+            if([[app.enemyFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnStart objectAtIndex:j]]){
+                [enemy1 addObject:[app.enemyFieldCard objectAtIndex:i]];
+            }
+        }
     }
-
+    
+    if([my1 count] == 0){
+        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 60, 240, 20)];
+        NSLog(@"3-1");
+    }else{
+        for (int i = 0; i < [my1 count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 140)];
+        }
+        NSLog(@"3-2");
+    }
+    if ([enemy1 count] == 0) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
+    }else{
+        for (int i = 0; i < [enemy1 count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 140)];
+        }
+        
+    }
+    
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
@@ -1443,7 +1498,7 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
-    //[UIView setAnimationDidStopSelector:@selector(resultFadeOut:)]
+    //[UIView setAnimationDidStopSelector:@selector(resultFadeOut:)];
     [UIView commitAnimations];
 }
 
@@ -1480,37 +1535,6 @@
     [UIView commitAnimations];
 }
 
-- (void)turnStartFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
-    
-    view = [[UIImageView alloc] initWithImage:img];
-    view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
-    view.userInteractionEnabled = YES;
-    [view addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(resultFadeOut:)]];
-    [self insertTextViewToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(80,5,180,30)];
-    if(app.myUsingCardNumber == -1){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：なし"] Rectangle:CGRectMake(20, 60, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：%@",[app.cardList_cardName objectAtIndex:app.myUsingCardNumber]] Rectangle:CGRectMake(20, 60, 240, 20)];
-    }
-    if (app.enemyUsingCardNumber == -1) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：なし"] Rectangle:CGRectMake(20, 80, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：%@",[app.cardList_cardName objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 80, 240, 20)];
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：%@",[app.cardList_text objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 100, 240, 260)];
-    }
-    
-    [_allImageView addSubview:view];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDelay:0.2];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
-    //[UIView setAnimationDidStopSelector:@selector(resultFadeOut:)];
-    [UIView commitAnimations];
-}
 
 - (void)damageCaliculateFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
     
@@ -1544,6 +1568,78 @@
     [UIView commitAnimations];
 }
 
+- (void)resultFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    
+    view = [[UIImageView alloc] initWithImage:img];
+    view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
+    view.userInteractionEnabled = YES;
+    [view addGestureRecognizer:
+     [[UITapGestureRecognizer alloc]
+      initWithTarget:self action:@selector(resultFadeOut:)]];
+    [self insertTextViewToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30)];
+    
+    
+    NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン終了時に発動する自分のフィールドカード
+    NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン終了時に発動する相手のフィールドカード
+    
+    //何枚発動するかを計算する
+    for (int i = 0; i < [app.myFieldCard count]; i++) {
+        for (int j = 0; j < [app.fieldCardList_turnEnd count];  j++) {
+            if([[app.myFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnEnd objectAtIndex:j]]){
+                [my1 addObject:[app.myFieldCard objectAtIndex:i]];
+            }
+        }
+    }
+    for (int i = 0; i < [app.enemyFieldCard count]; i++) {
+        for (int j = 0; j < [app.fieldCardList_turnEnd count];  j++) {
+            if([[app.enemyFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnEnd objectAtIndex:j]]){
+                [enemy1 addObject:[app.enemyFieldCard objectAtIndex:i]];
+            }
+        }
+    }
+    
+    if([my1 count] == 0){
+        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 60, 240, 20)];
+        NSLog(@"3-1");
+    }else{
+        for (int i = 0; i < [my1 count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 20)];
+        }
+        NSLog(@"3-2");
+    }
+    if ([enemy1 count] == 0) {
+        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
+    }else{
+        for (int i = 0; i < [enemy1 count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 140)];
+        }
+        
+    }
+    
+    [_allImageView addSubview:view];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDelay:0.2];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
+    //[UIView setAnimationDidStopSelector:@selector(resultFadeOut:)]
+    [UIView commitAnimations];
+}
+
+
+- (void)resultFadeOut:(UITapGestureRecognizer *)sender{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    sender.view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
+    [UIView setAnimationDelay:0.2];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    sender.view.center = CGPointMake( ([[UIScreen mainScreen] bounds].size.width * -2) ,  [[UIScreen mainScreen] bounds].size.height /2);
+    [UIView setAnimationDidStopSelector:@selector(removeView:)];
+    [UIView commitAnimations];
+}
+
 - (void)phaseNameFadeIn:(NSString *)phaseName{
     
     _phaseNameView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phaseName"]];
@@ -1559,6 +1655,25 @@
     [UIView setAnimationDidStopSelector:@selector(resultFadeOutToTextField)];
     [UIView commitAnimations];
 }
+
+- (void)resultFadeOutToTextField{
+    [NSThread sleepForTimeInterval:1];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
+    [UIView setAnimationDelay:0.2];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    _phaseNameView.center = CGPointMake( ([[UIScreen mainScreen] bounds].size.width * -2) ,  [[UIScreen mainScreen] bounds].size.height /2);
+    [UIView setAnimationDidStopSelector:@selector(removeView:)];
+    [UIView commitAnimations];
+}
+
+- (void)removeView:(UIImageView *)view{
+    [view removeFromSuperview];
+    FINISHED
+}
+
 
 
 - (NSString *)myCharacterType{
@@ -1615,35 +1730,6 @@
     [parentView addSubview:textView];
 }
 
-- (void)resultFadeOut:(UITapGestureRecognizer *)sender{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelegate:self];
-    sender.view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
-    [UIView setAnimationDelay:0.2];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    sender.view.center = CGPointMake( ([[UIScreen mainScreen] bounds].size.width * -2) ,  [[UIScreen mainScreen] bounds].size.height /2);
-    [UIView setAnimationDidStopSelector:@selector(removeView:)];
-    [UIView commitAnimations];
-}
-
-- (void)resultFadeOutToTextField{
-    [NSThread sleepForTimeInterval:1];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelegate:self];
-    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
-    [UIView setAnimationDelay:0.2];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    _phaseNameView.center = CGPointMake( ([[UIScreen mainScreen] bounds].size.width * -2) ,  [[UIScreen mainScreen] bounds].size.height /2);
-    [UIView setAnimationDidStopSelector:@selector(removeView:)];
-    [UIView commitAnimations];
-}
-
-- (void)removeView:(UIImageView *)view{
-    [view removeFromSuperview];
-    FINISHED
-}
 
 -(void)okButton{
     if (app.mySelectCharacter == -1) {
@@ -1791,6 +1877,8 @@
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
                 [self cardActivate:app.myUsingCardNumber];
+                [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
+                NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self moveCards];
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
                 doIUseCardInThisTurn = NO;
@@ -1828,6 +1916,8 @@
             [self syncronize];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
+                [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
+                NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self moveCards];
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
                 doIUseCardInThisTurn = NO;
@@ -1861,32 +1951,6 @@
             [_doIUseEnergycard show];
         }
     }
-    
-    NSLog(@"-----------------------------------");
-    NSLog(@"%s",__func__);
-    NSLog(@"自分のHP：%d",app.myLifeGage);
-    NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
-    NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
-    NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
-    NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
-    NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
-    NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
-    NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
-    NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d\n",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
-    NSLog(@"相手のHP：%d",app.enemyLifeGage);
-    NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
-    NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
-    NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
-    NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
-    NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
-    NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
-    NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
-    NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
-    
-    NSLog(@"自分の手札：%@",app.myHand);
-    NSLog(@"自分のフィールドカード置き場：%@",app.myFieldCard);
-    NSLog(@"自分の墓地：%@",app.myTomb);
-    NSLog(@"-----------------------------------");
 }
 
 - (void)moveCards{
@@ -2670,6 +2734,10 @@
     }else if (alertView == _doIUseEnergycard){
         switch (buttonIndex) {
             case 0:
+                
+                [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
+                NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
+                
                 //エネルギーカードを使用する場合は、手札からエネルギーカードをエネルギー置き場に移したうえでエネルギーをプラスする
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
                 if(app.myUsingCardNumber == 1){
@@ -2863,6 +2931,7 @@
         mySelectCharacterInCharacterField = -1;
         cardIsCompletlyUsed = NO;
         doIUseCardInThisTurn = NO;
+        [app.cardsIUsedInThisTurn removeAllObjects];
 
     
         //相手に関係する変数
@@ -2884,6 +2953,7 @@
         app.enemyYaruoModifyingDeffencePower = 0;
         app.enemyCharacterModifyingAttackPower = 0;
         app.enemyCharacterModifyingDeffencePower = 0;
+        [app.cardsEnemyUsedInThisTurn removeAllObjects];
     
     
     //TODO: 条件付きで初期化するものの場合分けを行う
@@ -2930,14 +3000,13 @@
 
 //フィールドカードを定期的に発動させるメソッドを実装する
 -(void) activateFieldCardInTiming :(int)timing{
-    
     //発動タイミング毎に発動させるカードを変える。
     switch (timing) {
         //ターン開始時
         case 0:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_turnStart containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:(int)[app.myFieldCard objectAtIndex:i]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
                 }
             }
             break;
@@ -2945,7 +3014,7 @@
         case 1:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_afterCardUsed containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:(int)[app.myFieldCard objectAtIndex:i]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
                 }
             }
             break;
@@ -2953,7 +3022,7 @@
         case 2:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_damageCaliculate containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:(int)[app.myFieldCard objectAtIndex:i]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
                 }
             }
             break;
@@ -2961,13 +3030,18 @@
         case 3:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_turnEnd containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:(int)[app.myFieldCard objectAtIndex:i]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
                 }
             }
             break;
         default:
             break;
     }
+}
+
+
+- (void)setCardToCardsIUsedInThisTurn:(NSMutableArray *)fromField  cardNumber:(int)cardNumber{
+    [app.cardsIUsedInThisTurn addObject:[fromField objectAtIndex:cardNumber]];
 }
 
 @end
