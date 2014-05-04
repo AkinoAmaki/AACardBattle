@@ -12,6 +12,7 @@
 #import "BattleCaliculate.h"
 #import "DeckViewController.h"
 #import <CoreMotion/CoreMotion.h>
+#import "SVProgressHUD.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -41,11 +42,13 @@
     int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
-    int mySelectCharacterInCharacterField; //カード効果を伴って自分のキャラクターを選択する際のキャラクター
+    int mySelectCharacterInCharacterField; //カード効果により自分のキャラクターを選択する際のキャラクター
     int cardType; //選択カードがソーサリー・フィールド・エネルギーのどれかを管理
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
+    
+        NSMutableData *receivedData; //通信テスト用のデータ変数
 }
 
 @property int drawCount;
@@ -58,7 +61,7 @@
 //全部を載せるビュー
 @property UIImageView *allImageView;
 
-//各タイミングでの状況を管理するビュー
+//各タイミングでの状況を管理するビュー等
     //フェイズ名を管理するビュー
     @property UIImageView *phaseNameView;
 
@@ -70,6 +73,14 @@
 
     //ダメージ計算時の状況を管理するビュー
     @property UIImageView *damageCaliculateView;
+    @property UILabel *myGiko;
+    @property UILabel *myMonar;
+    @property UILabel *mySyobon;
+    @property UILabel *myYaruo;
+    @property UILabel *enemyGiko;
+    @property UILabel *enemyMonar;
+    @property UILabel *enemySyobon;
+    @property UILabel *enemyYaruo;
 
     //ターン終了時の状況を管理するビュー
     @property UIImageView *turnResultView;

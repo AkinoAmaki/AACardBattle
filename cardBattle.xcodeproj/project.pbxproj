@@ -22,6 +22,9 @@
 		0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */; };
 		0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB449190E019000BD0E41 /* DeviceMotion.m */; };
 		0F6EB44C1913AFEF00BD0E41 /* phaseName.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB44B1913AFEF00BD0E41 /* phaseName.png */; };
+		0F6EB44E1915EAD100BD0E41 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6EB44D1915EAD100BD0E41 /* QuartzCore.framework */; };
+		0F6EB4521915EB1700BD0E41 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */; };
+		0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB4511915EB1700BD0E41 /* SVProgressHUD.m */; };
 		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F178B18F19461004E58BF /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177618F19461004E58BF /* card0.png */; };
@@ -110,6 +113,10 @@
 		0F6EB448190E019000BD0E41 /* DeviceMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMotion.h; sourceTree = "<group>"; };
 		0F6EB449190E019000BD0E41 /* DeviceMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMotion.m; sourceTree = "<group>"; };
 		0F6EB44B1913AFEF00BD0E41 /* phaseName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phaseName.png; sourceTree = "<group>"; };
+		0F6EB44D1915EAD100BD0E41 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		0F6EB4511915EB1700BD0E41 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F177618F19461004E58BF /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card0.png; path = cardBattle/img/smallcard/card0.png; sourceTree = SOURCE_ROOT; };
@@ -186,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F6EB44E1915EAD100BD0E41 /* QuartzCore.framework in Frameworks */,
 				0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */,
 				0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */,
 				0FDCA48D18CACFC2003459F8 /* CoreGraphics.framework in Frameworks */,
@@ -321,6 +329,7 @@
 		0FDCA48918CACFC2003459F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F6EB44D1915EAD100BD0E41 /* QuartzCore.framework */,
 				0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */,
 				0FDB97F618CAD30200C7566E /* CoreLocation.framework */,
 				0FDCA48A18CACFC2003459F8 /* Foundation.framework */,
@@ -351,6 +360,9 @@
 				0FDB981A18CF526100C7566E /* DeckViewController.m */,
 				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
+				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
+				0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */,
+				0F6EB4511915EB1700BD0E41 /* SVProgressHUD.m */,
 				0FDCA49118CACFC2003459F8 /* Supporting Files */,
 			);
 			path = cardBattle;
@@ -498,6 +510,7 @@
 				0F9F179018F19461004E58BF /* card5.png in Resources */,
 				0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */,
 				0F9F178B18F19461004E58BF /* card0.png in Resources */,
+				0F6EB4521915EB1700BD0E41 /* SVProgressHUD.bundle in Resources */,
 				0F9F17A418F19BA8004E58BF /* giko.png in Resources */,
 				0F9F179818F19461004E58BF /* card13.png in Resources */,
 				0F6EB3C0190BFD8100BD0E41 /* whiteEnergyImage.png in Resources */,
@@ -543,6 +556,7 @@
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */,
 				0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */,
+				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,
 				0FDCA49718CACFC2003459F8 /* main.m in Sources */,
 			);

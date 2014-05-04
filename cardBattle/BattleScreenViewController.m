@@ -211,6 +211,18 @@
     [_allImageView addSubview: _allEnergy];
     _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
     
+    
+    _myGiko = [[UILabel alloc] init];
+    _myMonar = [[UILabel alloc] init];
+    _mySyobon = [[UILabel alloc] init];
+    _myYaruo = [[UILabel alloc] init];
+    _enemyGiko = [[UILabel alloc] init];
+    _enemyMonar = [[UILabel alloc] init];
+    _enemySyobon = [[UILabel alloc] init];
+    _enemyYaruo = [[UILabel alloc] init];
+    
+    
+    
     [self.view addSubview:_allImageView];    
     
 //--------------------------デバッグ用ボタン-----------------------------------
@@ -263,7 +275,144 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    [self createCharacterField:_allImageView];
+    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSArray *myBattleData_parameter = [[NSArray alloc] initWithObjects:
+                                      [NSNumber numberWithInt:app.myLifeGage],
+                                      app.myDeckCardList,
+                                      app.myHand,
+                                      [NSNumber numberWithInt:app.myGikoFundamentalAttackPower],
+                                      [NSNumber numberWithInt:app.myGikoFundamentalDeffencePower],
+                                      [NSNumber numberWithInt:app.myMonarFundamentalAttackPower],
+                                      [NSNumber numberWithInt:app.myMonarFundamentalDeffencePower],
+                                      [NSNumber numberWithInt:app.mySyobonFundamentalAttackPower],
+                                      [NSNumber numberWithInt:app.mySyobonFundamentalDeffencePower],
+                                      [NSNumber numberWithInt:app.myYaruoFundamentalAttackPower],
+                                      [NSNumber numberWithInt:app.myYaruoFundamentalDeffencePower],
+                                      [NSNumber numberWithInt:app.mySelectCharacter],
+                                      [NSNumber numberWithInt:app.myCharacterFundamentalAttackPower],
+                                      [NSNumber numberWithInt:app.myCharacterFundamentalDeffencePower],
+                                      [NSNumber numberWithInt:app.myGikoModifyingAttackPower],
+                                      [NSNumber numberWithInt:app.myGikoModifyingDeffencePower],
+                                      [NSNumber numberWithInt:app.myMonarModifyingAttackPower],
+                                      [NSNumber numberWithInt:app.myMonarModifyingDeffencePower],
+                                      [NSNumber numberWithInt:app.mySyobonModifyingAttackPower],
+                                      [NSNumber numberWithInt:app.mySyobonModifyingDeffencePower],
+                                      [NSNumber numberWithInt:app.myYaruoModifyingAttackPower],
+                                      [NSNumber numberWithInt:app.myYaruoModifyingDeffencePower],
+                                      [NSNumber numberWithInt:app.myCharacterModifyingAttackPower],
+                                      [NSNumber numberWithInt:app.myCharacterModifyingDeffencePower],
+                                      [NSNumber numberWithBool:app.myGikoAttackPermitted],
+                                      [NSNumber numberWithBool:app.myGikoDeffencePermitted],
+                                      [NSNumber numberWithBool:app.myMonarAttackPermitted],
+                                      [NSNumber numberWithBool:app.myMonarDeffencePermitted],
+                                      [NSNumber numberWithBool:app.mySyobonAttackPermitted],
+                                      [NSNumber numberWithBool:app.mySyobonDeffencePermitted],
+                                      [NSNumber numberWithBool:app.myYaruoAttackPermitted],
+                                      [NSNumber numberWithBool:app.myYaruoDeffencePermitted],
+                                      app.myTomb,
+                                      [NSNumber numberWithBool:app.doIUseCard],
+                                      [NSNumber numberWithInt:app.myUsingCardNumber],
+                                      app.myFieldCard,
+                                      app.myEnergyCard,
+                                      [NSNumber numberWithBool:app.canIPlaySorceryCard],
+                                      [NSNumber numberWithBool:app.canIPlayFieldCard],
+                                      [NSNumber numberWithBool:app.canIActivateFieldCard],
+                                      [NSNumber numberWithBool:app.canIPlayEnergyCard],
+                                      [NSNumber numberWithBool:app.canIActivateEnergyCard],
+                                      [NSNumber numberWithBool:app.denymyCardPlaying],
+                                      [NSNumber numberWithInt:app.myDamage],
+                                      [NSNumber numberWithInt:app.mySelectColor],
+                                      app.cardsIUsedInThisTurn,
+                                     nil];
+    
+    NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:@"myLifeGage",
+                                 @"myDeckCardList",
+                                 @"myHand",
+                                 @"myGikoFundamentalAttackPower",
+                                 @"myGikoFundamentalDeffencePower",
+                                 @"myMonarFundamentalAttackPower",
+                                 @"myMonarFundamentalDeffencePower",
+                                 @"mySyobonFundamentalAttackPower",
+                                 @"mySyobonFundamentalDeffencePower",
+                                 @"myYaruoFundamentalAttackPower",
+                                 @"myYaruoFundamentalDeffencePower",
+                                 @"mySelectCharacter",
+                                 @"myCharacterFundamentalAttackPower",
+                                 @"myCharacterFundamentalDeffencePower",
+                                 @"myGikoModifyingAttackPower",
+                                 @"myGikoModifyingDeffencePower",
+                                 @"myMonarModifyingAttackPower",
+                                 @"myMonarModifyingDeffencePower",
+                                 @"mySyobonModifyingAttackPower",
+                                 @"mySyobonModifyingDeffencePower",
+                                 @"myYaruoModifyingAttackPower",
+                                 @"myYaruoModifyingDeffencePower",
+                                 @"myCharacterModifyingAttackPower",
+                                 @"myCharacterModifyingDeffencePower",
+                                 @"myGikoAttackPermitted",
+                                 @"myGikoDeffencePermitted",
+                                 @"myMonarAttackPermitted",
+                                 @"myMonarDeffencePermitted",
+                                 @"mySyobonAttackPermitted",
+                                 @"mySyobonDeffencePermitted",
+                                 @"myYaruoAttackPermitted",
+                                 @"myYaruoDeffencePermitted",
+                                 @"myTomb",
+                                 @"doIUseCard",
+                                 @"myUsingCardNumber",
+                                 @"myFieldCard",
+                                 @"myEnergyCard",
+                                 @"canIPlaySorceryCard",
+                                 @"canIPlayFieldCard",
+                                 @"canIActivateFieldCard",
+                                 @"canIPlayEnergyCard",
+                                 @"canIActivateEnergyCard",
+                                 @"denymyCardPlaying",
+                                 @"myDamage",
+                                 @"mySelectColor",
+                                 @"cardsIUsedInThisTurn",
+                                 nil];
+    
+    
+    //サーバ通信テスト用文字列＆データ
+    //NSString *myBattleData = [NSString stringWithFormat:@"id=けいおんみてないとか・・・"];
+
+    //送るデータをキーとともにディクショナリ化する
+    NSDictionary *dic = [NSDictionary dictionaryWithObjects:myBattleData_parameter forKeys:myBattleData_key];
+    NSData *queryData = [NSKeyedArchiver archivedDataWithRootObject:dic];
+
+    //     //外部から接続する場合
+    NSString *url = @"http://utakatanet.dip.jp:58080/test.php";
+    //     //内部から接続する場合
+    //NSString *url = @"http://192.168.10.176:58080/test.php";
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:queryData];
+    
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *result;
+    result= [NSURLConnection sendSynchronousRequest:request
+                                  returningResponse:&response
+                                              error:&error];
+    
+    //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    while (!result) {
+        [NSThread sleepForTimeInterval:0.5];
+        result= [NSURLConnection sendSynchronousRequest:request
+                                      returningResponse:&response
+                                                  error:&error];
+        NSLog(@"とおりました");
+    }
+    
+    NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", string);
+    
+    [SVProgressHUD dismiss];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
@@ -1478,7 +1627,7 @@
         NSLog(@"3-1");
     }else{
         for (int i = 0; i < [my1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 140)];
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 20)];
         }
         NSLog(@"3-2");
     }
@@ -1486,7 +1635,7 @@
             [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
     }else{
         for (int i = 0; i < [enemy1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 140)];
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
         }
         
     }
@@ -1512,16 +1661,19 @@
       initWithTarget:self action:@selector(resultFadeOut:)]];
     
     [self insertTextViewToParentView:view Text:@"カードの使用結果" Rectangle:CGRectMake(80,5,180,30)];
-    if(app.myUsingCardNumber == -1){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：なし"] Rectangle:CGRectMake(20, 60, 240, 20)];
+    if([app.cardsIUsedInThisTurn count] == 0){
+        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 40, 240, 20)];
     }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：%@",[app.cardList_cardName objectAtIndex:app.myUsingCardNumber]] Rectangle:CGRectMake(20, 60, 240, 20)];
+        for (int i = 0; i < [app.cardsIUsedInThisTurn count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 40 + (20 * i), 240, 20)];
+        }
     }
-    if (app.enemyUsingCardNumber == -1) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：なし"] Rectangle:CGRectMake(20, 80, 240, 20)];
+    if ([app.cardsEnemyUsedInThisTurn count] == 0) {
+        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
     }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：%@",[app.cardList_cardName objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 80, 240, 20)];
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：%@",[app.cardList_text objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 100, 240, 260)];
+        for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
+        }
     }
     
     [_allImageView addSubview:view];
@@ -1544,18 +1696,48 @@
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
+    
+    
+    [view addSubview:_myGiko];
+    [view addSubview:_myMonar];
+    [view addSubview:_mySyobon];
+    [view addSubview:_myYaruo];
+    [view addSubview:_enemyGiko];
+    [view addSubview:_enemyMonar];
+    [view addSubview:_enemySyobon];
+    [view addSubview:_enemyYaruo];
+    
+    _myGiko.frame      = CGRectMake(20,  40, view.bounds.size.width - 40, 20);
+    _myMonar.frame     = CGRectMake(20,  60, view.bounds.size.width - 40, 20);
+    _mySyobon.frame    = CGRectMake(20,  80, view.bounds.size.width - 40, 20);
+    _myYaruo.frame     = CGRectMake(20, 100, view.bounds.size.width - 40, 20);
+    _enemyGiko.frame   = CGRectMake(20, 220, view.bounds.size.width - 40, 20);
+    _enemyMonar.frame  = CGRectMake(20, 240, view.bounds.size.width - 40, 20);
+    _enemySyobon.frame = CGRectMake(20, 260, view.bounds.size.width - 40, 20);
+    _enemyYaruo.frame  = CGRectMake(20, 280, view.bounds.size.width - 40, 20);
+    
+    UIFont *font = [UIFont fontWithName:@"Didot" size:12];
+    _myGiko.font = font;
+    _myMonar.font = font;
+    _mySyobon.font = font;
+    _myYaruo.font = font;
+    _enemyGiko.font = font;
+    _enemyMonar.font = font;
+    _enemySyobon.font = font;
+    _enemyYaruo.font = font;
+    
+
     [self insertTextViewToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30)];
-    if(app.myUsingCardNumber == -1){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：なし"] Rectangle:CGRectMake(20, 60, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"自分の選択カード：%@",[app.cardList_cardName objectAtIndex:app.myUsingCardNumber]] Rectangle:CGRectMake(20, 60, 240, 20)];
-    }
-    if (app.enemyUsingCardNumber == -1) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：なし"] Rectangle:CGRectMake(20, 80, 240, 20)];
-    }else{
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手の選択カード：%@",[app.cardList_cardName objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 80, 240, 20)];
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"相手のカード効果：%@",[app.cardList_text objectAtIndex:app.enemyUsingCardNumber]] Rectangle:CGRectMake(20, 100, 240, 300)];
-    }
+    //TODO: 各キャラの攻撃力・防御力を表示した上で、今回選ばれているキャラクターのみ赤字にする
+    _myGiko.text    = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower];
+    _myMonar.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower];
+    _mySyobon.text  = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower];
+    _myYaruo.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower];
+    _enemyGiko.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower];
+    _enemyMonar.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower];
+    _enemySyobon.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower];
+    _enemyYaruo.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower];
+    
     
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
@@ -1611,7 +1793,7 @@
         [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
     }else{
         for (int i = 0; i < [enemy1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 140)];
+            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
         }
         
     }
