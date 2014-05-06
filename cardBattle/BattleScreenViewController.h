@@ -13,6 +13,7 @@
 #import "DeckViewController.h"
 #import <CoreMotion/CoreMotion.h>
 #import "SVProgressHUD.h"
+#import "SBJson.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3

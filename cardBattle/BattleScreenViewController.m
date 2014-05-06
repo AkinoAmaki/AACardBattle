@@ -380,21 +380,29 @@
 
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:myBattleData_parameter forKeys:myBattleData_key];
-    NSData *queryData = [NSKeyedArchiver archivedDataWithRootObject:dic];
+    //JSONに変換
+    NSString *jsonRequest = [dic JSONRepresentation];
+    //JSONに変換)
+    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
+        //NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    
 
     //     //外部から接続する場合
     NSString *url = @"http://utakatanet.dip.jp:58080/test.php";
     //     //内部から接続する場合
     //NSString *url = @"http://192.168.10.176:58080/test.php";
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *request;
+    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+        //[request setURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:queryData];
+        //[request setHTTPBody:queryData];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu",[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
     
     NSURLResponse *response;
     NSError *error;
-    
     NSData *result;
     result= [NSURLConnection sendSynchronousRequest:request
                                   returningResponse:&response
@@ -416,7 +424,8 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    
+
+
 }
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{

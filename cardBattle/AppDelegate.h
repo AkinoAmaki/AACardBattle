@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SVProgressHUD.h"
+#import "SBJson.h"
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
-
+    int playerID; //プレイヤー固有のID
     NSArray *cardList_cardName;
     NSArray *cardList_pngName;
     NSMutableArray *myDeck; //デッキに入っているカードを管理する配列(配列番号＝カード番号)

@@ -19,6 +19,38 @@
 #pragma mark デッキの準備
     
     if(firstLaunch == 0){
+        //ユニークなプレイヤーIDを発番する
+            //サーバ側で取得したIDを受け取り、playerIDとして保持する
+            [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+            NSString *url = @"http://utakatanet.dip.jp:58080/playerID.php";
+            NSMutableURLRequest *request;
+            request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+            [request setHTTPMethod:@"POST"];
+            NSURLResponse *response;
+            NSError *error;
+            NSData *result;
+            result= [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+            
+            //データがgetできなければ、0.5秒待ったあとに再度get処理する
+            while (!result) {
+                [NSThread sleepForTimeInterval:0.5];
+                result= [NSURLConnection sendSynchronousRequest:request
+                                              returningResponse:&response
+                                                          error:&error];
+                NSLog(@"とおりました");
+            }
+        
+            NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+            playerID = [string intValue];
+            NSLog(@"PlayerID:%d", playerID);
+            
+            [SVProgressHUD dismiss];
+        
+        
+        //最初のデッキを構築する
+        
         NSMutableArray *firstCards = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
                                                                              [NSNumber numberWithInteger:4],
                                                                              [NSNumber numberWithInteger:4],
@@ -87,8 +119,7 @@
         }
     }
     _myDeckCardList = [self shuffledArray:_myDeckCardList];
-    
-    NSLog(@"デッキカード一覧：%@",_myDeckCardList);
+
 
     
 #pragma mark カード関連のデータ（カード名、カードナンバー等）の配列
@@ -114,10 +145,7 @@
     _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:112],[NSNumber numberWithInt:132],[NSNumber numberWithInt:144], nil];
     _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:27],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:147],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150],[NSNumber numberWithInt:151], nil];
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:126],[NSNumber numberWithInt:148], nil];
-    
-    NSLog(@"%f：%f",[[UIScreen mainScreen] bounds].size.width ,[[UIScreen mainScreen] bounds].size.height);
 
-    
     
 #pragma mark 対戦に関連する各種数値の初期化
     
