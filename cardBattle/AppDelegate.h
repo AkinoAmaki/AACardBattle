@@ -15,7 +15,6 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
-    int playerID; //プレイヤー固有のID
     NSArray *cardList_cardName;
     NSArray *cardList_pngName;
     NSMutableArray *myDeck; //デッキに入っているカードを管理する配列(配列番号＝カード番号)
@@ -27,7 +26,8 @@
 
 
 //双方に関係する変数
-
+@property int playerID; //プレイヤー固有のID
+@property NSString *nickName; //プレイヤーのニックネーム
 @property (nonatomic, retain) NSArray *cardList_cardName; //カードごとのカード名
 @property (nonatomic, retain) NSArray *cardList_pngName; //カードごとの画像名（拡張子含む）
 @property (nonatomic, retain) NSArray *cardList_type; //カードごとのカードタイプ

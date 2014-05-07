@@ -14,6 +14,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import "SVProgressHUD.h"
 #import "SBJson.h"
+#import "GetLocation.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -48,8 +49,7 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
-    
-        NSMutableData *receivedData; //通信テスト用のデータ変数
+    GetLocation *getlocation;
 }
 
 @property int drawCount;

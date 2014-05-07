@@ -15,8 +15,15 @@
     // Override point for customization after application launch.
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
+    _playerID = [ud integerForKey:@"playerID_ud"];
 
 #pragma mark デッキの準備
+    
+    
+    //TODO: 初回起動時にニックネームを入れる画面を表示する
+    _nickName = @"あきの";
+    NSLog(@"ニックネーム：%@",_nickName);
+    NSLog(@"ID:%d",_playerID);
     
     if(firstLaunch == 0){
         //ユニークなプレイヤーIDを発番する
@@ -43,8 +50,8 @@
             }
         
             NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-            playerID = [string intValue];
-            NSLog(@"PlayerID:%d", playerID);
+            [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
+        
             
             [SVProgressHUD dismiss];
         
@@ -247,12 +254,9 @@
     _cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
     
     
-    
-    
-    
     // 一括でテキストビューのフォントをArialのサイズ12.0fに統一する
     [[UITextView appearance] setFont:[UIFont fontWithName:@"Arial" size:12]];
-
+    
     return YES;
 }
 

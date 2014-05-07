@@ -278,6 +278,7 @@
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     
     NSArray *myBattleData_parameter = [[NSArray alloc] initWithObjects:
+                                       [NSNumber numberWithInt:app.playerID],
                                       [NSNumber numberWithInt:app.myLifeGage],
                                       app.myDeckCardList,
                                       app.myHand,
@@ -326,7 +327,9 @@
                                       app.cardsIUsedInThisTurn,
                                      nil];
     
-    NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:@"myLifeGage",
+    NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:
+                                 @"playerID",
+                                 @"myLifeGage",
                                  @"myDeckCardList",
                                  @"myHand",
                                  @"myGikoFundamentalAttackPower",
@@ -374,9 +377,6 @@
                                  @"cardsIUsedInThisTurn",
                                  nil];
     
-    
-    //サーバ通信テスト用文字列＆データ
-    //NSString *myBattleData = [NSString stringWithFormat:@"id=けいおんみてないとか・・・"];
 
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:myBattleData_parameter forKeys:myBattleData_key];
@@ -384,18 +384,14 @@
     NSString *jsonRequest = [dic JSONRepresentation];
     //JSONに変換)
     NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
-        //NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     
-
     //     //外部から接続する場合
     NSString *url = @"http://utakatanet.dip.jp:58080/test.php";
     //     //内部から接続する場合
     //NSString *url = @"http://192.168.10.176:58080/test.php";
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
-        //[request setURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"POST"];
-        //[request setHTTPBody:queryData];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%lu",[requestData length]] forHTTPHeaderField:@"Content-Length"];
@@ -423,13 +419,30 @@
     [SVProgressHUD dismiss];
 }
 
-- (void)debug2 :(UITapGestureRecognizer *)sender{
-
+- (void)debug2 :(UITapGestureRecognizer *)sender{    
+    getlocation = [[GetLocation alloc] init];
+    [getlocation sendLocationDataToServer];
 
 }
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
+    //対戦開始時の相手検索を行う
     
+    //バンプ時のタイムスタンプを取得
+    // NSDateFormatter を用意
+    NSDateFormatter* df = [[NSDateFormatter alloc] init];
+    // カレンダーを西暦（グレゴリオ暦）で用意
+    NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    // カレンダーをセット
+    [df setCalendar:cal];
+    // タイムロケールをシステムロケールでセット（24時間表示のため）
+    [df setLocale:[NSLocale systemLocale]];
+    // タイムスタンプ書式をセット
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    // 現在日時から文字列を生成
+    NSString *dateString = [df stringFromDate:[NSDate date]];
+    // ログに出力
+    NSLog(@"%@", dateString);
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------

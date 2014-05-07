@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F1D265219061E1500B43A76 /* border_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D265119061E1500B43A76 /* border_character.png */; };
+		0F29BD071919343C00E9D59C /* GetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD061919343C00E9D59C /* GetLocation.m */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
@@ -69,7 +70,6 @@
 		0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */; };
 		0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FD18DF22AB00E03D23 /* library.png */; };
 		0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDB97F618CAD30200C7566E /* CoreLocation.framework */; };
-		0FDB980018CAD4B100C7566E /* ConnectToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB97FF18CAD4B100C7566E /* ConnectToServer.m */; };
 		0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB980218CADB0700C7566E /* BattleCaliculate.m */; };
 		0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB980818CB599F00C7566E /* DeckScreenViewController.m */; };
 		0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB980B18CB59B800C7566E /* BattleScreenViewController.m */; };
@@ -112,6 +112,8 @@
 
 /* Begin PBXFileReference section */
 		0F1D265119061E1500B43A76 /* border_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_character.png; sourceTree = "<group>"; };
+		0F29BD051919343C00E9D59C /* GetLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocation.h; path = cardBattle/GetLocation.h; sourceTree = SOURCE_ROOT; };
+		0F29BD061919343C00E9D59C /* GetLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocation.m; path = cardBattle/GetLocation.m; sourceTree = SOURCE_ROOT; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
@@ -188,8 +190,6 @@
 		0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_middleCard.png; sourceTree = "<group>"; };
 		0FD1D9FD18DF22AB00E03D23 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		0FDB97F618CAD30200C7566E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0FDB97FE18CAD4B100C7566E /* ConnectToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectToServer.h; sourceTree = "<group>"; };
-		0FDB97FF18CAD4B100C7566E /* ConnectToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectToServer.m; sourceTree = "<group>"; };
 		0FDB980118CADB0700C7566E /* BattleCaliculate.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.c.h; path = BattleCaliculate.h; sourceTree = "<group>"; };
 		0FDB980218CADB0700C7566E /* BattleCaliculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleCaliculate.m; sourceTree = "<group>"; };
 		0FDB980718CB599F00C7566E /* DeckScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckScreenViewController.h; sourceTree = "<group>"; };
@@ -427,15 +427,15 @@
 				0FDB980B18CB59B800C7566E /* BattleScreenViewController.m */,
 				0FDB980118CADB0700C7566E /* BattleCaliculate.h */,
 				0FDB980218CADB0700C7566E /* BattleCaliculate.m */,
-				0FDB97FE18CAD4B100C7566E /* ConnectToServer.h */,
-				0FDB97FF18CAD4B100C7566E /* ConnectToServer.m */,
 				0FDB980718CB599F00C7566E /* DeckScreenViewController.h */,
 				0FDB980818CB599F00C7566E /* DeckScreenViewController.m */,
 				0FDB981918CF526100C7566E /* DeckViewController.h */,
 				0FDB981A18CF526100C7566E /* DeckViewController.m */,
 				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
-				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
+				0F29BD051919343C00E9D59C /* GetLocation.h */,
+				0F29BD061919343C00E9D59C /* GetLocation.m */,
+				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
 				0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */,
 				0F6EB4511915EB1700BD0E41 /* SVProgressHUD.m */,
@@ -633,7 +633,6 @@
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
-				0FDB980018CAD4B100C7566E /* ConnectToServer.m in Sources */,
 				0F6EB4781916B2E400BD0E41 /* SBJsonStreamWriter.m in Sources */,
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
@@ -642,6 +641,7 @@
 				0F6EB47B1916B2E400BD0E41 /* SBJsonTokeniser.m in Sources */,
 				0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */,
 				0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */,
+				0F29BD071919343C00E9D59C /* GetLocation.m in Sources */,
 				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0F6EB4731916B2E400BD0E41 /* SBJsonParser.m in Sources */,
 				0F6EB4761916B2E400BD0E41 /* SBJsonStreamParserAdapter.m in Sources */,
