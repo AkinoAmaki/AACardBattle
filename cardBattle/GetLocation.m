@@ -14,6 +14,8 @@
 @end
 
 @implementation GetLocation
+@synthesize enemyPlayerID;
+@synthesize enemyNickName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,9 +43,9 @@
     // タイムスタンプ書式をセット
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     // 現在日時から文字列を生成
-    dateString = [df stringFromDate:[NSDate date]];
+    _dateString = [df stringFromDate:[NSDate date]];
     // ログに出力
-    NSLog(@"%@", dateString);
+    //NSLog(@"%@", _dateString);
 
     //
     // NotDetermined、Authorized以外（つまりDenied、Restricted）の時は、
@@ -72,6 +74,7 @@
     // 位置情報取得開始
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     [_locationManager startUpdatingLocation];
+    
 }
 
 - (void)viewDidLoad
@@ -87,16 +90,16 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation *location = [locations lastObject];
-    
     [_locationManager stopUpdatingLocation];
-    NSLog(@"latitude:%+.6f",location.coordinate.latitude);
-    NSLog(@"longitude:%+.6f",location.coordinate.longitude);
+    _locationManager = nil;
+    CLLocation *location = [locations lastObject];
+//    NSLog(@"latitude:%+.6f",location.coordinate.latitude);
+//    NSLog(@"longitude:%+.6f",location.coordinate.longitude);
     
     app = [[UIApplication sharedApplication] delegate];
     
     //一旦配列に直した上でディクショナリ化する（配列１つ分のディクショナリとして格納される）。こうした場合、サーバ側の処理が楽になる。
-    NSArray *locationArrayParameter_before = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:app.playerID],app.nickName, dateString, [NSNumber numberWithFloat:location.coordinate.latitude], [NSNumber numberWithFloat:location.coordinate.longitude], nil];
+    NSArray *locationArrayParameter_before = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:app.playerID],app.myNickName, _dateString, [NSNumber numberWithFloat:location.coordinate.latitude], [NSNumber numberWithFloat:location.coordinate.longitude], nil];
     NSArray *locationArrayParameter = [[NSArray alloc] initWithObjects:locationArrayParameter_before, nil];
     
     NSArray *locationArrayKey = [[NSArray alloc] initWithObjects:@"locationArrayKey", nil];
@@ -128,20 +131,68 @@
                                               error:&error];
     
     //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    int loop = 0;
     while (!result) {
         [NSThread sleepForTimeInterval:0.5];
         result= [NSURLConnection sendSynchronousRequest:request
                                       returningResponse:&response
                                                   error:&error];
-        NSLog(@"とおりました");
+        NSLog(@"再度get処理実行中...");
+        if(loop == 20){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報を取得不可" message:@"位置情報を取得できませんでした。電波の弱いか、通信が途切れています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+            return;
+        }
+        loop++;
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", string);
+    enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
+    enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
+    [SVProgressHUD dismiss];
     
+    
+    //たまに２回位置情報を取得することがあるので、確認は一回にする
+    if(app.enemyPlayerID == 0){
+        _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
+        [_isAEnemyName show];
+        [self syncronize];
+    }
+   
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"エラー" message:@"位置情報が取得できませんでした。" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
     [SVProgressHUD dismiss];
 }
 
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(alertView == _isAEnemyName){
+        switch (buttonIndex) {
+            case 0:
+                app.enemyNickName = enemyNickName;
+                app.enemyPlayerID = enemyPlayerID;
+                NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+                FINISHED
+                break;
+            case 1:
+                FINISHED
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"やり直し" message:@"iPhoneをぶつけ合ってください！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertView show];
+                break;
+        }
+    }
+}
+
+- (void)syncronize{
+    syncFinished = NO;
+    while (!syncFinished) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    }
+}
 
 @end

@@ -25,9 +25,11 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
-//双方に関係する変数
+//双方に関係する変数及び基礎的な変数
 @property int playerID; //プレイヤー固有のID
-@property NSString *nickName; //プレイヤーのニックネーム
+@property int enemyPlayerID; //相手プレイヤーのID
+@property NSString *myNickName; //プレイヤーのニックネーム
+@property NSString *enemyNickName; //相手プレイヤーのニックネーム
 @property (nonatomic, retain) NSArray *cardList_cardName; //カードごとのカード名
 @property (nonatomic, retain) NSArray *cardList_pngName; //カードごとの画像名（拡張子含む）
 @property (nonatomic, retain) NSArray *cardList_type; //カードごとのカードタイプ

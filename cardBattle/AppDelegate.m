@@ -14,16 +14,10 @@
 {
     // Override point for customization after application launch.
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
-    _playerID = [ud integerForKey:@"playerID_ud"];
 
 #pragma mark デッキの準備
-    
-    
-    //TODO: 初回起動時にニックネームを入れる画面を表示する
-    _nickName = @"あきの";
-    NSLog(@"ニックネーム：%@",_nickName);
-    NSLog(@"ID:%d",_playerID);
+     firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
+
     
     if(firstLaunch == 0){
         //ユニークなプレイヤーIDを発番する
@@ -52,8 +46,8 @@
             NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
             [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
         
-            
             [SVProgressHUD dismiss];
+        
         
         
         //最初のデッキを構築する
@@ -108,11 +102,18 @@
         NSLog(@"初回起動");
     }
     
-//    // アプリケーションのバンドル識別子を取得します。
-//    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
-//    
-//    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
-//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
+    //TODO: 初回起動時にニックネームを入れる画面を表示する
+    _myNickName = @"あきの";
+    _playerID = [ud integerForKey:@"playerID_ud"];
+    NSLog(@"ニックネーム：%@",_myNickName);
+    NSLog(@"ID:%d",_playerID);
+    
+    
+    // アプリケーションのバンドル識別子を取得します。
+    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
+    
+    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
     
     
     _myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];

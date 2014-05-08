@@ -422,27 +422,10 @@
 - (void)debug2 :(UITapGestureRecognizer *)sender{    
     getlocation = [[GetLocation alloc] init];
     [getlocation sendLocationDataToServer];
-
 }
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-    //対戦開始時の相手検索を行う
     
-    //バンプ時のタイムスタンプを取得
-    // NSDateFormatter を用意
-    NSDateFormatter* df = [[NSDateFormatter alloc] init];
-    // カレンダーを西暦（グレゴリオ暦）で用意
-    NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    // カレンダーをセット
-    [df setCalendar:cal];
-    // タイムロケールをシステムロケールでセット（24時間表示のため）
-    [df setLocale:[NSLocale systemLocale]];
-    // タイムスタンプ書式をセット
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    // 現在日時から文字列を生成
-    NSString *dateString = [df stringFromDate:[NSDate date]];
-    // ログに出力
-    NSLog(@"%@", dateString);
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
