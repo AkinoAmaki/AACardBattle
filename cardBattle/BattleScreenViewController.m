@@ -275,15 +275,19 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-
+    SendDataToServer *testSend = [[SendDataToServer alloc] init];
+    [testSend send];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{    
-
+    location = [[GetLocation alloc] init];
+    [location sendLocationDataToServer];
 }
 
+
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-    
+    enemyData = [[GetEnemyDataFromServer alloc] init];
+    [enemyData get];
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -2864,7 +2868,6 @@
                 break;
         }
     }
-
 }
 
 
@@ -3034,14 +3037,6 @@
 
 }
 
-- (void)sync{
-    syncFinished = NO;
-    int i = 0;
-    while (!syncFinished) {
-        //NSLog(@"ループ中：%d",++i);
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
-    }
-}
 
 //フィールドカードを定期的に発動させるメソッドを実装する
 -(void) activateFieldCardInTiming :(int)timing{
@@ -3081,6 +3076,13 @@
             break;
         default:
             break;
+    }
+}
+
+- (void)sync{
+    syncFinished = NO;
+    while (!syncFinished) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     }
 }
 

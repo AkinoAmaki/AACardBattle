@@ -17,6 +17,7 @@
 @synthesize enemyPlayerID;
 @synthesize enemyNickName;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,7 +46,7 @@
     // 現在日時から文字列を生成
     _dateString = [df stringFromDate:[NSDate date]];
     // ログに出力
-    //NSLog(@"%@", _dateString);
+    NSLog(@"%@", _dateString);
 
     //
     // NotDetermined、Authorized以外（つまりDenied、Restricted）の時は、
@@ -93,8 +94,8 @@
     [_locationManager stopUpdatingLocation];
     _locationManager = nil;
     CLLocation *location = [locations lastObject];
-//    NSLog(@"latitude:%+.6f",location.coordinate.latitude);
-//    NSLog(@"longitude:%+.6f",location.coordinate.longitude);
+    NSLog(@"latitude:%+.6f",location.coordinate.latitude);
+    NSLog(@"longitude:%+.6f",location.coordinate.longitude);
     
     app = [[UIApplication sharedApplication] delegate];
     
@@ -147,6 +148,7 @@
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",string);
     enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
     enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
     [SVProgressHUD dismiss];
