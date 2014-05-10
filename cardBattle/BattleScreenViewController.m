@@ -275,153 +275,11 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
-    
-    NSArray *myBattleData_parameter = [[NSArray alloc] initWithObjects:
-                                       [NSNumber numberWithInt:app.playerID],
-                                      [NSNumber numberWithInt:app.myLifeGage],
-                                      app.myDeckCardList,
-                                      app.myHand,
-                                      [NSNumber numberWithInt:app.myGikoFundamentalAttackPower],
-                                      [NSNumber numberWithInt:app.myGikoFundamentalDeffencePower],
-                                      [NSNumber numberWithInt:app.myMonarFundamentalAttackPower],
-                                      [NSNumber numberWithInt:app.myMonarFundamentalDeffencePower],
-                                      [NSNumber numberWithInt:app.mySyobonFundamentalAttackPower],
-                                      [NSNumber numberWithInt:app.mySyobonFundamentalDeffencePower],
-                                      [NSNumber numberWithInt:app.myYaruoFundamentalAttackPower],
-                                      [NSNumber numberWithInt:app.myYaruoFundamentalDeffencePower],
-                                      [NSNumber numberWithInt:app.mySelectCharacter],
-                                      [NSNumber numberWithInt:app.myCharacterFundamentalAttackPower],
-                                      [NSNumber numberWithInt:app.myCharacterFundamentalDeffencePower],
-                                      [NSNumber numberWithInt:app.myGikoModifyingAttackPower],
-                                      [NSNumber numberWithInt:app.myGikoModifyingDeffencePower],
-                                      [NSNumber numberWithInt:app.myMonarModifyingAttackPower],
-                                      [NSNumber numberWithInt:app.myMonarModifyingDeffencePower],
-                                      [NSNumber numberWithInt:app.mySyobonModifyingAttackPower],
-                                      [NSNumber numberWithInt:app.mySyobonModifyingDeffencePower],
-                                      [NSNumber numberWithInt:app.myYaruoModifyingAttackPower],
-                                      [NSNumber numberWithInt:app.myYaruoModifyingDeffencePower],
-                                      [NSNumber numberWithInt:app.myCharacterModifyingAttackPower],
-                                      [NSNumber numberWithInt:app.myCharacterModifyingDeffencePower],
-                                      [NSNumber numberWithBool:app.myGikoAttackPermitted],
-                                      [NSNumber numberWithBool:app.myGikoDeffencePermitted],
-                                      [NSNumber numberWithBool:app.myMonarAttackPermitted],
-                                      [NSNumber numberWithBool:app.myMonarDeffencePermitted],
-                                      [NSNumber numberWithBool:app.mySyobonAttackPermitted],
-                                      [NSNumber numberWithBool:app.mySyobonDeffencePermitted],
-                                      [NSNumber numberWithBool:app.myYaruoAttackPermitted],
-                                      [NSNumber numberWithBool:app.myYaruoDeffencePermitted],
-                                      app.myTomb,
-                                      [NSNumber numberWithBool:app.doIUseCard],
-                                      [NSNumber numberWithInt:app.myUsingCardNumber],
-                                      app.myFieldCard,
-                                      app.myEnergyCard,
-                                      [NSNumber numberWithBool:app.canIPlaySorceryCard],
-                                      [NSNumber numberWithBool:app.canIPlayFieldCard],
-                                      [NSNumber numberWithBool:app.canIActivateFieldCard],
-                                      [NSNumber numberWithBool:app.canIPlayEnergyCard],
-                                      [NSNumber numberWithBool:app.canIActivateEnergyCard],
-                                      [NSNumber numberWithBool:app.denymyCardPlaying],
-                                      [NSNumber numberWithInt:app.myDamage],
-                                      [NSNumber numberWithInt:app.mySelectColor],
-                                      app.cardsIUsedInThisTurn,
-                                     nil];
-    
-    NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:
-                                 @"playerID",
-                                 @"myLifeGage",
-                                 @"myDeckCardList",
-                                 @"myHand",
-                                 @"myGikoFundamentalAttackPower",
-                                 @"myGikoFundamentalDeffencePower",
-                                 @"myMonarFundamentalAttackPower",
-                                 @"myMonarFundamentalDeffencePower",
-                                 @"mySyobonFundamentalAttackPower",
-                                 @"mySyobonFundamentalDeffencePower",
-                                 @"myYaruoFundamentalAttackPower",
-                                 @"myYaruoFundamentalDeffencePower",
-                                 @"mySelectCharacter",
-                                 @"myCharacterFundamentalAttackPower",
-                                 @"myCharacterFundamentalDeffencePower",
-                                 @"myGikoModifyingAttackPower",
-                                 @"myGikoModifyingDeffencePower",
-                                 @"myMonarModifyingAttackPower",
-                                 @"myMonarModifyingDeffencePower",
-                                 @"mySyobonModifyingAttackPower",
-                                 @"mySyobonModifyingDeffencePower",
-                                 @"myYaruoModifyingAttackPower",
-                                 @"myYaruoModifyingDeffencePower",
-                                 @"myCharacterModifyingAttackPower",
-                                 @"myCharacterModifyingDeffencePower",
-                                 @"myGikoAttackPermitted",
-                                 @"myGikoDeffencePermitted",
-                                 @"myMonarAttackPermitted",
-                                 @"myMonarDeffencePermitted",
-                                 @"mySyobonAttackPermitted",
-                                 @"mySyobonDeffencePermitted",
-                                 @"myYaruoAttackPermitted",
-                                 @"myYaruoDeffencePermitted",
-                                 @"myTomb",
-                                 @"doIUseCard",
-                                 @"myUsingCardNumber",
-                                 @"myFieldCard",
-                                 @"myEnergyCard",
-                                 @"canIPlaySorceryCard",
-                                 @"canIPlayFieldCard",
-                                 @"canIActivateFieldCard",
-                                 @"canIPlayEnergyCard",
-                                 @"canIActivateEnergyCard",
-                                 @"denymyCardPlaying",
-                                 @"myDamage",
-                                 @"mySelectColor",
-                                 @"cardsIUsedInThisTurn",
-                                 nil];
-    
 
-    //送るデータをキーとともにディクショナリ化する
-    NSDictionary *dic = [NSDictionary dictionaryWithObjects:myBattleData_parameter forKeys:myBattleData_key];
-    //JSONに変換
-    NSString *jsonRequest = [dic JSONRepresentation];
-    //JSONに変換)
-    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //     //外部から接続する場合
-    NSString *url = @"http://utakatanet.dip.jp:58080/test.php";
-    //     //内部から接続する場合
-    //NSString *url = @"http://192.168.10.176:58080/test.php";
-    NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%lu",[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody: requestData];
-    
-    NSURLResponse *response;
-    NSError *error;
-    NSData *result;
-    result= [NSURLConnection sendSynchronousRequest:request
-                                  returningResponse:&response
-                                              error:&error];
-    
-    //データがgetできなければ、0.5秒待ったあとに再度get処理する
-    while (!result) {
-        [NSThread sleepForTimeInterval:0.5];
-        result= [NSURLConnection sendSynchronousRequest:request
-                                      returningResponse:&response
-                                                  error:&error];
-        NSLog(@"とおりました");
-    }
-    
-    NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", string);
-    
-    [SVProgressHUD dismiss];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{    
-    getlocation = [[GetLocation alloc] init];
-    [getlocation sendLocationDataToServer];
+
 }
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
@@ -483,29 +341,29 @@
     //ターン開始時
     //[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目", turnCount]];
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
-    [self syncronize];
+    [self sync];
     [self activateFieldCardInTiming:0];
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
+    [self sync];
     
     
     //カード使用後
     [self phaseNameFadeIn:@"カード使用フェイズです。使用するカードを選択してください。"];
-    [self syncronize];
+    [self sync];
     
     
     //touchActionの入力を待つための同期処理
     while (cardIsCompletlyUsed == NO) {
-        [self syncronize];
+        [self sync];
     }
     
     [self activateFieldCardInTiming:1];
     [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
+    [self sync];
 
     //ダメージ計算
     [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
-    [self syncronize];
+    [self sync];
     [self activateFieldCardInTiming:2];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -513,13 +371,13 @@
     
     app.enemySelectCharacter = GIKO;
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
+    [self sync];
     //ターン終了時
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
-    [self syncronize];
+    [self sync];
     [self activateFieldCardInTiming:3];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self syncronize];
+    [self sync];
     
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -568,14 +426,14 @@
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
             [self createCharacterField:_allImageView];
-            [self syncronize];
+            [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             
             break;
         case 7:
             //対象キャラの防御力ずっと＋３（W2)
             [self createCharacterField:_allImageView];
-            [self syncronize];
+            [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:0];
             break;
         case 8:
@@ -2060,7 +1918,7 @@
             
             _doIUseSorcerycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"ソーサリーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseSorcerycard show];
-            [self syncronize];
+            [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
                 [self cardActivate:app.myUsingCardNumber];
@@ -2100,7 +1958,7 @@
             
             _doIUseFieldcard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"フィールドカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseFieldcard show];
-            [self syncronize];
+            [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
@@ -3176,7 +3034,7 @@
 
 }
 
-- (void)syncronize{
+- (void)sync{
     syncFinished = NO;
     int i = 0;
     while (!syncFinished) {

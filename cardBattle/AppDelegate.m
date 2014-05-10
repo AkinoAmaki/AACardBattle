@@ -16,40 +16,9 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
 #pragma mark デッキの準備
-     firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
+    firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
 
-    
     if(firstLaunch == 0){
-        //ユニークなプレイヤーIDを発番する
-            //サーバ側で取得したIDを受け取り、playerIDとして保持する
-            [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
-            NSString *url = @"http://utakatanet.dip.jp:58080/playerID.php";
-            NSMutableURLRequest *request;
-            request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
-            [request setHTTPMethod:@"POST"];
-            NSURLResponse *response;
-            NSError *error;
-            NSData *result;
-            result= [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-            
-            //データがgetできなければ、0.5秒待ったあとに再度get処理する
-            while (!result) {
-                [NSThread sleepForTimeInterval:0.5];
-                result= [NSURLConnection sendSynchronousRequest:request
-                                              returningResponse:&response
-                                                          error:&error];
-                NSLog(@"とおりました");
-            }
-        
-            NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-            [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
-        
-            [SVProgressHUD dismiss];
-        
-        
-        
         //最初のデッキを構築する
         
         NSMutableArray *firstCards = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
@@ -74,31 +43,62 @@
                                                                              [NSNumber numberWithInteger:19],
                                                                              [NSNumber numberWithInteger:20],nil];
         NSMutableArray *firstDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:40],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],
-                                     [NSNumber numberWithInteger:2],nil];
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:40],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],
+                                                                             [NSNumber numberWithInteger:2],nil];
         
         [ud setObject:firstCards forKey:@"myCards_ud"];
         [ud setObject:firstDeck forKey:@"myDeck_ud"];
         [ud setInteger:1 forKey:@"firstLaunch_ud"];
         [ud synchronize];
+        
+        //ユニークなプレイヤーIDを発番する
+        //サーバ側で取得したIDを受け取り、playerIDとして保持する
+        [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+        NSString *url = @"http://utakatanet.dip.jp:58080/playerID.php";
+        NSMutableURLRequest *request;
+        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+        [request setHTTPMethod:@"POST"];
+        NSURLResponse *response;
+        NSError *error;
+        NSData *result;
+        result= [NSURLConnection sendSynchronousRequest:request
+                                      returningResponse:&response
+                                                  error:&error];
+        
+        //データがgetできなければ、0.5秒待ったあとに再度get処理する
+        while (!result) {
+            [NSThread sleepForTimeInterval:0.5];
+            result= [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+            NSLog(@"とおりました");
+        }
+        
+        NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+        [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
+        [ud synchronize];
+        
+        [SVProgressHUD dismiss];
+        
+        NSLog(@"ぬぬぬ：%d",[ud integerForKey:@"firstLaunch_ud"]);
         NSLog(@"初回起動");
     }
     
@@ -109,11 +109,11 @@
     NSLog(@"ID:%d",_playerID);
     
     
-    // アプリケーションのバンドル識別子を取得します。
-    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
-    
-    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
+//    // アプリケーションのバンドル識別子を取得します。
+//    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
+//    
+//    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
+//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
     
     
     _myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];

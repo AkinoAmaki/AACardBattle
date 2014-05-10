@@ -156,7 +156,7 @@
     if(app.enemyPlayerID == 0){
         _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
         [_isAEnemyName show];
-        [self syncronize];
+        [self sync];
     }
    
 }
@@ -188,7 +188,7 @@
     }
 }
 
-- (void)syncronize{
+- (void)sync{
     syncFinished = NO;
     while (!syncFinished) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];

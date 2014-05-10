@@ -15,6 +15,8 @@
 #import "SVProgressHUD.h"
 #import "SBJson.h"
 #import "GetLocation.h"
+#import "SendDataToServer.h"
+#import "GetEnemyDataFromServer.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3

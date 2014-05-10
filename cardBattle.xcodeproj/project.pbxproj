@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0F1D265219061E1500B43A76 /* border_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D265119061E1500B43A76 /* border_character.png */; };
 		0F29BD071919343C00E9D59C /* GetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD061919343C00E9D59C /* GetLocation.m */; };
+		0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */; };
+		0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
@@ -114,6 +116,11 @@
 		0F1D265119061E1500B43A76 /* border_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_character.png; sourceTree = "<group>"; };
 		0F29BD051919343C00E9D59C /* GetLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocation.h; path = cardBattle/GetLocation.h; sourceTree = SOURCE_ROOT; };
 		0F29BD061919343C00E9D59C /* GetLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocation.m; path = cardBattle/GetLocation.m; sourceTree = SOURCE_ROOT; };
+		0F29BD0B191BDE9A00E9D59C /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDataToServer.h; sourceTree = "<group>"; };
+		0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDataToServer.m; sourceTree = "<group>"; };
+		0F29BD10191DF16800E9D59C /* GetEnemyDataFromServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetEnemyDataFromServer.h; sourceTree = "<group>"; };
+		0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetEnemyDataFromServer.m; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
@@ -404,6 +411,7 @@
 		0FDCA48918CACFC2003459F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F29BD0B191BDE9A00E9D59C /* libxml2.2.dylib */,
 				0F6EB44D1915EAD100BD0E41 /* QuartzCore.framework */,
 				0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */,
 				0FDB97F618CAD30200C7566E /* CoreLocation.framework */,
@@ -435,6 +443,10 @@
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
 				0F29BD051919343C00E9D59C /* GetLocation.h */,
 				0F29BD061919343C00E9D59C /* GetLocation.m */,
+				0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */,
+				0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */,
+				0F29BD10191DF16800E9D59C /* GetEnemyDataFromServer.h */,
+				0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
 				0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */,
@@ -633,6 +645,7 @@
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
+				0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */,
 				0F6EB4781916B2E400BD0E41 /* SBJsonStreamWriter.m in Sources */,
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
@@ -644,6 +657,7 @@
 				0F29BD071919343C00E9D59C /* GetLocation.m in Sources */,
 				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0F6EB4731916B2E400BD0E41 /* SBJsonParser.m in Sources */,
+				0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */,
 				0F6EB4761916B2E400BD0E41 /* SBJsonStreamParserAdapter.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,
 				0F6EB4771916B2E400BD0E41 /* SBJsonStreamParserState.m in Sources */,
@@ -775,6 +789,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cardBattle/cardBattle-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "cardBattle/cardBattle-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
