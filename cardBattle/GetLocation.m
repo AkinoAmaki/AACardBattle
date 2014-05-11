@@ -16,6 +16,7 @@
 @implementation GetLocation
 @synthesize enemyPlayerID;
 @synthesize enemyNickName;
+@synthesize syncFinish;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,6 +31,7 @@
 
 //位置情報を取得し、サーバに送信する
 - (void)sendLocationDataToServer{
+    
     //対戦開始時の相手検索を行う
     
     //バンプ時のタイムスタンプを取得
@@ -63,13 +65,12 @@
         return;
     }
     
-    
     _locationManager = [[CLLocationManager alloc] init];
     
     //位置情報は100m間隔での精度を持ち、自動更新はしない。
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.distanceFilter = 999999999;
     
 
     // 位置情報取得開始
@@ -91,11 +92,13 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    [_locationManager stopUpdatingLocation];
-    _locationManager = nil;
     CLLocation *location = [locations lastObject];
     NSLog(@"latitude:%+.6f",location.coordinate.latitude);
     NSLog(@"longitude:%+.6f",location.coordinate.longitude);
+    
+    [_locationManager stopUpdatingLocation];
+    _locationManager = nil;
+    
     
     app = [[UIApplication sharedApplication] delegate];
     
@@ -140,7 +143,7 @@
                                                   error:&error];
         NSLog(@"再度get処理実行中...");
         if(loop == 20){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報を取得不可" message:@"位置情報を取得できませんでした。電波の弱いか、通信が途切れています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報を取得不可" message:@"位置情報を取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
             return;
         }
@@ -154,12 +157,11 @@
     [SVProgressHUD dismiss];
     
     
-    //たまに２回位置情報を取得することがあるので、確認は一回にする
-    if(app.enemyPlayerID == 0){
-        _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
-        [_isAEnemyName show];
-        [self sync];
-    }
+
+    
+    _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
+    [_isAEnemyName show];
+    [self sync];
    
 }
 
@@ -175,24 +177,35 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView == _isAEnemyName){
         switch (buttonIndex) {
-            case 0:
+            case 0:{
+                FINISHED
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
                 NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-                FINISHED
                 break;
+            }
             case 1:
+            {
                 FINISHED
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"やり直し" message:@"iPhoneをぶつけ合ってください！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [alertView show];
-                break;
+                return;
+            }
         }
     }
+    [self callToBattleScreenViewController];
+}
+
+- (void)callToBattleScreenViewController{
+    //戦闘開始のコールをBattleScreenViewControllerに投げる
+    int i = 1;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:@"battleStartEvent" object:[NSNumber numberWithInt:i]];
 }
 
 - (void)sync{
-    syncFinished = NO;
-    while (!syncFinished) {
+    syncFinish = NO;
+    while (!syncFinish) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     }
 }

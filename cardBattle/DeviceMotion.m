@@ -14,10 +14,8 @@
 
 @implementation DeviceMotion
 
-- (void)viewDidLoad
+- (void)bump
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
     // インスタンスの生成
     _motionManager = [[CMMotionManager alloc] init];
@@ -27,20 +25,25 @@
         deviceMotionHandler = ^(CMDeviceMotion* motion, NSError* error){
             
             if(motion.userAcceleration.x > 1.7 || motion.userAcceleration.y > 1.7 || motion.userAcceleration.z > 1.7){
+                FINISHED
+                [NSThread sleepForTimeInterval:1];
                 [_motionManager stopDeviceMotionUpdates];
                 NSLog(@"大きく動きました");
+                location = [[GetLocation alloc] init];
+                [location sendLocationDataToServer];
+
             }
         };
-        
         [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:deviceMotionHandler];
+        [self sync];
     }
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)sync{
+    syncFinished2 = NO;
+    while (!syncFinished2) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    }
 }
 
 @end

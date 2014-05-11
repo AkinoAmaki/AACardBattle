@@ -11,12 +11,10 @@
 #import "DeckViewController.h"
 #import "BattleCaliculate.h"
 #import "DeckViewController.h"
-#import <CoreMotion/CoreMotion.h>
+#import "DeviceMotion.h"
 #import "SVProgressHUD.h"
-#import "SBJson.h"
-#import "GetLocation.h"
-#import "SendDataToServer.h"
 #import "GetEnemyDataFromServer.h"
+#import "GetLocation.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -51,11 +49,13 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
-    GetLocation *location;
+
     GetEnemyDataFromServer *enemyData;
+    DeviceMotion *motion;
     
 }
 
+@property int battleStartNum; //0ならバトル未開始、1になった瞬間に開始(1のデータはGetLocationクラスから飛んでくる)
 @property int drawCount;
 @property int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
 
@@ -145,11 +145,13 @@
 
 
 //各種アラートビューを実装(ボタン押下時にアクションを起こす必要のあるものに限る)
+@property UIAlertView *battleStart;
 @property UIAlertView *putACardToLibraryTopOrBottom;
 @property UIAlertView *doIUseSorcerycard;
 @property UIAlertView *doIUseFieldcard;
 @property UIAlertView *doIUseEnergycard;
 
 - (IBAction)keisan:(id)sender;
+- (void) transitView:(NSNotification *)note;
 
 @end

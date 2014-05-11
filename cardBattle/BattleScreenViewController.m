@@ -13,6 +13,7 @@
 @end
 
 @implementation BattleScreenViewController
+@synthesize battleStartNum;
 
 #pragma mark 初期化
 
@@ -31,199 +32,220 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
-    app = [[UIApplication sharedApplication] delegate];
-
-    turnCount = 1;
-    drawCount = 0;
-    selectedCardOrder = -1;
-    app.myUsingCardNumber = -1;
-    selectedCardTag = -1;
-    selectCardTag = -1;
-    syncFinished = NO;
-    doIUseCardInThisTurn = NO;
-    cardIsCompletlyUsed = NO;
     
-    _bc = [[BattleCaliculate alloc] init];
-    
-    _myCardImageViewArray = [[NSMutableArray alloc] init];
-    _myCardImageView_middle = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 90 , 135)];
-    [_allImageView addSubview:_myCardImageView_middle];
-    _myCardTextView_middle = [[UITextView alloc] initWithFrame:CGRectMake(115, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 135, 135)];
-    [_allImageView addSubview:_myCardTextView_middle];
-    _myCardTextView_middle.editable = NO;
-    
-    _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    _allImageView.userInteractionEnabled = YES;
-    
-    _myCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    _myCardImageView.userInteractionEnabled = YES;
-    [_allImageView addSubview:_myCardImageView];
-    
-    _border_character = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_character.png"]];
-    _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
-    
-    _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
-    
-    _cardInRegion = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
-    
-    _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
-    
-    _okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_okButton setTitle:@"OK" forState:UIControlStateNormal];
-    [_allImageView addSubview:_okButton];
-    _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 110, _allImageView.bounds.size.height - 130, 100, 20);
-    [_okButton addTarget:self action:@selector(okButton)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    
-
-    UIImage *img_myGiko     = [UIImage imageNamed:@"c0r.PNG"];
-    UIImage *img_myMonar     = [UIImage imageNamed:@"c5r.PNG"];
-    UIImage *img_mySyobon         = [UIImage imageNamed:@"c7r.PNG"];
-    UIImage *img_myYaruo     = [UIImage imageNamed:@"c1r.PNG"];
-    UIImage *img_enemyGiko  = [UIImage imageNamed:@"c0r.PNG"];
-    UIImage *img_enemyMonar  = [UIImage imageNamed:@"c5r.PNG"];
-    UIImage *img_enemySyobon      = [UIImage imageNamed:@"c7r.PNG"];
-    UIImage *img_enemyYaruo  = [UIImage imageNamed:@"c1r.PNG"];
-    
-    UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:img_myGiko];
-    UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:img_myMonar];
-    UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:img_mySyobon];
-    UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:img_myYaruo];
-    UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:img_enemyGiko];
-    UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:img_enemyMonar];
-    UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:img_enemySyobon];
-    UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:img_enemyYaruo];
-    
-    chara_myGiko.frame      = CGRectMake(48,  50,  32, 48);
-    chara_myMonar.frame      = CGRectMake(48,  98,  32, 48);
-    chara_mySyobon.frame          = CGRectMake(48, 146,  32, 48);
-    chara_myYaruo.frame      = CGRectMake(80,  98,  32, 48);
-    chara_enemyGiko.frame   = CGRectMake(240,  50,  32, 48);
-    chara_enemyMonar.frame   = CGRectMake(240,  98,  32, 48);
-    chara_enemySyobon.frame       = CGRectMake(240,  146, 32, 48);
-    chara_enemyYaruo.frame   = CGRectMake(208,  98,  32, 48);
-    
-    chara_myGiko.userInteractionEnabled     = YES;
-    chara_myMonar.userInteractionEnabled     = YES;
-    chara_mySyobon.userInteractionEnabled         = YES;
-    chara_myYaruo.userInteractionEnabled     = YES;
-    chara_enemyGiko.userInteractionEnabled  = YES;
-    chara_enemyMonar.userInteractionEnabled  = YES;
-    chara_enemySyobon.userInteractionEnabled      = YES;
-    chara_enemyYaruo.userInteractionEnabled  = YES;
-    
-    
-    chara_myGiko.tag    = GIKO;
-    chara_myMonar.tag    = MONAR;
-    chara_mySyobon.tag        = SYOBON;
-    chara_myYaruo.tag    = YARUO;
-    /*
-    chara_enemyGiko.tag = ;
-    chara_enemyMonar.tag = ;
-    chara_enemySYOBON.tag     = ;
-    chara_enemyYaruo.tag = ;
-     */
-    
-    [chara_myGiko addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [chara_myMonar addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [chara_mySyobon addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [chara_myYaruo addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-//    [chara_enemyGiko addGestureRecognizer:
-//     [[UITapGestureRecognizer alloc]
-//      initWithTarget:self action:@selector(touchesBegan:)]];
-//    [chara_enemyMonar addGestureRecognizer:
-//     [[UITapGestureRecognizer alloc]
-//      initWithTarget:self action:@selector(touchesBegan:)]];
-//    [chara_enemySyobon addGestureRecognizer:
-//     [[UITapGestureRecognizer alloc]
-//      initWithTarget:self action:@selector(touchesBegan:)]];
-//    [chara_enemyYaruo addGestureRecognizer:
-//     [[UITapGestureRecognizer alloc]
-//      initWithTarget:self action:@selector(touchesBegan:)]];
-
-    [_allImageView addSubview:chara_myGiko];
-    [_allImageView addSubview:chara_myMonar];
-    [_allImageView addSubview:chara_mySyobon];
-    [_allImageView addSubview:chara_myYaruo];
-    [_allImageView addSubview:chara_enemyGiko];
-    [_allImageView addSubview:chara_enemyMonar];
-    [_allImageView addSubview:chara_enemySyobon];
-    [_allImageView addSubview:chara_enemyYaruo];
-    
-    
-    
-    
-    //エネルギーの数を表示するビューを作成
-    _whiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-    _blueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-    _blackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-    _redEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-    _greenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
-    
-    _allEnergy = [[UIImageView alloc] init];
-    [_allEnergy addSubview:_whiteEnergyImage];
-    [_allEnergy addSubview:_blueEnergyImage];
-    [_allEnergy addSubview:_blackEnergyImage];
-    [_allEnergy addSubview:_redEnergyImage];
-    [_allEnergy addSubview:_greenEnergyImage];
-    
-    _whiteEnergyImage.frame = CGRectMake(0,  0, 20, 20);
-    _blueEnergyImage.frame  = CGRectMake(0, 20, 20, 20);
-    _blackEnergyImage.frame = CGRectMake(0, 40, 20, 20);
-    _redEnergyImage.frame   = CGRectMake(0, 60, 20, 20);
-    _greenEnergyImage.frame = CGRectMake(0, 80, 20, 20);
+    // "MyEvent"という名前のイベントが発行されたらtransitViewが呼ばれる
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transitView:) name:@"battleStartEvent" object:nil];
 
     
-    _whiteEnergyText = [[UITextView alloc] init];
-    _blueEnergyText = [[UITextView alloc] init];
-    _blackEnergyText = [[UITextView alloc] init];
-    _redEnergyText = [[UITextView alloc] init];
-    _greenEnergyText = [[UITextView alloc] init];
+
+    NSLog(@"start.");
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        app = [[UIApplication sharedApplication] delegate];
+        
+        turnCount = 1;
+        drawCount = 0;
+        selectedCardOrder = -1;
+        app.myUsingCardNumber = -1;
+        selectedCardTag = -1;
+        selectCardTag = -1;
+        syncFinished = NO;
+        doIUseCardInThisTurn = NO;
+        cardIsCompletlyUsed = NO;
+        battleStartNum = 0;
+        
+        _bc = [[BattleCaliculate alloc] init];
+        
+        _myCardImageViewArray = [[NSMutableArray alloc] init];
+        _myCardImageView_middle = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 90 , 135)];
+        [_allImageView addSubview:_myCardImageView_middle];
+        _myCardTextView_middle = [[UITextView alloc] initWithFrame:CGRectMake(115, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 135, 135)];
+        [_allImageView addSubview:_myCardTextView_middle];
+        _myCardTextView_middle.editable = NO;
+        
+        _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        _allImageView.userInteractionEnabled = YES;
+        
+        _myCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        _myCardImageView.userInteractionEnabled = YES;
+        [_allImageView addSubview:_myCardImageView];
+        
+        _border_character = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_character.png"]];
+        _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
+        
+        _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+        
+        _cardInRegion = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+        
+        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+        
+        _okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_okButton setTitle:@"OK" forState:UIControlStateNormal];
+        [_allImageView addSubview:_okButton];
+        _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 110, _allImageView.bounds.size.height - 130, 100, 20);
+        [_okButton addTarget:self action:@selector(okButton)
+            forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        UIImage *img_myGiko     = [UIImage imageNamed:@"c0r.PNG"];
+        UIImage *img_myMonar     = [UIImage imageNamed:@"c5r.PNG"];
+        UIImage *img_mySyobon         = [UIImage imageNamed:@"c7r.PNG"];
+        UIImage *img_myYaruo     = [UIImage imageNamed:@"c1r.PNG"];
+        UIImage *img_enemyGiko  = [UIImage imageNamed:@"c0r.PNG"];
+        UIImage *img_enemyMonar  = [UIImage imageNamed:@"c5r.PNG"];
+        UIImage *img_enemySyobon      = [UIImage imageNamed:@"c7r.PNG"];
+        UIImage *img_enemyYaruo  = [UIImage imageNamed:@"c1r.PNG"];
+        
+        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:img_myGiko];
+        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:img_myMonar];
+        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:img_mySyobon];
+        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:img_myYaruo];
+        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:img_enemyGiko];
+        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:img_enemyMonar];
+        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:img_enemySyobon];
+        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:img_enemyYaruo];
+        
+        chara_myGiko.frame      = CGRectMake(48,  50,  32, 48);
+        chara_myMonar.frame      = CGRectMake(48,  98,  32, 48);
+        chara_mySyobon.frame          = CGRectMake(48, 146,  32, 48);
+        chara_myYaruo.frame      = CGRectMake(80,  98,  32, 48);
+        chara_enemyGiko.frame   = CGRectMake(240,  50,  32, 48);
+        chara_enemyMonar.frame   = CGRectMake(240,  98,  32, 48);
+        chara_enemySyobon.frame       = CGRectMake(240,  146, 32, 48);
+        chara_enemyYaruo.frame   = CGRectMake(208,  98,  32, 48);
+        
+        chara_myGiko.userInteractionEnabled     = YES;
+        chara_myMonar.userInteractionEnabled     = YES;
+        chara_mySyobon.userInteractionEnabled         = YES;
+        chara_myYaruo.userInteractionEnabled     = YES;
+        chara_enemyGiko.userInteractionEnabled  = YES;
+        chara_enemyMonar.userInteractionEnabled  = YES;
+        chara_enemySyobon.userInteractionEnabled      = YES;
+        chara_enemyYaruo.userInteractionEnabled  = YES;
+        
+        
+        chara_myGiko.tag    = GIKO;
+        chara_myMonar.tag    = MONAR;
+        chara_mySyobon.tag        = SYOBON;
+        chara_myYaruo.tag    = YARUO;
+        /*
+         chara_enemyGiko.tag = ;
+         chara_enemyMonar.tag = ;
+         chara_enemySYOBON.tag     = ;
+         chara_enemyYaruo.tag = ;
+         */
+        
+        [chara_myGiko addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(touchesBegan:)]];
+        [chara_myMonar addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(touchesBegan:)]];
+        [chara_mySyobon addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(touchesBegan:)]];
+        [chara_myYaruo addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(touchesBegan:)]];
+        //    [chara_enemyGiko addGestureRecognizer:
+        //     [[UITapGestureRecognizer alloc]
+        //      initWithTarget:self action:@selector(touchesBegan:)]];
+        //    [chara_enemyMonar addGestureRecognizer:
+        //     [[UITapGestureRecognizer alloc]
+        //      initWithTarget:self action:@selector(touchesBegan:)]];
+        //    [chara_enemySyobon addGestureRecognizer:
+        //     [[UITapGestureRecognizer alloc]
+        //      initWithTarget:self action:@selector(touchesBegan:)]];
+        //    [chara_enemyYaruo addGestureRecognizer:
+        //     [[UITapGestureRecognizer alloc]
+        //      initWithTarget:self action:@selector(touchesBegan:)]];
+        
+        [_allImageView addSubview:chara_myGiko];
+        [_allImageView addSubview:chara_myMonar];
+        [_allImageView addSubview:chara_mySyobon];
+        [_allImageView addSubview:chara_myYaruo];
+        [_allImageView addSubview:chara_enemyGiko];
+        [_allImageView addSubview:chara_enemyMonar];
+        [_allImageView addSubview:chara_enemySyobon];
+        [_allImageView addSubview:chara_enemyYaruo];
+        
+        
+        
+        
+        //エネルギーの数を表示するビューを作成
+        _whiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+        _blueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+        _blackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+        _redEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+        _greenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+        
+        _allEnergy = [[UIImageView alloc] init];
+        [_allEnergy addSubview:_whiteEnergyImage];
+        [_allEnergy addSubview:_blueEnergyImage];
+        [_allEnergy addSubview:_blackEnergyImage];
+        [_allEnergy addSubview:_redEnergyImage];
+        [_allEnergy addSubview:_greenEnergyImage];
+        
+        _whiteEnergyImage.frame = CGRectMake(0,  0, 20, 20);
+        _blueEnergyImage.frame  = CGRectMake(0, 20, 20, 20);
+        _blackEnergyImage.frame = CGRectMake(0, 40, 20, 20);
+        _redEnergyImage.frame   = CGRectMake(0, 60, 20, 20);
+        _greenEnergyImage.frame = CGRectMake(0, 80, 20, 20);
+        
+        
+        _whiteEnergyText = [[UITextView alloc] init];
+        _blueEnergyText = [[UITextView alloc] init];
+        _blackEnergyText = [[UITextView alloc] init];
+        _redEnergyText = [[UITextView alloc] init];
+        _greenEnergyText = [[UITextView alloc] init];
+        
+//        _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+//        _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+//        _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+//        _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+//        _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+        
+        [_allEnergy addSubview:_whiteEnergyText];
+        [_allEnergy addSubview:_blueEnergyText];
+        [_allEnergy addSubview:_blackEnergyText];
+        [_allEnergy addSubview:_redEnergyText];
+        [_allEnergy addSubview:_greenEnergyText];
+        
+        _whiteEnergyText.frame = CGRectMake(20,  0, 40, 20);
+        _blueEnergyText.frame  = CGRectMake(20, 20, 40, 20);
+        _blackEnergyText.frame = CGRectMake(20, 40, 40, 20);
+        _redEnergyText.frame   = CGRectMake(20, 60, 40, 20);
+        _greenEnergyText.frame = CGRectMake(20, 80, 40, 20);
+        
+        [_allImageView addSubview: _allEnergy];
+        _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
+        
+        
+        _myGiko = [[UILabel alloc] init];
+        _myMonar = [[UILabel alloc] init];
+        _mySyobon = [[UILabel alloc] init];
+        _myYaruo = [[UILabel alloc] init];
+        _enemyGiko = [[UILabel alloc] init];
+        _enemyMonar = [[UILabel alloc] init];
+        _enemySyobon = [[UILabel alloc] init];
+        _enemyYaruo = [[UILabel alloc] init];
+        
+        [self.view addSubview:_allImageView];
+        
+        _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+        [_battleStart show];
+        
+        dispatch_semaphore_signal(semaphore);
+    });
     
-    _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-    _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-    _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-    _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-    _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+    NSLog(@"wait...");
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@"finish.");
+    [self nextTurn];
     
-    [_allEnergy addSubview:_whiteEnergyText];
-    [_allEnergy addSubview:_blueEnergyText];
-    [_allEnergy addSubview:_blackEnergyText];
-    [_allEnergy addSubview:_redEnergyText];
-    [_allEnergy addSubview:_greenEnergyText];
-    
-    _whiteEnergyText.frame = CGRectMake(20,  0, 40, 20);
-    _blueEnergyText.frame  = CGRectMake(20, 20, 40, 20);
-    _blackEnergyText.frame = CGRectMake(20, 40, 40, 20);
-    _redEnergyText.frame   = CGRectMake(20, 60, 40, 20);
-    _greenEnergyText.frame = CGRectMake(20, 80, 40, 20);
-    
-    [_allImageView addSubview: _allEnergy];
-    _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
-    
-    
-    _myGiko = [[UILabel alloc] init];
-    _myMonar = [[UILabel alloc] init];
-    _mySyobon = [[UILabel alloc] init];
-    _myYaruo = [[UILabel alloc] init];
-    _enemyGiko = [[UILabel alloc] init];
-    _enemyMonar = [[UILabel alloc] init];
-    _enemySyobon = [[UILabel alloc] init];
-    _enemyYaruo = [[UILabel alloc] init];
-    
-    
-    
-    [self.view addSubview:_allImageView];    
+
     
 //--------------------------デバッグ用ボタン-----------------------------------
     
@@ -265,7 +287,6 @@
     
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
-    
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -275,13 +296,9 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    SendDataToServer *testSend = [[SendDataToServer alloc] init];
-    [testSend send];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{    
-    location = [[GetLocation alloc] init];
-    [location sendLocationDataToServer];
 }
 
 
@@ -2867,6 +2884,15 @@
             default:
                 break;
         }
+    }else if (alertView == _battleStart){
+        switch (buttonIndex) {
+            case 0:
+                motion = [[DeviceMotion alloc] init];
+                [motion bump];
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -3089,6 +3115,10 @@
 
 - (void)setCardToCardsIUsedInThisTurn:(NSMutableArray *)fromField  cardNumber:(int)cardNumber{
     [app.cardsIUsedInThisTurn addObject:[fromField objectAtIndex:cardNumber]];
+}
+
+- (void) transitView:(NSNotification *)note{
+    battleStartNum = [[note object] intValue];
 }
 
 @end

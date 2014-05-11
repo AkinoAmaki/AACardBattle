@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
+#import "GetLocation.h"
+#define FINISHED syncFinished2 = YES;
 
-@interface DeviceMotion : UIViewController
+@interface DeviceMotion :NSObject{
+    BOOL syncFinished2; //同期処理において、対象の被待機処理が完了したかを管理する
+    GetLocation *location;
+}
 
 
-@property CMMotionManager *motionManager;
+@property (nonatomic)CMMotionManager *motionManager;
+
+- (void)bump;
+
 
 @end
