@@ -13,10 +13,13 @@
 
 @interface GetEnemyDataFromServer : NSObject{
     AppDelegate *app;
+    NSArray *enemyPlayerID_parameter;
+    NSArray *enemyPlayerID_key;
+    NSArray *statuses;
 }
 
 -(void)get;
-
+-(void)doEnemyDecideAction :(BOOL)select;
 
 
 @end

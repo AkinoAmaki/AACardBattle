@@ -11,7 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "SVProgressHUD.h"
 #import "SBJson.h"
-#define FINISHED syncFinish = YES;
+#define FINISHED3 syncFinish = YES;
 
 
 @interface GetLocation : UIViewController<CLLocationManagerDelegate>{

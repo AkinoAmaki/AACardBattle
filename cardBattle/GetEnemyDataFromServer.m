@@ -10,15 +10,14 @@
 
 @implementation GetEnemyDataFromServer
 
--(void)get{
+-(void)initWithGetEnemyDataFromServer:(NSString *)URLString selectCardAndAAPhase:(BOOL)select{
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     app = [[UIApplication sharedApplication] delegate];
-    
-    //相手プレイヤーのIDを送信
-    NSArray *enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
-                                        [NSNumber numberWithInt:app.enemyPlayerID],nil];
-    NSArray *enemyPlayerID_key = [[NSArray alloc] initWithObjects:
-                                  @"enemyPlayerID",nil];
+    //相手プレイヤーのID等を送信
+    enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
+                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],nil];
+    enemyPlayerID_key = [[NSArray alloc] initWithObjects:
+                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",nil];
     
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:enemyPlayerID_parameter forKeys:enemyPlayerID_key];
@@ -28,7 +27,7 @@
     NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
     
     //     //外部から接続する場合
-    NSString *url = @"http://utakatanet.dip.jp:58080/enemyData.php";
+    NSString *url = URLString;
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
@@ -60,7 +59,13 @@
     NSString *json_string = [[NSString alloc] initWithData:response2 encoding:NSUTF8StringEncoding];
     // JSONデータをパースする。
     // ここではJSONデータが配列としてパースされるので、NSArray型でデータ取得
-    NSArray *statuses = [json_string JSONValue];
+    statuses = [json_string JSONValue];
+    NSLog(@"%@", statuses);
+}
+
+
+-(void)get{
+    [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
     
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
@@ -112,7 +117,36 @@
     app.enemyHand = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:5]];
     app.enemyTomb = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:6]];
     
+    //battleDataWithoutArrayを除く６つの配列のうち、ブランク（nullでない！）のデータが入っている部分を削除し、nullとする。
+    [app.cardsEnemyUsedInThisTurn removeObject:@""];
+    [app.enemyDeckCardList removeObject:@""];
+    [app.enemyEnergyCard removeObject:@""];
+    [app.enemyFieldCard removeObject:@""];
+    [app.enemyHand removeObject:@""];
+    [app.enemyTomb removeObject:@""];
+    
+    NSLog(@"app.cardsEnemyUsedInThisTurn:%@",app.cardsEnemyUsedInThisTurn);
+    NSLog(@"app.enemyDeckCardList:%@",app.enemyDeckCardList);
+    NSLog(@"app.enemyEnergyCard:%@",app.enemyEnergyCard);
+    NSLog(@"app.enemyFieldCard:%@",app.enemyFieldCard);
+    NSLog(@"app.enemyHand:%@",app.enemyHand);
+    NSLog(@"app.enemyTomb:%@",app.enemyTomb);
+    
+    
     [SVProgressHUD dismiss];
 }
+
+-(void)doEnemyDecideAction :(BOOL)select{
+    [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
+    NSLog(@"あああ：%d",[[statuses objectAtIndex:0] intValue]);
+    app.decideAction = [[statuses objectAtIndex:0] boolValue];
+    
+    
+    対戦の一番最初にdecideActionに0をいれるよう組む！
+    
+    
+}
+
+
 
 @end

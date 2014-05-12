@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController{
+    UIImageView *firstLaunchView;
+    UITextField *tf;
+    NSUserDefaults *ud;
+    AppDelegate *appdelegate;
+}
 
 
 @end

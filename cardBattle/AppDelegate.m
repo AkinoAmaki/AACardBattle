@@ -13,10 +13,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
+//    // アプリケーションのバンドル識別子を取得します。
+//    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
+//    
+//    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
+//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
+    
+    
+    
 #pragma mark デッキの準備
+    ud = [NSUserDefaults standardUserDefaults];
     firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
+    NSLog(@"%d",firstLaunch);
 
     if(firstLaunch == 0){
         //最初のデッキを構築する
@@ -66,7 +75,6 @@
         
         [ud setObject:firstCards forKey:@"myCards_ud"];
         [ud setObject:firstDeck forKey:@"myDeck_ud"];
-        [ud setInteger:1 forKey:@"firstLaunch_ud"];
         [ud synchronize];
         
         //ユニークなプレイヤーIDを発番する
@@ -98,22 +106,14 @@
         
         [SVProgressHUD dismiss];
         
-        NSLog(@"ぬぬぬ：%d",[ud integerForKey:@"firstLaunch_ud"]);
         NSLog(@"初回起動");
     }
     
-    //TODO: 初回起動時にニックネームを入れる画面を表示する
-    _myNickName = @"あきの";
+
     _playerID = [ud integerForKey:@"playerID_ud"];
-    NSLog(@"ニックネーム：%@",_myNickName);
+    _myNickName = [ud objectForKey:@"myNickName_ud"];
     NSLog(@"ID:%d",_playerID);
-    
-    
-//    // アプリケーションのバンドル識別子を取得します。
-//    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
-//    
-//    // バンドル識別子を使って、アプリに関係する設定を一括消去します。
-//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
+    NSLog(@"ニックネーム:%@",_myNickName);
     
     
     _myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
@@ -153,7 +153,7 @@
     _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:112],[NSNumber numberWithInt:132],[NSNumber numberWithInt:144], nil];
     _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:27],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:147],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150],[NSNumber numberWithInt:151], nil];
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:126],[NSNumber numberWithInt:148], nil];
-
+    _decideAction = NO;
     
 #pragma mark 対戦に関連する各種数値の初期化
     

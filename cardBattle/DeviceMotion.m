@@ -25,7 +25,7 @@
         deviceMotionHandler = ^(CMDeviceMotion* motion, NSError* error){
             
             if(motion.userAcceleration.x > 1.7 || motion.userAcceleration.y > 1.7 || motion.userAcceleration.z > 1.7){
-                FINISHED
+                FINISHED2
                 [NSThread sleepForTimeInterval:1];
                 [_motionManager stopDeviceMotionUpdates];
                 NSLog(@"大きく動きました");

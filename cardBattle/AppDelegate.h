@@ -20,6 +20,7 @@
     NSMutableArray *myDeck; //デッキに入っているカードを管理する配列(配列番号＝カード番号)
     NSMutableArray *myDeckCardList; //デッキに入っているカードを管理する配列（配列数＝カード枚数）
     NSMutableArray *myCards; //持っているカード全てを管理する配列(配列番号＝カード番号)
+    NSUserDefaults *ud;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -40,6 +41,7 @@
 @property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_damageCaliculate; //ダメージ計算時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_turnEnd;   //ターン終了時に効果を発揮するカード一覧
+@property BOOL decideAction; //自分がカードとAAをを選択し終えるとYESとなり、ターン終了時にNOに戻る
 
 
 //自分に関係する変数
@@ -143,6 +145,7 @@
 
 
 - (NSMutableArray *)shuffledArray :(NSMutableArray *)array;
+
 
 
 

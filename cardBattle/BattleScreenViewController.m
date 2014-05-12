@@ -15,7 +15,6 @@
 @implementation BattleScreenViewController
 @synthesize battleStartNum;
 
-#pragma mark 初期化
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,14 +33,8 @@
 	// Do any additional setup after loading the view.
     
     // "MyEvent"という名前のイベントが発行されたらtransitViewが呼ばれる
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transitView:) name:@"battleStartEvent" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transitView:) name:@"battleStartEvent" object:nil];
     
-
-    NSLog(@"start.");
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        
         app = [[UIApplication sharedApplication] delegate];
         
         turnCount = 1;
@@ -56,6 +49,7 @@
         battleStartNum = 0;
         
         _bc = [[BattleCaliculate alloc] init];
+        getEnemyData = [[GetEnemyDataFromServer alloc] init];
         
         _myCardImageViewArray = [[NSMutableArray alloc] init];
         _myCardImageView_middle = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 90 , 135)];
@@ -201,12 +195,12 @@
         _redEnergyText = [[UITextView alloc] init];
         _greenEnergyText = [[UITextView alloc] init];
         
-//        _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-//        _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-//        _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-//        _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-//        _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
-        
+        _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+        _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+        _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+        _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+        _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+    
         [_allEnergy addSubview:_whiteEnergyText];
         [_allEnergy addSubview:_blueEnergyText];
         [_allEnergy addSubview:_blackEnergyText];
@@ -233,19 +227,7 @@
         _enemyYaruo = [[UILabel alloc] init];
         
         [self.view addSubview:_allImageView];
-        
-        _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-        [_battleStart show];
-        
-        dispatch_semaphore_signal(semaphore);
-    });
     
-    NSLog(@"wait...");
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    NSLog(@"finish.");
-    [self nextTurn];
-    
-
     
 //--------------------------デバッグ用ボタン-----------------------------------
     
@@ -287,6 +269,10 @@
     
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
+    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+    [_battleStart show];
+    
+
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -296,15 +282,20 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
+    locationForDebug = [[GetLocation alloc] init];
+    [locationForDebug sendLocationDataToServer];
+    
 }
 
-- (void)debug2 :(UITapGestureRecognizer *)sender{    
+- (void)debug2 :(UITapGestureRecognizer *)sender{
+    sendMyData = [[SendDataToServer alloc] init];
+    [sendMyData send];
 }
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-    enemyData = [[GetEnemyDataFromServer alloc] init];
-    [enemyData get];
+    getEnemyData = [[GetEnemyDataFromServer alloc] init];
+    [getEnemyData get];
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -358,9 +349,13 @@
 }
 
 
+
+#pragma mark ターン処理
 - (IBAction)nextTurn{
     //ターン開始時
-    //[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目", turnCount]];
+    [sendMyData send];
+    [getEnemyData get];
+    
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
     [self activateFieldCardInTiming:0];
@@ -369,7 +364,9 @@
     
     
     //カード使用後
-    [self phaseNameFadeIn:@"カード使用フェイズです。使用するカードを選択してください。"];
+    [sendMyData send];
+    [getEnemyData get];
+    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
     [self sync];
     
     
@@ -377,12 +374,22 @@
     while (cardIsCompletlyUsed == NO) {
         [self sync];
     }
+    [sendMyData send];
     
+    //相手の入力待ち(app.decideAction = YESとなれば先に進む)
+    while (!app.decideAction) {
+        [NSThread sleepForTimeInterval:1];
+        [getEnemyData doEnemyDecideAction:YES];
+    }
+    [getEnemyData doEnemyDecideAction:NO]; //直後でapp.decideAction = NOと初期化しておく
+    [getEnemyData get];
     [self activateFieldCardInTiming:1];
     [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
 
     //ダメージ計算
+    [sendMyData send];
+    [getEnemyData get];
     [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
     [self sync];
     [self activateFieldCardInTiming:2];
@@ -394,6 +401,8 @@
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     //ターン終了時
+    [sendMyData send];
+    [getEnemyData get];
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
     [self sync];
     [self activateFieldCardInTiming:3];
@@ -432,7 +441,7 @@
         
     }
     [self getACard:MYSELF];
-    [self intializeVariables];
+    [self initializeVariables];
     [self nextTurn];
     
     
@@ -1552,10 +1561,10 @@
             [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 40 + (20 * i), 240, 20)];
         }
     }
-    if ([app.cardsEnemyUsedInThisTurn count] == 0) {
+    if ([app.cardsEnemyUsedInThisTurn count] == 1) {
         [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
     }else{
-        for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+        for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
             [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
         }
     }
@@ -1737,7 +1746,7 @@
 
 - (void)removeView:(UIImageView *)view{
     [view removeFromSuperview];
-    FINISHED
+    FINISHED1
 }
 
 
@@ -1803,7 +1812,7 @@
         [alert show];
     }else{
         cardIsCompletlyUsed = YES;
-        FINISHED
+        FINISHED1
     }
     
     
@@ -2698,7 +2707,7 @@
             }else{
             [_characterField removeFromSuperview];
             }
-            FINISHED
+            FINISHED1
 
             break;
             
@@ -2706,7 +2715,7 @@
             //キャラクター選択画面のキャンセルボタンから飛んできた場合
             mySelectCharacterInCharacterField = -1;
             [_characterField removeFromSuperview];
-            FINISHED
+            FINISHED1
             break;
             
         case 9:
@@ -2855,7 +2864,7 @@
     }else if (alertView == _doIUseSorcerycard){
         switch (buttonIndex) {
             case 0:
-                FINISHED
+                FINISHED1
                 break;
             case 1:
                 selectedCardTag = -1;
@@ -2871,7 +2880,7 @@
     }else if (alertView == _doIUseFieldcard){
         switch (buttonIndex) {
             case 0:
-                FINISHED
+                FINISHED1
                 break;
             case 1:
                 selectedCardTag = -1;
@@ -2973,9 +2982,10 @@
 }
 
 //ターン終了時に各種変数を初期化する
-- (void)intializeVariables{
+- (void)initializeVariables{
     
     //常に初期化するもの
+        app.decideAction = NO;
     
         //自分に関係する変数
         [_border_middleCard removeFromSuperview];
@@ -3119,6 +3129,8 @@
 
 - (void) transitView:(NSNotification *)note{
     battleStartNum = [[note object] intValue];
+    NSLog(@"やったぜ：%d",battleStartNum);
+       [self nextTurn];
 }
 
 @end

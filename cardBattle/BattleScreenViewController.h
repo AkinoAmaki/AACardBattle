@@ -15,6 +15,7 @@
 #import "SVProgressHUD.h"
 #import "GetEnemyDataFromServer.h"
 #import "GetLocation.h"
+#import "SendDataToServer.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -33,7 +34,7 @@
 #define CHARACTERHEIGHT 100
 #define MYSELF 0
 #define ENEMY 1
-#define FINISHED syncFinished = YES;
+#define FINISHED1 syncFinished = YES;
 
 
 @interface BattleScreenViewController : BattleCaliculate{
@@ -49,10 +50,12 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
+    //BOOL doEnemyDecideAction; //相手がカード使用・AAで選択フェイズを終えたかを管理する
 
-    GetEnemyDataFromServer *enemyData;
+    GetEnemyDataFromServer *getEnemyData;
     DeviceMotion *motion;
-    
+    GetLocation *locationForDebug;
+    SendDataToServer *sendMyData;
 }
 
 @property int battleStartNum; //0ならバトル未開始、1になった瞬間に開始(1のデータはGetLocationクラスから飛んでくる)

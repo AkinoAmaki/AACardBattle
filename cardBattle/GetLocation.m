@@ -145,13 +145,13 @@
         if(loop == 20){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報を取得不可" message:@"位置情報を取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
+            [SVProgressHUD dismiss];
             return;
         }
         loop++;
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",string);
     enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
     enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
     [SVProgressHUD dismiss];
@@ -161,6 +161,7 @@
     
     _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
     [_isAEnemyName show];
+    NSLog(@"%@",string);
     [self sync];
    
 }
@@ -178,7 +179,7 @@
     if(alertView == _isAEnemyName){
         switch (buttonIndex) {
             case 0:{
-                FINISHED
+                FINISHED3
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
                 NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
@@ -186,21 +187,13 @@
             }
             case 1:
             {
-                FINISHED
+                FINISHED3
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"やり直し" message:@"iPhoneをぶつけ合ってください！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [alertView show];
                 return;
             }
         }
     }
-    [self callToBattleScreenViewController];
-}
-
-- (void)callToBattleScreenViewController{
-    //戦闘開始のコールをBattleScreenViewControllerに投げる
-    int i = 1;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:@"battleStartEvent" object:[NSNumber numberWithInt:i]];
 }
 
 - (void)sync{
