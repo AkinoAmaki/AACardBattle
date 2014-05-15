@@ -60,7 +60,6 @@
     // JSONデータをパースする。
     // ここではJSONデータが配列としてパースされるので、NSArray型でデータ取得
     statuses = [json_string JSONValue];
-    NSLog(@"%@", statuses);
 }
 
 
@@ -140,9 +139,6 @@
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
     NSLog(@"あああ：%d",[[statuses objectAtIndex:0] intValue]);
     app.decideAction = [[statuses objectAtIndex:0] boolValue];
-    
-    
-    対戦の一番最初にdecideActionに0をいれるよう組む！
     
     
 }

@@ -22,10 +22,14 @@
     
     
     
+    //iPhoneのステータスバーを非表示にする
+    [UIApplication sharedApplication].statusBarHidden = YES;
+    
 #pragma mark デッキの準備
     ud = [NSUserDefaults standardUserDefaults];
     firstLaunch =  [ud integerForKey:@"firstLaunch_ud"];
-    NSLog(@"%d",firstLaunch);
+
+    NSLog(@"高さ：%f:幅：%f",[[UIScreen mainScreen] bounds].size.height,[[UIScreen mainScreen] bounds].size.width);
 
     if(firstLaunch == 0){
         //最初のデッキを構築する

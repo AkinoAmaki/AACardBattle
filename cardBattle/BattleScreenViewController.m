@@ -38,10 +38,10 @@
         app = [[UIApplication sharedApplication] delegate];
         
         turnCount = 1;
-        drawCount = 0;
+        myDrawCount = 0;
+        enemyDrawCount = 0;
         selectedCardOrder = -1;
         app.myUsingCardNumber = -1;
-        selectedCardTag = -1;
         selectCardTag = -1;
         syncFinished = NO;
         doIUseCardInThisTurn = NO;
@@ -50,65 +50,281 @@
         
         _bc = [[BattleCaliculate alloc] init];
         getEnemyData = [[GetEnemyDataFromServer alloc] init];
-        
+    
+    
+    //iPhone5ならYES,それ以外ならNOに行く
+    if([YSDeviceHelper is568h]){
+//        _myCardImageViewArray = [[NSMutableArray alloc] init];
+//        
+//        _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+//        _allImageView.userInteractionEnabled = YES;
+//        
+//        
+//        _myCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 360, [[UIScreen mainScreen] bounds].size.width, CARDHEIGHT)];
+//        _myCardImageView.userInteractionEnabled = YES;
+//        [_allImageView addSubview:_myCardImageView];
+//
+//        
+//        
+//        _border_character = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_character.png"]];
+//        _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
+//        _border_middleCard.userInteractionEnabled = YES;
+//        _border_usedCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_usedCard.png"]];
+//        //_border_usedCard.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
+//        
+//        _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+//        
+//        _cardInRegion = [[UIScrollView alloc] init];
+//        _regionView = [[UIImageView alloc] init];
+//        _regionViewArray =[[NSMutableArray alloc] init];
+//        
+//        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+//        
+//        _okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//        [_okButton setTitle:@"OK" forState:UIControlStateNormal];
+//        [_allImageView addSubview:_okButton];
+//        _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 110, _allImageView.bounds.size.height - 130, 100, 20);
+//        [_okButton addTarget:self action:@selector(okButton)
+//            forControlEvents:UIControlEventTouchUpInside];
+//        
+//        
+//        
+//        UIImage *img_myGiko     = [UIImage imageNamed:@"c0r.PNG"];
+//        UIImage *img_myMonar     = [UIImage imageNamed:@"c5r.PNG"];
+//        UIImage *img_mySyobon         = [UIImage imageNamed:@"c7r.PNG"];
+//        UIImage *img_myYaruo     = [UIImage imageNamed:@"c1r.PNG"];
+//        UIImage *img_enemyGiko  = [UIImage imageNamed:@"c0r.PNG"];
+//        UIImage *img_enemyMonar  = [UIImage imageNamed:@"c5r.PNG"];
+//        UIImage *img_enemySyobon      = [UIImage imageNamed:@"c7r.PNG"];
+//        UIImage *img_enemyYaruo  = [UIImage imageNamed:@"c1r.PNG"];
+//        
+//        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:img_myGiko];
+//        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:img_myMonar];
+//        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:img_mySyobon];
+//        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:img_myYaruo];
+//        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:img_enemyGiko];
+//        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:img_enemyMonar];
+//        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:img_enemySyobon];
+//        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:img_enemyYaruo];
+//        
+//        chara_myGiko.frame      = CGRectMake(48,  50,  32, 48);
+//        chara_myMonar.frame      = CGRectMake(48,  98,  32, 48);
+//        chara_mySyobon.frame          = CGRectMake(48, 146,  32, 48);
+//        chara_myYaruo.frame      = CGRectMake(80,  98,  32, 48);
+//        chara_enemyGiko.frame   = CGRectMake(240,  50,  32, 48);
+//        chara_enemyMonar.frame   = CGRectMake(240,  98,  32, 48);
+//        chara_enemySyobon.frame       = CGRectMake(240,  146, 32, 48);
+//        chara_enemyYaruo.frame   = CGRectMake(208,  98,  32, 48);
+//        
+//        chara_myGiko.userInteractionEnabled     = YES;
+//        chara_myMonar.userInteractionEnabled     = YES;
+//        chara_mySyobon.userInteractionEnabled         = YES;
+//        chara_myYaruo.userInteractionEnabled     = YES;
+//        chara_enemyGiko.userInteractionEnabled  = YES;
+//        chara_enemyMonar.userInteractionEnabled  = YES;
+//        chara_enemySyobon.userInteractionEnabled      = YES;
+//        chara_enemyYaruo.userInteractionEnabled  = YES;
+//        
+//        
+//        chara_myGiko.tag    = GIKO;
+//        chara_myMonar.tag    = MONAR;
+//        chara_mySyobon.tag        = SYOBON;
+//        chara_myYaruo.tag    = YARUO;
+//        /*
+//         chara_enemyGiko.tag = ;
+//         chara_enemyMonar.tag = ;
+//         chara_enemySYOBON.tag     = ;
+//         chara_enemyYaruo.tag = ;
+//         */
+//        
+//        [chara_myGiko addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchesBegan:)]];
+//        [chara_myMonar addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchesBegan:)]];
+//        [chara_mySyobon addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchesBegan:)]];
+//        [chara_myYaruo addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchesBegan:)]];
+//        //    [chara_enemyGiko addGestureRecognizer:
+//        //     [[UITapGestureRecognizer alloc]
+//        //      initWithTarget:self action:@selector(touchesBegan:)]];
+//        //    [chara_enemyMonar addGestureRecognizer:
+//        //     [[UITapGestureRecognizer alloc]
+//        //      initWithTarget:self action:@selector(touchesBegan:)]];
+//        //    [chara_enemySyobon addGestureRecognizer:
+//        //     [[UITapGestureRecognizer alloc]
+//        //      initWithTarget:self action:@selector(touchesBegan:)]];
+//        //    [chara_enemyYaruo addGestureRecognizer:
+//        //     [[UITapGestureRecognizer alloc]
+//        //      initWithTarget:self action:@selector(touchesBegan:)]];
+//        
+//        [_allImageView addSubview:chara_myGiko];
+//        [_allImageView addSubview:chara_myMonar];
+//        [_allImageView addSubview:chara_mySyobon];
+//        [_allImageView addSubview:chara_myYaruo];
+//        [_allImageView addSubview:chara_enemyGiko];
+//        [_allImageView addSubview:chara_enemyMonar];
+//        [_allImageView addSubview:chara_enemySyobon];
+//        [_allImageView addSubview:chara_enemyYaruo];
+//        
+//        
+//        
+//        
+//        //エネルギーの数を表示するビューを作成
+//        _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+//        _myBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+//        _myBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+//        _myRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+//        _myGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+//        
+//        _myAllEnergy = [[UIImageView alloc] init];
+//        [_myAllEnergy addSubview:_myWhiteEnergyImage];
+//        [_myAllEnergy addSubview:_myBlueEnergyImage];
+//        [_myAllEnergy addSubview:_myBlackEnergyImage];
+//        [_myAllEnergy addSubview:_myRedEnergyImage];
+//        [_myAllEnergy addSubview:_myGreenEnergyImage];
+//        
+//        _myWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
+//        _myBlueEnergyImage.frame  = CGRectMake( 70,  0, 20, 20);
+//        _myBlackEnergyImage.frame = CGRectMake(140,  0, 20, 20);
+//        _myRedEnergyImage.frame   = CGRectMake(210,  0, 20, 20);
+//        _myGreenEnergyImage.frame = CGRectMake(280,  0, 20, 20);
+//        
+//        
+//        _myWhiteEnergyText = [[UITextView alloc] init];
+//        _myBlueEnergyText = [[UITextView alloc] init];
+//        _myBlackEnergyText = [[UITextView alloc] init];
+//        _myRedEnergyText = [[UITextView alloc] init];
+//        _myGreenEnergyText = [[UITextView alloc] init];
+//        
+//        _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+//        _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+//        _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+//        _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+//        _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+//        
+//        [_myAllEnergy addSubview:_myWhiteEnergyText];
+//        [_myAllEnergy addSubview:_myBlueEnergyText];
+//        [_myAllEnergy addSubview:_myBlackEnergyText];
+//        [_myAllEnergy addSubview:_myRedEnergyText];
+//        [_myAllEnergy addSubview:_myGreenEnergyText];
+//        
+//        _myWhiteEnergyText.frame = CGRectMake( 20, 0, 40, 20);
+//        _myBlueEnergyText.frame  = CGRectMake( 90, 0, 40, 20);
+//        _myBlackEnergyText.frame = CGRectMake(160, 0, 40, 20);
+//        _myRedEnergyText.frame   = CGRectMake(230, 0, 40, 20);
+//        _myGreenEnergyText.frame = CGRectMake(300, 0, 40, 20);
+//        
+//        [_allImageView addSubview: _myAllEnergy];
+//        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 25, 340, 20);
+//        
+//        _myGiko = [[UILabel alloc] init];
+//        _myMonar = [[UILabel alloc] init];
+//        _mySyobon = [[UILabel alloc] init];
+//        _myYaruo = [[UILabel alloc] init];
+//        _enemyGiko = [[UILabel alloc] init];
+//        _enemyMonar = [[UILabel alloc] init];
+//        _enemySyobon = [[UILabel alloc] init];
+//        _enemyYaruo = [[UILabel alloc] init];
+//        
+//        [self.view addSubview:_allImageView];
+    }else{
         _myCardImageViewArray = [[NSMutableArray alloc] init];
-        _myCardImageView_middle = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 90 , 135)];
-        [_allImageView addSubview:_myCardImageView_middle];
-        _myCardTextView_middle = [[UITextView alloc] initWithFrame:CGRectMake(115, [[UIScreen mainScreen] bounds].size.height - 135 - 10, 135, 135)];
-        [_allImageView addSubview:_myCardTextView_middle];
-        _myCardTextView_middle.editable = NO;
         
         _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         _allImageView.userInteractionEnabled = YES;
         
-        _myCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        _myCardImageView = [[UIImageView alloc] init];
         _myCardImageView.userInteractionEnabled = YES;
         [_allImageView addSubview:_myCardImageView];
+        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
+        
+        _enemyCardImageView = [[UIImageView alloc] init];
+        _enemyCardImageView.userInteractionEnabled = YES;
+        [_allImageView addSubview:_enemyCardImageView];
+        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
         
         _border_character = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_character.png"]];
         _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
+        _border_usedCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_usedCard.png"]];
+        _border_usedCard.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
         
         _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
         
-        _cardInRegion = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+        _cardInRegion = [[UIScrollView alloc] init];
+        _cardInRegion.delegate = self;
+        _cardInRegion.backgroundColor = [UIColor cyanColor];
+        _cardInRegion.userInteractionEnabled = YES;
+        _backGroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
+        _backGroundView.userInteractionEnabled = YES;
+        _regionViewArray =[[NSMutableArray alloc] init];
+        [_cardInRegion addSubview:_backGroundView];
         
         _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
         
         _okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_okButton setTitle:@"OK" forState:UIControlStateNormal];
         [_allImageView addSubview:_okButton];
-        _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 110, _allImageView.bounds.size.height - 130, 100, 20);
+        _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 60, _allImageView.bounds.size.height - 130, 40, 20);
         [_okButton addTarget:self action:@selector(okButton)
             forControlEvents:UIControlEventTouchUpInside];
         
+        _myLifeImageView = [[UIImageView alloc] init];
+        _myLifeImageView.image = [UIImage imageNamed:@"anime"];
+        _myLifeTextView = [[UITextView alloc] init];
+        _myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
+        _myLifeTextView.editable = NO;
+        _myLifeTextView.textAlignment = NSTextAlignmentCenter;
+        [PenetrateFilter penetrate:_myLifeTextView];
+        [_myLifeImageView addSubview: _myLifeTextView];
+        [_allImageView addSubview:_myLifeImageView];
+        _myLifeImageView.frame = CGRectMake(_myLifeImageView.superview.bounds.size.width - 60, _myLifeImageView.superview.bounds.size.height - 60, 50, 50);
+        _myLifeTextView.frame = CGRectMake(0, 10, _myLifeTextView.superview.bounds.size.width, _myLifeTextView.superview.bounds.size.height - 10);
+        
+
+        _enemyLifeImageView = [[UIImageView alloc] init];
+        _enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
+        _enemyLifeTextView = [[UITextView alloc] init];
+        _enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
+        _enemyLifeTextView.editable = NO;
+        _enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
+        
+        [PenetrateFilter penetrate:_enemyLifeTextView];
+        [_enemyLifeImageView addSubview: _enemyLifeTextView];
+        [_allImageView addSubview:_enemyLifeImageView];
+        _enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
+        _enemyLifeTextView.frame = CGRectMake(0, 10, _enemyLifeTextView.superview.bounds.size.width, _enemyLifeTextView.superview.bounds.size.height - 10);
         
         
-        UIImage *img_myGiko     = [UIImage imageNamed:@"c0r.PNG"];
-        UIImage *img_myMonar     = [UIImage imageNamed:@"c5r.PNG"];
-        UIImage *img_mySyobon         = [UIImage imageNamed:@"c7r.PNG"];
-        UIImage *img_myYaruo     = [UIImage imageNamed:@"c1r.PNG"];
-        UIImage *img_enemyGiko  = [UIImage imageNamed:@"c0r.PNG"];
-        UIImage *img_enemyMonar  = [UIImage imageNamed:@"c5r.PNG"];
-        UIImage *img_enemySyobon      = [UIImage imageNamed:@"c7r.PNG"];
-        UIImage *img_enemyYaruo  = [UIImage imageNamed:@"c1r.PNG"];
+        _myCharacterView = [[UIImageView alloc] init];
+        _enemyCharacterView = [[UIImageView alloc] init];
+        [_allImageView addSubview:_myCharacterView];
+        [_allImageView addSubview:_enemyCharacterView];
+        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
+        _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
         
-        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:img_myGiko];
-        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:img_myMonar];
-        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:img_mySyobon];
-        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:img_myYaruo];
-        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:img_enemyGiko];
-        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:img_enemyMonar];
-        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:img_enemySyobon];
-        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:img_enemyYaruo];
+        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
+        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
+        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
+        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
+        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
+        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
+        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
+        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
         
-        chara_myGiko.frame      = CGRectMake(48,  50,  32, 48);
-        chara_myMonar.frame      = CGRectMake(48,  98,  32, 48);
-        chara_mySyobon.frame          = CGRectMake(48, 146,  32, 48);
-        chara_myYaruo.frame      = CGRectMake(80,  98,  32, 48);
-        chara_enemyGiko.frame   = CGRectMake(240,  50,  32, 48);
-        chara_enemyMonar.frame   = CGRectMake(240,  98,  32, 48);
-        chara_enemySyobon.frame       = CGRectMake(240,  146, 32, 48);
-        chara_enemyYaruo.frame   = CGRectMake(208,  98,  32, 48);
+        chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
+        chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
+        chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
+        chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
+        chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
+        chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
+        chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
+        chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
+
         
         chara_myGiko.userInteractionEnabled     = YES;
         chara_myMonar.userInteractionEnabled     = YES;
@@ -156,65 +372,115 @@
         //     [[UITapGestureRecognizer alloc]
         //      initWithTarget:self action:@selector(touchesBegan:)]];
         
-        [_allImageView addSubview:chara_myGiko];
-        [_allImageView addSubview:chara_myMonar];
-        [_allImageView addSubview:chara_mySyobon];
-        [_allImageView addSubview:chara_myYaruo];
-        [_allImageView addSubview:chara_enemyGiko];
-        [_allImageView addSubview:chara_enemyMonar];
-        [_allImageView addSubview:chara_enemySyobon];
-        [_allImageView addSubview:chara_enemyYaruo];
+        [_myCharacterView addSubview:chara_myGiko];
+        [_myCharacterView addSubview:chara_myMonar];
+        [_myCharacterView addSubview:chara_mySyobon];
+        [_myCharacterView addSubview:chara_myYaruo];
+        [_enemyCharacterView addSubview:chara_enemyGiko];
+        [_enemyCharacterView addSubview:chara_enemyMonar];
+        [_enemyCharacterView addSubview:chara_enemySyobon];
+        [_enemyCharacterView addSubview:chara_enemyYaruo];
         
         
         
         
         //エネルギーの数を表示するビューを作成
-        _whiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-        _blueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-        _blackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-        _redEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-        _greenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+            //自分側
+            _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+            _myBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+            _myBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+            _myRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+            _myGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+            
+            _myAllEnergy = [[UIImageView alloc] init];
+            [_myAllEnergy addSubview:_myWhiteEnergyImage];
+            [_myAllEnergy addSubview:_myBlueEnergyImage];
+            [_myAllEnergy addSubview:_myBlackEnergyImage];
+            [_myAllEnergy addSubview:_myRedEnergyImage];
+            [_myAllEnergy addSubview:_myGreenEnergyImage];
+            
+            _myWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
+            _myBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
+            _myBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
+            _myRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
+            _myGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
+            
+            
+            _myWhiteEnergyText = [[UITextView alloc] init];
+            _myBlueEnergyText = [[UITextView alloc] init];
+            _myBlackEnergyText = [[UITextView alloc] init];
+            _myRedEnergyText = [[UITextView alloc] init];
+            _myGreenEnergyText = [[UITextView alloc] init];
+            
+            _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+            _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+            _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+            _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+            _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+            
+            [_myAllEnergy addSubview:_myWhiteEnergyText];
+            [_myAllEnergy addSubview:_myBlueEnergyText];
+            [_myAllEnergy addSubview:_myBlackEnergyText];
+            [_myAllEnergy addSubview:_myRedEnergyText];
+            [_myAllEnergy addSubview:_myGreenEnergyText];
+            
+            _myWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
+            _myBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
+            _myBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
+            _myRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
+            _myGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
+            
+            [_allImageView addSubview: _myAllEnergy];
+            _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 30, 250, 20);
         
-        _allEnergy = [[UIImageView alloc] init];
-        [_allEnergy addSubview:_whiteEnergyImage];
-        [_allEnergy addSubview:_blueEnergyImage];
-        [_allEnergy addSubview:_blackEnergyImage];
-        [_allEnergy addSubview:_redEnergyImage];
-        [_allEnergy addSubview:_greenEnergyImage];
+            //相手側
+            _enemyWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+            _enemyBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+            _enemyBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+            _enemyRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+            _enemyGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+            
+            _enemyAllEnergy = [[UIImageView alloc] init];
+            [_enemyAllEnergy addSubview:_enemyWhiteEnergyImage];
+            [_enemyAllEnergy addSubview:_enemyBlueEnergyImage];
+            [_enemyAllEnergy addSubview:_enemyBlackEnergyImage];
+            [_enemyAllEnergy addSubview:_enemyRedEnergyImage];
+            [_enemyAllEnergy addSubview:_enemyGreenEnergyImage];
+            
+            _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
+            _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
+            _enemyBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
+            _enemyRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
+            _enemyGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
+            
+            
+            _enemyWhiteEnergyText = [[UITextView alloc] init];
+            _enemyBlueEnergyText = [[UITextView alloc] init];
+            _enemyBlackEnergyText = [[UITextView alloc] init];
+            _enemyRedEnergyText = [[UITextView alloc] init];
+            _enemyGreenEnergyText = [[UITextView alloc] init];
+            
+            _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
+            _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
+            _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
+            _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
+            _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
+            
+            [_enemyAllEnergy addSubview:_enemyWhiteEnergyText];
+            [_enemyAllEnergy addSubview:_enemyBlueEnergyText];
+            [_enemyAllEnergy addSubview:_enemyBlackEnergyText];
+            [_enemyAllEnergy addSubview:_enemyRedEnergyText];
+            [_enemyAllEnergy addSubview:_enemyGreenEnergyText];
+            
+            _enemyWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
+            _enemyBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
+            _enemyBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
+            _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
+            _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
+            
+            [_allImageView addSubview: _enemyAllEnergy];
+            _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
         
-        _whiteEnergyImage.frame = CGRectMake(0,  0, 20, 20);
-        _blueEnergyImage.frame  = CGRectMake(0, 20, 20, 20);
-        _blackEnergyImage.frame = CGRectMake(0, 40, 20, 20);
-        _redEnergyImage.frame   = CGRectMake(0, 60, 20, 20);
-        _greenEnergyImage.frame = CGRectMake(0, 80, 20, 20);
-        
-        
-        _whiteEnergyText = [[UITextView alloc] init];
-        _blueEnergyText = [[UITextView alloc] init];
-        _blackEnergyText = [[UITextView alloc] init];
-        _redEnergyText = [[UITextView alloc] init];
-        _greenEnergyText = [[UITextView alloc] init];
-        
-        _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-        _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-        _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-        _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-        _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
-    
-        [_allEnergy addSubview:_whiteEnergyText];
-        [_allEnergy addSubview:_blueEnergyText];
-        [_allEnergy addSubview:_blackEnergyText];
-        [_allEnergy addSubview:_redEnergyText];
-        [_allEnergy addSubview:_greenEnergyText];
-        
-        _whiteEnergyText.frame = CGRectMake(20,  0, 40, 20);
-        _blueEnergyText.frame  = CGRectMake(20, 20, 40, 20);
-        _blackEnergyText.frame = CGRectMake(20, 40, 40, 20);
-        _redEnergyText.frame   = CGRectMake(20, 60, 40, 20);
-        _greenEnergyText.frame = CGRectMake(20, 80, 40, 20);
-        
-        [_allImageView addSubview: _allEnergy];
-        _allEnergy.frame = CGRectMake(_allEnergy.superview.bounds.size.width - 60, _allEnergy.superview.bounds.size.height - 300, 20, 60);
         
         
         _myGiko = [[UILabel alloc] init];
@@ -227,6 +493,9 @@
         _enemyYaruo = [[UILabel alloc] init];
         
         [self.view addSubview:_allImageView];
+    }
+    
+    
     
     
 //--------------------------デバッグ用ボタン-----------------------------------
@@ -269,8 +538,8 @@
     
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
-    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-    [_battleStart show];
+//    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+//    [_battleStart show];
     
 
 }
@@ -375,6 +644,7 @@
         [self sync];
     }
     [sendMyData send];
+    
     
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
@@ -1819,84 +2089,262 @@
 }
 
 - (void)battleStart{
-    while (drawCount < 5) {
-        NSLog(@"ドローカウント：%d",drawCount);
-        //手札のカード画像を用意する
-        UIImage *card = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:drawCount] intValue]]];
-        _myCard = [[UIImageView alloc] initWithImage:card];
-        [_myCardImageViewArray addObject:_myCard];
-        [_myCardImageView addSubview:_myCard];
-        _myCard.userInteractionEnabled = YES;
-        [_myCard addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(touchAction:)]];
+    if([YSDeviceHelper is568h]){
+//        
+//        //自分
+//            while (myDrawCount < 5) {
+//                NSLog(@"ドローカウント：%d",myDrawCount);
+//                //手札のカード画像を用意する
+//                    UIImage *myCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:myDrawCount] intValue]]];
+//                    _myCard = [[UIImageView alloc] initWithImage:myCard];
+//                    [_myCardImageViewArray addObject:_myCard];
+//                    [_myCardImageView addSubview:_myCard];
+//                    _myCard.userInteractionEnabled = YES;
+//                    [_myCard addGestureRecognizer:
+//                     [[UITapGestureRecognizer alloc]
+//                      initWithTarget:self action:@selector(touchAction:)]];
+//                
+//                //手札を用意するアニメーション
+//                [UIView beginAnimations:nil context:nil];
+//                //移動前
+//                _myCard.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width *2, 0, CARDWIDTH, CARDHEIGHT);
+//                [UIView setAnimationDelegate:self];
+//                [UIView setAnimationDelay:0.1];
+//                [UIView setAnimationDuration:0.1];
+//                [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//                //移動後
+//                _myCard.frame = CGRectMake(20 + (CARDWIDTH +8) * myDrawCount, 0, CARDWIDTH, CARDHEIGHT);
+//                [UIView commitAnimations];
+//                
+//                
+//                //引いたカードの数をプラスする
+//                myDrawCount++;
+//                _myCard.tag = myDrawCount; // MARK:  タグ番号=myDrawCountとなっていることに注意する！
+//                //手札が5枚になるまで繰り返す
+//                
+//            }
+//            
+//            for (int i = 0; i < 5; i++) {
+//                //手札に入れたカードを、山札の配列から手札の配列に入れておく
+//                [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
+//            }
+//            
+//            //デッキのカード画像を用意する
+//            UIImage *deck = [UIImage imageNamed:@"library.png"];
+//            _myLibrary = [[UIImageView alloc] initWithImage:deck];
+//            [_allImageView addSubview:_myLibrary];
+//            //山札を用意するアニメーション
+//            [UIView beginAnimations:nil context:nil];
+//            //移動前
+//            _myLibrary.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - deck.size.width - 20, [[UIScreen mainScreen] bounds].size.height + 100, deck.size.width, deck.size.height);
+//            //移動後
+//            _myLibrary.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - CARDWIDTH - 20, [[UIScreen mainScreen] bounds].size.height - CARDHEIGHT - 20, CARDWIDTH, CARDHEIGHT);
+//            [UIView commitAnimations];
+//            
+//            //デッキの残枚数を表示
+//            _myLibraryCount = [[UITextView alloc] init];
+//            _myLibraryCount.frame = CGRectMake(5, 10, 30, 40);
+//            _myLibraryCount.textAlignment = NSTextAlignmentCenter;
+//            _myLibraryCount.editable = NO;
+//            UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
+//            UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
+//            _myLibraryCount.backgroundColor = alphaZero;//テキストビューの背景を透明化
+//            _myLibraryCount.text = [NSString stringWithFormat:@"%d", [app.myDeckCardList count]];
+//            [_myLibrary addSubview:_myLibraryCount];
+//            
+//            NSLog(@"-----------------------------------");
+//            NSLog(@"%s", __func__);
+//            for (int i = 0; i < [app.myHand count]; i++) {
+//                NSLog(@"現在の手札のカードナンバー：%d枚目:%d",i + 1,[[app.myHand objectAtIndex:i] intValue]);
+//            }
+//            NSLog(@"-----------------------------------");
+//        
+//        
+//        //相手
+//        while (myDrawCount < 5) {
+//            NSLog(@"ドローカウント：%d",myDrawCount);
+//            //手札のカード画像を用意する
+//            UIImage *myCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:myDrawCount] intValue]]];
+//            _myCard = [[UIImageView alloc] initWithImage:myCard];
+//            [_myCardImageViewArray addObject:_myCard];
+//            [_myCardImageView addSubview:_myCard];
+//            _myCard.userInteractionEnabled = YES;
+//            [_myCard addGestureRecognizer:
+//             [[UITapGestureRecognizer alloc]
+//              initWithTarget:self action:@selector(touchAction:)]];
+//            
+//            //手札を用意するアニメーション
+//            [UIView beginAnimations:nil context:nil];
+//            //移動前
+//            _myCard.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width * - 2, 0, CARDWIDTH, CARDHEIGHT);
+//            [UIView setAnimationDelegate:self];
+//            [UIView setAnimationDelay:0.1];
+//            [UIView setAnimationDuration:0.1];
+//            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//            //移動後
+//            _myCard.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width + (CARDWIDTH +8) * myDrawCount, 0, CARDWIDTH, CARDHEIGHT);
+//            [UIView commitAnimations];
+//            
+//            
+//            //引いたカードの数をプラスする
+//            myDrawCount++;
+//            _myCard.tag = myDrawCount; // MARK:  タグ番号は、デッキ配列の番号+1となっていることに注意する！
+//            //手札が5枚になるまで繰り返す
+//            
+//        }
+//        
+//        for (int i = 0; i < 5; i++) {
+//            //手札に入れたカードを、山札の配列から手札の配列に入れておく
+//            [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
+//        }
+//        
+//        
+//        [self nextTurn];
+    }else{
+         //自分
+            while (myDrawCount < 5) {
+                NSLog(@"ドローカウント：%d",myDrawCount);
+                //手札のカード画像を用意する
+                UIImage *myCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:myDrawCount] intValue]]];
+                _myCard = [[UIImageView alloc] initWithImage:myCard];
+                [_myCardImageViewArray addObject:_myCard];
+                [_myCardImageView addSubview:_myCard];
+                _myCard.userInteractionEnabled = YES;
+                [_myCard addGestureRecognizer:
+                 [[UITapGestureRecognizer alloc]
+                  initWithTarget:self action:@selector(touchAction:)]];
+                
+                //手札を用意するアニメーション
+                [UIView beginAnimations:nil context:nil];
+                //移動前
+                _myCard.frame = CGRectMake(_myCard.superview.bounds.size.width *2, 0, CARDWIDTH, CARDHEIGHT);
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDelay:0.1];
+                [UIView setAnimationDuration:0.1];
+                [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+                //移動後
+                _myCard.frame = CGRectMake(10 + (CARDWIDTH +8) * myDrawCount, 0, CARDWIDTH, CARDHEIGHT);
+                [UIView commitAnimations];
+                
+                
+                //引いたカードの数をプラスする
+                myDrawCount++;
+                _myCard.tag = myDrawCount; // タグ番号=myDrawCountとなっていることに注意する！
+                //手札が5枚になるまで繰り返す
+                
+            }
+            
+            for (int i = 0; i < 5; i++) {
+                //手札に入れたカードを、山札の配列から手札の配列に入れておく
+                [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
+            }
+            
+            //デッキのカード画像を用意する
+            UIImage *deck = [UIImage imageNamed:@"library.png"];
+            _myLibrary = [[UIImageView alloc] initWithImage:deck];
+            [_allImageView addSubview:_myLibrary];
+            //山札を用意するアニメーション
+            [UIView beginAnimations:nil context:nil];
+            //移動前
+            _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - deck.size.width - 10, _myLibrary.superview.bounds.size.height + 100, deck.size.width, deck.size.height);
+            //移動後
+            _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - CARDWIDTH - 10, _myLibrary.superview.bounds.size.height - CARDHEIGHT - 70, CARDWIDTH, CARDHEIGHT);
+            [UIView commitAnimations];
+            
+            //デッキの残枚数を表示
+            _myLibraryCount = [[UITextView alloc] init];
+            _myLibraryCount.frame = CGRectMake(5, 10, 30, 40);
+            _myLibraryCount.textAlignment = NSTextAlignmentCenter;
+            _myLibraryCount.editable = NO;
+            [PenetrateFilter penetrate:_myLibraryCount];
+            _myLibraryCount.text = [NSString stringWithFormat:@"%d", [app.myDeckCardList count]];
+            [_myLibrary addSubview:_myLibraryCount];
+            
+            NSLog(@"-----------------------------------");
+            NSLog(@"%s", __func__);
+            for (int i = 0; i < [app.myHand count]; i++) {
+                NSLog(@"現在の手札のカードナンバー：%d枚目:%d",i + 1,[[app.myHand objectAtIndex:i] intValue]);
+            }
+            NSLog(@"-----------------------------------");
         
-        //手札を用意するアニメーション
-        [UIView beginAnimations:nil context:nil];
-        //移動前
-        _myCard.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width *2, 360, CARDWIDTH, CARDHEIGHT);
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDelay:0.1];
-        [UIView setAnimationDuration:0.1];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        //移動後
-        _myCard.frame = CGRectMake(20 + (CARDWIDTH +8) * drawCount, 360, CARDWIDTH, CARDHEIGHT);
-        [UIView commitAnimations];
         
-
-        //引いたカードの数をプラスする
-        drawCount++;
-        _myCard.tag = drawCount; // MARK:  タグ番号は、デッキ配列の番号+1となっていることに注意する！
-        //手札が5枚になるまで繰り返す
-
+        //相手
+            while (enemyDrawCount < 5) {
+                NSLog(@"ドローカウント：%d",enemyDrawCount);
+                //手札のカード画像を用意する
+                UIImage *enemyCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.enemyDeckCardList objectAtIndex:enemyDrawCount + 1] intValue]]];
+                _enemyCard = [[UIImageView alloc] initWithImage:enemyCard];
+                [_enemyCardImageViewArray addObject:_enemyCard];
+                [_enemyCardImageView addSubview:_enemyCard];
+                _enemyCard.userInteractionEnabled = NO;
+                
+                //手札を用意するアニメーション
+                [UIView beginAnimations:nil context:nil];
+                //移動前
+                _enemyCard.frame = CGRectMake(_enemyCard.superview.bounds.size.width * -2, 0, CARDWIDTH, CARDHEIGHT);
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDelay:0.1];
+                [UIView setAnimationDuration:0.1];
+                [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+                //移動後
+                _enemyCard.frame = CGRectMake(_enemyCard.superview.bounds.size.width - 50 - ((CARDWIDTH +8) * enemyDrawCount), 0, CARDWIDTH, CARDHEIGHT);
+                [UIView commitAnimations];
+                
+                
+                //引いたカードの数をプラスする
+                enemyDrawCount++;
+                _enemyCard.tag = enemyDrawCount; // タグ番号=enemyDrawCountとなっていることに注意する！
+                //手札が5枚になるまで繰り返す
+                
+            }
+            
+            for (int i = 0; i < 5; i++) {
+                //手札に入れたカードを、山札の配列から手札の配列に入れておく
+                [self setCardFromXTOY:app.enemyDeckCardList cardNumber:0 toField:app.enemyHand];
+            }
+            
+            //デッキのカード画像を用意する
+            UIImage *enemydeck = [UIImage imageNamed:@"library.png"];
+            _enemyLibrary = [[UIImageView alloc] initWithImage:enemydeck];
+            [_allImageView addSubview:_enemyLibrary];
+            //山札を用意するアニメーション
+            [UIView beginAnimations:nil context:nil];
+            //移動前
+            _enemyLibrary.frame = CGRectMake(10, -100, deck.size.width, deck.size.height);
+            //移動後
+            _enemyLibrary.frame = CGRectMake(10, _enemyLibrary.superview.bounds.size.height - CARDHEIGHT - 360, CARDWIDTH, CARDHEIGHT);
+            [UIView commitAnimations];
+            
+            //デッキの残枚数を表示
+            _enemyLibraryCount = [[UITextView alloc] init];
+            _enemyLibraryCount.frame = CGRectMake(5, 10, 30, 40);
+            _enemyLibraryCount.textAlignment = NSTextAlignmentCenter;
+            _enemyLibraryCount.editable = NO;
+            [PenetrateFilter penetrate:_enemyLibraryCount];
+            _enemyLibraryCount.text = [NSString stringWithFormat:@"%d", [app.enemyDeckCardList count]];
+            [_enemyLibrary addSubview:_enemyLibraryCount];
+        
+        [self nextTurn];
     }
     
-    for (int i = 0; i < 5; i++) {
-        //手札に入れたカードを、山札の配列から手札の配列に入れておく
-        [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
-    }
     
-        //デッキのカード画像を用意する
-        UIImage *deck = [UIImage imageNamed:@"library.png"];
-        _myLibrary = [[UIImageView alloc] initWithImage:deck];
-        [_allImageView addSubview:_myLibrary];
-        //山札を用意するアニメーション
-        [UIView beginAnimations:nil context:nil];
-        //移動前
-        _myLibrary.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - deck.size.width - 20, [[UIScreen mainScreen] bounds].size.height + 100, deck.size.width, deck.size.height);
-        //移動後
-        _myLibrary.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - CARDWIDTH - 20, [[UIScreen mainScreen] bounds].size.height - CARDHEIGHT - 20, CARDWIDTH, CARDHEIGHT);
-        [UIView commitAnimations];
-        
-        //デッキの残枚数を表示
-        _myLibraryCount = [[UITextView alloc] init];
-        _myLibraryCount.frame = CGRectMake(5, 10, 30, 40);
-        _myLibraryCount.textAlignment = NSTextAlignmentCenter;
-        _myLibraryCount.editable = NO;
-        UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
-        UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
-        _myLibraryCount.backgroundColor = alphaZero;//テキストビューの背景を透明化
-        _myLibraryCount.text = [NSString stringWithFormat:@"%d", [app.myDeckCardList count]];
-        [_myLibrary addSubview:_myLibraryCount];
-
-        NSLog(@"-----------------------------------");
-        NSLog(@"%s", __func__);
-        for (int i = 0; i < [app.myHand count]; i++) {
-            NSLog(@"現在の手札のカードナンバー：%d枚目:%d",i + 1,[[app.myHand objectAtIndex:i] intValue]);
-        }
-        NSLog(@"-----------------------------------");
-    
-    [self nextTurn];
     
 }
 
-- (void)touchAction :(UILongPressGestureRecognizer *)sender{
-    selectedCardOrder = (int)[_myCardImageViewArray indexOfObject:sender.view];
+- (void)touchAction :(UITapGestureRecognizer *)sender{
+    [self browseCardsInRegion:app.myHand];
+}
+
+- (void)handTouched :(UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
+    
+    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
     int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
     cardType = [[app.cardList_type objectAtIndex:cardNumber - 1 ] intValue];
     app.myUsingCardNumber = cardNumber;
     app.doIUseCard = YES;
     doIUseCardInThisTurn = YES;
+
     
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -1915,7 +2363,7 @@
             break;
     }
     
-    if([_myCardImageViewArray indexOfObject:sender.view] == NSNotFound){
+    if([_regionViewArray indexOfObject:sender.view] == NSNotFound){
         NSLog(@"手札内にカードが見つかりません");
     }else{
         NSLog(@"現在選んでいるカードは、手札の左から数えて%d番目", selectedCardOrder + 1);
@@ -1930,37 +2378,26 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"ソーサリーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
-            [_border_middleCard removeFromSuperview];
-            _border_middleCard.frame = sender.view.frame;
-            [_allImageView addSubview:_border_middleCard];
-            
-            [_myCardImageView_middle removeFromSuperview];
-            [_allImageView addSubview:_myCardImageView_middle];
+            [_border_usedCard removeFromSuperview];
+            [_regionView addSubview:_border_usedCard];
+            _border_usedCard.frame = sender.view.frame;
             app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
-            selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致する
-            
-            [_myCardImageView_middle removeFromSuperview];
-            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardImageView_middle];
-            [_myCardTextView_middle removeFromSuperview];
-            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardTextView_middle];
             
             _doIUseSorcerycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"ソーサリーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseSorcerycard show];
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
-                [self cardActivate:app.myUsingCardNumber];
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
-                [self moveCards];
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+                [self moveCards];
+                [_regionViewArray removeAllObjects];
                 doIUseCardInThisTurn = NO;
             }
         }
     }
-
+    
     //フィールドカードの場合の実装
     else if (cardType == FIELDCARD){
         if([self doIHaveEnergyToUseCard:cardNumber]){
@@ -1970,21 +2407,11 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"フィールドカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
-            [_border_middleCard removeFromSuperview];
-            _border_middleCard.frame = sender.view.frame;
-            [_allImageView addSubview:_border_middleCard];
-            
-            [_myCardImageView_middle removeFromSuperview];
-            [_allImageView addSubview:_myCardImageView_middle];
+            [_border_usedCard removeFromSuperview];
+            [_regionView addSubview:_border_usedCard];
+            _border_usedCard.frame = sender.view.frame;
             app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
-            selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致する
             
-            [_myCardImageView_middle removeFromSuperview];
-            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardImageView_middle];
-            [_myCardTextView_middle removeFromSuperview];
-            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardTextView_middle];
             
             _doIUseFieldcard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"フィールドカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseFieldcard show];
@@ -1993,8 +2420,9 @@
             if(doIUseCardInThisTurn == YES){
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
-                [self moveCards];
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
+                [self moveCards];
+                [_regionViewArray removeAllObjects];
                 doIUseCardInThisTurn = NO;
             }
         }
@@ -2006,37 +2434,55 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"エネルギーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
-            [_border_middleCard removeFromSuperview];
-            _border_middleCard.frame = sender.view.frame;
-            [_allImageView addSubview:_border_middleCard];
-            
-            [_myCardImageView_middle removeFromSuperview];
-            [_allImageView addSubview:_myCardImageView_middle];
+            [_border_usedCard removeFromSuperview];
+            [_regionView addSubview:_border_usedCard];
+            _border_usedCard.frame = sender.view.frame;
             app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
-            selectedCardTag = (int)sender.view.tag; //デッキ内の配列番号と一致する
             
-            [_myCardImageView_middle removeFromSuperview];
-            _myCardImageView_middle.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardImageView_middle];
-            [_myCardTextView_middle removeFromSuperview];
-            _myCardTextView_middle.text = [NSString stringWithFormat:@"%@", [app.cardList_text objectAtIndex:app.myUsingCardNumber]];
-            [_allImageView addSubview:_myCardTextView_middle];
             
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseEnergycard show];
         }
     }
+
 }
 
 - (void)moveCards{
-    for (int i = selectedCardOrder; i < [_myCardImageViewArray count]; i++){
-        UIImageView *imgView = [_myCardImageView.subviews objectAtIndex:i];
-        imgView.frame = CGRectMake(imgView.frame.origin.x - 48, imgView.frame.origin.y, imgView.frame.size.width, imgView.frame.size.height);
-    }
-    NSLog(@"selectedCardTag：%d",selectedCardTag);
-    [_border_middleCard removeFromSuperview];
+    [_myCardImageView removeFromSuperview];
+    
+    NSLog(@"selectedCardOrder:%d",selectedCardOrder);
+    NSLog(@"[_myCardImageViewArray count]:%d",[_myCardImageViewArray count]);
     [_myCardImageViewArray removeObjectAtIndex:selectedCardOrder];
-    [[_myCardImageView viewWithTag:selectedCardTag] removeFromSuperview];
+    
+    
+    UIImageView *temp =[[_myCardImageView subviews] objectAtIndex:selectedCardOrder];
+    [[_myCardImageView viewWithTag:temp.tag] removeFromSuperview];
+    NSLog(@"[[_myCardImageView subviews] count]:%d",[[_myCardImageView subviews] count]);
+
+    //手札の画像を全てテンポラリな配列に収め、myCardImageViewから消す
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [[_myCardImageView subviews] count]; i++){
+        [tempArray addObject:[[_myCardImageView subviews] objectAtIndex:i]];
+    }
+    for (UIView *view in [_myCardImageView subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    _myCardImageView = [[UIImageView alloc] init];
+    _myCardImageView.userInteractionEnabled = YES;
+    
+    for (int i = 0; i < [tempArray count]; i++){
+        UIImageView *imgView = [tempArray objectAtIndex:i];
+        [_myCardImageView addSubview:imgView];
+        imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
+        imgView.userInteractionEnabled = YES;
+        [imgView addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(touchAction:)]];
+    }
+    
+    [_allImageView addSubview:_myCardImageView];
+    _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
 
     for (int i = 0; i < [_myCardImageViewArray count]; i++) {
         UIImageView *tmp = [[UIImageView alloc] init];
@@ -2059,19 +2505,37 @@
 
 /*----------------------------------------------------------------------------------------*/
 
+
+
+aaaaaaaaaaaaaaaaaa
+領域参照について、カードタッチ可・不可を分けるBOOLを追加する
+
+
 //対象プレイヤーのXという領域のカードを見る（場・エネルギー置き場・手札）
 -(int)browseCardsInRegion :(NSMutableArray *)cards{
+    for (UIView *view in [_regionView subviews]) {
+        [view removeFromSuperview];
+    }
+    _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
+    [PenetrateFilter penetrate:_regionView];
+    _regionView.userInteractionEnabled = YES;
+    
     for (int i = 0; i < [cards count]; i++) {
         UIImageView *cardImage = [[UIImageView alloc] init];
-        [_cardInRegion addSubview:cardImage];
-        cardImage.frame = CGRectMake(10, 10 + (CARDHEIGHT) * i + (i  * 5), CARDWIDTH, CARDHEIGHT);
-        cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[cards objectAtIndex:i]]];
+        cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
+        [_regionView addSubview:cardImage];
+        [_regionViewArray addObject:cardImage];
+        cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
         cardImage.userInteractionEnabled = YES;
-        cardImage.tag = i;
-        [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectCard:)]];
+        cardImage.tag = i + 1;
+        [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handTouched:)]];
         [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
     }
-    [self createOkButton:CGRectMake(10, (_cardInRegion.bounds.size.height - 100) / 2, 100, 20) parentView:_cardInRegion tag:4];
+    _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
+    _cardInRegion.contentSize = _regionView.bounds.size;
+    [_cardInRegion addSubview:_regionView];
+    
+    [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
     [_allImageView addSubview:_cardInRegion];
     
     return 0;
@@ -2231,17 +2695,17 @@
          [[UITapGestureRecognizer alloc]
           initWithTarget:self action:@selector(touchAction:)]];
         //移動前
-        _myGetCard.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - CARDWIDTH - 20, [[UIScreen mainScreen] bounds].size.height - CARDHEIGHT - 20, CARDWIDTH, CARDHEIGHT);
+        _myGetCard.frame = CGRectMake(_myGetCard.superview.bounds.size.width - CARDWIDTH - 20, 0, CARDWIDTH, CARDHEIGHT);
         [UIView setAnimationDelegate:self];
         [UIView setAnimationDelay:0.2];
         [UIView setAnimationDuration:0.5];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         //移動後
-        _myGetCard.frame = CGRectMake(20 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 360, CARDWIDTH, CARDHEIGHT);
+        _myGetCard.frame = CGRectMake(10 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 0, CARDWIDTH, CARDHEIGHT);
         
         //引いたカードの数を増やす
-        drawCount++;
-        _myGetCard.tag = drawCount;
+        myDrawCount++;
+        _myGetCard.tag = myDrawCount;
         NSLog(@"手札に入れたカードのタグ：%d",_myGetCard.tag);
         
         //デッキのカード枚数を減らし、手札に入れる
@@ -2288,7 +2752,7 @@
         cardImage.frame = CGRectMake(10, 10 + (CARDHEIGHT) * i + (i  * 5), CARDWIDTH, CARDHEIGHT);
         cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[deck objectAtIndex:i]]];
         cardImage.userInteractionEnabled = YES;
-        cardImage.tag = i;
+        cardImage.tag = i + 1;
         [cardImage addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
           initWithTarget:self action:@selector(detailOfACard:)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
@@ -2397,7 +2861,7 @@
         cardImage.frame = CGRectMake(10, 10 + (CARDHEIGHT) * i + (i  * 5), CARDWIDTH, CARDHEIGHT);
         cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[app.myHand objectAtIndex:i]]];
         cardImage.userInteractionEnabled = YES;
-        cardImage.tag = i;
+        cardImage.tag = i + 1;
         [cardImage addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
           initWithTarget:self action:@selector(selectCard:)]];
@@ -2633,7 +3097,7 @@
     mySelectCharacterInCharacterField = (int)sender.view.tag;
 }
 
-- (void)createOkButton:(CGRect)rect parentView:(UIImageView *)view tag:(int)tag{
+- (void)createOkButton:(CGRect)rect parentView:(UIView *)view tag:(int)tag{
     UIImageView *okButton = [[UIImageView alloc] initWithFrame:rect];
     okButton.image = [UIImage imageNamed:@"ok.png"];
     okButton.userInteractionEnabled = YES;
@@ -2645,14 +3109,14 @@
     
 }
 
-- (void)createCancelButton:(CGRect)rect parentView:(UIImageView *)view tag:(int)tag{
-    UIImageView *cancelButton = [[UIImageView alloc] init];
-    [view addSubview:cancelButton];
-    cancelButton.frame = rect;
-    cancelButton.image = [UIImage imageNamed:@"cancel.png"];
-    cancelButton.userInteractionEnabled = YES;
-    cancelButton.tag = tag;
-    [cancelButton addGestureRecognizer:
+- (void)createCancelButton:(CGRect)rect parentView:(UIView *)view tag:(int)tag{
+    _cancelButton = [[UIImageView alloc] init];
+    [view addSubview:_cancelButton];
+    _cancelButton.frame = rect;
+    _cancelButton.image = [UIImage imageNamed:@"cancel.png"];
+    _cancelButton.userInteractionEnabled = YES;
+    _cancelButton.tag = tag;
+    [_cancelButton addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(buttonPushed:)]];
 
@@ -2686,7 +3150,7 @@
             break;
             
         case 4:
-            //ある領域のカードを見た際のOKボタンから飛んできた場合
+            //ある領域のカードを見た際のOK,キャンセルボタンから飛んできた場合
             [_cardInRegion removeFromSuperview];
             break;
 
@@ -2809,12 +3273,13 @@
     }else if (alertView == _doIUseEnergycard){
         switch (buttonIndex) {
             case 0:
-                
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
-                NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
+                [_cardInRegion removeFromSuperview];
+                [_cancelButton removeFromSuperview];
                 
-                //エネルギーカードを使用する場合は、手札からエネルギーカードをエネルギー置き場に移したうえでエネルギーをプラスする
+                NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+                [_regionViewArray removeAllObjects];
                 if(app.myUsingCardNumber == 1){
                     [app.myEnergyCard replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:0] intValue] + 1]];
                     NSLog(@"白エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:0] intValue]);
@@ -2834,15 +3299,15 @@
                 
                 [self moveCards];
                 
-                _whiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-                _blueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-                _blackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-                _redEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-                _greenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+                _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+                _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+                _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+                _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+                _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+                
                 
                 
                 //後続でソーサリー・フィールドカードを使用する場合があるため、各種カード関係の変数を初期化しておく
-                selectedCardTag = -1;
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
@@ -2851,28 +3316,34 @@
                 NSLog(@"selectCardNum:%d",app.myUsingCardNumber);
                 NSLog(@"手札の内容：%@",app.myHand);
                 NSLog(@"墓地の内容：%@",app.myTomb);
-                
+                FINISHED1
                 break;
             case 1:
                 //キャンセルボタンの場合は数値のみ初期化
-                selectedCardTag = -1;
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
+                [_border_usedCard removeFromSuperview];
+                [_cancelButton removeFromSuperview];
+                FINISHED1
         }
     }else if (alertView == _doIUseSorcerycard){
         switch (buttonIndex) {
             case 0:
+                [_cardInRegion removeFromSuperview];
+                [_cancelButton removeFromSuperview];
                 FINISHED1
                 break;
             case 1:
-                selectedCardTag = -1;
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
+                [_border_usedCard removeFromSuperview];
+                [_cancelButton removeFromSuperview];
+                FINISHED1
                 break;
             default:
                 break;
@@ -2880,15 +3351,19 @@
     }else if (alertView == _doIUseFieldcard){
         switch (buttonIndex) {
             case 0:
+                [_cardInRegion removeFromSuperview];
+                [_cancelButton removeFromSuperview];
                 FINISHED1
                 break;
             case 1:
-                selectedCardTag = -1;
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
+                [_border_usedCard removeFromSuperview];
+                [_cancelButton removeFromSuperview];
+                FINISHED1
                 break;
             default:
                 break;
@@ -2991,7 +3466,6 @@
         [_border_middleCard removeFromSuperview];
         [_border_character removeFromSuperview];
         selectedCardOrder = -1;
-        selectedCardTag = -1;
         selectCardTag = -1;
         costLife = NO;
         app.mySelectCharacter = -1;; //自分の選んだキャラクター
@@ -3127,10 +3601,17 @@
     [app.cardsIUsedInThisTurn addObject:[fromField objectAtIndex:cardNumber]];
 }
 
-- (void) transitView:(NSNotification *)note{
-    battleStartNum = [[note object] intValue];
-    NSLog(@"やったぜ：%d",battleStartNum);
-       [self nextTurn];
+
+#pragma mark UIScrollView delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView == _cardInRegion){
+        CGRect scrolledRect;
+        scrolledRect.origin = CGPointMake(_cardInRegion.contentOffset.x, _cardInRegion.contentOffset.y);
+        scrolledRect.size = _backGroundView.frame.size;
+        _backGroundView.frame = scrolledRect;
+    }
 }
+
 
 @end

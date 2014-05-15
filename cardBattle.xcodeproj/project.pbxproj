@@ -11,6 +11,9 @@
 		0F29BD071919343C00E9D59C /* GetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD061919343C00E9D59C /* GetLocation.m */; };
 		0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */; };
 		0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */; };
+		0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */; };
+		0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD171923B42C00E9D59C /* PenetrateFilter.m */; };
+		0F29BD1C1924E2FF00E9D59C /* border_usedCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
@@ -121,6 +124,11 @@
 		0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDataToServer.m; sourceTree = "<group>"; };
 		0F29BD10191DF16800E9D59C /* GetEnemyDataFromServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetEnemyDataFromServer.h; sourceTree = "<group>"; };
 		0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetEnemyDataFromServer.m; sourceTree = "<group>"; };
+		0F29BD131921CCCF00E9D59C /* YSDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDeviceHelper.h; sourceTree = "<group>"; };
+		0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDeviceHelper.m; sourceTree = "<group>"; };
+		0F29BD161923B42C00E9D59C /* PenetrateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PenetrateFilter.h; sourceTree = "<group>"; };
+		0F29BD171923B42C00E9D59C /* PenetrateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenetrateFilter.m; sourceTree = "<group>"; };
+		0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_usedCard.png; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
@@ -374,6 +382,7 @@
 				0F5B7A0118D949D600A3D9E7 /* anime.png */,
 				0FD1D9FD18DF22AB00E03D23 /* library.png */,
 				0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */,
+				0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */,
 				0F1D265119061E1500B43A76 /* border_character.png */,
 				0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */,
 				0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */,
@@ -447,6 +456,10 @@
 				0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */,
 				0F29BD10191DF16800E9D59C /* GetEnemyDataFromServer.h */,
 				0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */,
+				0F29BD131921CCCF00E9D59C /* YSDeviceHelper.h */,
+				0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */,
+				0F29BD161923B42C00E9D59C /* PenetrateFilter.h */,
+				0F29BD171923B42C00E9D59C /* PenetrateFilter.m */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
 				0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */,
@@ -578,6 +591,7 @@
 				0F9F17A718F19BA8004E58BF /* yaruo.png in Resources */,
 				0F9F179118F19461004E58BF /* card6.png in Resources */,
 				0FDB981718CB655100C7566E /* c5r.PNG in Resources */,
+				0F29BD1C1924E2FF00E9D59C /* border_usedCard.png in Resources */,
 				0FDB985E18D0A92700C7566E /* cancelButton.png in Resources */,
 				0FDB980E18CB620800C7566E /* Images.xcassets in Resources */,
 				0F9F179518F19461004E58BF /* card10.png in Resources */,
@@ -650,7 +664,9 @@
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
 				0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */,
 				0F6EB4781916B2E400BD0E41 /* SBJsonStreamWriter.m in Sources */,
+				0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */,
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
+				0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */,
 				0F6EB47C1916B2E400BD0E41 /* SBJsonUTF8Stream.m in Sources */,

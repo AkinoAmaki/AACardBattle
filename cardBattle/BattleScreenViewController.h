@@ -16,12 +16,16 @@
 #import "GetEnemyDataFromServer.h"
 #import "GetLocation.h"
 #import "SendDataToServer.h"
+#import "YSDeviceHelper.h"
+#import "penetrateFilter.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
 #define YARUO 4
-#define CARDWIDTH 40
-#define CARDHEIGHT 60
+#define CARDWIDTH 34
+#define CARDHEIGHT 51
+#define BIGCARDWIDTH 100
+#define BIGCARDHEIGHT 150
 #define WHITE 1
 #define BLUE 2
 #define BLACK 3
@@ -40,9 +44,9 @@
 @interface BattleScreenViewController : BattleCaliculate{
     BattleCaliculate *bc;
     int turnCount; //ターン数を管理
-    int drawCount; //自分の引いたカード枚数を管理
+    int myDrawCount; //自分の引いたカード枚数を管理
+    int enemyDrawCount; //相手の引いたカード枚数を管理
     int selectedCardOrder; //現在選択されているカードは、手札の左から数えて何番目かを管理する（1番目なら0が入る）
-    int selectedCardTag; //現在選択されているカードのタグ番号を管理する。（デッキの上から１番目から1，2，3，…と続く）
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
     int mySelectCharacterInCharacterField; //カード効果により自分のキャラクターを選択する際のキャラクター
@@ -59,7 +63,7 @@
 }
 
 @property int battleStartNum; //0ならバトル未開始、1になった瞬間に開始(1のデータはGetLocationクラスから飛んでくる)
-@property int drawCount;
+@property int myDrawCount;
 @property int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
 
 
@@ -94,8 +98,14 @@
     @property UIImageView *turnResultView;
     @property UIImage *turnResult;
 
+
+//UIViewの背景を設定するビュー
+@property UIImageView  *backGroundView;
+
 //領域（自分（相手）の手札・自分（相手）の山札・自分（相手）の場カード・自分（相手）のエネルギーカード等）にあるカードを見るビュー
-@property UIImageView *cardInRegion;
+@property UIScrollView *cardInRegion;
+@property UIImageView *regionView;
+@property NSMutableArray *regionViewArray;
 
 //特定の色を選ぶビュー
 @property UIImageView *colorView;
@@ -106,17 +116,25 @@
 //ライフゲージ画像
 @property UIImageView *myLifeImageView;
 @property UIImageView *enemyLifeImageView;
+@property UITextView *myLifeTextView;
+@property UITextView *enemyLifeTextView;
 
 //カード画像・テキスト
 @property UIImageView *myCardImageView;
 @property NSMutableArray *myCardImageViewArray; //自分の手札画像を収める配列
-@property UIImageView *myCardImageView_middle; //左下に設置している、中くらいの大きさのカード画像
-@property UITextView *myCardTextView_middle;//左下に設置している、中くらいの大きさのカードのテキスト
 @property UIImageView *myCard;
+@property UIImageView *enemyCardImageView;
+@property NSMutableArray *enemyCardImageViewArray; //相手の手札画像を収める配列
+@property UIImageView *enemyCard;
+
+//キャラクターをまとめるビュー
+@property UIImageView *myCharacterView;
+@property UIImageView *enemyCharacterView;
 
 //選択されたキャラクター・カードを縁取るカード画像
 @property UIImageView *border_character;
 @property UIImageView *border_middleCard;
+@property UIImageView *border_usedCard;
 
 //山札画像
 @property UIImageView *myLibrary;
@@ -127,21 +145,33 @@
 @property UIImageView *enemyGetCard;
 
 //エネルギー表示
-@property UIImageView *allEnergy; //５色のエネルギーの画像とテキストをまとめる
-@property UIImageView *whiteEnergyImage; //白色のエネルギーの画像
-@property UIImageView *blueEnergyImage; //青色のエネルギーの画像
-@property UIImageView *blackEnergyImage; //黒色のエネルギーの画像
-@property UIImageView *redEnergyImage; //赤色のエネルギーの画像
-@property UIImageView *greenEnergyImage; //緑色のエネルギーの画像
-@property UITextView  *whiteEnergyText;  //白色のエネルギーの数値
-@property UITextView  *blueEnergyText;  //青色のエネルギーの数値
-@property UITextView  *blackEnergyText;  //黒色のエネルギーの数値
-@property UITextView  *redEnergyText;  //赤色のエネルギーの数値
-@property UITextView  *greenEnergyText;  //緑色のエネルギーの数値
+@property UIImageView *myAllEnergy; //５色のエネルギーの画像とテキストをまとめる(自分)
+@property UIImageView *myWhiteEnergyImage; //白色のエネルギーの画像(自分)
+@property UIImageView *myBlueEnergyImage; //青色のエネルギーの画像(自分)
+@property UIImageView *myBlackEnergyImage; //黒色のエネルギーの画像(自分)
+@property UIImageView *myRedEnergyImage; //赤色のエネルギーの画像(自分)
+@property UIImageView *myGreenEnergyImage; //緑色のエネルギーの画像(自分)
+@property UITextView  *myWhiteEnergyText;  //白色のエネルギーの数値(自分)
+@property UITextView  *myBlueEnergyText;  //青色のエネルギーの数値(自分)
+@property UITextView  *myBlackEnergyText;  //黒色のエネルギーの数値(自分)
+@property UITextView  *myRedEnergyText;  //赤色のエネルギーの数値(自分)
+@property UITextView  *myGreenEnergyText;  //緑色のエネルギーの数値(自分)
+@property UIImageView *enemyAllEnergy; //５色のエネルギーの画像とテキストをまとめる(相手)
+@property UIImageView *enemyWhiteEnergyImage; //白色のエネルギーの画像(相手)
+@property UIImageView *enemyBlueEnergyImage; //青色のエネルギーの画像(相手)
+@property UIImageView *enemyBlackEnergyImage; //黒色のエネルギーの画像(相手)
+@property UIImageView *enemyRedEnergyImage; //赤色のエネルギーの画像(相手)
+@property UIImageView *enemyGreenEnergyImage; //緑色のエネルギーの画像(相手)
+@property UITextView  *enemyWhiteEnergyText;  //白色のエネルギーの数値(相手)
+@property UITextView  *enemyBlueEnergyText;  //青色のエネルギーの数値(相手)
+@property UITextView  *enemyBlackEnergyText;  //黒色のエネルギーの数値(相手)
+@property UITextView  *enemyRedEnergyText;  //赤色のエネルギーの数値(相手)
+@property UITextView  *enemyGreenEnergyText;  //緑色のエネルギーの数値(相手)
 
 
-//OKボタン
+//OKボタン・キャンセルボタン
 @property UIButton *okButton;
+@property UIImageView *cancelButton;
 
 //キャラクターを選択するビュー
 @property UIImageView *characterField;
