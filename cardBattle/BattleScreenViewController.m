@@ -266,10 +266,10 @@
         
         _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
         
-        _okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_okButton setTitle:@"OK" forState:UIControlStateNormal];
+        _okButton = [[UIButton alloc] init];
+        [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
         [_allImageView addSubview:_okButton];
-        _okButton.frame = CGRectMake(_allImageView.bounds.size.width - 60, _allImageView.bounds.size.height - 130, 40, 20);
+        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
         [_okButton addTarget:self action:@selector(okButton)
             forControlEvents:UIControlEventTouchUpInside];
         
@@ -383,6 +383,40 @@
         
         
         
+        //墓地を表示するビューを作成
+        _myTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
+        _myTomb.userInteractionEnabled = YES;
+        [_myTomb addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(myTombTouched:)]];
+        [_allImageView addSubview:_myTomb];
+        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
+        
+        _enemyTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
+        _enemyTomb.userInteractionEnabled = YES;
+        [_enemyTomb addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(myTombTouched:)]];
+        [_allImageView addSubview:_enemyTomb];
+        _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
+        
+        
+        //フィールドカード置き場を表示するビューを作成
+        _myField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
+        _myField.userInteractionEnabled = YES;
+        [_myField addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(myFieldTouched:)]];
+        [_allImageView addSubview:_myField];
+        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
+        
+        _enemyField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
+        _enemyField.userInteractionEnabled = YES;
+        [_enemyField addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(myFieldTouched:)]];
+        [_allImageView addSubview:_enemyField];
+        _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
         
         //エネルギーの数を表示するビューを作成
             //自分側
@@ -887,7 +921,7 @@
             break;
         case 30:
             //対象の場カードを破壊する
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 31:
@@ -916,7 +950,7 @@
         case 36:
             //カードを１枚引き、１枚捨てる（U1)
             [self getACard:MYSELF];
-            [self browseCardsInRegion:app.myHand];
+            [self browseCardsInRegion:app.myHand touchCard:YES];
             [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 37:
@@ -952,7 +986,7 @@
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
             
             break;
@@ -974,7 +1008,7 @@
             break;
         case 47:
             //対象の場カードを自分のものにする（UU3)
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
             break;
         case 48:
@@ -1107,7 +1141,7 @@
             break;
         case 67:
             //相手のエネルギーカードを破壊(RR2)
-            [self browseCardsInRegion:app.enemyEnergyCard];
+            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 68:
@@ -1157,12 +1191,12 @@
             break;
         case 75:
             //対象の場カードを破壊する（R1)
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 76:
             //対象の場カードを２枚破壊する（R3)
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 77:
@@ -1305,14 +1339,14 @@
             break;
         case 94:
             //対象のエネルギーカードを破壊する（R2)
-            [self browseCardsInRegion:app.enemyEnergyCard];
+            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 95:
             //対象のエネルギーカードを２枚破壊する(RR3)
-            [self browseCardsInRegion:app.enemyEnergyCard];
+            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            [self browseCardsInRegion:app.enemyEnergyCard];
+            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 96:
@@ -1387,7 +1421,7 @@
             break;
         case 106:
             //自分の場カードを破壊することでカードを２枚引く（B1)
-            [self browseCardsInRegion:app.myFieldCard];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES];
             [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             [self getACard:MYSELF];
             [self getACard:MYSELF];
@@ -1401,7 +1435,7 @@
             break;
         case 108:
             //場のカードを破壊するが、ライフを３点失う（B1)
-            [self browseCardsInRegion:app.enemyFieldCard];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 109:
@@ -1443,25 +1477,25 @@
             break;
         case 113:
             //カードを一枚好きにサーチし、ライブラリを切り直す。ライフを４点失う（B1)
-            [self browseCardsInRegion:app.myDeckCardList];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES];
             [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
             app.myLifeGage = [self HPOperate:app.myLifeGage point:-4];
             
             break;
         case 114:
             //カードを一枚好きにサーチし、ライブラリを切り直す（BB2)
-            [self browseCardsInRegion:app.myDeckCardList];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES];
             [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
             break;
         case 115:
             //相手プレイヤーのデッキからカードを一枚捨てる（B１)
-            [self browseCardsInRegion:app.enemyDeckCardList];
+            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES];
             [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
             for (int i = 0; i < 10; i++) {
-                [self browseCardsInRegion:app.enemyDeckCardList];
+                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES];
                 [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
             }
             break;
@@ -1482,12 +1516,12 @@
             break;
         case 118:
             //相手プレイヤーの手札の中にある、カードを1枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES];
             [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 119:
             //相手プレイヤーの手札の中にある、カードを2枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES];
             [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 120:
@@ -1502,7 +1536,7 @@
         case 121:
             //カードを一枚捨てる代わりに、相手のカードを好きに一枚捨てられる（B)
             [self payAdditionalCost];
-            [self browseCardsInRegion:app.enemyHand];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES];
             [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 122:
@@ -1523,18 +1557,18 @@
              break;
         case 124:
             //自分の場カードを破壊することで、対象プレイヤーはカードを２枚捨てる（B1)
-            [self browseCardsInRegion:app.myFieldCard];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES];
             [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self browseCardsInRegion:app.enemyHand];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES];
             [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            [self browseCardsInRegion:app.enemyHand];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES];
             [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 125:
             //カードを２枚捨てることで、ずっと攻撃力・防御力＋２（B1)
-            [self browseCardsInRegion:app.myHand];
+            [self browseCardsInRegion:app.myHand touchCard:YES];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self browseCardsInRegion:app.myHand];
+            [self browseCardsInRegion:app.myHand touchCard:YES];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
             [self myAttackPowerOperate:GIKO point:2 temporary:0];
             [self myDeffencePowerOperate:GIKO point:2 temporary:0];
@@ -2332,7 +2366,7 @@
 }
 
 - (void)touchAction :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.myHand];
+    [self browseCardsInRegion:app.myHand touchCard:YES];
 }
 
 - (void)handTouched :(UITapGestureRecognizer *)sender{
@@ -2447,6 +2481,23 @@
 
 }
 
+- (void)myTombTouched :(UITapGestureRecognizer *)sender{
+    [self browseCardsInRegion:app.myTomb touchCard:NO];
+}
+
+- (void)enemyTombTouched :(UITapGestureRecognizer *)sender{
+    [self browseCardsInRegion:app.enemyTomb touchCard:NO];
+}
+
+- (void)myFieldTouched :(UITapGestureRecognizer *)sender{
+    [self browseCardsInRegion:app.myFieldCard touchCard:NO];
+}
+
+- (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
+    [self browseCardsInRegion:app.enemyFieldCard touchCard:NO];
+}
+
+
 - (void)moveCards{
     [_myCardImageView removeFromSuperview];
     
@@ -2506,39 +2557,63 @@
 /*----------------------------------------------------------------------------------------*/
 
 
-
-aaaaaaaaaaaaaaaaaa
-領域参照について、カードタッチ可・不可を分けるBOOLを追加する
-
-
 //対象プレイヤーのXという領域のカードを見る（場・エネルギー置き場・手札）
--(int)browseCardsInRegion :(NSMutableArray *)cards{
-    for (UIView *view in [_regionView subviews]) {
-        [view removeFromSuperview];
+-(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard{
+    NSLog(@"%@",cards);
+    if(touchCard){
+        for (UIView *view in [_regionView subviews]) {
+            [view removeFromSuperview];
+        }
+        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
+        [PenetrateFilter penetrate:_regionView];
+        _regionView.userInteractionEnabled = YES;
+        
+        for (int i = 0; i < [cards count]; i++) {
+            UIImageView *cardImage = [[UIImageView alloc] init];
+            cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
+            [_regionView addSubview:cardImage];
+            [_regionViewArray addObject:cardImage];
+            cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
+            cardImage.userInteractionEnabled = YES;
+            cardImage.tag = i + 1;
+            [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handTouched:)]];
+            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
+        }
+        _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
+        _cardInRegion.contentSize = _regionView.bounds.size;
+        [_cardInRegion addSubview:_regionView];
+        
+        [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
+        [_allImageView addSubview:_cardInRegion];
+        
+        return 0;
+
+    }else{
+        for (UIView *view in [_regionView subviews]) {
+            [view removeFromSuperview];
+        }
+        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
+        [PenetrateFilter penetrate:_regionView];
+        _regionView.userInteractionEnabled = NO;
+        
+        for (int i = 0; i < [cards count]; i++) {
+            UIImageView *cardImage = [[UIImageView alloc] init];
+            cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
+            [_regionView addSubview:cardImage];
+            [_regionViewArray addObject:cardImage];
+            cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
+            cardImage.userInteractionEnabled = NO;
+            cardImage.tag = i + 1;
+        }
+        _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
+        _cardInRegion.contentSize = _regionView.bounds.size;
+        [_cardInRegion addSubview:_regionView];
+        
+        [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
+        [_allImageView addSubview:_cardInRegion];
+        
+        return 0;
     }
-    _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
-    [PenetrateFilter penetrate:_regionView];
-    _regionView.userInteractionEnabled = YES;
-    
-    for (int i = 0; i < [cards count]; i++) {
-        UIImageView *cardImage = [[UIImageView alloc] init];
-        cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
-        [_regionView addSubview:cardImage];
-        [_regionViewArray addObject:cardImage];
-        cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
-        cardImage.userInteractionEnabled = YES;
-        cardImage.tag = i + 1;
-        [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handTouched:)]];
-        [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
-    }
-    _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
-    _cardInRegion.contentSize = _regionView.bounds.size;
-    [_cardInRegion addSubview:_regionView];
-    
-    [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
-    [_allImageView addSubview:_cardInRegion];
-    
-    return 0;
 }
 
 //自分の対象キャラの攻撃力を操作する（対象キャラの攻撃力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
@@ -3325,7 +3400,6 @@ aaaaaaaaaaaaaaaaaa
                 app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 [_border_usedCard removeFromSuperview];
-                [_cancelButton removeFromSuperview];
                 FINISHED1
         }
     }else if (alertView == _doIUseSorcerycard){
@@ -3342,7 +3416,6 @@ aaaaaaaaaaaaaaaaaa
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
                 [_border_usedCard removeFromSuperview];
-                [_cancelButton removeFromSuperview];
                 FINISHED1
                 break;
             default:
@@ -3362,7 +3435,6 @@ aaaaaaaaaaaaaaaaaa
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
                 [_border_usedCard removeFromSuperview];
-                [_cancelButton removeFromSuperview];
                 FINISHED1
                 break;
             default:

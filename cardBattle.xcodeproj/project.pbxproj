@@ -20,6 +20,9 @@
 		0F5B7A0018D8A56A00A3D9E7 /* border_smallCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */; };
 		0F5B7A0218D949D600A3D9E7 /* anime.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B7A0118D949D600A3D9E7 /* anime.png */; };
 		0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5EE52318F1A5B500785996 /* characterSelect.png */; };
+		0F6A30461925BDEB00341623 /* tomb.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A30451925BDEB00341623 /* tomb.png */; };
+		0F6A30491925C14E00341623 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A30481925C14E00341623 /* next.png */; };
+		0F6A304B19263F8F00341623 /* field.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A304A19263F8F00341623 /* field.png */; };
 		0F6EB3BC190BFD8100BD0E41 /* blackEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */; };
 		0F6EB3BD190BFD8100BD0E41 /* blueEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B8190BFD8100BD0E41 /* blueEnergyImage.png */; };
 		0F6EB3BE190BFD8100BD0E41 /* greenEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */; };
@@ -135,6 +138,9 @@
 		0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_smallCard.png; sourceTree = "<group>"; };
 		0F5B7A0118D949D600A3D9E7 /* anime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anime.png; sourceTree = "<group>"; };
 		0F5EE52318F1A5B500785996 /* characterSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characterSelect.png; sourceTree = "<group>"; };
+		0F6A30451925BDEB00341623 /* tomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tomb.png; sourceTree = "<group>"; };
+		0F6A30481925C14E00341623 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		0F6A304A19263F8F00341623 /* field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = field.png; sourceTree = "<group>"; };
 		0F6EB3B7190BFD8100BD0E41 /* blackEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackEnergyImage.png; sourceTree = "<group>"; };
 		0F6EB3B8190BFD8100BD0E41 /* blueEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueEnergyImage.png; sourceTree = "<group>"; };
 		0F6EB3B9190BFD8100BD0E41 /* greenEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage.png; sourceTree = "<group>"; };
@@ -381,6 +387,8 @@
 				0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */,
 				0F5B7A0118D949D600A3D9E7 /* anime.png */,
 				0FD1D9FD18DF22AB00E03D23 /* library.png */,
+				0F6A30451925BDEB00341623 /* tomb.png */,
+				0F6A30481925C14E00341623 /* next.png */,
 				0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */,
 				0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */,
 				0F1D265119061E1500B43A76 /* border_character.png */,
@@ -393,6 +401,7 @@
 				0F6EB3BB190BFD8100BD0E41 /* whiteEnergyImage.png */,
 				0F5EE52318F1A5B500785996 /* characterSelect.png */,
 				0F9F177218EC607D004E58BF /* cancel.png */,
+				0F6A304A19263F8F00341623 /* field.png */,
 				0F9F177318EC607D004E58BF /* ok.png */,
 			);
 			path = else;
@@ -596,6 +605,7 @@
 				0FDB980E18CB620800C7566E /* Images.xcassets in Resources */,
 				0F9F179518F19461004E58BF /* card10.png in Resources */,
 				0F6EB3BF190BFD8100BD0E41 /* redEnergyImage.png in Resources */,
+				0F6A30491925C14E00341623 /* next.png in Resources */,
 				0FDCA49518CACFC2003459F8 /* InfoPlist.strings in Resources */,
 				0FDCA49E18CACFC2003459F8 /* Main.storyboard in Resources */,
 				0F9F178C18F19461004E58BF /* card1.png in Resources */,
@@ -620,11 +630,13 @@
 				0F6EB4521915EB1700BD0E41 /* SVProgressHUD.bundle in Resources */,
 				0F9F17A418F19BA8004E58BF /* giko.png in Resources */,
 				0F9F179818F19461004E58BF /* card13.png in Resources */,
+				0F6A30461925BDEB00341623 /* tomb.png in Resources */,
 				0F6EB3C0190BFD8100BD0E41 /* whiteEnergyImage.png in Resources */,
 				0F6EB3BD190BFD8100BD0E41 /* blueEnergyImage.png in Resources */,
 				0FDB981818CB655100C7566E /* c7r.PNG in Resources */,
 				0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
+				0F6A304B19263F8F00341623 /* field.png in Resources */,
 				0FDB982018CF5C6E00C7566E /* outicon.PNG in Resources */,
 				0F9F177518EC607D004E58BF /* ok.png in Resources */,
 				0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */,

@@ -144,6 +144,14 @@
 @property UITextView *enemyLibraryCount;
 @property UIImageView *enemyGetCard;
 
+//墓地画像
+@property UIImageView *myTomb;
+@property UIImageView *enemyTomb;
+
+//フィールドカード画像
+@property UIImageView *myField;
+@property UIImageView *enemyField;
+
 //エネルギー表示
 @property UIImageView *myAllEnergy; //５色のエネルギーの画像とテキストをまとめる(自分)
 @property UIImageView *myWhiteEnergyImage; //白色のエネルギーの画像(自分)
