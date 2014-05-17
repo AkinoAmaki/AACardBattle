@@ -152,18 +152,17 @@
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
-    enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
-    [SVProgressHUD dismiss];
-    
-    
-
-    
-    _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
-    [_isAEnemyName show];
-    NSLog(@"%@",string);
-    [self sync];
-   
+    if([string hasPrefix:@"timeout"]){
+        _notFound = [[UIAlertView alloc] initWithTitle:@"再度ぶつけてください" message:@"対戦相手が見つかりませんでした。OK再度ぶつけてください" delegate:self cancelButtonTitle:nil otherButtonTitles:@"", nil];
+    }else{
+        enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
+        enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
+        [SVProgressHUD dismiss];
+        _isAEnemyName = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
+        [_isAEnemyName show];
+        NSLog(@"%@",string);
+        [self sync];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -183,6 +182,7 @@
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
                 NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+                [SVProgressHUD dismiss];
                 break;
             }
             case 1:
@@ -202,5 +202,6 @@
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     }
 }
+
 
 @end

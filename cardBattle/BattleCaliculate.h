@@ -22,6 +22,6 @@
 
 
 //相手の通常攻撃によるダメージを京s何する
--(int)damageCaliculate :(int)man; //man = 0なら自分、1なら相手のライフの増減計算する。
+-(int)damageCaliculate;
 
 @end

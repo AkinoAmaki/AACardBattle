@@ -13,6 +13,8 @@
 #import "SBJson.h"
 #define FINISHED3 syncFinish = YES;
 
+#define FINISHED3 syncFinish = YES;
+
 
 @interface GetLocation : UIViewController<CLLocationManagerDelegate>{
     AppDelegate *app;
@@ -23,6 +25,7 @@
 @property (nonatomic) CLLocationManager *locationManager;
 - (void)sendLocationDataToServer;
 @property UIAlertView *isAEnemyName; //相手プレイヤーのニックネームを確認する際のアラートビュー
+@property UIAlertView *notFound; //相手プレイヤーが見つからなかった際のアラートビュー
 @property BOOL syncFinish; //同期処理において、対象の被待機処理が完了したかを管理する
 
 @end

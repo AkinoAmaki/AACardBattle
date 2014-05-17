@@ -13,8 +13,10 @@
 @end
 
 @implementation BattleScreenViewController
-@synthesize battleStartNum;
-
+@synthesize myLifeImageView;
+@synthesize myLifeTextView;
+@synthesize enemyLifeImageView;
+@synthesize enemyLifeTextView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,7 +48,6 @@
         syncFinished = NO;
         doIUseCardInThisTurn = NO;
         cardIsCompletlyUsed = NO;
-        battleStartNum = 0;
         
         _bc = [[BattleCaliculate alloc] init];
         getEnemyData = [[GetEnemyDataFromServer alloc] init];
@@ -273,37 +274,39 @@
         [_okButton addTarget:self action:@selector(okButton)
             forControlEvents:UIControlEventTouchUpInside];
         
-        _myLifeImageView = [[UIImageView alloc] init];
-        _myLifeImageView.image = [UIImage imageNamed:@"anime"];
-        _myLifeTextView = [[UITextView alloc] init];
-        _myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
-        _myLifeTextView.editable = NO;
-        _myLifeTextView.textAlignment = NSTextAlignmentCenter;
-        [PenetrateFilter penetrate:_myLifeTextView];
-        [_myLifeImageView addSubview: _myLifeTextView];
-        [_allImageView addSubview:_myLifeImageView];
-        _myLifeImageView.frame = CGRectMake(_myLifeImageView.superview.bounds.size.width - 60, _myLifeImageView.superview.bounds.size.height - 60, 50, 50);
-        _myLifeTextView.frame = CGRectMake(0, 10, _myLifeTextView.superview.bounds.size.width, _myLifeTextView.superview.bounds.size.height - 10);
+        myLifeImageView = [[UIImageView alloc] init];
+        myLifeImageView.image = [UIImage imageNamed:@"anime"];
+        myLifeTextView = [[UITextView alloc] init];
+        myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
+        myLifeTextView.editable = NO;
+        myLifeTextView.textAlignment = NSTextAlignmentCenter;
+        [PenetrateFilter penetrate:myLifeTextView];
+        [myLifeImageView addSubview: myLifeTextView];
+        [_allImageView addSubview:myLifeImageView];
+        myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
+        myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
         
 
-        _enemyLifeImageView = [[UIImageView alloc] init];
-        _enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
-        _enemyLifeTextView = [[UITextView alloc] init];
-        _enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
-        _enemyLifeTextView.editable = NO;
-        _enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
+        enemyLifeImageView = [[UIImageView alloc] init];
+        enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
+        enemyLifeTextView = [[UITextView alloc] init];
+        enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
+        enemyLifeTextView.editable = NO;
+        enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
         
-        [PenetrateFilter penetrate:_enemyLifeTextView];
-        [_enemyLifeImageView addSubview: _enemyLifeTextView];
-        [_allImageView addSubview:_enemyLifeImageView];
-        _enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
-        _enemyLifeTextView.frame = CGRectMake(0, 10, _enemyLifeTextView.superview.bounds.size.width, _enemyLifeTextView.superview.bounds.size.height - 10);
+        [PenetrateFilter penetrate:enemyLifeTextView];
+        [enemyLifeImageView addSubview: enemyLifeTextView];
+        [_allImageView addSubview:enemyLifeImageView];
+        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
+        enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
         
         
         _myCharacterView = [[UIImageView alloc] init];
         _enemyCharacterView = [[UIImageView alloc] init];
         [_allImageView addSubview:_myCharacterView];
         [_allImageView addSubview:_enemyCharacterView];
+        _myCharacterView.userInteractionEnabled = YES;
+        _enemyCharacterView.userInteractionEnabled = YES;
         _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
         _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
         
@@ -326,20 +329,20 @@
         chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
 
         
-        chara_myGiko.userInteractionEnabled     = YES;
-        chara_myMonar.userInteractionEnabled     = YES;
-        chara_mySyobon.userInteractionEnabled         = YES;
-        chara_myYaruo.userInteractionEnabled     = YES;
-        chara_enemyGiko.userInteractionEnabled  = YES;
-        chara_enemyMonar.userInteractionEnabled  = YES;
-        chara_enemySyobon.userInteractionEnabled      = YES;
-        chara_enemyYaruo.userInteractionEnabled  = YES;
+        chara_myGiko.userInteractionEnabled         = YES;
+        chara_myMonar.userInteractionEnabled        = YES;
+        chara_mySyobon.userInteractionEnabled       = YES;
+        chara_myYaruo.userInteractionEnabled        = YES;
+        chara_enemyGiko.userInteractionEnabled      = YES;
+        chara_enemyMonar.userInteractionEnabled     = YES;
+        chara_enemySyobon.userInteractionEnabled    = YES;
+        chara_enemyYaruo.userInteractionEnabled     = YES;
         
         
         chara_myGiko.tag    = GIKO;
-        chara_myMonar.tag    = MONAR;
-        chara_mySyobon.tag        = SYOBON;
-        chara_myYaruo.tag    = YARUO;
+        chara_myMonar.tag   = MONAR;
+        chara_mySyobon.tag  = SYOBON;
+        chara_myYaruo.tag   = YARUO;
         /*
          chara_enemyGiko.tag = ;
          chara_enemyMonar.tag = ;
@@ -396,7 +399,7 @@
         _enemyTomb.userInteractionEnabled = YES;
         [_enemyTomb addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(myTombTouched:)]];
+          initWithTarget:self action:@selector(enemyTombTouched:)]];
         [_allImageView addSubview:_enemyTomb];
         _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
         
@@ -414,7 +417,7 @@
         _enemyField.userInteractionEnabled = YES;
         [_enemyField addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(myFieldTouched:)]];
+          initWithTarget:self action:@selector(enemyFieldTouched:)]];
         [_allImageView addSubview:_enemyField];
         _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
         
@@ -572,8 +575,8 @@
     
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
-//    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-//    [_battleStart show];
+    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+    [_battleStart show];
     
 
 }
@@ -585,8 +588,6 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    locationForDebug = [[GetLocation alloc] init];
-    [locationForDebug sendLocationDataToServer];
     
 }
 
@@ -615,40 +616,30 @@
 - (void)touchesBegan: (UITapGestureRecognizer *)sender{
 
     [_border_character removeFromSuperview];
+    [_myCharacterView addSubview: _border_character];
     _border_character.frame = sender.view.frame;
-    [_allImageView addSubview:_border_character];
     
     switch (sender.view.tag) {
         case 1:
             app.mySelectCharacter = GIKO;
-            app.myCharacterFundamentalAttackPower = app.myGikoFundamentalAttackPower;
-            app.myCharacterFundamentalDeffencePower = app.myGikoFundamentalDeffencePower;
             NSLog(@"選択キャラ：ギコ");
             break;
         case 2:
             
             app.mySelectCharacter = MONAR;
-            app.myCharacterFundamentalAttackPower = app.myMonarFundamentalAttackPower;
-            app.myCharacterFundamentalDeffencePower = app.myMonarFundamentalDeffencePower;
             NSLog(@"選択キャラ：モナー");
             break;
         case 3:
             app.mySelectCharacter = SYOBON;
-            app.myCharacterFundamentalAttackPower = app.mySyobonFundamentalAttackPower;
-            app.myCharacterFundamentalDeffencePower = app.mySyobonFundamentalDeffencePower;
             NSLog(@"選択キャラ：ショボン");
             break;
         case 4:
             app.mySelectCharacter = YARUO;
-            app.myCharacterFundamentalAttackPower = app.myYaruoFundamentalAttackPower;
-            app.myCharacterFundamentalDeffencePower = app.myYaruoFundamentalDeffencePower;
             NSLog(@"選択キャラ：やる夫");
             break;
         default:
             break;
     }
-    NSLog(@"攻撃力：%d",app.myCharacterFundamentalAttackPower);
-    NSLog(@"防御力：%d",app.myCharacterFundamentalDeffencePower);
 }
 
 
@@ -662,6 +653,7 @@
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
     [self activateFieldCardInTiming:0];
+    [self refleshView];
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     
@@ -685,9 +677,9 @@
         [NSThread sleepForTimeInterval:1];
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [getEnemyData doEnemyDecideAction:NO]; //直後でapp.decideAction = NOと初期化しておく
     [getEnemyData get];
     [self activateFieldCardInTiming:1];
+    [self refleshView];
     [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
 
@@ -699,17 +691,17 @@
     [self activateFieldCardInTiming:2];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
-    NSLog(@"自分の職種＿計算時：%d",app.mySelectCharacter);
-    
-    app.enemySelectCharacter = GIKO;
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     //ターン終了時
+    app.myLifeGage -= [_bc damageCaliculate];
+    [self refleshView];
     [sendMyData send];
     [getEnemyData get];
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
     [self sync];
     [self activateFieldCardInTiming:3];
+    [self refleshView];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     
@@ -768,7 +760,7 @@
             //対象キャラの防御力ずっと＋３（W2)
             [self createCharacterField:_allImageView];
             [self sync];
-            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:0];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 8:
             //自分のライフ＋３（W)
@@ -1895,10 +1887,12 @@
       initWithTarget:self action:@selector(resultFadeOut:)]];
     
     
+    [view addSubview:_myDamage];
     [view addSubview:_myGiko];
     [view addSubview:_myMonar];
     [view addSubview:_mySyobon];
     [view addSubview:_myYaruo];
+    [view addSubview:_enemyDamage];
     [view addSubview:_enemyGiko];
     [view addSubview:_enemyMonar];
     [view addSubview:_enemySyobon];
@@ -1925,7 +1919,8 @@
     
 
     [self insertTextViewToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30)];
-    //TODO: 各キャラの攻撃力・防御力を表示した上で、今回選ばれているキャラクターのみ赤字にする
+    //TODO: 今回選ばれているキャラクターのみ赤字にする
+    
     _myGiko.text    = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower];
     _myMonar.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower];
     _mySyobon.text  = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower];
@@ -2422,6 +2417,7 @@
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
+                [self cardActivate:cardNumber];
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
@@ -2450,7 +2446,6 @@
             _doIUseFieldcard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"フィールドカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseFieldcard show];
             [self sync];
-            //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
@@ -2975,111 +2970,9 @@
 }
 
 
-//相性を逆転させた上で、ダメージ計算を行う
+//TODO: 相性を逆転させた上で、ダメージ計算を行う
 - (int)reverseCaliculate :(int)man{
-    app = [[UIApplication sharedApplication] delegate];
-    
     int result = 999;
-    switch (man) {
-        case 0:
-            if(app.mySelectCharacter == GIKO){
-                if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == MONAR){
-                    result = 0;
-                }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterFundamentalAttackPower;
-                }else if (app.enemySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.mySelectCharacter == MONAR){
-                if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterFundamentalAttackPower;
-                }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == SYOBON){
-                    result = 0;
-                }else if (app.enemySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.mySelectCharacter == SYOBON){
-                if (app.enemySelectCharacter == GIKO) {
-                    result = 0;
-                }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterFundamentalAttackPower;
-                }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.mySelectCharacter == YARUO){
-                if (app.enemySelectCharacter == GIKO) {
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == MONAR){
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == SYOBON){
-                    result = app.enemyCharacterFundamentalAttackPower - app.myCharacterFundamentalDeffencePower;
-                }else if (app.enemySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }
-            NSLog(@"自分のライフ：%d",app.myLifeGage);
-            NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
-            NSLog(@"自分の防御力：%d", app.myCharacterFundamentalDeffencePower);
-            NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
-            NSLog(@"相手の攻撃力：%d", app.enemyCharacterFundamentalAttackPower);
-            
-            break;
-            
-        case 1:
-            if(app.enemySelectCharacter == GIKO){
-                if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == MONAR){
-                    result = 0;
-                }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterFundamentalAttackPower;;
-                }else if (app.mySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.enemySelectCharacter == MONAR){
-                if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterFundamentalAttackPower;;
-                }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == SYOBON){
-                    result = 0;
-                }else if (app.mySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.enemySelectCharacter == SYOBON){
-                if (app.mySelectCharacter == GIKO) {
-                    result = 0;
-                }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterFundamentalAttackPower;;
-                }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }else if (app.enemySelectCharacter == YARUO){
-                if (app.mySelectCharacter == GIKO) {
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == MONAR){
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == SYOBON){
-                    result = app.myCharacterFundamentalAttackPower - app.enemyCharacterFundamentalDeffencePower;
-                }else if (app.mySelectCharacter == YARUO){
-                    result = 0;
-                }
-            }
-            break;
-            
-            
-        default:
-            break;
-    }
-    
     
     return result;
 }
@@ -3532,7 +3425,7 @@
 - (void)initializeVariables{
     
     //常に初期化するもの
-        app.decideAction = NO;
+        [getEnemyData doEnemyDecideAction:NO]; //app.decideAction = NOと初期化しておく
     
         //自分に関係する変数
         [_border_middleCard removeFromSuperview];
@@ -3541,8 +3434,6 @@
         selectCardTag = -1;
         costLife = NO;
         app.mySelectCharacter = -1;; //自分の選んだキャラクター
-        app.myCharacterFundamentalAttackPower = 0; //自分の選んだキャラクターの攻撃力
-        app.myCharacterFundamentalDeffencePower = 0; //自分の選んだキャラクターの防御力
         app.doIUseCard = NO;//自分がこのターンカードを使用したか
         app.myUsingCardNumber = -1; //自分が使用したカードの番号
         app.myDamage = 0; //このターン自分に与えられるダメージ
@@ -3556,8 +3447,6 @@
         app.mySyobonModifyingDeffencePower = 0;
         app.myYaruoModifyingAttackPower = 0;
         app.myYaruoModifyingDeffencePower = 0;
-        app.myCharacterModifyingAttackPower = 0;
-        app.myCharacterModifyingDeffencePower = 0;
         mySelectCharacterInCharacterField = -1;
         cardIsCompletlyUsed = NO;
         doIUseCardInThisTurn = NO;
@@ -3566,8 +3455,6 @@
     
         //相手に関係する変数
         app.enemySelectCharacter = -1; //相手の選んだキャラクター
-        app.enemyCharacterFundamentalAttackPower = 0; //相手の選んだキャラクターの攻撃力
-        app.enemyCharacterFundamentalDeffencePower = 0; //相手の選んだキャラクターの防御力
         app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
         app.enemyUsingCardNumber = -1; //相手が使用したカードの番号
         app.enemyDamage = 0; //このターン相手に与えられるダメージ
@@ -3581,8 +3468,6 @@
         app.enemySyobonModifyingDeffencePower = 0;
         app.enemyYaruoModifyingAttackPower = 0;
         app.enemyYaruoModifyingDeffencePower = 0;
-        app.enemyCharacterModifyingAttackPower = 0;
-        app.enemyCharacterModifyingDeffencePower = 0;
         [app.cardsEnemyUsedInThisTurn removeAllObjects];
     
     
@@ -3683,6 +3568,12 @@
         scrolledRect.size = _backGroundView.frame.size;
         _backGroundView.frame = scrolledRect;
     }
+}
+
+-(void)refleshView{
+    //ライフのテキストビューの更新
+    myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
+    enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
 }
 
 

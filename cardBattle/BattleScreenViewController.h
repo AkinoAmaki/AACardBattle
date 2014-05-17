@@ -14,7 +14,6 @@
 #import "DeviceMotion.h"
 #import "SVProgressHUD.h"
 #import "GetEnemyDataFromServer.h"
-#import "GetLocation.h"
 #import "SendDataToServer.h"
 #import "YSDeviceHelper.h"
 #import "penetrateFilter.h"
@@ -42,7 +41,6 @@
 
 
 @interface BattleScreenViewController : BattleCaliculate{
-    BattleCaliculate *bc;
     int turnCount; //ターン数を管理
     int myDrawCount; //自分の引いたカード枚数を管理
     int enemyDrawCount; //相手の引いたカード枚数を管理
@@ -58,11 +56,9 @@
 
     GetEnemyDataFromServer *getEnemyData;
     DeviceMotion *motion;
-    GetLocation *locationForDebug;
     SendDataToServer *sendMyData;
 }
 
-@property int battleStartNum; //0ならバトル未開始、1になった瞬間に開始(1のデータはGetLocationクラスから飛んでくる)
 @property int myDrawCount;
 @property int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
 
@@ -85,6 +81,8 @@
 
     //ダメージ計算時の状況を管理するビュー
     @property UIImageView *damageCaliculateView;
+    @property UILabel *myDamage;
+    @property UILabel *enemyDamage;
     @property UILabel *myGiko;
     @property UILabel *myMonar;
     @property UILabel *mySyobon;

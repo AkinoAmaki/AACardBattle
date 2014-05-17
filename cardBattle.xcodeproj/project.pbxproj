@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F1D265219061E1500B43A76 /* border_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D265119061E1500B43A76 /* border_character.png */; };
-		0F29BD071919343C00E9D59C /* GetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD061919343C00E9D59C /* GetLocation.m */; };
 		0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */; };
 		0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */; };
 		0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */; };
@@ -120,8 +119,6 @@
 
 /* Begin PBXFileReference section */
 		0F1D265119061E1500B43A76 /* border_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_character.png; sourceTree = "<group>"; };
-		0F29BD051919343C00E9D59C /* GetLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocation.h; path = cardBattle/GetLocation.h; sourceTree = SOURCE_ROOT; };
-		0F29BD061919343C00E9D59C /* GetLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocation.m; path = cardBattle/GetLocation.m; sourceTree = SOURCE_ROOT; };
 		0F29BD0B191BDE9A00E9D59C /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDataToServer.h; sourceTree = "<group>"; };
 		0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDataToServer.m; sourceTree = "<group>"; };
@@ -459,8 +456,6 @@
 				0FDB981A18CF526100C7566E /* DeckViewController.m */,
 				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
-				0F29BD051919343C00E9D59C /* GetLocation.h */,
-				0F29BD061919343C00E9D59C /* GetLocation.m */,
 				0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */,
 				0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */,
 				0F29BD10191DF16800E9D59C /* GetEnemyDataFromServer.h */,
@@ -685,7 +680,6 @@
 				0F6EB47B1916B2E400BD0E41 /* SBJsonTokeniser.m in Sources */,
 				0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */,
 				0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */,
-				0F29BD071919343C00E9D59C /* GetLocation.m in Sources */,
 				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0F6EB4731916B2E400BD0E41 /* SBJsonParser.m in Sources */,
 				0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */,

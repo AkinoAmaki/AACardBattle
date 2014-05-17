@@ -78,36 +78,32 @@
         app.enemyYaruoFundamentalAttackPower        = [[battleDataWithoutArray objectAtIndex:8]  intValue];
         app.enemyYaruoFundamentalDeffencePower      = [[battleDataWithoutArray objectAtIndex:9]  intValue];
         app.enemySelectCharacter                    = [[battleDataWithoutArray objectAtIndex:10] intValue];
-        app.enemyCharacterFundamentalAttackPower    = [[battleDataWithoutArray objectAtIndex:11] intValue];
-        app.enemyCharacterFundamentalDeffencePower  = [[battleDataWithoutArray objectAtIndex:12] intValue];
-        app.enemyGikoModifyingAttackPower           = [[battleDataWithoutArray objectAtIndex:13] intValue];
-        app.enemyGikoModifyingDeffencePower         = [[battleDataWithoutArray objectAtIndex:14] intValue];
-        app.enemyMonarModifyingAttackPower          = [[battleDataWithoutArray objectAtIndex:15] intValue];
-        app.enemyMonarModifyingDeffencePower        = [[battleDataWithoutArray objectAtIndex:16] intValue];
-        app.enemySyobonModifyingAttackPower         = [[battleDataWithoutArray objectAtIndex:17] intValue];
-        app.enemySyobonModifyingDeffencePower       = [[battleDataWithoutArray objectAtIndex:18] intValue];
-        app.enemyYaruoModifyingAttackPower          = [[battleDataWithoutArray objectAtIndex:19] intValue];
-        app.enemyYaruoModifyingDeffencePower        = [[battleDataWithoutArray objectAtIndex:20] intValue];
-        app.enemyCharacterModifyingAttackPower      = [[battleDataWithoutArray objectAtIndex:21] intValue];
-        app.enemyCharacterModifyingDeffencePower    = [[battleDataWithoutArray objectAtIndex:22] intValue];
-        app.enemyGikoAttackPermitted                = [[battleDataWithoutArray objectAtIndex:23] boolValue];
-        app.enemyGikoDeffencePermitted              = [[battleDataWithoutArray objectAtIndex:24] boolValue];
-        app.enemyMonarAttackPermitted               = [[battleDataWithoutArray objectAtIndex:25] boolValue];
-        app.enemyMonarDeffencePermitted             = [[battleDataWithoutArray objectAtIndex:26] boolValue];
-        app.enemySyobonAttackPermitted              = [[battleDataWithoutArray objectAtIndex:27] boolValue];
-        app.enemySyobonDeffencePermitted            = [[battleDataWithoutArray objectAtIndex:28] boolValue];
-        app.enemyYaruoAttackPermitted               = [[battleDataWithoutArray objectAtIndex:29] boolValue];
-        app.enemyYaruoDeffencePermitted             = [[battleDataWithoutArray objectAtIndex:30] boolValue];
-        app.doEnemyUseCard                          = [[battleDataWithoutArray objectAtIndex:31] boolValue];
-        app.enemyUsingCardNumber                    = [[battleDataWithoutArray objectAtIndex:32] intValue];
-        app.canEnemyPlaySorceryCard                 = [[battleDataWithoutArray objectAtIndex:33] boolValue];
-        app.canEnemyPlayFieldCard                   = [[battleDataWithoutArray objectAtIndex:34] boolValue];
-        app.canEnemyActivateFieldCard               = [[battleDataWithoutArray objectAtIndex:35] boolValue];
-        app.canEnemyPlayEnergyCard                  = [[battleDataWithoutArray objectAtIndex:36] boolValue];
-        app.canEnemyActivateEnergyCard              = [[battleDataWithoutArray objectAtIndex:37] boolValue];
-        app.denyEnemyCardPlaying                    = [[battleDataWithoutArray objectAtIndex:38] boolValue];
-        app.enemyDamage                             = [[battleDataWithoutArray objectAtIndex:39] intValue];
-        app.enemySelectColor                        = [[battleDataWithoutArray objectAtIndex:40] intValue];
+        app.enemyGikoModifyingAttackPower           = [[battleDataWithoutArray objectAtIndex:11] intValue];
+        app.enemyGikoModifyingDeffencePower         = [[battleDataWithoutArray objectAtIndex:12] intValue];
+        app.enemyMonarModifyingAttackPower          = [[battleDataWithoutArray objectAtIndex:13] intValue];
+        app.enemyMonarModifyingDeffencePower        = [[battleDataWithoutArray objectAtIndex:14] intValue];
+        app.enemySyobonModifyingAttackPower         = [[battleDataWithoutArray objectAtIndex:15] intValue];
+        app.enemySyobonModifyingDeffencePower       = [[battleDataWithoutArray objectAtIndex:16] intValue];
+        app.enemyYaruoModifyingAttackPower          = [[battleDataWithoutArray objectAtIndex:17] intValue];
+        app.enemyYaruoModifyingDeffencePower        = [[battleDataWithoutArray objectAtIndex:18] intValue];
+        app.enemyGikoAttackPermitted                = [[battleDataWithoutArray objectAtIndex:19] boolValue];
+        app.enemyGikoDeffencePermitted              = [[battleDataWithoutArray objectAtIndex:20] boolValue];
+        app.enemyMonarAttackPermitted               = [[battleDataWithoutArray objectAtIndex:21] boolValue];
+        app.enemyMonarDeffencePermitted             = [[battleDataWithoutArray objectAtIndex:22] boolValue];
+        app.enemySyobonAttackPermitted              = [[battleDataWithoutArray objectAtIndex:23] boolValue];
+        app.enemySyobonDeffencePermitted            = [[battleDataWithoutArray objectAtIndex:24] boolValue];
+        app.enemyYaruoAttackPermitted               = [[battleDataWithoutArray objectAtIndex:25] boolValue];
+        app.enemyYaruoDeffencePermitted             = [[battleDataWithoutArray objectAtIndex:26] boolValue];
+        app.doEnemyUseCard                          = [[battleDataWithoutArray objectAtIndex:27] boolValue];
+        app.enemyUsingCardNumber                    = [[battleDataWithoutArray objectAtIndex:28] intValue];
+        app.canEnemyPlaySorceryCard                 = [[battleDataWithoutArray objectAtIndex:29] boolValue];
+        app.canEnemyPlayFieldCard                   = [[battleDataWithoutArray objectAtIndex:30] boolValue];
+        app.canEnemyActivateFieldCard               = [[battleDataWithoutArray objectAtIndex:31] boolValue];
+        app.canEnemyPlayEnergyCard                  = [[battleDataWithoutArray objectAtIndex:32] boolValue];
+        app.canEnemyActivateEnergyCard              = [[battleDataWithoutArray objectAtIndex:33] boolValue];
+        app.denyEnemyCardPlaying                    = [[battleDataWithoutArray objectAtIndex:34] boolValue];
+        app.enemyDamage                             = [[battleDataWithoutArray objectAtIndex:35] intValue];
+        app.enemySelectColor                        = [[battleDataWithoutArray objectAtIndex:36] intValue];
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];
     app.enemyDeckCardList = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:2]];
@@ -124,12 +120,12 @@
     [app.enemyHand removeObject:@""];
     [app.enemyTomb removeObject:@""];
     
-    NSLog(@"app.cardsEnemyUsedInThisTurn:%@",app.cardsEnemyUsedInThisTurn);
-    NSLog(@"app.enemyDeckCardList:%@",app.enemyDeckCardList);
-    NSLog(@"app.enemyEnergyCard:%@",app.enemyEnergyCard);
-    NSLog(@"app.enemyFieldCard:%@",app.enemyFieldCard);
-    NSLog(@"app.enemyHand:%@",app.enemyHand);
-    NSLog(@"app.enemyTomb:%@",app.enemyTomb);
+//    NSLog(@"app.cardsEnemyUsedInThisTurn:%@",app.cardsEnemyUsedInThisTurn);
+//    NSLog(@"app.enemyDeckCardList:%@",app.enemyDeckCardList);
+//    NSLog(@"app.enemyEnergyCard:%@",app.enemyEnergyCard);
+//    NSLog(@"app.enemyFieldCard:%@",app.enemyFieldCard);
+//    NSLog(@"app.enemyHand:%@",app.enemyHand);
+//    NSLog(@"app.enemyTomb:%@",app.enemyTomb);
     
     
     [SVProgressHUD dismiss];
@@ -137,10 +133,7 @@
 
 -(void)doEnemyDecideAction :(BOOL)select{
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
-    NSLog(@"あああ：%d",[[statuses objectAtIndex:0] intValue]);
     app.decideAction = [[statuses objectAtIndex:0] boolValue];
-    
-    
 }
 
 

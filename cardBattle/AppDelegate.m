@@ -35,26 +35,26 @@
         //最初のデッキを構築する
         
         NSMutableArray *firstCards = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
-                                                                             [NSNumber numberWithInteger:4],
-                                                                             [NSNumber numberWithInteger:4],
-                                                                             [NSNumber numberWithInteger:4],
-                                                                             [NSNumber numberWithInteger:4],
-                                                                             [NSNumber numberWithInteger:5],
-                                                                             [NSNumber numberWithInteger:6],
-                                                                             [NSNumber numberWithInteger:7],
-                                                                             [NSNumber numberWithInteger:8],
-                                                                             [NSNumber numberWithInteger:9],
-                                                                             [NSNumber numberWithInteger:10],
-                                                                             [NSNumber numberWithInteger:11],
-                                                                             [NSNumber numberWithInteger:12],
-                                                                             [NSNumber numberWithInteger:13],
-                                                                             [NSNumber numberWithInteger:14],
-                                                                             [NSNumber numberWithInteger:15],
-                                                                             [NSNumber numberWithInteger:16],
-                                                                             [NSNumber numberWithInteger:17],
-                                                                             [NSNumber numberWithInteger:18],
-                                                                             [NSNumber numberWithInteger:19],
-                                                                             [NSNumber numberWithInteger:20],nil];
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],
+                                                                             [NSNumber numberWithInteger:99],nil];
         NSMutableArray *firstDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
                                                                              [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
@@ -65,7 +65,7 @@
                                                                              [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
-                                                                             [NSNumber numberWithInteger:40],
+                                                                             [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
                                                                              [NSNumber numberWithInteger:2],
@@ -173,8 +173,6 @@
     _myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
     _myYaruoFundamentalDeffencePower = 3; //自分のやる夫の基本防御力
     _mySelectCharacter = -1; //自分の選んだキャラクター
-    _myCharacterFundamentalAttackPower = 0; //自分の選んだキャラクターの基本攻撃力
-    _myCharacterFundamentalDeffencePower = 0; //自分の選んだキャラクターの基本防御力
     _myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _myMonarModifyingAttackPower = 0; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -183,8 +181,6 @@
     _mySyobonModifyingDeffencePower = 0; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _myYaruoModifyingAttackPower = 0; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _myYaruoModifyingDeffencePower = 0; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myCharacterModifyingAttackPower = 0; //自分の選んだキャラクターの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myCharacterModifyingDeffencePower = 0; //自分の選んだキャラクターの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     
     _myGikoAttackPermitted = YES; //自分のギコの攻撃許可
     _myGikoDeffencePermitted = YES; //自分のギコの防御許可
@@ -223,8 +219,6 @@
     _enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
     _enemyYaruoFundamentalDeffencePower = 3; //相手のやる夫の基本防御力
     _enemySelectCharacter = -1; //相手の選んだキャラクター
-    _enemyCharacterFundamentalAttackPower = 0; //相手の選んだキャラクターの基本攻撃力
-    _enemyCharacterFundamentalDeffencePower = 0; //相手の選んだキャラクターの基本防御力
     _enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyMonarModifyingAttackPower = 0; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -233,8 +227,6 @@
     _enemySyobonModifyingDeffencePower = 0; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyYaruoModifyingAttackPower = 0; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyYaruoModifyingDeffencePower = 0; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyCharacterModifyingAttackPower = 0; //相手の選んだキャラクターの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyCharacterModifyingDeffencePower = 0; //相手の選んだキャラクターの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     
     _enemyGikoAttackPermitted = YES; //相手のギコの攻撃許可
     _enemyGikoDeffencePermitted = YES; //相手のギコの防御許可
