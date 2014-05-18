@@ -13,6 +13,7 @@
 		0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */; };
 		0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD171923B42C00E9D59C /* PenetrateFilter.m */; };
 		0F29BD1C1924E2FF00E9D59C /* border_usedCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */; };
+		0F3FED921928D41400ACA1BC /* outicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3FED911928D41400ACA1BC /* outicon.png */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
@@ -86,7 +87,6 @@
 		0FDB981718CB655100C7566E /* c5r.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB981318CB655100C7566E /* c5r.PNG */; };
 		0FDB981818CB655100C7566E /* c7r.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB981418CB655100C7566E /* c7r.PNG */; };
 		0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB981A18CF526100C7566E /* DeckViewController.m */; };
-		0FDB982018CF5C6E00C7566E /* outicon.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB981F18CF5C6E00C7566E /* outicon.PNG */; };
 		0FDB984118D0A51400C7566E /* detailImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB984018D0A51400C7566E /* detailImage.png */; };
 		0FDB985918D0A55C00C7566E /* dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB984C18D0A55C00C7566E /* dummy.png */; };
 		0FDB985A18D0A55C00C7566E /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FDB984D18D0A55C00C7566E /* leftArrow.png */; };
@@ -129,6 +129,7 @@
 		0F29BD161923B42C00E9D59C /* PenetrateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PenetrateFilter.h; sourceTree = "<group>"; };
 		0F29BD171923B42C00E9D59C /* PenetrateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenetrateFilter.m; sourceTree = "<group>"; };
 		0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_usedCard.png; sourceTree = "<group>"; };
+		0F3FED911928D41400ACA1BC /* outicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outicon.png; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
@@ -221,7 +222,6 @@
 		0FDB981418CB655100C7566E /* c7r.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c7r.PNG; sourceTree = "<group>"; };
 		0FDB981918CF526100C7566E /* DeckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckViewController.h; sourceTree = "<group>"; };
 		0FDB981A18CF526100C7566E /* DeckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckViewController.m; sourceTree = "<group>"; };
-		0FDB981F18CF5C6E00C7566E /* outicon.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = outicon.PNG; path = "../../../../名刺バトラー/Mbattler_20130721/Mbattler/img/outicon.PNG"; sourceTree = "<group>"; };
 		0FDB984018D0A51400C7566E /* detailImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detailImage.png; sourceTree = "<group>"; };
 		0FDB984C18D0A55C00C7566E /* dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dummy.png; path = cardBattle/img/smallcard/dummy.png; sourceTree = SOURCE_ROOT; };
 		0FDB984D18D0A55C00C7566E /* leftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftArrow.png; path = cardBattle/img/smallcard/leftArrow.png; sourceTree = SOURCE_ROOT; };
@@ -330,7 +330,6 @@
 				0F9F17A118F19BA8004E58BF /* monar.png */,
 				0F9F17A218F19BA8004E58BF /* syobon.png */,
 				0F9F17A318F19BA8004E58BF /* yaruo.png */,
-				0FDB981F18CF5C6E00C7566E /* outicon.PNG */,
 			);
 			path = character;
 			sourceTree = "<group>";
@@ -400,6 +399,7 @@
 				0F9F177218EC607D004E58BF /* cancel.png */,
 				0F6A304A19263F8F00341623 /* field.png */,
 				0F9F177318EC607D004E58BF /* ok.png */,
+				0F3FED911928D41400ACA1BC /* outicon.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -612,6 +612,7 @@
 				0F9F17A618F19BA8004E58BF /* syobon.png in Resources */,
 				0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */,
 				0F9F17A518F19BA8004E58BF /* monar.png in Resources */,
+				0F3FED921928D41400ACA1BC /* outicon.png in Resources */,
 				0F9F179418F19461004E58BF /* card9.png in Resources */,
 				0FDB985A18D0A55C00C7566E /* leftArrow.png in Resources */,
 				0F9F179F18F19461004E58BF /* card20.png in Resources */,
@@ -632,7 +633,6 @@
 				0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
 				0F6A304B19263F8F00341623 /* field.png in Resources */,
-				0FDB982018CF5C6E00C7566E /* outicon.PNG in Resources */,
 				0F9F177518EC607D004E58BF /* ok.png in Resources */,
 				0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */,
 				0F9F179318F19461004E58BF /* card8.png in Resources */,

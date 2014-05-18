@@ -649,6 +649,7 @@
     //ターン開始時
     [sendMyData send];
     [getEnemyData get];
+    [self getACard:MYSELF];
     
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
@@ -734,10 +735,15 @@
     
     if(app.mySelectCharacter == YARUO){
         [self getACard:MYSELF];
-        
     }
-    [self getACard:MYSELF];
+    
+    while([app.myHand count] > 5){
+        [self discardFromHand:MYSELF string:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
+        [self sync];
+    }
     [self initializeVariables];
+    [sendMyData send];
+    [getEnemyData get];
     [self nextTurn];
     
     
@@ -747,7 +753,7 @@
 }
 #pragma mark カード効果実装
 
--(void)cardActivate :(int)cardnumber{
+-(void)cardActivate :(int)cardnumber string:(NSString *)str{
     switch (cardnumber) {
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
@@ -913,7 +919,7 @@
             break;
         case 30:
             //対象の場カードを破壊する
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 31:
@@ -942,8 +948,8 @@
         case 36:
             //カードを１枚引き、１枚捨てる（U1)
             [self getACard:MYSELF];
-            [self browseCardsInRegion:app.myHand touchCard:YES];
-            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+//            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
+//            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 37:
             //カードを２枚引く（UU1)
@@ -978,9 +984,8 @@
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
-            
             break;
         case 46:
             //相手の全ての場カードとエネルギーカードをオーナーの手札に戻す（UU4)
@@ -1000,7 +1005,7 @@
             break;
         case 47:
             //対象の場カードを自分のものにする（UU3)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
             break;
         case 48:
@@ -1034,7 +1039,7 @@
             break;
         case 50:
             //一番上のカードを見て、取るか一番下に置く（U)
-            [self browseLibrary:app.myDeckCardList numberOfBrowsingCard:1];
+//            [self browseLibrary:app.myDeckCardList numberOfBrowsingCard:1];
             _putACardToLibraryTopOrBottom = [[UIAlertView alloc] initWithTitle:@"選択" message:@"山札のどちらにおきますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"一番上", @"一番下", nil];
             break;
         case 51:
@@ -1133,7 +1138,7 @@
             break;
         case 67:
             //相手のエネルギーカードを破壊(RR2)
-            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 68:
@@ -1183,12 +1188,12 @@
             break;
         case 75:
             //対象の場カードを破壊する（R1)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 76:
             //対象の場カードを２枚破壊する（R3)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 77:
@@ -1287,7 +1292,7 @@
             //カードを１枚ランダムで捨てる。相手キャラの攻撃力−５（R３）
             {
                 int rand = random() % [app.enemyHand count];
-                [self discardFromHand:ENEMY cardNumber:rand];
+//                [self discardFromHand:ENEMY cardNumber:rand];
             }
             [self enemyAttackPowerOperate:GIKO point:-5 temporary:1];
             [self enemyAttackPowerOperate:MONAR point:-5 temporary:1];
@@ -1331,14 +1336,14 @@
             break;
         case 94:
             //対象のエネルギーカードを破壊する（R2)
-            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 95:
             //対象のエネルギーカードを２枚破壊する(RR3)
-            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 96:
@@ -1362,24 +1367,24 @@
             {
                 //TODO: 対象配列にカードがないとき、エラーが起きないようにする（カードを移動する系の他のカードも全て同じ対応が必要！）
                 int rand = random() % [app.enemyHand count];
-                [self discardFromHand:ENEMY cardNumber:rand];
+//                [self discardFromHand:ENEMY cardNumber:rand];
             }
             break;
         case 100:
             //相手の手札をランダムで２枚減らす（BB)
             {
                 int rand = random() % [app.enemyHand count];
-                [self discardFromHand:ENEMY cardNumber:rand];
+//                [self discardFromHand:ENEMY cardNumber:rand];
             
                 int rand2 = random() % [app.enemyHand count];
-                [self discardFromHand:ENEMY cardNumber:rand2];
+//                [self discardFromHand:ENEMY cardNumber:rand2];
             }
             break;
         case 101:
             //相手の手札を全て減らす（BB3)
             {
                 for (int i = 0; i < [app.enemyHand count]; i++) {
-                    [self discardFromHand:ENEMY cardNumber:0];
+//                    [self discardFromHand:ENEMY cardNumber:0];
                 }
             }
             break;
@@ -1413,7 +1418,7 @@
             break;
         case 106:
             //自分の場カードを破壊することでカードを２枚引く（B1)
-            [self browseCardsInRegion:app.myFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.myFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             [self getACard:MYSELF];
             [self getACard:MYSELF];
@@ -1427,14 +1432,14 @@
             break;
         case 108:
             //場のカードを破壊するが、ライフを３点失う（B1)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 109:
             //自分のターンの開始時に、相手プレイヤーはカードをランダムで１枚捨てる（BB2)
             {
                 int rand = random() % [app.enemyHand count];
-                [self discardFromHand:ENEMY cardNumber:rand];
+//                [self discardFromHand:ENEMY cardNumber:rand];
             }
             break;
         case 110:
@@ -1469,25 +1474,25 @@
             break;
         case 113:
             //カードを一枚好きにサーチし、ライブラリを切り直す。ライフを４点失う（B1)
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES];
+//            [self browseCardsInRegion:app.myDeckCardList touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
             app.myLifeGage = [self HPOperate:app.myLifeGage point:-4];
             
             break;
         case 114:
             //カードを一枚好きにサーチし、ライブラリを切り直す（BB2)
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES];
+//            [self browseCardsInRegion:app.myDeckCardList touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
             break;
         case 115:
             //相手プレイヤーのデッキからカードを一枚捨てる（B１)
-            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES];
+//            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
             [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
             for (int i = 0; i < 10; i++) {
-                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES];
+//                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
                 [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
             }
             break;
@@ -1508,13 +1513,13 @@
             break;
         case 118:
             //相手プレイヤーの手札の中にある、カードを1枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand touchCard:YES];
-            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+//            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
+//            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 119:
             //相手プレイヤーの手札の中にある、カードを2枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand touchCard:YES];
-            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+//            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
+//            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 120:
             //各プレイヤーの場カードを一枚ずつランダムに破壊する（B)
@@ -1528,17 +1533,17 @@
         case 121:
             //カードを一枚捨てる代わりに、相手のカードを好きに一枚捨てられる（B)
             [self payAdditionalCost];
-            [self browseCardsInRegion:app.enemyHand touchCard:YES];
-            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+//            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
+//            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 122:
             //全プレイヤーは手札を捨てる（BB3)
             
                 for (int i = 0; i < [app.myHand count]; i++) {
-                    [self discardFromHand:MYSELF cardNumber:0];
+//                    [self discardFromHand:MYSELF cardNumber:0];
                 }
                 for (int i = 0; i < [app.enemyHand count]; i++) {
-                    [self discardFromHand:ENEMY cardNumber:0];
+//                    [self discardFromHand:ENEMY cardNumber:0];
                 }
             break;
         case 123:
@@ -1549,18 +1554,18 @@
              break;
         case 124:
             //自分の場カードを破壊することで、対象プレイヤーはカードを２枚捨てる（B1)
-            [self browseCardsInRegion:app.myFieldCard touchCard:YES];
+//            [self browseCardsInRegion:app.myFieldCard touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self browseCardsInRegion:app.enemyHand touchCard:YES];
+//            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            [self browseCardsInRegion:app.enemyHand touchCard:YES];
+//            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
             break;
         case 125:
             //カードを２枚捨てることで、ずっと攻撃力・防御力＋２（B1)
-            [self browseCardsInRegion:app.myHand touchCard:YES];
+//            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            [self browseCardsInRegion:app.myHand touchCard:YES];
+//            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
             [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
             [self myAttackPowerOperate:GIKO point:2 temporary:0];
             [self myDeffencePowerOperate:GIKO point:2 temporary:0];
@@ -2361,12 +2366,11 @@
 }
 
 - (void)touchAction :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.myHand touchCard:YES];
+    [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(handTouched:) string:nil];
 }
 
 - (void)handTouched :(UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
-    
     selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
     int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
     cardType = [[app.cardList_type objectAtIndex:cardNumber - 1 ] intValue];
@@ -2417,7 +2421,7 @@
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
-                [self cardActivate:cardNumber];
+                [self cardActivate:cardNumber string:nil];
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
@@ -2477,19 +2481,19 @@
 }
 
 - (void)myTombTouched :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.myTomb touchCard:NO];
+    [self browseCardsInRegion:app.myTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyTombTouched :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.enemyTomb touchCard:NO];
+    [self browseCardsInRegion:app.enemyTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)myFieldTouched :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.myFieldCard touchCard:NO];
+    [self browseCardsInRegion:app.myFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
-    [self browseCardsInRegion:app.enemyFieldCard touchCard:NO];
+    [self browseCardsInRegion:app.enemyFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 
@@ -2537,8 +2541,6 @@
     }
 }
 
-
-//TODO: 自分の手札を再描画する
 //TODO: 相手の手札を再描画する
 //TODO: 自分の墓地を再描画する
 //TODO: 相手の墓地を再描画する
@@ -2553,13 +2555,17 @@
 
 
 //対象プレイヤーのXという領域のカードを見る（場・エネルギー置き場・手札）
--(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard{
+-(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard tapSelector:(SEL)selector string:(NSString *)string{
     NSLog(@"%@",cards);
+    [_regionViewArray removeAllObjects];
+    
     if(touchCard){
+        _allImageView.userInteractionEnabled = YES;
+        
         for (UIView *view in [_regionView subviews]) {
             [view removeFromSuperview];
         }
-        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
+        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 280 , 90 + [cards count] * (BIGCARDHEIGHT + 10))];
         [PenetrateFilter penetrate:_regionView];
         _regionView.userInteractionEnabled = YES;
         
@@ -2571,23 +2577,30 @@
             cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
             cardImage.userInteractionEnabled = YES;
             cardImage.tag = i + 1;
-            [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handTouched:)]];
-            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
+            [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:selector]];
+            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
         }
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         _cardInRegion.contentSize = _regionView.bounds.size;
         [_cardInRegion addSubview:_regionView];
         
+        UITextView *title = [[UITextView alloc] init];
+        [_cardInRegion addSubview: title];
+        title.text = string;
+        title.editable = NO;
+        title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
+        title.textAlignment = NSTextAlignmentCenter;
+        
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_cardInRegion];
         
         return 0;
-
+        
     }else{
         for (UIView *view in [_regionView subviews]) {
             [view removeFromSuperview];
         }
-        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280 , 40 + [cards count] * (BIGCARDHEIGHT + 10))];
+        _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 280 , 90 + [cards count] * (BIGCARDHEIGHT + 10))];
         [PenetrateFilter penetrate:_regionView];
         _regionView.userInteractionEnabled = NO;
         
@@ -2603,6 +2616,13 @@
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         _cardInRegion.contentSize = _regionView.bounds.size;
         [_cardInRegion addSubview:_regionView];
+        
+        UITextView *title = [[UITextView alloc] init];
+        [_cardInRegion addSubview: title];
+        title.text = string;
+        title.editable = NO;
+        title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
+        title.textAlignment = NSTextAlignmentCenter;
         
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_cardInRegion];
@@ -2787,13 +2807,11 @@
 }
 
 //対象プレイヤーは1枚カードを捨てる（対象プレイヤー（０なら自分、１なら相手）・対象プレイヤーの手札・捨てるカードの番号(myHand or enemyHandの配列番号)）
-- (void)discardFromHand :(int)man cardNumber:(int)cardNumber{
+- (void)discardFromHand :(int)man string:(NSString *)str{
     if(man == 0){
-        [app.myTomb addObject:[app.myHand objectAtIndex:cardNumber]];
-        [app.myHand removeObjectAtIndex:cardNumber];
+        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
     }else{
-        [app.enemyTomb addObject:[app.enemyHand objectAtIndex:cardNumber]];
-        [app.enemyHand removeObjectAtIndex:cardNumber];
+        [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
     }
 }
 
@@ -3095,7 +3113,7 @@
         case 0:
             //追加コストとしてカードを捨てる際のOKボタンから飛んできた場合
             //- (void)selectCardで事前設定済み
-            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+//            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
             [_additionalCostView removeFromSuperview];
             break;
         
@@ -3513,7 +3531,7 @@
         case 0:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_turnStart containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
             break;
@@ -3521,7 +3539,7 @@
         case 1:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_afterCardUsed containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
             break;
@@ -3529,7 +3547,7 @@
         case 2:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_damageCaliculate containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
             break;
@@ -3537,7 +3555,7 @@
         case 3:
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_turnEnd containsObject:[app.myFieldCard objectAtIndex:i]]){
-                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue]];
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
             break;
@@ -3570,11 +3588,41 @@
     }
 }
 
+//ターン進行中にビューを更新する必要がある場合はここで実装する
 -(void)refleshView{
     //ライフのテキストビューの更新
     myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
     enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
 }
+
+-(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
+    [app.myTomb addObject:[app.myHand objectAtIndex:selectedCardOrder]];
+    [app.myHand removeObjectAtIndex:selectedCardOrder];
+    [_cardInRegion removeFromSuperview];
+    [self moveCards];
+    FINISHED1
+}
+
+-(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
+    [app.enemyTomb addObject:[app.enemyHand objectAtIndex:selectedCardOrder]];
+    [app.enemyHand removeObjectAtIndex:selectedCardOrder];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+}
+
+-(void)destroyEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    
+    
+}
+
+-(void)nullSelector: (UITapGestureRecognizer *)sender{
+    //何もしないダミーセレクタ
+}
+
 
 
 @end
