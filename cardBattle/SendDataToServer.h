@@ -15,6 +15,6 @@
     AppDelegate *app;
 }
 
--(void)send;
+-(NSString *)send;
 
 @end

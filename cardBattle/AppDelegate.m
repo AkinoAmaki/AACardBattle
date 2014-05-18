@@ -121,7 +121,28 @@
     
     
     _myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
-    _myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
+    //MARK: カード効果のデバッグが終わったら元に戻す　_myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
+    _myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:40],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:2],nil];
     _myDeckCardList = [[NSMutableArray alloc] init];
 
     //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える

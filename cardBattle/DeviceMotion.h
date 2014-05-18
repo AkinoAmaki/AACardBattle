@@ -11,6 +11,8 @@
 #import <CoreMotion/CoreMotion.h>
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
+#import "SendDataToServer.h"
+#import "GetEnemyDataFromServer.h"
 #import "SBJson.h"
 #define FINISHED2 syncFinished2 = YES;
 @interface DeviceMotion :NSObject<CLLocationManagerDelegate>{

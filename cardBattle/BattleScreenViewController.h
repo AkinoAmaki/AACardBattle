@@ -54,13 +54,14 @@
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
     //BOOL doEnemyDecideAction; //相手がカード使用・AAで選択フェイズを終えたかを管理する
 
-    GetEnemyDataFromServer *getEnemyData;
-    DeviceMotion *motion;
-    SendDataToServer *sendMyData;
+
 }
 
 @property int myDrawCount;
 @property int selectedCardOrder; //現在選択されているカードは、左から数えて何番目かを管理する（１番目なら0が入る）
+@property GetEnemyDataFromServer *getEnemyData;
+@property DeviceMotion *motion;
+@property SendDataToServer *sendMyData;
 
 
 //

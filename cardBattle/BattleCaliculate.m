@@ -81,10 +81,10 @@ int manageCount;
                 result = app.enemyYaruoFundamentalAttackPower + app.enemyYaruoModifyingAttackPower    - (app.myYaruoFundamentalDeffencePower   + app.myYaruoModifyingDeffencePower);
             }
         }
-    NSLog(@"自分のライフ：%d",app.myLifeGage - result);
+    NSLog(@"自分のライフ(被弾前)：%d",app.myLifeGage);
     NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
     NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
-    NSLog(@"相手に与えたダメージ：%d",result);
+    NSLog(@"自分が受けたダメージ：%d",result);
 
     return result;
 }

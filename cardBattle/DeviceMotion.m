@@ -27,7 +27,8 @@
         CMDeviceMotionHandler deviceMotionHandler;
         deviceMotionHandler = ^(CMDeviceMotion* motion, NSError* error){
             
-            if(motion.userAcceleration.x > 1.7 || motion.userAcceleration.y > 1.7 || motion.userAcceleration.z > 1.7){
+//MARK: デバッグ終わったら元に戻す  if(motion.userAcceleration.x > 1.7 || motion.userAcceleration.y > 1.7 || motion.userAcceleration.z > 1.7){
+            if(motion.userAcceleration.x > 0.5 || motion.userAcceleration.y > 0.5 || motion.userAcceleration.z > 0.5){
                 FINISHED2
                 [NSThread sleepForTimeInterval:1];
                 [_motionManager stopDeviceMotionUpdates];
@@ -184,6 +185,14 @@
                 app.enemyPlayerID = enemyPlayerID;
                 NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
                 [SVProgressHUD dismiss];
+                
+                SendDataToServer *sendData = [[SendDataToServer alloc] init];
+                while (![[sendData send] isEqualToString:@"諸データの更新が終了しました"]) {
+
+                }
+                GetEnemyDataFromServer *getEnemyData = [[GetEnemyDataFromServer alloc] init];
+                [getEnemyData get];
+                
                 break;
             }
             case 1:

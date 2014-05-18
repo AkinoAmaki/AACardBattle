@@ -10,7 +10,7 @@
 
 @implementation SendDataToServer
 
--(void)send{
+-(NSString *)send{
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     
     app = [[UIApplication sharedApplication] delegate];
@@ -147,6 +147,7 @@
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
     NSLog(@"%@", string);
     
+    return string;
     [SVProgressHUD dismiss];
 }
 

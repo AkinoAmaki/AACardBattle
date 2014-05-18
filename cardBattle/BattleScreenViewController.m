@@ -17,6 +17,9 @@
 @synthesize myLifeTextView;
 @synthesize enemyLifeImageView;
 @synthesize enemyLifeTextView;
+@synthesize sendMyData;
+@synthesize motion;
+@synthesize getEnemyData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,7 +54,7 @@
         
         _bc = [[BattleCaliculate alloc] init];
         getEnemyData = [[GetEnemyDataFromServer alloc] init];
-    
+        sendMyData = [[SendDataToServer alloc] init];
     
     //iPhone5ならYES,それ以外ならNOに行く
     if([YSDeviceHelper is568h]){
@@ -234,6 +237,8 @@
 //        
 //        [self.view addSubview:_allImageView];
     }else{
+
+        
         _myCardImageViewArray = [[NSMutableArray alloc] init];
         
         _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
@@ -575,9 +580,10 @@
     
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
-    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-    [_battleStart show];
     
+_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+[_battleStart show];
+
 
 }
 
@@ -592,7 +598,6 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    sendMyData = [[SendDataToServer alloc] init];
     [sendMyData send];
 }
 
@@ -2153,7 +2158,7 @@
 //                
 //                //引いたカードの数をプラスする
 //                myDrawCount++;
-//                _myCard.tag = myDrawCount; // MARK:  タグ番号=myDrawCountとなっていることに注意する！
+//                _myCard.tag = myDrawCount; // ATTENTION:  タグ番号=myDrawCountとなっていることに注意する！
 //                //手札が5枚になるまで繰り返す
 //                
 //            }
@@ -2222,7 +2227,7 @@
 //            
 //            //引いたカードの数をプラスする
 //            myDrawCount++;
-//            _myCard.tag = myDrawCount; // MARK:  タグ番号は、デッキ配列の番号+1となっていることに注意する！
+//            _myCard.tag = myDrawCount;
 //            //手札が5枚になるまで繰り返す
 //            
 //        }
