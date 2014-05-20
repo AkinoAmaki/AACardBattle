@@ -120,7 +120,7 @@
     [app.enemyHand removeObject:@""];
     [app.enemyTomb removeObject:@""];
     
-//    NSLog(@"app.cardsEnemyUsedInThisTurn:%@",app.cardsEnemyUsedInThisTurn);
+    NSLog(@"app.cardsEnemyUsedInThisTurn:%@",app.cardsEnemyUsedInThisTurn);
 //    NSLog(@"app.enemyDeckCardList:%@",app.enemyDeckCardList);
 //    NSLog(@"app.enemyEnergyCard:%@",app.enemyEnergyCard);
 //    NSLog(@"app.enemyFieldCard:%@",app.enemyFieldCard);

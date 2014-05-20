@@ -25,11 +25,6 @@
 #define CARDHEIGHT 51
 #define BIGCARDWIDTH 100
 #define BIGCARDHEIGHT 150
-#define WHITE 1
-#define BLUE 2
-#define BLACK 3
-#define RED 4
-#define GREEN 5
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3

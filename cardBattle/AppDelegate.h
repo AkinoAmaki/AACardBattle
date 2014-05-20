@@ -12,6 +12,11 @@
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3
+#define WHITE 1
+#define BLUE 2
+#define BLACK 3
+#define RED 4
+#define GREEN 5
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
@@ -41,6 +46,11 @@
 @property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_damageCaliculate; //ダメージ計算時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_turnEnd;   //ターン終了時に効果を発揮するカード一覧
+@property (nonatomic, retain) NSArray *damageSourceOfWhite; //白色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
+@property (nonatomic, retain) NSArray *damageSourceOfBlue; //青色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
+@property (nonatomic, retain) NSArray *damageSourceOfBlack; //黒色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
+@property (nonatomic, retain) NSArray *damageSourceOfRed; //赤色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
+@property (nonatomic, retain) NSArray *damageSourceOfGreen; //緑色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property BOOL decideAction; //自分がカードとAAをを選択し終えるとYESとなり、ターン終了時にNOに戻る
 
 

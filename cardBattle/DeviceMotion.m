@@ -144,7 +144,7 @@
                                                   error:&error];
         NSLog(@"再度get処理実行中...");
         if(loop == 20){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報を取得不可" message:@"位置情報を取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報取得不能" message:@"位置情報を取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
             [SVProgressHUD dismiss];
             return;

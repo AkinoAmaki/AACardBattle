@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
+@synthesize damageSourceOfWhite;
+@synthesize damageSourceOfBlue;
+@synthesize damageSourceOfBlack;
+@synthesize damageSourceOfRed;
+@synthesize damageSourceOfGreen;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -123,32 +128,32 @@
     _myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
     //MARK: カード効果のデバッグが終わったら元に戻す　_myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
     _myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInteger:0],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:40],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],
-                                                     [NSNumber numberWithInteger:2],nil];
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],nil];
     _myDeckCardList = [[NSMutableArray alloc] init];
 
     //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
     for (int i = 0; i < [_myDeck count]; i++) {
         for (int j = 0; j < [[_myDeck objectAtIndex:i] intValue]; j++) {
-            [_myDeckCardList addObject:[NSNumber numberWithInteger:i]];
+            [_myDeckCardList addObject:[NSNumber numberWithInt:i]];
         }
     }
     _myDeckCardList = [self shuffledArray:_myDeckCardList];
@@ -170,14 +175,20 @@
     NSNumber *field  = [NSNumber numberWithInt:FIELDCARD];
     NSNumber *sorcery = [NSNumber numberWithInt:SORCERYCARD];
     
-    _cardList_type = [[NSArray alloc] initWithObjects: energy, energy, energy, energy, energy, sorcery, field,sorcery,sorcery,field,field,field,field,field,field,field,field,field,field,field, nil];
-    _cardList_cost = [[NSArray alloc] initWithObjects: @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", nil];
-
+    _cardList_type = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:0], energy, energy, energy, energy, energy, sorcery, field,sorcery,sorcery,field,field,field,field,field,field,field,field,field,field,field, nil];
+    _cardList_cost = [[NSArray alloc] initWithObjects: @"null", @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", nil];
+    _cardList_color = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], nil];
+    
+    damageSourceOfWhite = [[NSArray alloc] initWithObjects:nil];
+    damageSourceOfBlue  = [[NSArray alloc] initWithObjects:nil];
+    damageSourceOfRed = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:70], [NSNumber numberWithInt:71], [NSNumber numberWithInt:73], [NSNumber numberWithInt:74], [NSNumber numberWithInt:77], [NSNumber numberWithInt:78], [NSNumber numberWithInt:79], [NSNumber numberWithInt:80], [NSNumber numberWithInt:82], [NSNumber numberWithInt:83], [NSNumber numberWithInt:84], [NSNumber numberWithInt:85], [NSNumber numberWithInt:88], [NSNumber numberWithInt:89], [NSNumber numberWithInt:90], [NSNumber numberWithInt:91], [NSNumber numberWithInt:92], [NSNumber numberWithInt:93],  nil];
+    damageSourceOfBlack   = [[NSArray alloc] initWithObjects: nil];
+    damageSourceOfGreen = [[NSArray alloc] initWithObjects: nil];
     
     _fieldCardList_turnStart = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:105],[NSNumber numberWithInt:143], nil];
-    _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:112],[NSNumber numberWithInt:132],[NSNumber numberWithInt:144], nil];
+    _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:112],[NSNumber numberWithInt:132],[NSNumber numberWithInt:144], nil];
     _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:27],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:147],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150],[NSNumber numberWithInt:151], nil];
-    _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:126],[NSNumber numberWithInt:148], nil];
+    _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:126],[NSNumber numberWithInt:148], nil];
     _decideAction = NO;
     
 #pragma mark 対戦に関連する各種数値の初期化

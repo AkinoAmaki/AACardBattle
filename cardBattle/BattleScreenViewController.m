@@ -762,14 +762,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     switch (cardnumber) {
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             
             break;
         case 7:
-            //対象キャラの防御力ずっと＋３（W2)
-            [self createCharacterField:_allImageView];
+            //毎ターンの対象のキャラの防御力を＋３する（W2)
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
@@ -787,83 +787,138 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
             break;
         case 11:
-            //相手プレイヤーが白色のカードを使用するたび、ライフを＋１する（W1)
-            if ([self distinguishCardColor:app.enemyUsingCardNumber] == WHITE) {
-                app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                }
             }
             break;
         case 12:
-            //相手プレイヤーが青色のカードを使用するたび、ライフを＋１する（W1)
-            if ([self distinguishCardColor:app.enemyUsingCardNumber] == BLUE) {
-                app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                }
             }
             break;
         case 13:
-            //相手プレイヤーが黒色のカードを使用するたび、ライフを＋１する（W1)
-            if ([self distinguishCardColor:app.enemyUsingCardNumber] == BLACK) {
-                app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                }
             }
             break;
         case 14:
-            //相手プレイヤーが赤色のカードを使用するたび、ライフを＋１する（W1)
-            if ([self distinguishCardColor:app.enemyUsingCardNumber] == RED) {
-                app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                }
             }
             break;
         case 15:
-            //相手プレイヤーが緑色のカードを使用するたび、ライフを＋１する（W1)
-            if ([self distinguishCardColor:app.enemyUsingCardNumber] == GREEN) {
-                app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                }
             }
             break;
         case 16:
-            //白色からのダメージを１減らす（W1)
-            if([self distinguishCardColor:app.enemyUsingCardNumber] == WHITE){
-                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
-                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
-                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
-                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
-                
+            //戦闘時に与えられた白色からのダメージを１減らす（W1)
+            for (int i = 0; i < [app.damageSourceOfWhite count]; i++) {
+                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                    if([[app.damageSourceOfWhite objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"ソーサリーです");
+                    }
+                }
+            }
+            for (int i = 0; i < [app.damageSourceOfWhite count]; i++) {
+                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                    if([[app.damageSourceOfWhite objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"フィールドカードです");
+                    }
+                }
             }
             break;
         case 17:
-            //青色からのダメージを１減らす（W1)
-            if([self distinguishCardColor:app.enemyUsingCardNumber] == BLUE){
-                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
-                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
-                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
-                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
-                
+            //戦闘時に与えられた青色からのダメージを１減らす（W1)
+            for (int i = 0; i < [app.damageSourceOfBlue count]; i++) {
+                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                    if([[app.damageSourceOfBlue objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"ソーサリーです");
+                    }
+                }
+            }
+            for (int i = 0; i < [app.damageSourceOfBlue count]; i++) {
+                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                    if([[app.damageSourceOfBlue objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"フィールドカードです");
+                    }
+                }
             }
             break;
         case 18:
-            //黒色からのダメージを１減らす（W1)
-            if([self distinguishCardColor:app.enemyUsingCardNumber] == BLACK){
-                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
-                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
-                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
-                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
-                
+            //戦闘時に与えられた黒色からのダメージを１減らす（W1)
+            for (int i = 0; i < [app.damageSourceOfBlack count]; i++) {
+                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                    if([[app.damageSourceOfBlack objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"ソーサリーです");
+                    }
+                }
+            }
+            for (int i = 0; i < [app.damageSourceOfBlack count]; i++) {
+                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                    if([[app.damageSourceOfBlack objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"フィールドカードです");
+                    }
+                }
             }
             break;
         case 19:
-            //赤色からのダメージを１減らす（W1)
-            if([self distinguishCardColor:app.enemyUsingCardNumber] == RED){
-                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
-                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
-                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
-                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
-                
+            //戦闘時に与えられた赤色からのダメージを１減らす（W1)
+            for (int i = 0; i < [app.damageSourceOfRed count]; i++) {
+                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                    if([[app.damageSourceOfRed objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"ソーサリーです");
+                    }
+                }
+            }
+            for (int i = 0; i < [app.damageSourceOfRed count]; i++) {
+                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                    if([[app.damageSourceOfRed objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"フィールドカードです");
+                    }
+                }
             }
             break;
         case 20:
-            //緑色からのダメージを１減らす（W1)
-            if([self distinguishCardColor:app.enemyUsingCardNumber] == GREEN){
-                [self myDeffencePowerOperate:GIKO point:1 temporary:1];
-                [self myDeffencePowerOperate:MONAR point:1 temporary:1];
-                [self myDeffencePowerOperate:SYOBON point:1 temporary:1];
-                [self myDeffencePowerOperate:YARUO point:1 temporary:1];
-                
+            //戦闘時に与えられた緑色からのダメージを１減らす（W1)
+            for (int i = 0; i < [app.damageSourceOfGreen count]; i++) {
+                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                    if([[app.damageSourceOfGreen objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"ソーサリーです");
+                    }
+                }
+            }
+            for (int i = 0; i < [app.damageSourceOfGreen count]; i++) {
+                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                    if([[app.damageSourceOfGreen objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
+                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        NSLog(@"フィールドカードです");
+                    }
+                }
             }
             break;
         case 21:
@@ -984,7 +1039,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 44:
             //対象キャラの攻撃力 −３（U1)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
             break;
         case 45:
@@ -1138,7 +1193,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 66:
             //対象キャラの攻撃力＋３（R)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 67:
@@ -1235,7 +1290,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 81:
             //攻撃力が＋５される代わりに防御力が０になる（R１)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) * -1 temporary:1];
@@ -1335,7 +1390,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 93:
             //自分の選択キャラの攻撃力−１、２点ダメージ（R)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
             break;
@@ -1399,7 +1454,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 103:
             //攻撃力と防御力が−１される代わりにブロックされない（B１)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self forbidDeffence:app.enemyGikoDeffencePermitted];
@@ -1410,14 +1465,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         case 104:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
             app.myLifeGage = [self HPOperate:app.myLifeGage point:-3];
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
             
             break;
         case 105:
             //毎ターンライフを５点失う代わりに攻撃力が＋８される（BB2)
             app.myLifeGage = [self HPOperate:app.myLifeGage point:-5];
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:8 temporary:0];
             
             break;
@@ -1431,7 +1486,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 107:
             //エネルギーカードの種類数だけ、相手の攻撃力と防御力をマイナスさせる（B1)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self enemyAttackPowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             [self enemyDeffencePowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             break;
@@ -1452,7 +1507,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             //TODO: app.mySelectCharacterに数値が入った時は、app.myCharacterAttackPowerとapp.myCharacterDeffencePowerにも数値が入るようにする。
             //TODO: app.mySelectCharacterとapp.myCharacterAttackPowerとapp.myCharacterDeffencePowerはターン終了時に初期化する
             
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self getACard:MYSELF];
@@ -1503,7 +1558,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 117:
             //攻撃力は＋３されるが、防御力が半分になる（B)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) / 2 temporary:1];
@@ -1553,7 +1608,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 123:
             //対象キャラは攻撃力＋２、防御力−２（B3)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:0];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-2 temporary:0];
              break;
@@ -1587,20 +1642,20 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 127:
             //対象キャラの攻撃力・防御力を１ターン＋３（G)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 128:
             //対象キャラの攻撃力・防御力を１ターン＋７（G3)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
             
             break;
         case 129:
             //対象キャラの攻撃力・防御力を１ターン＋１，カードを一枚引く（G)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             [self getACard:MYSELF];
@@ -1608,7 +1663,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 130:
             //１ターンの間、対象キャラの攻撃力・防御力を＋２，攻撃力そのままをダメージにする（G2)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせ、ブロックさせないAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             if(app.enemySelectCharacter == GIKO){
@@ -1624,7 +1679,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 131:
             //対象キャラの攻撃力・防御力を１ターン＋4（G1)
-            [self createCharacterField:_allImageView];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             break;
@@ -2378,7 +2433,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
     int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
-    cardType = [[app.cardList_type objectAtIndex:cardNumber - 1 ] intValue];
+    cardType = [[app.cardList_type objectAtIndex:cardNumber] intValue];
     app.myUsingCardNumber = cardNumber;
     app.doIUseCard = YES;
     doIUseCardInThisTurn = YES;
@@ -2863,7 +2918,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 //攻撃キャラを変更する（対象プレイヤー：変更後のキャラ）
 
 - (void)changeAttackCharacter :(int)man :(int)character{
-    [self createCharacterField:_allImageView];
+    [self createCharacterField:_allImageView cancelButton:NO explain:@"変更後の選択AAを選んでください"];
     if (man == 0) {
         mySelectCharacterInCharacterField = character;
         app.mySelectCharacter = mySelectCharacterInCharacterField;
@@ -3028,7 +3083,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 
 /*----------------------------------------------------------------------------------------*/
 
-- (void)createCharacterField: (UIImageView *)view{
+- (void)createCharacterField: (UIImageView *)view cancelButton:(BOOL)cancel explain:(NSString *)string{
     //キャラクター全部を載せるフィールドを生成
     _characterField = [[UIImageView alloc] init];
     _characterField.image = [UIImage imageNamed:@"characterSelect.png"];
@@ -3045,10 +3100,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [_characterField addSubview:syobon];
     [_characterField addSubview:yaruo];
     
-    giko.frame = CGRectMake(10, 10, CHARACTERWIDTH, CHARACTERHEIGHT);
-    monar.frame = CGRectMake(10, 10 + (CHARACTERHEIGHT + 5), CHARACTERWIDTH, CHARACTERHEIGHT);
-    syobon.frame = CGRectMake(10, 10 + 2 * (CHARACTERHEIGHT + 5), CHARACTERWIDTH, CHARACTERHEIGHT);
-    yaruo.frame  = CGRectMake(10, 10 + 3 * (CHARACTERHEIGHT + 5), CHARACTERWIDTH, CHARACTERHEIGHT);
+    giko.frame = CGRectMake(10, 40, CHARACTERWIDTH - 30, CHARACTERHEIGHT- 30);
+    monar.frame = CGRectMake(10, 40 + (CHARACTERHEIGHT - 30 + 5), CHARACTERWIDTH- 30, CHARACTERHEIGHT- 30);
+    syobon.frame = CGRectMake(10, 40 + 2 * (CHARACTERHEIGHT - 30 + 5), CHARACTERWIDTH- 30, CHARACTERHEIGHT- 30);
+    yaruo.frame  = CGRectMake(10, 40 + 3 * (CHARACTERHEIGHT - 30 + 5), CHARACTERWIDTH- 30, CHARACTERHEIGHT- 30);
     
     giko.userInteractionEnabled = YES;
     monar.userInteractionEnabled = YES;
@@ -3075,8 +3130,20 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [view addSubview:_characterField];
     _characterField.frame = CGRectMake(40, 40, _characterField.superview.bounds.size.width - 80, _characterField.superview.bounds.size.height - 80);
 
-    [self createOkButton:CGRectMake(10, _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:7];
-    [self createCancelButton:CGRectMake(_characterField.bounds.size.width - 10 - 100,  _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:8];
+    UITextView *txtView = [[UITextView alloc] initWithFrame :CGRectMake(10, 10, _characterField.bounds.size.width - 20, 40)];
+    txtView.textAlignment = NSTextAlignmentCenter;
+    txtView.editable = NO;
+    txtView.text = string;
+    [view addSubview:txtView];
+    
+    
+    if(cancel){
+        [self createOkButton:CGRectMake(10, _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:7];
+        [self createCancelButton:CGRectMake(_characterField.bounds.size.width - 10 - 100,  _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:8];
+    }else{
+        [self createOkButton:CGRectMake(_characterField.bounds.size.width / 2 - 50, _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:7];
+    }
+    
 
 }
 
@@ -3380,7 +3447,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     int otherNumber = 0;//任意の色でよいエネルギーの数を集計する
     
     NSMutableArray *array = [[NSMutableArray alloc] init]; //白・青・黒・赤・緑・無色の配列順でコストがどれだけかかるかを管理する。
-    NSString *energyCost = [app.cardList_cost objectAtIndex:cardNumber - 1]; //コストの文字列を取得
+    NSString *energyCost = [app.cardList_cost objectAtIndex:cardNumber]; //コストの文字列を取得
     int costLength = [energyCost length];
     NSLog(@"コストの長さ：%d",costLength);
     for (int i = 0; i < costLength; i++) {
@@ -3582,7 +3649,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 }
 
 
-#pragma mark UIScrollView delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView == _cardInRegion){
