@@ -60,6 +60,14 @@
                                        [NSNumber numberWithInt:app.myDamage],
                                        [NSNumber numberWithInt:app.mySelectColor],
                                        app.cardsIUsedInThisTurn,
+                                       [NSNumber numberWithBool:app.enemyGikoAttackPermitted],
+                                       [NSNumber numberWithBool:app.enemyMonarAttackPermitted],
+                                       [NSNumber numberWithBool:app.enemySyobonAttackPermitted],
+                                       [NSNumber numberWithBool:app.enemyYaruoAttackPermitted],
+                                       [NSNumber numberWithBool:app.enemyGikoDeffencePermitted],
+                                       [NSNumber numberWithBool:app.enemyMonarDeffencePermitted],
+                                       [NSNumber numberWithBool:app.enemySyobonDeffencePermitted],
+                                       [NSNumber numberWithBool:app.enemyYaruoDeffencePermitted],
                                        nil];
     
     NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:
@@ -106,6 +114,14 @@
                                  @"myDamage",
                                  @"mySelectColor",
                                  @"cardsIUsedInThisTurn",
+                                 @"enemyGikoAttackPermitted",
+                                    @"enemyMonarAttackPermitted",
+                                    @"enemySyobonAttackPermitted",
+                                    @"enemyYaruoAttackPermitted",
+                                    @"enemyGikoDeffencePermitted",
+                                    @"enemyMonarDeffencePermitted",
+                                    @"enemySyobonDeffencePermitted",
+                                    @"enemyYaruoDeffencePermitted",
                                  nil];
     
     

@@ -38,9 +38,16 @@ int manageCount;
 //自分のダメージ計算を行う
 -(int)damageCaliculate{
     app = [[UIApplication sharedApplication] delegate];
-    
+    NSLog(@"さて：%d",app.enemyMonarAttackPermitted);
     int result = 999;
         if(app.enemySelectCharacter == GIKO){
+            if(app.enemyGikoAttackPermitted == NO){
+                NSLog(@"自分のライフ(被弾前)：%d",app.myLifeGage);
+                NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
+                NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
+                NSLog(@"自分が受けたダメージ：%d",0);
+                return 0;
+            }
             if (app.mySelectCharacter == GIKO) {
                 result = app.enemyGikoFundamentalAttackPower + app.enemyGikoModifyingAttackPower      - (app.myGikoFundamentalDeffencePower    + app.myGikoModifyingDeffencePower);
             }else if (app.mySelectCharacter == MONAR){
@@ -51,6 +58,14 @@ int manageCount;
                 result = app.enemyGikoFundamentalAttackPower + app.enemyGikoModifyingAttackPower      - (app.myYaruoFundamentalDeffencePower   + app.myYaruoModifyingDeffencePower);
             }
         }else if (app.enemySelectCharacter == MONAR){
+            if(app.enemyMonarAttackPermitted == NO){
+                NSLog(@"自分のライフ(被弾前)：%d",app.myLifeGage);
+                NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
+                NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
+                NSLog(@"自分が受けたダメージ：%d",0);
+                return 0;
+            }
+            
             if (app.mySelectCharacter == GIKO) {
                 result = 0;
             }else if (app.mySelectCharacter == MONAR){
@@ -61,6 +76,14 @@ int manageCount;
                 result = app.enemyMonarFundamentalAttackPower + app.enemyMonarModifyingAttackPower    - (app.myYaruoFundamentalDeffencePower   + app.myYaruoModifyingDeffencePower);
             }
         }else if (app.enemySelectCharacter == SYOBON){
+            if(app.enemySyobonAttackPermitted == NO){
+                NSLog(@"自分のライフ(被弾前)：%d",app.myLifeGage);
+                NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
+                NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
+                NSLog(@"自分が受けたダメージ：%d",0);
+                return 0;
+            }
+            
             if (app.mySelectCharacter == GIKO) {
                 result = app.enemySyobonFundamentalAttackPower + app.enemySyobonModifyingAttackPower;
             }else if (app.mySelectCharacter == MONAR){
@@ -71,6 +94,14 @@ int manageCount;
                 result = app.enemySyobonFundamentalAttackPower + app.enemySyobonModifyingAttackPower  - (app.myYaruoFundamentalDeffencePower   + app.myYaruoModifyingDeffencePower);
             }
         }else if (app.enemySelectCharacter == YARUO){
+            if(app.enemyYaruoAttackPermitted == NO){
+                NSLog(@"自分のライフ(被弾前)：%d",app.myLifeGage);
+                NSLog(@"自分の選択キャラ：%d",app.mySelectCharacter);
+                NSLog(@"相手の選択キャラ：%d", app.enemySelectCharacter);
+                NSLog(@"自分が受けたダメージ：%d",0);
+                return 0;
+            }
+            
             if (app.mySelectCharacter == GIKO) {
                 result = app.enemyYaruoFundamentalAttackPower + app.enemyYaruoModifyingAttackPower    - (app.myGikoFundamentalDeffencePower    + app.myGikoModifyingDeffencePower);
             }else if (app.mySelectCharacter == MONAR){

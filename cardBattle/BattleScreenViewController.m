@@ -620,27 +620,55 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 
 - (void)touchesBegan: (UITapGestureRecognizer *)sender{
 
-    [_border_character removeFromSuperview];
-    [_myCharacterView addSubview: _border_character];
-    _border_character.frame = sender.view.frame;
     
     switch (sender.view.tag) {
         case 1:
-            app.mySelectCharacter = GIKO;
-            NSLog(@"選択キャラ：ギコ");
+            if(app.myGikoAttackPermitted == NO){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ギコの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }else{
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
+                app.mySelectCharacter = GIKO;
+                NSLog(@"選択キャラ：ギコ");
+            }
             break;
         case 2:
-            
-            app.mySelectCharacter = MONAR;
-            NSLog(@"選択キャラ：モナー");
+            if(app.myMonarAttackPermitted == NO){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"モナーの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }else{
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
+                app.mySelectCharacter = MONAR;
+                NSLog(@"選択キャラ：モナー");
+            }
             break;
         case 3:
-            app.mySelectCharacter = SYOBON;
-            NSLog(@"選択キャラ：ショボン");
+            if(app.mySyobonAttackPermitted == NO){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ショボンの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }else{
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
+                app.mySelectCharacter = SYOBON;
+                NSLog(@"選択キャラ：ショボン");
+            }
             break;
         case 4:
-            app.mySelectCharacter = YARUO;
-            NSLog(@"選択キャラ：やる夫");
+            if(app.myYaruoAttackPermitted == NO){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"やる夫の選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }else{
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
+                app.mySelectCharacter = YARUO;
+                NSLog(@"選択キャラ：やる夫");
+            }
             break;
         default:
             break;
@@ -649,7 +677,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 
 
 
-#pragma mark ターン処理
+#pragma mark- ターン処理
 - (IBAction)nextTurn{
     //ターン開始時
     [sendMyData send];
@@ -676,7 +704,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         [self sync];
     }
     [sendMyData send];
-    
     
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
@@ -756,7 +783,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     
     
 }
-#pragma mark カード効果実装
+#pragma mark- カード効果実装
 
 -(void)cardActivate :(int)cardnumber string:(NSString *)str{
     switch (cardnumber) {
@@ -923,30 +950,29 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 21:
             //このターン、相手のギコに攻撃させない（W）
-            [self forbidAttack:app.enemyGikoAttackPermitted];
-           
+            app.enemyGikoAttackPermitted = NO;
             break;
         case 22:
             //このターン、相手のモナーに攻撃させない（W）
-            [self forbidAttack:app.enemyMonarAttackPermitted];
+            app.enemyMonarAttackPermitted = NO;
             break;
         case 23:
              //このターン、相手のショボンに攻撃させない（W）
-            [self forbidAttack:app.enemySyobonAttackPermitted];
+            app.enemySyobonAttackPermitted = NO;
             break;
         case 24:
             //このターン、相手に防御させない（W２)
-            [self forbidDeffence:app.enemyGikoDeffencePermitted];
-            [self forbidDeffence:app.enemyMonarDeffencePermitted];
-            [self forbidDeffence:app.enemySyobonDeffencePermitted];
-            [self forbidDeffence:app.enemyYaruoDeffencePermitted];
+            app.enemyGikoAttackPermitted = NO;
+            app.enemyMonarAttackPermitted = NO;
+            app.enemySyobonAttackPermitted = NO;
+            app.enemyYaruoAttackPermitted = NO;
             break;
         case 25:
-            //このカードが出ている限りターン、相手に防御させない（WW３)
-            [self forbidDeffence:app.enemyGikoDeffencePermitted];
-            [self forbidDeffence:app.enemyMonarDeffencePermitted];
-            [self forbidDeffence:app.enemySyobonDeffencePermitted];
-            [self forbidDeffence:app.enemyYaruoDeffencePermitted];
+            //このカードが出ている限り、相手に防御させない（WW３)
+            app.enemyGikoAttackPermitted = NO;
+            app.enemyMonarAttackPermitted = NO;
+            app.enemySyobonAttackPermitted = NO;
+            app.enemyYaruoAttackPermitted = NO;
             break;
         case 26:
             //手札のカード枚数×２のライフ回復（WW2)
@@ -984,7 +1010,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 31:
             //クルセで攻撃できる（W2)
-            [self permitAttack:app.myYaruoAttackPermitted];
+            app.myYaruoAttackPermitted = YES;
             break;
         case 32:
             //相手のライブラリーを１枚削る（W)
@@ -1138,14 +1164,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 57:
             //相手キャラは攻撃・防御できない。別のカードが使われたとき、これは破壊される（U1)
-            [self forbidAttack:app.enemyGikoAttackPermitted];
-            [self forbidAttack:app.enemyMonarAttackPermitted];
-            [self forbidAttack:app.enemySyobonAttackPermitted];
-            [self forbidAttack:app.enemyYaruoAttackPermitted];
-            [self forbidDeffence:app.enemyGikoDeffencePermitted];
-            [self forbidDeffence:app.enemyMonarDeffencePermitted];
-            [self forbidDeffence:app.enemySyobonDeffencePermitted];
-            [self forbidDeffence:app.enemyYaruoDeffencePermitted];
+            app.enemyGikoAttackPermitted = NO;
+            app.enemyMonarAttackPermitted = NO;
+            app.enemySyobonAttackPermitted = NO;
+            app.enemyYaruoAttackPermitted = NO;
+            app.enemyGikoDeffencePermitted = NO;
+            app.enemyMonarDeffencePermitted = NO;
+            app.enemySyobonDeffencePermitted = NO;
+            app.enemyYaruoDeffencePermitted = NO;
             break;
         case 58:
             //このターン相手が使用したカードを打ち消す（UU)
@@ -1457,10 +1483,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
-            [self forbidDeffence:app.enemyGikoDeffencePermitted];
-            [self forbidDeffence:app.enemyMonarDeffencePermitted];
-            [self forbidDeffence:app.enemySyobonDeffencePermitted];
-            [self forbidDeffence:app.enemyYaruoDeffencePermitted];
+            app.enemyGikoDeffencePermitted = NO;
+            app.enemyMonarDeffencePermitted = NO;
+            app.enemySyobonDeffencePermitted = NO;
+            app.enemyYaruoDeffencePermitted = NO;
             break;
         case 104:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
@@ -2805,26 +2831,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     return colorNumber;
 }
 
-//対象キャラの攻撃を許可する（対象キャラの攻撃許可区分）
--(void)permitAttack :(BOOL)permit{
-    permit = YES;
-}
-
-//対象キャラの攻撃を許可しない（対象キャラの攻撃許可区分）
--(void)forbidAttack :(BOOL)permit{
-    permit = NO;
-}
-
-//対象キャラの防御を許可する（対象キャラの防御許可区分）
--(void)permitDeffence :(BOOL)permit{
-        permit = YES;
-}
-
-//対象キャラの防御を許可しない（対象キャラの防御許可区分）
--(void)forbidDeffence :(BOOL)permit{
-    permit = NO;
-}
-
 //このターン与えられるダメージが０になる
 -(void)damage0 :(int)damage{
     damage = 0;
@@ -3560,8 +3566,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.enemyYaruoModifyingDeffencePower = 0;
         [app.cardsEnemyUsedInThisTurn removeAllObjects];
     
-    
-    //TODO: 条件付きで初期化するものの場合分けを行う
+
         //自分に関係する変数
         app.myGikoAttackPermitted = YES; //自分のギコの攻撃許可
         app.myGikoDeffencePermitted = YES; //自分のギコの防御許可
