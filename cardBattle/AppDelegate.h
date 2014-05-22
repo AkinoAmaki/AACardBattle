@@ -46,6 +46,7 @@
 @property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_damageCaliculate; //ダメージ計算時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_turnEnd;   //ターン終了時に効果を発揮するカード一覧
+@property (nonatomic, retain) NSArray *fieldCardList_other; //他のカード効果の発動を待ってから発動するカード一覧
 @property (nonatomic, retain) NSArray *damageSourceOfWhite; //白色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property (nonatomic, retain) NSArray *damageSourceOfBlue; //青色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property (nonatomic, retain) NSArray *damageSourceOfBlack; //黒色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
@@ -96,7 +97,8 @@
 @property BOOL canIPlayEnergyCard; //自分がエネルギーカードを手札からプレイできるか
 @property BOOL canIActivateEnergyCard; //自分がエネルギーカードを起動できるか
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
-@property int myDamage; //このターン自分に与えられるダメージ
+@property int myDamageFromAA; //このターンAAから自分に与えられるダメージ
+@property int myDamageFromCard; //このターン相手の使用したカードから自分に与えられるダメージ
 @property int mySelectColor; //自分が選んだ色
 @property (nonatomic, retain) NSMutableArray *cardsIUsedInThisTurn; //このターン自分が使用したカード一覧
 
@@ -141,7 +143,8 @@
 @property BOOL canEnemyPlayEnergyCard; //相手がエネルギーカードを手札からプレイできるか
 @property BOOL canEnemyActivateEnergyCard; //相手がエネルギーカードを起動できるか
 @property BOOL denyEnemyCardPlaying; //相手がカードのプレイを打ち消されたか
-@property int enemyDamage; //このターン相手に与えられるダメージ
+@property int enemyDamageFromAA; //このターンAAから相手に与えられるダメージ
+@property int enemyDamageFromCard; //このターン自分の使用したカードから自分に与えられるダメージ
 @property int enemySelectColor; //相手が選んだ色
 @property (nonatomic, retain) NSMutableArray *cardsEnemyUsedInThisTurn; //このターン相手が使用したカード一覧
 

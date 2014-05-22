@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>F6720705-D867-456E-834A-DE6756823CB4</string>
+	<string>ECC08493-02B0-465A-B250-1F4892AD8271</string>
 	<key>IDESourceControlProjectName</key>
 	<string>cardBattle</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -19,8 +19,6 @@
 	<dict>
 		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
 		<string>../..</string>
-		<key>E566B017-E3B1-4182-829E-14B9476681D0</key>
-		<string>../../../名刺バトラー/Mbattler_20130721</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
@@ -37,14 +35,6 @@
 			<string>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AACardBattle</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E566B017-E3B1-4182-829E-14B9476681D0</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Mbattler_20130721</string>
 		</dict>
 	</array>
 </dict>

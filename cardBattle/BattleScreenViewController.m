@@ -680,60 +680,77 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 #pragma mark- ターン処理
 - (IBAction)nextTurn{
     //ターン開始時
-    [sendMyData send];
-    [getEnemyData get];
-    [self getACard:MYSELF];
-    
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
-    [self activateFieldCardInTiming:0];
+/*!!!*/    [self getACard:MYSELF];
+/*!!!*/    [self activateFieldCardInTiming:0];
+    [sendMyData send];
+    [getEnemyData get];
+    [self activateFieldCardInTiming:99];
+    app.myLifeGage = app.myLifeGage - app.myDamageFromCard;
+    //ダメージを与え終えたら値を0に戻しておく
+    app.myDamageFromCard = 0;
+    app.enemyDamageFromCard = 0;
     [self refleshView];
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     
     
     //カード使用後
-    [sendMyData send];
-    [getEnemyData get];
     [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
     [self sync];
     
     
     //touchActionの入力を待つための同期処理
-    while (cardIsCompletlyUsed == NO) {
+
+/*!!!*/    while (cardIsCompletlyUsed == NO) {
         [self sync];
     }
+/*!!!*/    [self activateFieldCardInTiming:1];
     [sendMyData send];
-    
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
         [NSThread sleepForTimeInterval:1];
         [getEnemyData doEnemyDecideAction:YES];
     }
     [getEnemyData get];
-    [self activateFieldCardInTiming:1];
+    [self activateFieldCardInTiming:99];
     [self refleshView];
     [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
 
     //ダメージ計算
-    [sendMyData send];
-    [getEnemyData get];
     [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
     [self sync];
-    [self activateFieldCardInTiming:2];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
+    app.enemyDamageFromAA = [_bc damageCaliculate];
+    [sendMyData send];
+    [getEnemyData get];
+    /*!!!*/    [self activateFieldCardInTiming:2];
+    [self activateFieldCardInTiming:99];
+    app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
+    //ダメージを与え終えたら値を0に戻しておく
+    app.myDamageFromAA = 0;
+    app.myDamageFromCard = 0;
+    app.enemyDamageFromAA = 0;
+    app.enemyDamageFromCard = 0;
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     //ターン終了時
-    app.myLifeGage -= [_bc damageCaliculate];
-    [self refleshView];
     [sendMyData send];
     [getEnemyData get];
+    [self refleshView];
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
     [self sync];
-    [self activateFieldCardInTiming:3];
+/*!!!*/    [self activateFieldCardInTiming:3];
+    [self activateFieldCardInTiming:99];
+    app.myLifeGage = app.myLifeGage -app.myDamageFromCard;
+    //ダメージを与え終えたら値を0に戻しておく
+    app.myDamageFromCard = 0;
+    app.enemyDamageFromCard = 0;
+    [sendMyData send];
+    [getEnemyData get];
     [self refleshView];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
@@ -976,32 +993,25 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 26:
             //手札のカード枚数×２のライフ回復（WW2)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:[app.myHand count] * 2];
+            app.myLifeGage = [self HPOperate:app.myLifeGage point:(int)[app.myHand count] * 2];
             break;
         case 27:
-            //自分に与えられる４点以上のダメージは３点になる（W5)
-            [self decreaseDamage:app.myDamage borderOfDamage:4 damageAfterDecreasing:3];
+            //自分に４点以上のダメージが与えられる場合、ダメージが３点になるまで回復する（W5)
+            app.myDamageFromAA = [self decreaseDamage:app.myDamageFromAA borderOfDamage:3 damageAfterDecreasing:1];
+            app.myDamageFromCard =  [self decreaseDamage:app.myDamageFromCard borderOfDamage:3 damageAfterDecreasing:1];
             break;
         case 28:
-            //TODO: 互いに全てのエネルギーカードを破壊する（W4)
-            {
-                int numberOfMyEnergy = [app.myEnergyCard count];
-                for(int i = 0; i < numberOfMyEnergy; i++){
-                    [self setCardFromXTOY:app.myEnergyCard cardNumber:0 toField:app.myTomb];
-                }
-            }
-            {
-                int numberOfEnemyEnergy = [app.enemyEnergyCard count];
-                for (int i = 0; i < numberOfEnemyEnergy; i++) {
-                    [self setCardFromXTOY:app.enemyEnergyCard cardNumber:0 toField:app.enemyTomb];
-                }
-            }
+            //互いに全てのエネルギーカードを破壊する（W4)
+            app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+            app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
             
             break;
         case 29:
-            //互いに与えるダメージをゼロにする
-            [self damage0:app.myDamage];
-            [self damage0:app.enemyDamage];
+            //互いに与えるダメージを軽減しゼロにする
+            [self damage0:app.myDamageFromAA];
+            [self damage0:app.myDamageFromCard];
+            [self damage0:app.enemyDamageFromAA];
+            [self damage0:app.enemyDamageFromCard];
             break;
         case 30:
             //対象の場カードを破壊する
@@ -3532,7 +3542,8 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.mySelectCharacter = -1;; //自分の選んだキャラクター
         app.doIUseCard = NO;//自分がこのターンカードを使用したか
         app.myUsingCardNumber = -1; //自分が使用したカードの番号
-        app.myDamage = 0; //このターン自分に与えられるダメージ
+        app.myDamageFromAA = 0;
+        app.myDamageFromCard = 0;
         app.mySelectColor = -1; //自分が選んだ色
         app.denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
         app.myGikoModifyingAttackPower = 0;
@@ -3553,7 +3564,8 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.enemySelectCharacter = -1; //相手の選んだキャラクター
         app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
         app.enemyUsingCardNumber = -1; //相手が使用したカードの番号
-        app.enemyDamage = 0; //このターン相手に与えられるダメージ
+        app.enemyDamageFromAA = 0;
+        app.enemyDamageFromCard = 0;
         app.enemySelectColor = -1; //相手が選んだ色
         app.denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
         app.enemyGikoModifyingAttackPower = 0;
@@ -3636,6 +3648,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
                 }
             }
             break;
+        //他のカード効果発動を待ってから最後に発動するカード
+        case 99:
+            for(int i = 0; i < [app.myFieldCard count]; i++){
+                if([app.fieldCardList_other containsObject:[app.myFieldCard objectAtIndex:i]]){
+                    [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
+                }
+            }
+            break;
         default:
             break;
     }
@@ -3669,6 +3689,17 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     //ライフのテキストビューの更新
     myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
     enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
+    //エネルギーのテキストビューの更新
+    _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+    _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+    _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+    _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+    _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+    _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
+    _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
+    _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
+    _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
+    _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:5] intValue]];
 }
 
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{

@@ -102,16 +102,17 @@
         app.canEnemyPlayEnergyCard                  = [[battleDataWithoutArray objectAtIndex:32] boolValue];
         app.canEnemyActivateEnergyCard              = [[battleDataWithoutArray objectAtIndex:33] boolValue];
         app.denyEnemyCardPlaying                    = [[battleDataWithoutArray objectAtIndex:34] boolValue];
-        app.enemyDamage                             = [[battleDataWithoutArray objectAtIndex:35] intValue];
-        app.enemySelectColor                        = [[battleDataWithoutArray objectAtIndex:36] intValue];
-        app.myGikoAttackPermitted                   = [[battleDataWithoutArray objectAtIndex:37] boolValue];
-        app.myMonarAttackPermitted                  = [[battleDataWithoutArray objectAtIndex:38] boolValue];
-        app.mySyobonAttackPermitted                 = [[battleDataWithoutArray objectAtIndex:39] boolValue];
-        app.myYaruoAttackPermitted                  = [[battleDataWithoutArray objectAtIndex:40] boolValue];
-        app.myGikoDeffencePermitted                 = [[battleDataWithoutArray objectAtIndex:41] boolValue];
-        app.myMonarDeffencePermitted                = [[battleDataWithoutArray objectAtIndex:42] boolValue];
-        app.mySyobonDeffencePermitted               = [[battleDataWithoutArray objectAtIndex:43] boolValue];
-        app.myYaruoDeffencePermitted                = [[battleDataWithoutArray objectAtIndex:44] boolValue];
+        app.myDamageFromAA                          = [[battleDataWithoutArray objectAtIndex:35] intValue];
+        app.myDamageFromCard                        = [[battleDataWithoutArray objectAtIndex:36] intValue];
+        app.enemySelectColor                        = [[battleDataWithoutArray objectAtIndex:37] intValue];
+        app.myGikoAttackPermitted                   = [[battleDataWithoutArray objectAtIndex:38] boolValue];
+        app.myMonarAttackPermitted                  = [[battleDataWithoutArray objectAtIndex:39] boolValue];
+        app.mySyobonAttackPermitted                 = [[battleDataWithoutArray objectAtIndex:40] boolValue];
+        app.myYaruoAttackPermitted                  = [[battleDataWithoutArray objectAtIndex:41] boolValue];
+        app.myGikoDeffencePermitted                 = [[battleDataWithoutArray objectAtIndex:42] boolValue];
+        app.myMonarDeffencePermitted                = [[battleDataWithoutArray objectAtIndex:43] boolValue];
+        app.mySyobonDeffencePermitted               = [[battleDataWithoutArray objectAtIndex:44] boolValue];
+        app.myYaruoDeffencePermitted                = [[battleDataWithoutArray objectAtIndex:45] boolValue];
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];
     app.enemyDeckCardList = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:2]];

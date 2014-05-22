@@ -419,15 +419,15 @@
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
-                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0], //20
+                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:40],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -594,12 +594,12 @@ nil];
         [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK],
         [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], nil];
     
-    NSLog(@"_cardList_cardName:%d",[_cardList_cardName count]);
-    NSLog(@"_cardList_pngName:%d",[_cardList_pngName count]);
-    NSLog(@"_cardList_text:%d",[_cardList_text count]);
-    NSLog(@"_cardList_type:%d",[_cardList_type count]);
-    NSLog(@"_cardList_cost:%d", [_cardList_cost count]);
-    NSLog(@"_cardList_color:%d",[_cardList_color count]);
+    NSLog(@"_cardList_cardName:%ld",[_cardList_cardName count]);
+    NSLog(@"_cardList_pngName:%ld",[_cardList_pngName count]);
+    NSLog(@"_cardList_text:%ld",[_cardList_text count]);
+    NSLog(@"_cardList_type:%ld",[_cardList_type count]);
+    NSLog(@"_cardList_cost:%ld", [_cardList_cost count]);
+    NSLog(@"_cardList_color:%ld",[_cardList_color count]);
     
     
     damageSourceOfWhite = [[NSArray alloc] initWithObjects:nil];
@@ -610,8 +610,9 @@ nil];
     
     _fieldCardList_turnStart = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:105],[NSNumber numberWithInt:142], nil];
     _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:112],[NSNumber numberWithInt:131],[NSNumber numberWithInt:143], nil];
-    _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:27],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:146],[NSNumber numberWithInt:148],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150], nil];
+    _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:146],[NSNumber numberWithInt:148],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150], nil];
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:125],[NSNumber numberWithInt:147], nil];
+    _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
     
 #pragma mark- 対戦に関連する各種数値の初期化
@@ -655,7 +656,8 @@ nil];
     _canIPlayEnergyCard = YES; //自分がエネルギーカードを手札からプレイできるか
     _canIActivateEnergyCard = YES; //自分がエネルギーカードを起動できるか
     _denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
-    _myDamage = 0; //このターン自分に与えられるダメージ
+    _myDamageFromAA = 0;
+    _myDamageFromCard = 0;
     _mySelectColor = -1; //自分が選んだ色
     _cardsIUsedInThisTurn = [[NSMutableArray alloc] init];
     
@@ -701,7 +703,8 @@ nil];
     _canEnemyPlayEnergyCard = YES; //相手がエネルギーカードを手札からプレイできるか
     _canEnemyActivateEnergyCard = YES; //相手がエネルギーカードを起動できるか
     _denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
-    _enemyDamage = 0; //このターン相手に与えられるダメージ
+    _enemyDamageFromAA = 0;
+    _enemyDamageFromCard = 0;
     _enemySelectColor = -1; //相手が選んだ色
     _cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
     
