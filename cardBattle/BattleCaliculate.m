@@ -121,7 +121,7 @@ int manageCount;
     app = [[UIApplication sharedApplication] delegate];
     int result = 999;
     if(app.mySelectCharacter == GIKO){
-        if(app.myGikoAttackPermitted == NO){
+        if(app.myGikoAttackPermittedByMyself == NO || app.myGikoAttackPermittedFromEnemy == NO){
             NSLog(@"相手のライフ(被弾前)：%d",app.enemyLifeGage);
             NSLog(@"相手の選択キャラ：%d",app.enemySelectCharacter);
             NSLog(@"自分の選択キャラ：%d", app.mySelectCharacter);
@@ -129,16 +129,28 @@ int manageCount;
             return 0;
         }
         if (app.enemySelectCharacter == GIKO) {
-            result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower      - (app.enemyGikoFundamentalDeffencePower    + app.enemyGikoModifyingDeffencePower);
+            if(app.enemyGikoDeffencePermittedByMyself == NO || app.enemyGikoDeffencePermittedFromEnemy == NO){
+                result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower;
+            }else{
+                result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower      - (app.enemyGikoFundamentalDeffencePower    + app.enemyGikoModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == MONAR){
             result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower;
         }else if (app.enemySelectCharacter == SYOBON){
-            result = 0;
+            if (app.enemySyobonDeffencePermittedByMyself == NO || app.enemySyobonDeffencePermittedFromEnemy == NO) {
+                result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower;
+            }else{
+                result = 0;
+            }
         }else if (app.enemySelectCharacter == YARUO){
-            result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower      - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            if(app.enemyYaruoDeffencePermittedByMyself == NO || app.enemyYaruoDeffencePermittedFromEnemy == NO){
+                result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower;
+            }else{
+                result = app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower      - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            }
         }
     }else if (app.mySelectCharacter == MONAR){
-        if(app.myMonarAttackPermitted == NO){
+        if(app.myMonarAttackPermittedByMyself == NO || app.myMonarAttackPermittedFromEnemy == NO){
             NSLog(@"相手のライフ(被弾前)：%d",app.enemyLifeGage);
             NSLog(@"相手の選択キャラ：%d",app.enemySelectCharacter);
             NSLog(@"自分の選択キャラ：%d", app.mySelectCharacter);
@@ -147,16 +159,28 @@ int manageCount;
         }
         
         if (app.enemySelectCharacter == GIKO) {
-            result = 0;
+            if(app.enemyGikoDeffencePermittedByMyself == NO || app.enemyGikoDeffencePermittedFromEnemy == NO){
+                result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower;
+            }else{
+                result = 0;
+            }
         }else if (app.enemySelectCharacter == MONAR){
-            result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower    - (app.enemyMonarFundamentalDeffencePower   + app.enemyMonarModifyingDeffencePower);
+            if(app.enemyMonarDeffencePermittedByMyself == NO || app.enemyMonarDeffencePermittedFromEnemy == NO){
+                result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower;
+            }else{
+                result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower    - (app.enemyMonarFundamentalDeffencePower   + app.enemyMonarModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == SYOBON){
             result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower;
         }else if (app.enemySelectCharacter == YARUO){
-            result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower    - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            if(app.enemyYaruoDeffencePermittedByMyself == NO || app.enemyYaruoDeffencePermittedFromEnemy == NO){
+                result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower;
+            }else{
+                result = app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower    - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            }
         }
     }else if (app.mySelectCharacter == SYOBON){
-        if(app.mySyobonAttackPermitted == NO){
+        if(app.mySyobonAttackPermittedByMyself == NO || app.mySyobonAttackPermittedFromEnemy == NO){
             NSLog(@"相手のライフ(被弾前)：%d",app.enemyLifeGage);
             NSLog(@"相手の選択キャラ：%d",app.enemySelectCharacter);
             NSLog(@"自分の選択キャラ：%d", app.mySelectCharacter);
@@ -167,14 +191,26 @@ int manageCount;
         if (app.enemySelectCharacter == GIKO) {
             result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower;
         }else if (app.enemySelectCharacter == MONAR){
-            result = 0;
+            if(app.enemyMonarDeffencePermittedByMyself == NO || app.enemyMonarDeffencePermittedFromEnemy == NO){
+                result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower;
+            }else{
+                result = 0;
+            }
         }else if (app.enemySelectCharacter == SYOBON){
-            result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower  - (app.enemySyobonFundamentalDeffencePower  + app.enemySyobonModifyingDeffencePower);
+            if(app.enemySyobonDeffencePermittedByMyself == NO || app.enemySyobonDeffencePermittedFromEnemy == NO){
+                result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower;
+            }else{
+                result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower  - (app.enemySyobonFundamentalDeffencePower  + app.enemySyobonModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == YARUO){
-            result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower  - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            if(app.enemyYaruoDeffencePermittedByMyself == NO || app.enemyYaruoDeffencePermittedFromEnemy == NO){
+                result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower;
+            }else{
+                result = app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower  - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            }
         }
     }else if (app.mySelectCharacter == YARUO){
-        if(app.myYaruoAttackPermitted == NO){
+        if(app.myYaruoAttackPermittedByMyself == NO || app.myYaruoAttackPermittedFromEnemy == NO){
             NSLog(@"相手のライフ(被弾前)：%d",app.enemyLifeGage);
             NSLog(@"相手の選択キャラ：%d",app.enemySelectCharacter);
             NSLog(@"自分の選択キャラ：%d", app.mySelectCharacter);
@@ -183,13 +219,29 @@ int manageCount;
         }
         
         if (app.enemySelectCharacter == GIKO) {
-            result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyGikoFundamentalDeffencePower    + app.enemyGikoModifyingDeffencePower);
+            if(app.enemyGikoDeffencePermittedByMyself == NO || app.enemyGikoDeffencePermittedFromEnemy == NO){
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower;
+            }else{
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyGikoFundamentalDeffencePower    + app.enemyGikoModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == MONAR){
-            result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyMonarFundamentalDeffencePower   + app.enemyMonarModifyingDeffencePower);
+            if(app.enemyMonarDeffencePermittedByMyself == NO || app.enemyMonarDeffencePermittedFromEnemy == NO){
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower;
+            }else{
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyMonarFundamentalDeffencePower   + app.enemyMonarModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == SYOBON){
-            result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemySyobonFundamentalDeffencePower  + app.enemySyobonModifyingDeffencePower);
+            if(app.enemySyobonDeffencePermittedByMyself == NO || app.enemySyobonDeffencePermittedFromEnemy == NO){
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower;
+            }else{
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemySyobonFundamentalDeffencePower  + app.enemySyobonModifyingDeffencePower);
+            }
         }else if (app.enemySelectCharacter == YARUO){
-            result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            if(app.enemyYaruoDeffencePermittedByMyself == NO || app.enemyYaruoDeffencePermittedFromEnemy == NO){
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower;
+            }else{
+                result = app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    - (app.enemyYaruoFundamentalDeffencePower   + app.enemyYaruoModifyingDeffencePower);
+            }
         }
     }
     NSLog(@"相手のライフ(被弾前)：%d",app.enemyLifeGage);

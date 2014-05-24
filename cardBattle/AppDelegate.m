@@ -409,12 +409,12 @@
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:0],//10
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
-                                                     [NSNumber numberWithInteger:0],
-                                                     [NSNumber numberWithInteger:0],
+                                                     [NSNumber numberWithInteger:20],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
                                                      [NSNumber numberWithInteger:0],
@@ -427,9 +427,9 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:40],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:20],//30
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -439,6 +439,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//40
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -448,6 +449,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//50
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -457,6 +459,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//60
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -466,6 +469,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//70
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -475,6 +479,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//80
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -484,6 +489,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//90
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -493,6 +499,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//100
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -502,6 +509,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//110
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -511,6 +519,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//120
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -520,6 +529,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//130
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -529,6 +539,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//140
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -538,18 +549,7 @@
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
-                                                   [NSNumber numberWithInteger:0],
+                                                   [NSNumber numberWithInteger:0],//150
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
                                                    [NSNumber numberWithInteger:0],
@@ -628,6 +628,14 @@ nil];
     _mySyobonFundamentalDeffencePower = 0; //自分のショボンの基本防御力
     _myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
     _myYaruoFundamentalDeffencePower = 3; //自分のやる夫の基本防御力
+    _myGikoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
+    _myGikoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの基本防御力（差分のみ管理）
+    _myMonarFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
+    _myMonarFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
+    _mySyobonFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
+    _mySyobonFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
+    _myYaruoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+    _myYaruoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
     _mySelectCharacter = -1; //自分の選んだキャラクター
     _myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -637,24 +645,44 @@ nil];
     _mySyobonModifyingDeffencePower = 0; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _myYaruoModifyingAttackPower = 0; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _myYaruoModifyingDeffencePower = 0; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    
-    _myGikoAttackPermitted = YES; //自分のギコの攻撃許可
-    _myGikoDeffencePermitted = YES; //自分のギコの防御許可
-    _myMonarAttackPermitted = YES; //自分のモナーの攻撃許可
-    _myMonarDeffencePermitted = YES; //自分のモナーの防御許可
-    _mySyobonAttackPermitted = YES; //自分のショボンの攻撃許可
-    _mySyobonDeffencePermitted = YES; //自分のショボンの防御許可
-    _myYaruoAttackPermitted = NO; //自分のやる夫の攻撃許可
-    _myYaruoDeffencePermitted = YES; //自分のやる夫の防御許可
+    _myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myMonarModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _mySyobonModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    _myGikoAttackPermittedByMyself = YES; //自分のギコの攻撃許可
+    _myGikoDeffencePermittedByMyself = YES; //自分のギコの防御許可
+    _myMonarAttackPermittedByMyself = YES; //自分のモナーの攻撃許可
+    _myMonarDeffencePermittedByMyself = YES; //自分のモナーの防御許可
+    _mySyobonAttackPermittedByMyself = YES; //自分のショボンの攻撃許可
+    _mySyobonDeffencePermittedByMyself = YES; //自分のショボンの防御許可
+    _myYaruoAttackPermittedByMyself = YES; //自分のやる夫の攻撃許可
+    _myYaruoDeffencePermittedByMyself = YES; //自分のやる夫の防御許可
+    _myGikoAttackPermittedFromEnemy = YES; //相手の妨害による自分のギコの攻撃許可
+    _myGikoDeffencePermittedFromEnemy = YES; //相手の制限による自分のギコの防御許可
+    _myMonarAttackPermittedFromEnemy = YES; //相手の制限による自分のモナーの攻撃許可
+    _myMonarDeffencePermittedFromEnemy = YES; //相手の制限による自分のモナーの防御許可
+    _mySyobonAttackPermittedFromEnemy = YES; //相手の制限による自分のショボンの攻撃許可
+    _mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
+    _myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
+    _myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     _doIUseCard = NO; //自分がこのターンカードを使用したか
     _myFieldCard = [[NSMutableArray alloc] init]; //自分の場カードのカードナンバー
     _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
-    _canIPlaySorceryCard =YES; //自分が魔法カードを手札からプレイできるか
-    _canIPlayFieldCard = YES; //自分が場カードを手札からプレイできるか
-    _canIActivateFieldCard = YES; //自分が場カードの能力を起動できるか
-    _canIPlayEnergyCard = YES; //自分がエネルギーカードを手札からプレイできるか
-    _canIActivateEnergyCard = YES; //自分がエネルギーカードを起動できるか
+    _canIPlaySorceryCardByMyself =YES; //自分が魔法カードを手札からプレイできるか
+    _canIPlayFieldCardByMyself = YES; //自分が場カードを手札からプレイできるか
+    _canIActivateFieldCardByMyself = YES; //自分が場カードの能力を起動できるか
+    _canIPlayEnergyCardByMyself = YES; //自分がエネルギーカードを手札からプレイできるか
+    _canIActivateEnergyCardByMyself = YES; //自分がエネルギーカードを起動できるか
+    _canIPlaySorceryCardFromEnemy = YES; //相手の妨害により自分が魔法カードを手札からプレイできるか
+    _canIPlayFieldCardFromEnemy = YES; //相手の妨害により自分が場カードを手札からプレイできるか
+    _canIActivateFieldCardFromEnemy = YES; //相手の妨害により自分が場カードの能力を起動できるか
+    _canIPlayEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
+    _canIActivateEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを起動できるか
     _denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
     _myDamageFromAA = 0;
     _myDamageFromCard = 0;
@@ -675,6 +703,14 @@ nil];
     _enemySyobonFundamentalDeffencePower = 0; //相手のショボンの基本防御力
     _enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
     _enemyYaruoFundamentalDeffencePower = 3; //相手のやる夫の基本防御力
+    _enemyGikoFundamentalAttackPowerByMyself = 0; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
+    _enemyGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のギコの基本防御力（差分のみ管理）
+    _enemyMonarFundamentalAttackPowerByMyself = 0; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
+    _enemyMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
+    _enemySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
+    _enemySyobonFundamentalDeffencePowerByMyself = 0; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
+    _enemyYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
+    _enemyYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
     _enemySelectCharacter = -1; //相手の選んだキャラクター
     _enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -684,24 +720,45 @@ nil];
     _enemySyobonModifyingDeffencePower = 0; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyYaruoModifyingAttackPower = 0; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyYaruoModifyingDeffencePower = 0; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    _enemyGikoModifyingAttackPowerByMyself = 0; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
+    _enemyGikoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のギコの修正防御力（差分のみ管理）
+    _enemyMonarModifyingAttackPowerByMyself = 0; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
+    _enemyMonarModifyingDeffencePowerByMyself = 0; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
+    _enemySyobonModifyingAttackPowerByMyself = 0; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
+    _enemySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
+    _enemyYaruoModifyingAttackPowerByMyself = 0; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
+    _enemyYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
     
-    _enemyGikoAttackPermitted = YES; //相手のギコの攻撃許可
-    _enemyGikoDeffencePermitted = YES; //相手のギコの防御許可
-    _enemyMonarAttackPermitted = YES; //相手のモナーの攻撃許可
-    _enemyMonarDeffencePermitted = YES; //相手のモナーの防御許可
-    _enemySyobonAttackPermitted = YES; //相手のショボンの攻撃許可
-    _enemySyobonDeffencePermitted = YES; //相手のショボンの防御許可
-    _enemyYaruoAttackPermitted = NO; //相手のやる夫の攻撃許可
-    _enemyYaruoDeffencePermitted = YES; //相手のやる夫の防御許可
+    _enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
+    _enemyGikoDeffencePermittedByMyself = YES; //相手のギコの防御許可
+    _enemyMonarAttackPermittedByMyself = YES; //相手のモナーの攻撃許可
+    _enemyMonarDeffencePermittedByMyself = YES; //相手のモナーの防御許可
+    _enemySyobonAttackPermittedByMyself = YES; //相手のショボンの攻撃許可
+    _enemySyobonDeffencePermittedByMyself = YES; //相手のショボンの防御許可
+    _enemyYaruoAttackPermittedByMyself = YES; //相手のやる夫の攻撃許可
+    _enemyYaruoDeffencePermittedByMyself = YES; //相手のやる夫の防御許可
+    _enemyGikoAttackPermittedFromEnemy = YES; //相手の制限による相手のギコの攻撃許可
+    _enemyGikoDeffencePermittedFromEnemy = YES; //相手の制限による相手のギコの防御許可
+    _enemyMonarAttackPermittedFromEnemy = YES; //相手の制限による相手のモナーの攻撃許可
+    _enemyMonarDeffencePermittedFromEnemy = YES; //相手の制限による相手のモナーの防御許可
+    _enemySyobonAttackPermittedFromEnemy = YES; //相手の制限による相手のショボンの攻撃許可
+    _enemySyobonDeffencePermittedFromEnemy = YES; //相手の制限による相手のショボンの防御許可
+    _enemyYaruoAttackPermittedFromEnemy = YES; //相手の制限による相手のやる夫の攻撃許可
+    _enemyYaruoDeffencePermittedFromEnemy = YES; //相手の制限による手のやる夫の防御許可
     _enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
     _doEnemyUseCard = NO; //相手がこのターンカードを使用したか
     _enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
     _enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
-    _canEnemyPlaySorceryCard = YES; //相手が魔法カードを手札からプレイできるか
-    _canEnemyPlayFieldCard = YES; //相手が場カードを手札からプレイできるか
-    _canEnemyActivateFieldCard = YES; //相手が場カードの能力を起動できるか
-    _canEnemyPlayEnergyCard = YES; //相手がエネルギーカードを手札からプレイできるか
-    _canEnemyActivateEnergyCard = YES; //相手がエネルギーカードを起動できるか
+    _canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
+    _canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
+    _canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか
+    _canEnemyPlayEnergyCardByMyself = YES; //相手がエネルギーカードを手札からプレイできるか
+    _canEnemyActivateEnergyCardByMyself = YES; //相手がエネルギーカードを起動できるか
+    _canEnemyPlaySorceryCardFromEnemy = YES; //相手の制限により相手が魔法カードを手札からプレイできるか
+    _canEnemyPlayFieldCardFromEnemy = YES; //相手の制限により相手が場カードを手札からプレイできるか
+    _canEnemyActivateFieldCardFromEnemy = YES; //相手の制限により相手が場カードの能力を起動できるか
+    _canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
+    _canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
     _denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
     _enemyDamageFromAA = 0;
     _enemyDamageFromCard = 0;

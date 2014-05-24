@@ -623,7 +623,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     
     switch (sender.view.tag) {
         case 1:
-            if(app.myGikoAttackPermitted == NO){
+            if(app.myGikoAttackPermittedByMyself == NO){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ギコの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
@@ -635,7 +635,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             }
             break;
         case 2:
-            if(app.myMonarAttackPermitted == NO){
+            if(app.myMonarAttackPermittedByMyself == NO){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"モナーの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
@@ -647,7 +647,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             }
             break;
         case 3:
-            if(app.mySyobonAttackPermitted == NO){
+            if(app.mySyobonAttackPermittedByMyself == NO){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ショボンの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
@@ -659,7 +659,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             }
             break;
         case 4:
-            if(app.myYaruoAttackPermitted == NO){
+            if(app.myYaruoAttackPermittedByMyself == NO){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"やる夫の選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
@@ -724,10 +724,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [self sync];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
+    /*!!!*/    [self activateFieldCardInTiming:2];
     app.enemyDamageFromAA = [_bc damageCaliculate];
     [sendMyData send];
     [getEnemyData get];
-    /*!!!*/    [self activateFieldCardInTiming:2];
     [self activateFieldCardInTiming:99];
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
     //ダメージを与え終えたら値を0に戻しておく
@@ -839,33 +839,33 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             }
             break;
         case 12:
-            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            //このターン相手プレイヤーが使用した青色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
             for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
-                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == BLUE) {
                     app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
                 }
             }
             break;
         case 13:
-            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            //このターン相手プレイヤーが使用した黒色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
             for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
-                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == BLACK) {
                     app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
                 }
             }
             break;
         case 14:
-            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            //このターン相手プレイヤーが使用した赤色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
             for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
-                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == RED) {
                     app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
                 }
             }
             break;
         case 15:
-            //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
+            //このターン相手プレイヤーが使用した緑色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
             for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
-                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
+                if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == GREEN) {
                     app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
                 }
             }
@@ -967,29 +967,30 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 21:
             //このターン、相手のギコに攻撃させない（W）
-            app.enemyGikoAttackPermitted = NO;
+            app.enemyGikoAttackPermittedByMyself = NO;
             break;
         case 22:
             //このターン、相手のモナーに攻撃させない（W）
-            app.enemyMonarAttackPermitted = NO;
+            app.enemyMonarAttackPermittedByMyself = NO;
             break;
         case 23:
              //このターン、相手のショボンに攻撃させない（W）
-            app.enemySyobonAttackPermitted = NO;
+            app.enemySyobonAttackPermittedByMyself = NO;
             break;
         case 24:
             //このターン、相手に防御させない（W２)
-            app.enemyGikoAttackPermitted = NO;
-            app.enemyMonarAttackPermitted = NO;
-            app.enemySyobonAttackPermitted = NO;
-            app.enemyYaruoAttackPermitted = NO;
+            app.enemyGikoDeffencePermittedByMyself = NO;
+            app.enemyMonarDeffencePermittedByMyself = NO;
+            app.enemySyobonDeffencePermittedByMyself = NO;
+            app.enemyYaruoDeffencePermittedByMyself = NO;
             break;
         case 25:
             //このカードが出ている限り、相手に防御させない（WW３)
-            app.enemyGikoAttackPermitted = NO;
-            app.enemyMonarAttackPermitted = NO;
-            app.enemySyobonAttackPermitted = NO;
-            app.enemyYaruoAttackPermitted = NO;
+            NSLog(@"きてる");
+            app.enemyGikoDeffencePermittedByMyself = NO;
+            app.enemyMonarDeffencePermittedByMyself = NO;
+            app.enemySyobonDeffencePermittedByMyself = NO;
+            app.enemyYaruoDeffencePermittedByMyself = NO;
             break;
         case 26:
             //手札のカード枚数×２のライフ回復（WW2)
@@ -1007,20 +1008,26 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             
             break;
         case 29:
-            //互いに与えるダメージを軽減しゼロにする
-            [self damage0:app.myDamageFromAA];
-            [self damage0:app.myDamageFromCard];
-            [self damage0:app.enemyDamageFromAA];
-            [self damage0:app.enemyDamageFromCard];
+            //このターン、全AAの攻撃を禁止する
+            app.myGikoAttackPermittedByMyself = NO;
+            app.myMonarAttackPermittedByMyself = NO;
+            app.mySyobonAttackPermittedByMyself = NO;
+            app.myYaruoAttackPermittedByMyself = NO;
+            app.enemyGikoAttackPermittedByMyself = NO;
+            app.enemyMonarAttackPermittedByMyself = NO;
+            app.enemySyobonAttackPermittedByMyself = NO;
+            app.enemyYaruoAttackPermittedByMyself = NO;
+                //内部的にはとりあえずギコを選んでおき、次フェイズに進めるようにする
+                app.mySelectCharacter = GIKO;
             break;
         case 30:
             //対象の場カードを破壊する
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
-            [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
+            [self sync];
             break;
         case 31:
             //クルセで攻撃できる（W2)
-            app.myYaruoAttackPermitted = YES;
+            app.myYaruoAttackPermittedByMyself = YES;
             break;
         case 32:
             //相手のライブラリーを１枚削る（W)
@@ -1174,14 +1181,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 57:
             //相手キャラは攻撃・防御できない。別のカードが使われたとき、これは破壊される（U1)
-            app.enemyGikoAttackPermitted = NO;
-            app.enemyMonarAttackPermitted = NO;
-            app.enemySyobonAttackPermitted = NO;
-            app.enemyYaruoAttackPermitted = NO;
-            app.enemyGikoDeffencePermitted = NO;
-            app.enemyMonarDeffencePermitted = NO;
-            app.enemySyobonDeffencePermitted = NO;
-            app.enemyYaruoDeffencePermitted = NO;
+            app.enemyGikoAttackPermittedByMyself = NO;
+            app.enemyMonarAttackPermittedByMyself = NO;
+            app.enemySyobonAttackPermittedByMyself = NO;
+            app.enemyYaruoAttackPermittedByMyself = NO;
+            app.enemyGikoDeffencePermittedByMyself = NO;
+            app.enemyMonarDeffencePermittedByMyself = NO;
+            app.enemySyobonDeffencePermittedByMyself = NO;
+            app.enemyYaruoDeffencePermittedByMyself = NO;
             break;
         case 58:
             //このターン相手が使用したカードを打ち消す（UU)
@@ -1493,10 +1500,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
-            app.enemyGikoDeffencePermitted = NO;
-            app.enemyMonarDeffencePermitted = NO;
-            app.enemySyobonDeffencePermitted = NO;
-            app.enemyYaruoDeffencePermitted = NO;
+            app.enemyGikoDeffencePermittedByMyself = NO;
+            app.enemyMonarDeffencePermittedByMyself = NO;
+            app.enemySyobonDeffencePermittedByMyself = NO;
+            app.enemyYaruoDeffencePermittedByMyself = NO;
             break;
         case 104:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
@@ -2503,7 +2510,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         if([self doIHaveEnergyToUseCard:cardNumber]){
             
         }
-        else if(app.canIPlaySorceryCard == NO){
+        else if(app.canIPlaySorceryCardByMyself == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"ソーサリーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
@@ -2533,7 +2540,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         if([self doIHaveEnergyToUseCard:cardNumber]){
             
         }
-        else if(app.canIPlayFieldCard == NO){
+        else if(app.canIPlayFieldCardByMyself == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"フィールドカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
@@ -2559,7 +2566,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     
     //エネルギーカードの場合の実装
     else if (cardType == ENERGYCARD){
-        if(app.canIPlayEnergyCard == NO){
+        if(app.canIPlayEnergyCardByMyself == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"エネルギーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
             [alert show];
         }else{
@@ -2841,11 +2848,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     return colorNumber;
 }
 
-//このターン与えられるダメージが０になる
--(void)damage0 :(int)damage{
-    damage = 0;
-}
-
 //対象プレイヤーは1枚カードを引く（対象プレイヤー（０なら自分、１なら相手）
 - (void)getACard :(int)man{
     if(man == 0){
@@ -2949,13 +2951,13 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     if (man == 0) {
         switch (cardType) {
             case ENERGYCARD:
-                app.canIPlayEnergyCard = NO;
+                app.canIPlayEnergyCardByMyself = NO;
                 break;
             case FIELDCARD:
-                app.canIPlayFieldCard = NO;
+                app.canIPlayFieldCardByMyself = NO;
                 break;
             case SORCERYCARD:
-                app.canIPlaySorceryCard = NO;
+                app.canIPlaySorceryCardByMyself = NO;
                 break;
             default:
                 break;
@@ -2963,13 +2965,13 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     }else{
         switch (cardType) {
             case ENERGYCARD:
-                app.canEnemyPlayEnergyCard = NO;
+                app.canEnemyPlayEnergyCardByMyself = NO;
                 break;
             case FIELDCARD:
-                app.canEnemyPlayFieldCard = NO;
+                app.canEnemyPlayFieldCardByMyself = NO;
                 break;
             case SORCERYCARD:
-                app.canEnemyPlaySorceryCard = NO;
+                app.canEnemyPlaySorceryCardByMyself = NO;
                 break;
             default:
                 break;
@@ -2982,10 +2984,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     if (man == 0) {
         switch (cardType) {
             case ENERGYCARD:
-                app.canIActivateEnergyCard = NO;
+                app.canIActivateEnergyCardByMyself = NO;
                 break;
             case FIELDCARD:
-                app.canIActivateFieldCard = NO;
+                app.canIActivateFieldCardByMyself = NO;
                 break;
             default:
                 break;
@@ -2993,10 +2995,10 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     }else{
         switch (cardType) {
             case ENERGYCARD:
-                app.canEnemyActivateEnergyCard = NO;
+                app.canEnemyActivateEnergyCardByMyself = NO;
                 break;
             case FIELDCARD:
-                app.canEnemyActivateFieldCard = NO;
+                app.canEnemyActivateFieldCardByMyself = NO;
                 break;
             default:
                 break;
@@ -3554,7 +3556,16 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.mySyobonModifyingDeffencePower = 0;
         app.myYaruoModifyingAttackPower = 0;
         app.myYaruoModifyingDeffencePower = 0;
+        app.myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         mySelectCharacterInCharacterField = -1;
+
         cardIsCompletlyUsed = NO;
         doIUseCardInThisTurn = NO;
         [app.cardsIUsedInThisTurn removeAllObjects];
@@ -3576,39 +3587,72 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.enemySyobonModifyingDeffencePower = 0;
         app.enemyYaruoModifyingAttackPower = 0;
         app.enemyYaruoModifyingDeffencePower = 0;
+        app.enemyGikoModifyingAttackPowerByMyself = 0; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
+        app.enemyGikoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のギコの修正防御力（差分のみ管理）
+        app.enemyMonarModifyingAttackPowerByMyself = 0; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
+        app.enemyMonarModifyingDeffencePowerByMyself = 0; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
+        app.enemySyobonModifyingAttackPowerByMyself = 0; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
+        app.enemySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
+        app.enemyYaruoModifyingAttackPowerByMyself = 0; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
+        app.enemyYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
         [app.cardsEnemyUsedInThisTurn removeAllObjects];
     
 
         //自分に関係する変数
-        app.myGikoAttackPermitted = YES; //自分のギコの攻撃許可
-        app.myGikoDeffencePermitted = YES; //自分のギコの防御許可
-        app.myMonarAttackPermitted = YES; //自分のモナーの攻撃許可
-        app.myMonarDeffencePermitted = YES; //自分のモナーの防御許可
-        app.mySyobonAttackPermitted = YES; //自分のショボンの攻撃許可
-        app.mySyobonDeffencePermitted = YES; //自分のショボンの防御許可
-        app.myYaruoAttackPermitted = NO; //自分のやる夫の攻撃許可
-        app.myYaruoDeffencePermitted = YES; //自分のやる夫の防御許可
-        app.canIPlaySorceryCard = YES; //自分が魔法カードを手札からプレイできるか
-        app.canIPlayFieldCard = YES; //自分が場カードを手札からプレイできるか
-        app.canIActivateFieldCard = YES; //自分が場カードの能力を起動できるか
-        app.canIPlayEnergyCard = YES; //自分がエネルギーカードを手札からプレイできるか
-        app.canIActivateEnergyCard = YES; //自分がエネルギーカードを起動できるか
+        app.myGikoAttackPermittedByMyself = YES; //自分のギコの攻撃許可
+        app.myGikoDeffencePermittedByMyself = YES; //自分のギコの防御許可
+        app.myMonarAttackPermittedByMyself = YES; //自分のモナーの攻撃許可
+        app.myMonarDeffencePermittedByMyself = YES; //自分のモナーの防御許可
+        app.mySyobonAttackPermittedByMyself = YES; //自分のショボンの攻撃許可
+        app.mySyobonDeffencePermittedByMyself = YES; //自分のショボンの防御許可
+        app.myYaruoAttackPermittedByMyself = YES; //自分のやる夫の攻撃許可
+        app.myYaruoDeffencePermittedByMyself = YES; //自分のやる夫の防御許可
+        app.myGikoAttackPermittedFromEnemy = YES; //相手の妨害による自分のギコの攻撃許可
+        app.myGikoDeffencePermittedFromEnemy = YES; //相手の制限による自分のギコの防御許可
+        app.myMonarAttackPermittedFromEnemy = YES; //相手の制限による自分のモナーの攻撃許可
+        app.myMonarDeffencePermittedFromEnemy = YES; //相手の制限による自分のモナーの防御許可
+        app.mySyobonAttackPermittedFromEnemy = YES; //相手の制限による自分のショボンの攻撃許可
+        app.mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
+        app.myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
+        app.myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
+        app.canIPlaySorceryCardByMyself = YES; //自分が魔法カードを手札からプレイできるか
+        app.canIPlayFieldCardByMyself = YES; //自分が場カードを手札からプレイできるか
+        app.canIActivateFieldCardByMyself = YES; //自分が場カードの能力を起動できるか
+        app.canIPlayEnergyCardByMyself = YES; //自分がエネルギーカードを手札からプレイできるか
+        app.canIActivateEnergyCardByMyself = YES; //自分がエネルギーカードを起動できるか
+        app.canIPlaySorceryCardFromEnemy = YES; //相手の妨害により自分が魔法カードを手札からプレイできるか
+        app.canIPlayFieldCardFromEnemy = YES; //相手の妨害により自分が場カードを手札からプレイできるか
+        app.canIActivateFieldCardFromEnemy = YES; //相手の妨害により自分が場カードの能力を起動できるか
+        app.canIPlayEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
+        app.canIActivateEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを起動できるか
     
         //相手に関係する変数
-        app.enemyGikoAttackPermitted = YES; //相手のギコの攻撃許可
-        app.enemyGikoDeffencePermitted = YES; //相手のギコの防御許可
-        app.enemyMonarAttackPermitted = YES; //相手のモナーの攻撃許可
-        app.enemyMonarDeffencePermitted = YES; //相手のモナーの防御許可
-        app.enemySyobonAttackPermitted = YES; //相手のショボンの攻撃許可
-        app.enemySyobonDeffencePermitted = YES; //相手のショボンの防御許可
-        app.enemyYaruoAttackPermitted = NO; //相手のやる夫の攻撃許可
-        app.enemyYaruoDeffencePermitted = YES; //相手のやる夫の防御許可
-        app.canEnemyPlaySorceryCard = YES; //相手が魔法カードを手札からプレイできるか
-        app.canEnemyPlayFieldCard = YES; //相手が場カードを手札からプレイできるか
-        app.canEnemyActivateFieldCard = YES; //相手が場カードの能力を起動できるか
-        app.canEnemyPlayEnergyCard = YES; //相手がエネルギーカードを手札からプレイできるか
-        app.canEnemyActivateEnergyCard = YES; //相手がエネルギーカードを起動できるか
-
+        app.enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
+        app.enemyGikoDeffencePermittedByMyself = YES; //相手のギコの防御許可
+        app.enemyMonarAttackPermittedByMyself = YES; //相手のモナーの攻撃許可
+        app.enemyMonarDeffencePermittedByMyself = YES; //相手のモナーの防御許可
+        app.enemySyobonAttackPermittedByMyself = YES; //相手のショボンの攻撃許可
+        app.enemySyobonDeffencePermittedByMyself = YES; //相手のショボンの防御許可
+        app.enemyYaruoAttackPermittedByMyself = YES; //相手のやる夫の攻撃許可
+        app.enemyYaruoDeffencePermittedByMyself = YES; //相手のやる夫の防御許可
+        app.enemyGikoAttackPermittedFromEnemy = YES; //相手の制限による相手のギコの攻撃許可
+        app.enemyGikoDeffencePermittedFromEnemy = YES; //相手の制限による相手のギコの防御許可
+        app.enemyMonarAttackPermittedFromEnemy = YES; //相手の制限による相手のモナーの攻撃許可
+        app.enemyMonarDeffencePermittedFromEnemy = YES; //相手の制限による相手のモナーの防御許可
+        app.enemySyobonAttackPermittedFromEnemy = YES; //相手の制限による相手のショボンの攻撃許可
+        app.enemySyobonDeffencePermittedFromEnemy = YES; //相手の制限による相手のショボンの防御許可
+        app.enemyYaruoAttackPermittedFromEnemy = YES; //相手の制限による相手のやる夫の攻撃許可
+        app.enemyYaruoDeffencePermittedFromEnemy = YES; //相手の制限による手のやる夫の防御許可
+        app.canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
+        app.canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
+        app.canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか
+        app.canEnemyPlayEnergyCardByMyself = YES; //相手がエネルギーカードを手札からプレイできるか
+        app.canEnemyActivateEnergyCardByMyself = YES; //相手がエネルギーカードを起動できるか
+        app.canEnemyPlaySorceryCardFromEnemy = YES; //相手の制限により相手が魔法カードを手札からプレイできるか
+        app.canEnemyPlayFieldCardFromEnemy = YES; //相手の制限により相手が場カードを手札からプレイできるか
+        app.canEnemyActivateFieldCardFromEnemy = YES; //相手の制限により相手が場カードの能力を起動できるか
+        app.canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
+        app.canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
 }
 
 
@@ -3705,8 +3749,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
-    [app.myTomb addObject:[app.myHand objectAtIndex:selectedCardOrder]];
-    [app.myHand removeObjectAtIndex:selectedCardOrder];
+    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
     [_cardInRegion removeFromSuperview];
     [self moveCards];
     FINISHED1
@@ -3715,14 +3758,17 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 -(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
-    [app.enemyTomb addObject:[app.enemyHand objectAtIndex:selectedCardOrder]];
-    [app.enemyHand removeObjectAtIndex:selectedCardOrder];
+    [self setCardFromXTOY:app.enemyHand cardNumber:selectedCardOrder toField:app.enemyTomb];
     [_cardInRegion removeFromSuperview];
     FINISHED1
 }
 
 -(void)destroyEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
-    
+    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
+    [self setCardFromXTOY:app.enemyFieldCard cardNumber:selectedCardOrder toField:app.enemyTomb];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
     
 }
 
