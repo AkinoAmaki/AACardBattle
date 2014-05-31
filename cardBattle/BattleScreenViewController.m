@@ -20,6 +20,9 @@
 @synthesize sendMyData;
 @synthesize motion;
 @synthesize getEnemyData;
+@synthesize regionViewArray;
+
+//TODO: カード使用の効果で、BrowseCardInRegionを通してカード選択しようとすると、スクロールしない。原因はカード使用時の[self sync]だが、外すとregionViewArrayがセレクタのなかでnullになってしまい、バグが起きる。
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,7 +44,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transitView:) name:@"battleStartEvent" object:nil];
     
         app = [[UIApplication sharedApplication] delegate];
-        
         turnCount = 1;
         myDrawCount = 0;
         enemyDrawCount = 0;
@@ -258,6 +260,7 @@
         _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
         _border_usedCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_usedCard.png"]];
         _border_usedCard.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
+        _border_color = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_smallCard"]];
         
         _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
         
@@ -267,10 +270,13 @@
         _cardInRegion.userInteractionEnabled = YES;
         _backGroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
         _backGroundView.userInteractionEnabled = YES;
-        _regionViewArray =[[NSMutableArray alloc] init];
+        regionViewArray =[[NSMutableArray alloc] init];
         [_cardInRegion addSubview:_backGroundView];
         
-        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
+        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440)];
+        _colorView.image = [UIImage imageNamed:@"anime"];
+        _colorView.userInteractionEnabled = YES;
+        
         
         _okButton = [[UIButton alloc] init];
         [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
@@ -581,10 +587,21 @@
     
 //--------------------------デバッグ用ボタンここまで-----------------------------
     
-_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-[_battleStart show];
+//MARK: デバッグ用。終わったら元に戻す_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+//MARK: デバッグ用。終わったら元に戻す[_battleStart show];
 
-
+    //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
+    app.enemyNickName = @"秋乃のiPhone4S";
+    app.enemyPlayerID = 120008502;
+    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+    
+    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    while (![[sendData send] isEqualToString:@"諸データの更新が終了しました"]) {
+        
+    }
+    GetEnemyDataFromServer *getEnemyData = [[GetEnemyDataFromServer alloc] init];
+    [getEnemyData get];
+    //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -680,56 +697,65 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 #pragma mark- ターン処理
 - (IBAction)nextTurn{
     //ターン開始時
-    [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
-    [self sync];
-/*!!!*/    [self getACard:MYSELF];
-/*!!!*/    [self activateFieldCardInTiming:0];
+    NSLog(@"ターン開始フェイズ");
+    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
+    //MARK: デバッグ終わったら戻す[self sync];
+    //MARK: デバッグ終わったら戻す[self getACard:MYSELF];
+    //MARK: デバッグ終わったら戻すfor (int i = 0; i < app.myAdditionalGettingCards; i++) {
+    //MARK: デバッグ終わったら戻す    [self getACard:MYSELF];
+    //MARK: デバッグ終わったら戻す}
+    //MARK: デバッグ終わったら戻すapp.myAdditionalGettingCards = 0;
+    [self activateFieldCardInTiming:0];
     [sendMyData send];
-    [getEnemyData get];
     [self activateFieldCardInTiming:99];
     app.myLifeGage = app.myLifeGage - app.myDamageFromCard;
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
     [self refleshView];
-    [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self sync];
+    //MARK: デバッグ終わったら戻す[self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
+    //MARK: デバッグ終わったら戻す[self sync];
     
     
     //カード使用後
-    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
-    [self sync];
+    NSLog(@"カード使用・AA選択フェーズ");
+    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
+    //MARK: デバッグ終わったら戻す[self sync];
     
     
     //touchActionの入力を待つための同期処理
 
-/*!!!*/    while (cardIsCompletlyUsed == NO) {
+    while (cardIsCompletlyUsed == NO) {
         [self sync];
     }
-/*!!!*/    [self activateFieldCardInTiming:1];
-    [sendMyData send];
+    [self activateFieldCardInTiming:1];
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
         [NSThread sleepForTimeInterval:1];
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [getEnemyData get];
+    [sendMyData send];
+    for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+        [self getACard:MYSELF];
+    }
+    app.myAdditionalGettingCards = 0;
     [self activateFieldCardInTiming:99];
     [self refleshView];
-    [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self sync];
-
+    //MARK: デバッグ終わったら戻す[self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
+    //MARK: デバッグ終わったら戻す[self sync];
     //ダメージ計算
-    [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
-    [self sync];
+    NSLog(@"ダメージ計算フェーズ");
+    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ダメージ計算フェイズ"];
+    //MARK: デバッグ終わったら戻す[self sync];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
-    /*!!!*/    [self activateFieldCardInTiming:2];
+    [self activateFieldCardInTiming:2];
+    [sendMyData send];
+    [self activateFieldCardInTiming:99];
     app.enemyDamageFromAA = [_bc damageCaliculate];
     [sendMyData send];
-    [getEnemyData get];
-    [self activateFieldCardInTiming:99];
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
+    NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromAA = 0;
     app.myDamageFromCard = 0;
@@ -739,21 +765,20 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [self sync];
     //ターン終了時
     [sendMyData send];
-    [getEnemyData get];
     [self refleshView];
-    [self phaseNameFadeIn:@"ターン終了フェイズ"];
-    [self sync];
-/*!!!*/    [self activateFieldCardInTiming:3];
+    NSLog(@"ターン終了フェイズ");
+    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ターン終了フェイズ"];
+    //MARK: デバッグ終わったら戻す[self sync];
+    [self activateFieldCardInTiming:3];
     [self activateFieldCardInTiming:99];
     app.myLifeGage = app.myLifeGage -app.myDamageFromCard;
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
     [sendMyData send];
-    [getEnemyData get];
     [self refleshView];
-    [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self sync];
+    //MARK: デバッグ終わったら戻す[self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
+    //MARK: デバッグ終わったら戻す[self sync];
     
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -787,12 +812,11 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     }
     
     while([app.myHand count] > 5){
-        [self discardFromHand:MYSELF string:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
+        [self discardFromHandInTurnEndPhase:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
         [self sync];
     }
     [self initializeVariables];
     [sendMyData send];
-    [getEnemyData get];
     [self nextTurn];
     
     
@@ -806,160 +830,160 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     switch (cardnumber) {
         case 6:
             //対象キャラの防御力１ターンだけ＋３（W)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             
             break;
         case 7:
             //毎ターンの対象のキャラの防御力を＋３する（W2)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 8:
             //自分のライフ＋３（W)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:3];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:3];
             break;
         case 9:
             //自分のライフ＋３、カードを一枚引く（W２）
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:3];
-            [self getACard:MYSELF];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:3];
+            app.myAdditionalGettingCards++;
             break;
         case 10:
             //毎ターンライフを＋１する（W２)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
             break;
         case 11:
             //このターン相手プレイヤーが使用した白色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
-            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == WHITE) {
-                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                    app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                 }
             }
             break;
         case 12:
             //このターン相手プレイヤーが使用した青色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
-            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == BLUE) {
-                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                    app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                 }
             }
             break;
         case 13:
             //このターン相手プレイヤーが使用した黒色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
-            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == BLACK) {
-                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                    app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                 }
             }
             break;
         case 14:
             //このターン相手プレイヤーが使用した赤色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
-            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == RED) {
-                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                    app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                 }
             }
             break;
         case 15:
             //このターン相手プレイヤーが使用した緑色のカードの枚数だけ、ターン終了時にライフを＋１する（W1)
-            for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
+            for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 if ([self distinguishCardColor:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]  == GREEN) {
-                    app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                    app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                 }
             }
             break;
         case 16:
-            //戦闘時に与えられた白色からのダメージを１減らす（W1)
+            //白色のカードからのダメージを１減らす（W1)
             for (int i = 0; i < [app.damageSourceOfWhite count]; i++) {
-                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                for (int j = 0; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
                     if([[app.damageSourceOfWhite objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"ソーサリーです");
                     }
                 }
             }
             for (int i = 0; i < [app.damageSourceOfWhite count]; i++) {
-                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                for (int j = 0; j < [app.enemyFieldCard count]; j++) {
                     if([[app.damageSourceOfWhite objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"フィールドカードです");
                     }
                 }
             }
             break;
         case 17:
-            //戦闘時に与えられた青色からのダメージを１減らす（W1)
+            //青色のカードからのダメージを１減らす（W1)
             for (int i = 0; i < [app.damageSourceOfBlue count]; i++) {
-                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                for (int j = 0; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
                     if([[app.damageSourceOfBlue objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"ソーサリーです");
                     }
                 }
             }
             for (int i = 0; i < [app.damageSourceOfBlue count]; i++) {
-                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                for (int j = 0; j < [app.enemyFieldCard count]; j++) {
                     if([[app.damageSourceOfBlue objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"フィールドカードです");
                     }
                 }
             }
             break;
         case 18:
-            //戦闘時に与えられた黒色からのダメージを１減らす（W1)
+            //黒色のカードからのダメージを１減らす（W1)
             for (int i = 0; i < [app.damageSourceOfBlack count]; i++) {
-                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                for (int j = 0; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
                     if([[app.damageSourceOfBlack objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"ソーサリーです");
                     }
                 }
             }
             for (int i = 0; i < [app.damageSourceOfBlack count]; i++) {
-                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                for (int j = 0; j < [app.enemyFieldCard count]; j++) {
                     if([[app.damageSourceOfBlack objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"フィールドカードです");
                     }
                 }
             }
             break;
         case 19:
-            //戦闘時に与えられた赤色からのダメージを１減らす（W1)
+            //赤色のカードからのダメージを１減らす（W1)
             for (int i = 0; i < [app.damageSourceOfRed count]; i++) {
-                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                for (int j = 0; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
                     if([[app.damageSourceOfRed objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"ソーサリーです");
                     }
                 }
             }
             for (int i = 0; i < [app.damageSourceOfRed count]; i++) {
-                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                for (int j = 0; j < [app.enemyFieldCard count]; j++) {
                     if([[app.damageSourceOfRed objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"フィールドカードです");
                     }
                 }
             }
             break;
         case 20:
-            //戦闘時に与えられた緑色からのダメージを１減らす（W1)
+            //緑色のカードからのダメージを１減らす（W1)
             for (int i = 0; i < [app.damageSourceOfGreen count]; i++) {
-                for (int j = 1; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
+                for (int j = 0; j < [app.cardsEnemyUsedInThisTurn count]; j++) {
                     if([[app.damageSourceOfGreen objectAtIndex:i] intValue] == [[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]  && [[app.cardList_type objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:j] intValue]] intValue] == SORCERYCARD){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"ソーサリーです");
                     }
                 }
             }
             for (int i = 0; i < [app.damageSourceOfGreen count]; i++) {
-                for (int j = 1; j < [app.enemyFieldCard count]; j++) {
+                for (int j = 0; j < [app.enemyFieldCard count]; j++) {
                     if([[app.damageSourceOfGreen objectAtIndex:i] intValue] == [[app.enemyFieldCard objectAtIndex:j] intValue]){
-                        app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+                        app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
                         NSLog(@"フィールドカードです");
                     }
                 }
@@ -986,7 +1010,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 25:
             //このカードが出ている限り、相手に防御させない（WW３)
-            NSLog(@"きてる");
             app.enemyGikoDeffencePermittedByMyself = NO;
             app.enemyMonarDeffencePermittedByMyself = NO;
             app.enemySyobonDeffencePermittedByMyself = NO;
@@ -994,7 +1017,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
         case 26:
             //手札のカード枚数×２のライフ回復（WW2)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:(int)[app.myHand count] * 2];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:(int)[app.myHand count] * 2];
             break;
         case 27:
             //自分に４点以上のダメージが与えられる場合、ダメージが３点になるまで回復する（W5)
@@ -1004,7 +1027,9 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         case 28:
             //互いに全てのエネルギーカードを破壊する（W4)
             app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
-            app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+            for (int i = 0; i < [app.enemyEnergyCard count]; i++) {
+                [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[app.enemyEnergyCard objectAtIndex:i]];
+            }
             
             break;
         case 29:
@@ -1023,97 +1048,126 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         case 30:
             //対象の場カードを破壊する
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
-            [self sync];
+            //[self sync];
             break;
         case 31:
-            //クルセで攻撃できる（W2)
-            app.myYaruoAttackPermittedByMyself = YES;
+            //やる夫の攻撃力を１ターンだけ＋5する（W2)
+            [self myAttackPowerOperate:YARUO point:5 temporary:1];
             break;
         case 32:
-            //相手のライブラリーを１枚削る（W)
-            [self discardFromLibrary:ENEMY tagNumber:0];
+            //相手のライブラリーを上から１枚削る（W)
+            [self discardFromLibrary:0];
             break;
         case 33:
-            //相手のライブラリーを２枚削る（W１）
-            [self discardFromLibrary:ENEMY tagNumber:0];
-            [self discardFromLibrary:ENEMY tagNumber:0];
+            //相手のライブラリーを上から２枚削る（W１）
+            [self discardFromLibrary:0];
+            [self discardFromLibrary:1];
             break;
         case 34:
-            //相手のライブラリーを半分削る（WW2)
+            //相手のライブラリーを上から半分削る（WW2)
             for (int i = 0; i < [app.enemyDeckCardList count] / 2; i++) {
-                [self discardFromLibrary:ENEMY tagNumber:0];
+                [self discardFromLibrary:i];
             }
             break;
         case 35:
             //エネルギーカードの種類数×2だけライフを回復する（W）
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * 2];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * 2];
             break;
         case 36:
             //カードを１枚引き、１枚捨てる（U1)
-            [self getACard:MYSELF];
-//            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
-//            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+            app.myAdditionalGettingCards++;
+            [self discardFromHand:MYSELF string:@"捨てるカードを一枚選んでください"];
+            //[self sync];
             break;
         case 37:
             //カードを２枚引く（UU1)
-            [self getACard:MYSELF];
-            [self getACard:MYSELF];
+            app.myAdditionalGettingCards++;
+            app.myAdditionalGettingCards++;
             break;
         case 38:
             //カードを３枚引く（UU２)
-            [self getACard:MYSELF];
-            [self getACard:MYSELF];
-            [self getACard:MYSELF];
+            app.myAdditionalGettingCards++;
+            app.myAdditionalGettingCards++;
+            app.myAdditionalGettingCards++;
             break;
         case 39:
-            
+            //対象のエネルギーを破壊し、白にする（U)
+            [self colorSelect];
+            [self sync];
+            int whiteColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:whiteColor + 1]];
+            int whiteColor2 = [[app.enemyEnergyCardByMyself_plus objectAtIndex:0] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:(whiteColor2 + 1)]];
             break;
         case 40:
-            
+            //対象のエネルギーを破壊し、青にする（U)
+            [self colorSelect];
+            [self sync];
+            int blueColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:blueColor + 1]];
+            int blueColor2 = [[app.enemyEnergyCardByMyself_plus objectAtIndex:1] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:1 withObject:[NSNumber numberWithInt:(blueColor2 + 1)]];
             break;
         case 41:
-            
+            //対象のエネルギーを破壊し、黒にする（U)
+            [self colorSelect];
+            [self sync];
+            int blackColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:blackColor + 1]];
+            int blackColor2 = [[app.enemyEnergyCardByMyself_plus objectAtIndex:2] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:(blackColor2 + 1)]];
+
             break;
         case 42:
-            
+            //対象のエネルギーを破壊し、赤にする（U)
+            [self colorSelect];
+            [self sync];
+            int redColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:redColor + 1]];
+            int redColor2 = [[app.enemyEnergyCardByMyself_plus objectAtIndex:3] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:3 withObject:[NSNumber numberWithInt:(redColor2 + 1)]];
+
             break;
         case 43:
-            
+            //対象のエネルギーを破壊し、緑にする（U)
+            [self colorSelect];
+            [self sync];
+            int greenColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:greenColor + 1]];
+            int greenColor2 = [[app.enemyEnergyCardByMyself_plus objectAtIndex:4] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:4 withObject:[NSNumber numberWithInt:(greenColor2 + 1)]];
             break;
         case 44:
             //対象キャラの攻撃力 −３（U1)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
-//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             break;
         case 46:
-            //相手の全ての場カードとエネルギーカードをオーナーの手札に戻す（UU4)
+            //相手の全ての場カードをオーナーの手札に戻す（U3)
             {
-                //場カードを戻す
                 int i1 = [app.enemyFieldCard count];
                 for (int k = 0; k < i1; k++) {
-                    [self setCardFromXTOY:app.enemyFieldCard cardNumber:0 toField:app.enemyHand];
-                }
-                
-                //エネルギーカードを戻す
-                int i2 = [app.enemyEnergyCard count];
-                for (int k = 0; k < i2; k++) {
-                    [self setCardFromXTOY:app.enemyEnergyCard cardNumber:0 toField:app.enemyHand];
+                    [self manipulateCard:[app.enemyFieldCard objectAtIndex:k] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
                 }
             }
             break;
         case 47:
             //対象の場カードを自分のものにする（UU3)
-//            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyHand];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) string:@"相手から奪うカードを選択してください"];
+            [self sync];
             break;
         case 48:
-            //対象のカードをオーナーの手札に戻し、カードを一枚引く（UU2)
-            
+            //対象のフィールドカードをオーナーの手札に戻し、カードを一枚引く（UU2)
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
+            app.myAdditionalGettingCards++;
+            break;
         case 49:
             //特定色のフィールドカードを全てオーナーの手札に戻す（U3)
         {
@@ -1590,13 +1644,13 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         case 115:
             //相手プレイヤーのデッキからカードを一枚捨てる（B１)
 //            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
-            [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
+            [self discardFromLibrary:[self substituteSelectCardTagAndInitilizeIt]];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
             for (int i = 0; i < 10; i++) {
 //                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
-                [self discardFromLibrary:ENEMY  tagNumber:[self substituteSelectCardTagAndInitilizeIt]];
+                [self discardFromLibrary:[self substituteSelectCardTagAndInitilizeIt]];
             }
             break;
         case 117:
@@ -2342,7 +2396,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             while (myDrawCount < 5) {
                 NSLog(@"ドローカウント：%d",myDrawCount);
                 //手札のカード画像を用意する
-                UIImage *myCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:myDrawCount] intValue]]];
+                UIImage *myCard = [UIImage imageNamed:@"outicon"];
                 _myCard = [[UIImageView alloc] initWithImage:myCard];
                 [_myCardImageViewArray addObject:_myCard];
                 [_myCardImageView addSubview:_myCard];
@@ -2473,8 +2527,8 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 }
 
 - (void)handTouched :(UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
     cardType = [[app.cardList_type objectAtIndex:cardNumber] intValue];
     app.myUsingCardNumber = cardNumber;
@@ -2499,7 +2553,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             break;
     }
     
-    if([_regionViewArray indexOfObject:sender.view] == NSNotFound){
+    if([regionViewArray indexOfObject:sender.view] == NSNotFound){
         NSLog(@"手札内にカードが見つかりません");
     }else{
         NSLog(@"現在選んでいるカードは、手札の左から数えて%d番目", selectedCardOrder + 1);
@@ -2528,8 +2582,8 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-                [self moveCards];
-                [_regionViewArray removeAllObjects];
+                [self refleshMyHand];
+                [regionViewArray removeAllObjects];
                 doIUseCardInThisTurn = NO;
             }
         }
@@ -2557,8 +2611,8 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
-                [self moveCards];
-                [_regionViewArray removeAllObjects];
+                [self refleshMyHand];
+                [regionViewArray removeAllObjects];
                 doIUseCardInThisTurn = NO;
             }
         }
@@ -2600,32 +2654,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 }
 
 
-- (void)moveCards{
+- (void)refleshMyHand{
     [_myCardImageView removeFromSuperview];
-    
-    NSLog(@"selectedCardOrder:%d",selectedCardOrder);
-    NSLog(@"[_myCardImageViewArray count]:%d",[_myCardImageViewArray count]);
-    [_myCardImageViewArray removeObjectAtIndex:selectedCardOrder];
-    
-    
-    UIImageView *temp =[[_myCardImageView subviews] objectAtIndex:selectedCardOrder];
-    [[_myCardImageView viewWithTag:temp.tag] removeFromSuperview];
-    NSLog(@"[[_myCardImageView subviews] count]:%d",[[_myCardImageView subviews] count]);
-
-    //手札の画像を全てテンポラリな配列に収め、myCardImageViewから消す
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [[_myCardImageView subviews] count]; i++){
-        [tempArray addObject:[[_myCardImageView subviews] objectAtIndex:i]];
-    }
     for (UIView *view in [_myCardImageView subviews]) {
         [view removeFromSuperview];
     }
     
-    _myCardImageView = [[UIImageView alloc] init];
-    _myCardImageView.userInteractionEnabled = YES;
-    
-    for (int i = 0; i < [tempArray count]; i++){
-        UIImageView *imgView = [tempArray objectAtIndex:i];
+    for (int i = 0; i < [app.myHand count]; i++){
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
         [_myCardImageView addSubview:imgView];
         imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
         imgView.userInteractionEnabled = YES;
@@ -2635,20 +2671,55 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     }
     
     [_allImageView addSubview:_myCardImageView];
-    _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
-
+    
     for (int i = 0; i < [_myCardImageViewArray count]; i++) {
         UIImageView *tmp = [[UIImageView alloc] init];
         tmp = [_myCardImageViewArray objectAtIndex:i];
-        NSLog(@"残ってるカード：%d",tmp.tag);
     }
-}
 
-//TODO: 相手の手札を再描画する
-//TODO: 自分の墓地を再描画する
-//TODO: 相手の墓地を再描画する
-//TODO: 自分の場を再描画する
-//TODO: 相手の場を再描画する
+    
+//    [_myCardImageView removeFromSuperview];
+//    
+//    NSLog(@"selectedCardOrder:%d",selectedCardOrder);
+//    NSLog(@"[_myCardImageViewArray count]:%d",[_myCardImageViewArray count]);
+//    [_myCardImageViewArray removeObjectAtIndex:selectedCardOrder];
+//    
+//    
+//    UIImageView *temp =[[_myCardImageView subviews] objectAtIndex:selectedCardOrder];
+//    [[_myCardImageView viewWithTag:temp.tag] removeFromSuperview];
+//    NSLog(@"[[_myCardImageView subviews] count]:%d",[[_myCardImageView subviews] count]);
+//
+//    //手札の画像を全てテンポラリな配列に収め、myCardImageViewから消す
+//    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+//    for (int i = 0; i < [[_myCardImageView subviews] count]; i++){
+//        [tempArray addObject:[[_myCardImageView subviews] objectAtIndex:i]];
+//    }
+//    for (UIView *view in [_myCardImageView subviews]) {
+//        [view removeFromSuperview];
+//    }
+//    
+//    _myCardImageView = [[UIImageView alloc] init];
+//    _myCardImageView.userInteractionEnabled = YES;
+//    
+//    for (int i = 0; i < [tempArray count]; i++){
+//        UIImageView *imgView = [tempArray objectAtIndex:i];
+//        [_myCardImageView addSubview:imgView];
+//        imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
+//        imgView.userInteractionEnabled = YES;
+//        [imgView addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchAction:)]];
+//    }
+//    
+//    [_allImageView addSubview:_myCardImageView];
+//    _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
+//
+//    for (int i = 0; i < [_myCardImageViewArray count]; i++) {
+//        UIImageView *tmp = [[UIImageView alloc] init];
+//        tmp = [_myCardImageViewArray objectAtIndex:i];
+//        NSLog(@"残ってるカード：%ld",tmp.tag);
+//    }
+}
 
 
 
@@ -2660,10 +2731,9 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 //対象プレイヤーのXという領域のカードを見る（場・エネルギー置き場・手札）
 -(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard tapSelector:(SEL)selector string:(NSString *)string{
     NSLog(@"%@",cards);
-    [_regionViewArray removeAllObjects];
+    [regionViewArray removeAllObjects];
     
     if(touchCard){
-        _allImageView.userInteractionEnabled = YES;
         
         for (UIView *view in [_regionView subviews]) {
             [view removeFromSuperview];
@@ -2676,16 +2746,18 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             UIImageView *cardImage = [[UIImageView alloc] init];
             cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
             [_regionView addSubview:cardImage];
-            [_regionViewArray addObject:cardImage];
+            [regionViewArray addObject:cardImage];
             cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
             cardImage.userInteractionEnabled = YES;
             cardImage.tag = i + 1;
             [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:selector]];
             [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
+            
         }
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
-        _cardInRegion.contentSize = _regionView.bounds.size;
         [_cardInRegion addSubview:_regionView];
+        _cardInRegion.contentSize = _regionView.bounds.size;
+
         
         UITextView *title = [[UITextView alloc] init];
         [_cardInRegion addSubview: title];
@@ -2696,8 +2768,6 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_cardInRegion];
-        
-        return 0;
         
     }else{
         for (UIView *view in [_regionView subviews]) {
@@ -2705,20 +2775,21 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         }
         _regionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 280 , 90 + [cards count] * (BIGCARDHEIGHT + 10))];
         [PenetrateFilter penetrate:_regionView];
-        _regionView.userInteractionEnabled = NO;
+        _regionView.userInteractionEnabled = YES;
         
         for (int i = 0; i < [cards count]; i++) {
             UIImageView *cardImage = [[UIImageView alloc] init];
             cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
             [_regionView addSubview:cardImage];
-            [_regionViewArray addObject:cardImage];
+            [regionViewArray addObject:cardImage];
             cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
             cardImage.userInteractionEnabled = NO;
             cardImage.tag = i + 1;
         }
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
-        _cardInRegion.contentSize = _regionView.bounds.size;
         [_cardInRegion addSubview:_regionView];
+        _cardInRegion.contentSize = _regionView.bounds.size;
+
         
         UITextView *title = [[UITextView alloc] init];
         [_cardInRegion addSubview: title];
@@ -2730,31 +2801,32 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_cardInRegion];
         
-        return 0;
+        
     }
+    return 0;
 }
 
 //自分の対象キャラの攻撃力を操作する（対象キャラの攻撃力を管理する変数・操作する値(プラスならアップ、マイナスならダウン)）
 -(void)myAttackPowerOperate:(int)character point:(int)x  temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.myGikoModifyingAttackPower += x;
+            app.myGikoModifyingAttackPowerByMyself += x;
         }else if (character == MONAR){
-            app.myMonarModifyingAttackPower += x;
+            app.myMonarModifyingAttackPowerByMyself += x;
         }else if (character == SYOBON){
-            app.mySyobonModifyingAttackPower += x;
+            app.mySyobonModifyingAttackPowerByMyself += x;
         }else if (character == YARUO){
-            app.myYaruoModifyingAttackPower += x;
+            app.myYaruoModifyingAttackPowerByMyself += x;
         }
     }else{
         if(character == GIKO){
-            app.myGikoFundamentalAttackPower += x;
+            app.myGikoFundamentalAttackPowerByMyself += x;
         }else if (character == MONAR){
-            app.myMonarFundamentalAttackPower += x;
+            app.myMonarFundamentalAttackPowerByMyself += x;
         }else if (character == SYOBON){
-            app.mySyobonFundamentalAttackPower += x;
+            app.mySyobonFundamentalAttackPowerByMyself += x;
         }else if (character == YARUO){
-            app.myYaruoFundamentalAttackPower += x;
+            app.myYaruoFundamentalAttackPowerByMyself += x;
         }
     }
 }
@@ -2763,23 +2835,23 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 -(void)myDeffencePowerOperate:(int)character point:(int)x temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.myGikoModifyingDeffencePower += x;
+            app.myGikoModifyingDeffencePowerByMyself += x;
         }else if (character == MONAR){
-            app.myMonarModifyingDeffencePower += x;
+            app.myMonarModifyingDeffencePowerByMyself += x;
         }else if (character == SYOBON){
-            app.mySyobonModifyingDeffencePower += x;
+            app.mySyobonModifyingDeffencePowerByMyself += x;
         }else if (character == YARUO){
-            app.myYaruoModifyingDeffencePower += x;
+            app.myYaruoModifyingDeffencePowerByMyself += x;
         }
     }else{
         if(character == GIKO){
-            app.myGikoFundamentalDeffencePower += x;
+            app.myGikoFundamentalDeffencePowerByMyself += x;
         }else if (character == MONAR){
-            app.myMonarFundamentalDeffencePower += x;
+            app.myMonarFundamentalDeffencePowerByMyself += x;
         }else if (character == SYOBON){
-            app.mySyobonFundamentalDeffencePower += x;
+            app.mySyobonFundamentalDeffencePowerByMyself += x;
         }else if (character == YARUO){
-            app.myYaruoFundamentalDeffencePower += x;
+            app.myYaruoFundamentalDeffencePowerByMyself += x;
         }
     }
 }
@@ -2788,23 +2860,24 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 -(void)enemyAttackPowerOperate :(int)character point:(int)x  temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.enemyGikoModifyingAttackPower += x;
+            app.enemyGikoModifyingAttackPowerByMyself += x;
         }else if (character == MONAR){
-            app.enemyMonarModifyingAttackPower += x;
+            app.enemyMonarModifyingAttackPowerByMyself += x;
         }else if (character == SYOBON){
-            app.enemySyobonModifyingAttackPower += x;
+            app.enemySyobonModifyingAttackPowerByMyself += x;
         }else if (character == YARUO){
-            app.enemyYaruoModifyingAttackPower += x;
+            app.enemyYaruoModifyingAttackPowerByMyself += x;
         }
+        NSLog(@"app.enemyGikoModifyingAttackPowerByMyself:%d",app.enemyGikoModifyingAttackPowerByMyself);
     }else{
         if(character == GIKO){
-            app.enemyGikoFundamentalAttackPower += x;
+            app.enemyGikoFundamentalAttackPowerByMyself += x;
         }else if (character == MONAR){
-            app.enemyMonarFundamentalAttackPower += x;
+            app.enemyMonarFundamentalAttackPowerByMyself += x;
         }else if (character == SYOBON){
-            app.enemySyobonFundamentalAttackPower += x;
+            app.enemySyobonFundamentalAttackPowerByMyself += x;
         }else if (character == YARUO){
-            app.enemyYaruoFundamentalAttackPower += x;
+            app.enemyYaruoFundamentalAttackPowerByMyself += x;
         }
     }
 }
@@ -2813,23 +2886,23 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
 -(void)enemyDeffencePowerOperate:(int)character point:(int)x temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.enemyGikoModifyingDeffencePower += x;
+            app.enemyGikoModifyingDeffencePowerByMyself += x;
         }else if (character == MONAR){
-            app.enemyMonarModifyingDeffencePower += x;
+            app.enemyMonarModifyingDeffencePowerByMyself += x;
         }else if (character == SYOBON){
-            app.enemySyobonModifyingDeffencePower += x;
+            app.enemySyobonModifyingDeffencePowerByMyself += x;
         }else if (character == YARUO){
-            app.enemyYaruoModifyingDeffencePower += x;
+            app.enemyYaruoModifyingDeffencePowerByMyself += x;
         }
     }else{
         if(character == GIKO){
-            app.enemyGikoFundamentalDeffencePower += x;
+            app.enemyGikoFundamentalDeffencePowerByMyself += x;
         }else if (character == MONAR){
-            app.enemyMonarFundamentalDeffencePower += x;
+            app.enemyMonarFundamentalDeffencePowerByMyself += x;
         }else if (character == SYOBON){
-            app.enemySyobonFundamentalDeffencePower += x;
+            app.enemySyobonFundamentalDeffencePowerByMyself += x;
         }else if (character == YARUO){
-            app.enemyYaruoFundamentalDeffencePower += x;
+            app.enemyYaruoFundamentalDeffencePowerByMyself += x;
         }
     }
 }
@@ -2874,7 +2947,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         //引いたカードの数を増やす
         myDrawCount++;
         _myGetCard.tag = myDrawCount;
-        NSLog(@"手札に入れたカードのタグ：%d",_myGetCard.tag);
+        NSLog(@"手札に入れたカードのタグ：%ld",_myGetCard.tag);
         
         //デッキのカード枚数を減らし、手札に入れる
         [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
@@ -2893,15 +2966,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     }
 }
 
+//ターン終了フェイズにおいて、手札が5枚を超えているときに使うメソッド
+- (void)discardFromHandInTurnEndPhase :(NSString *)str{
+    [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) string:str];
+}
+
 //対象プレイヤーの山札からカードを一枚墓地に捨てる（対象プレイヤー（対象プレイヤー・タグナンバー）
-- (void)discardFromLibrary :(int)man tagNumber:(int)num{
-    if(man == 0){
-        [app.myTomb addObject:[app.myDeckCardList objectAtIndex:num]];
-        [app.myDeckCardList removeObjectAtIndex:num];
-    }else{
-        [app.enemyTomb addObject:[app.enemyDeckCardList objectAtIndex:num]];
-        [app.enemyDeckCardList removeObjectAtIndex:num];
-    }
+- (void)discardFromLibrary :(int)num{
+    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:num] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
 }
 
 //対象プレイヤーのXという場（X=場カード置き場 or エネルギーカード置き場）から対象プレイヤーYという場にZというカードを置く（対象プレイヤー・移動元の場・移動元の配列の何番目に存在するか・移動後の場）
@@ -3079,18 +3151,18 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     int number = 0;
     
     if (man == 0) {
-        if ([app.myEnergyCard containsObject:[NSNumber numberWithInt:WHITE]] == YES)number++;
-        if ([app.myEnergyCard containsObject:[NSNumber numberWithInt:BLUE]] == YES)number++;
-        if ([app.myEnergyCard containsObject:[NSNumber numberWithInt:BLACK]] == YES)number++;
-        if ([app.myEnergyCard containsObject:[NSNumber numberWithInt:RED]] == YES)number++;
-        if ([app.myEnergyCard containsObject:[NSNumber numberWithInt:GREEN]] == YES)number++;
+        if (![[app.myEnergyCard objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.myEnergyCard objectAtIndex:1] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.myEnergyCard objectAtIndex:2] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.myEnergyCard objectAtIndex:3] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.myEnergyCard objectAtIndex:4] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
         NSLog(@"自分のエネルギーカードの種類数：%d種類",number);
     }else{
-        if ([app.enemyEnergyCard containsObject:[NSNumber numberWithInt:WHITE]] == YES)number++;
-        if ([app.enemyEnergyCard containsObject:[NSNumber numberWithInt:BLUE]] == YES)number++;
-        if ([app.enemyEnergyCard containsObject:[NSNumber numberWithInt:BLACK]] == YES)number++;
-        if ([app.enemyEnergyCard containsObject:[NSNumber numberWithInt:RED]] == YES)number++;
-        if ([app.enemyEnergyCard containsObject:[NSNumber numberWithInt:GREEN]] == YES)number++;
+        if (![[app.enemyEnergyCard objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.enemyEnergyCard objectAtIndex:1] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.enemyEnergyCard objectAtIndex:2] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.enemyEnergyCard objectAtIndex:3] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
+        if (![[app.enemyEnergyCard objectAtIndex:4] isEqualToNumber:[NSNumber numberWithInt:0]])number++;
         NSLog(@"相手のエネルギーカードの種類数：%d種類",number);
     }
     return number;
@@ -3260,7 +3332,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
             
         case 9:
             //特定の色を選択する画面のOKボタンから飛んできた場合
-            [_colorView removeFromSuperview];
+            if(app.mySelectColor == -1){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"色未選択" message:@"色が選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選択する", nil];
+                [alert show];
+            }else{
+                [_colorView removeFromSuperview];
+                [_border_middleCard removeFromSuperview];
+                FINISHED1
+            }
             break;
             
         default:
@@ -3290,17 +3369,17 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [_colorView addSubview:redImage];
     [_colorView addSubview:greenImage];
     
-    whiteImage.frame = CGRectMake(10, 10, 40, 60);
-    blueImage.frame = CGRectMake(10, 60, 40, 60);
-    blackImage.frame = CGRectMake(10, 110, 40, 60);
-    redImage.frame = CGRectMake(10, 160, 40, 60);
-    greenImage.frame = CGRectMake(10, 210, 40, 60);
+    whiteImage.frame = CGRectMake(10, 10, 50, 50);
+    blueImage.frame = CGRectMake(10, 80, 50, 50);
+    blackImage.frame = CGRectMake(10, 150, 50, 50);
+    redImage.frame = CGRectMake(10, 220, 50, 50);
+    greenImage.frame = CGRectMake(10, 290, 50, 50);
 
-    whiteImage.image = [UIImage imageNamed:@"white.png"];
-    blueImage.image = [UIImage imageNamed:@""];
-    blackImage.image = [UIImage imageNamed:@""];
-    redImage.image = [UIImage imageNamed:@""];
-    greenImage.image = [UIImage imageNamed:@""];
+    whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage"];
+    blueImage.image = [UIImage imageNamed:@"blueEnergyImage"];
+    blackImage.image = [UIImage imageNamed:@"blackEnergyImage"];
+    redImage.image = [UIImage imageNamed:@"redEnergyImage"];
+    greenImage.image = [UIImage imageNamed:@"greenEnergyImage"];
     
     whiteImage.userInteractionEnabled = YES;
     blueImage.userInteractionEnabled = YES;
@@ -3319,14 +3398,15 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     [blackImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
     [redImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
     [greenImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
-    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 100) / 2, 100, 20) parentView:_colorView tag:9];
+    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 40), 100, 20) parentView:_colorView tag:9];
     [_allImageView addSubview:_colorView];
 
 }
 
 - (void) selectColor :(UITapGestureRecognizer *)sender{
-    [_border_middleCard removeFromSuperview];
-    _border_middleCard.frame = sender.view.frame;
+    [_border_color removeFromSuperview];
+    _border_color.frame = sender.view.frame;
+    [_colorView addSubview:_border_color];
     app.mySelectColor = (int)sender.view.tag;
 }
 
@@ -3355,7 +3435,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
                 
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-                [_regionViewArray removeAllObjects];
+                [regionViewArray removeAllObjects];
                 if(app.myUsingCardNumber == 1){
                     [app.myEnergyCard replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[app.myEnergyCard objectAtIndex:0] intValue] + 1]];
                     NSLog(@"白エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:0] intValue]);
@@ -3373,7 +3453,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
                     NSLog(@"緑エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:4] intValue]);
                 }
                 
-                [self moveCards];
+                [self refleshMyHand];
                 
                 _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
                 _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
@@ -3536,6 +3616,7 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         [getEnemyData doEnemyDecideAction:NO]; //app.decideAction = NOと初期化しておく
     
         //自分に関係する変数
+        app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
         [_border_middleCard removeFromSuperview];
         [_border_character removeFromSuperview];
         selectedCardOrder = -1;
@@ -3556,6 +3637,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.mySyobonModifyingDeffencePower = 0;
         app.myYaruoModifyingAttackPower = 0;
         app.myYaruoModifyingDeffencePower = 0;
+        app.myGikoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
+        app.myGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のギコの基本防御力（差分のみ管理）
+        app.myMonarFundamentalAttackPowerByMyself = 0; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
+        app.myMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
+        app.mySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
+        app.mySyobonFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
+        app.myYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+        app.myYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
         app.myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         app.myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         app.myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
@@ -3564,6 +3653,14 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
         app.mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         app.myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         app.myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myGikoModifyingAttackPowerByMyself = 0; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myGikoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingAttackPowerByMyself = 0; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingDeffencePowerByMyself = 0; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingAttackPowerByMyself = 0; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingAttackPowerByMyself = 0; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
         mySelectCharacterInCharacterField = -1;
 
         cardIsCompletlyUsed = NO;
@@ -3739,41 +3836,79 @@ _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦�
     _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
     _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
     _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
-    _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
-    _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
-    _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
-    _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
-    _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:5] intValue]];
+    _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
+    _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
+    _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
+    _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
+    _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
+    
+    //手札枚数の更新
+    [self refleshMyHand];
 }
-
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
-    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.myHand objectAtIndex:selectedCardOrder] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
     [_cardInRegion removeFromSuperview];
-    [self moveCards];
+    
     FINISHED1
 }
 
+-(void)discardMyHandInTurnEndPhaseSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+    [_cardInRegion removeFromSuperview];
+    
+    FINISHED1
+}
+
+
 -(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [self setCardFromXTOY:app.enemyHand cardNumber:selectedCardOrder toField:app.enemyTomb];
     [_cardInRegion removeFromSuperview];
     FINISHED1
 }
 
 -(void)destroyEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[_regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[_regionViewArray indexOfObject:sender.view];
-    [self setCardFromXTOY:app.enemyFieldCard cardNumber:selectedCardOrder toField:app.enemyTomb];
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+    
     [_cardInRegion removeFromSuperview];
     FINISHED1
     
 }
 
--(void)nullSelector: (UITapGestureRecognizer *)sender{
-    //何もしないダミーセレクタ
+-(void)returnEnemyFieldCardToHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+}
+
+-(void)stealEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myFieldCardByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+}
+
+-(void)normalSelector: (UITapGestureRecognizer *)sender{
+    //selectedCardOrderに選ばれたカードの配列の順番だけ入れるセレクタ
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+}
+
+-(void)manipulateCard:(NSNumber *)cardNumber plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{
+    [plusArray addObject:cardNumber];
+    [minusArray addObject:cardNumber];
 }
 
 

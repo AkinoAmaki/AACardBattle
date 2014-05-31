@@ -36,6 +36,7 @@
 
 
 @interface BattleScreenViewController : BattleCaliculate{
+    
     int turnCount; //ターン数を管理
     int myDrawCount; //自分の引いたカード枚数を管理
     int enemyDrawCount; //相手の引いたカード枚数を管理
@@ -99,7 +100,7 @@
 //領域（自分（相手）の手札・自分（相手）の山札・自分（相手）の場カード・自分（相手）のエネルギーカード等）にあるカードを見るビュー
 @property UIScrollView *cardInRegion;
 @property UIImageView *regionView;
-@property NSMutableArray *regionViewArray;
+@property (nonatomic, copy)NSMutableArray *regionViewArray;
 
 //特定の色を選ぶビュー
 @property UIImageView *colorView;
@@ -125,10 +126,11 @@
 @property UIImageView *myCharacterView;
 @property UIImageView *enemyCharacterView;
 
-//選択されたキャラクター・カードを縁取るカード画像
+//選択されたキャラクター・カード・色を縁取るカード画像
 @property UIImageView *border_character;
 @property UIImageView *border_middleCard;
 @property UIImageView *border_usedCard;
+@property UIImageView *border_color;
 
 //山札画像
 @property UIImageView *myLibrary;

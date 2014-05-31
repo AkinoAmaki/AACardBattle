@@ -57,10 +57,35 @@
 
 //自分に関係する変数
 @property int myLifeGage; //自分のライフポイント
+@property int myLifeGageByMyself; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
+@property int myAdditionalGettingCards; //ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
 @property (nonatomic, retain) NSMutableArray *myDeck; //自分のデッキ
 @property (nonatomic, retain) NSMutableArray *myCards; //自分の持っている全てのカード
 @property (nonatomic, retain) NSMutableArray *myDeckCardList; //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
 @property (nonatomic, retain) NSMutableArray *myHand; //自分の手札
+@property (nonatomic, retain) NSMutableArray *myTomb; //自分の墓地のカードナンバー
+@property (nonatomic, retain) NSMutableArray *myFieldCard; //自分の場カードのカードナンバー
+@property (nonatomic, retain) NSMutableArray *myEnergyCard; //自分のエネルギーカードの数
+/***/@property (nonatomic, retain) NSMutableArray *myDeckCardListByMyself_plus; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myHandByMyself_plus; // 自分が操作し、増加したmyHand（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myTombByMyself_plus; // 自分が操作し、増加したmyTomb（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myFieldCardByMyself_plus; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myEnergyCardByMyself_plus; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myDeckCardListByMyself_minus; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myHandByMyself_minus; // 自分が操作し、減少したmyHand（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myTombByMyself_minus; // 自分が操作し、減少したmyTomb（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myFieldCardByMyself_minus; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
+/***/@property (nonatomic, retain) NSMutableArray *myEnergyCardByMyself_minus; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myDeckCardListFromEnemy_plus; // 相手が操作し、増加したmyDeckCardList（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myHandFromEnemy_plus; // 相手が操作し、増加したmyHand（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myTombFromEnemy_plus; // 相手が操作し、増加したmyTomb（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myFieldCardFromEnemy_plus; // 相手が操作し、増加したmyFieldCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myEnergyCardFromEnemy_plus; // 相手が操作し、増加したmyEnergyCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myDeckCardListFromEnemy_minus; // 相手が操作し、減少したmyDeckCardList（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myHandFromEnemy_minus; // 相手が操作し、減少したmyHand（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myTombFromEnemy_minus; // 相手が操作し、減少したmyTomb（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myFieldCardFromEnemy_minus; // 相手が操作し、減少したmyFieldCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *myEnergyCardFromEnemy_minus; // 相手が操作し、減少したmyEnergyCard（差分のみ管理）
 @property int myGikoFundamentalAttackPower; //自分のギコの基本攻撃力
 @property int myGikoFundamentalDeffencePower; //自分のギコの基本防御力
 @property int myMonarFundamentalAttackPower; //自分のモナーの基本攻撃力
@@ -69,14 +94,22 @@
 @property int mySyobonFundamentalDeffencePower; //自分のショボンの基本防御力
 @property int myYaruoFundamentalAttackPower; //自分のやる夫の基本攻撃力
 @property int myYaruoFundamentalDeffencePower; //自分のやる夫の基本防御力
-/*!!!!*/@property int myGikoFundamentalAttackPowerFromEnemy; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int myGikoFundamentalDeffencePowerFromEnemy; //相手が操作した自分のギコの基本防御力（差分のみ管理）
-/*!!!!*/@property int myMonarFundamentalAttackPowerFromEnemy; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int myMonarFundamentalDeffencePowerFromEnemy; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
-/*!!!!*/@property int mySyobonFundamentalAttackPowerFromEnemy; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int mySyobonFundamentalDeffencePowerFromEnemy; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
-/*!!!!*/@property int myYaruoFundamentalAttackPowerFromEnemy; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
-/*!!!!*/@property int myYaruoFundamentalDeffencePowerFromEnemy; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
+@property int myGikoFundamentalAttackPowerByMyself; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
+@property int myGikoFundamentalDeffencePowerByMyself; //自分が操作した自分のギコの基本防御力（差分のみ管理）
+@property int myMonarFundamentalAttackPowerByMyself; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
+@property int myMonarFundamentalDeffencePowerByMyself; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
+@property int mySyobonFundamentalAttackPowerByMyself; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
+@property int mySyobonFundamentalDeffencePowerByMyself; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
+@property int myYaruoFundamentalAttackPowerByMyself; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+@property int myYaruoFundamentalDeffencePowerByMyself; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
+@property int myGikoFundamentalAttackPowerFromEnemy; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
+@property int myGikoFundamentalDeffencePowerFromEnemy; //相手が操作した自分のギコの基本防御力（差分のみ管理）
+@property int myMonarFundamentalAttackPowerFromEnemy; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
+@property int myMonarFundamentalDeffencePowerFromEnemy; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
+@property int mySyobonFundamentalAttackPowerFromEnemy; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
+@property int mySyobonFundamentalDeffencePowerFromEnemy; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
+@property int myYaruoFundamentalAttackPowerFromEnemy; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+@property int myYaruoFundamentalDeffencePowerFromEnemy; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
 @property int mySelectCharacter; //自分の選んだキャラクター
 @property int myGikoModifyingAttackPower; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int myGikoModifyingDeffencePower; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -86,14 +119,22 @@
 @property int mySyobonModifyingDeffencePower; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int myYaruoModifyingAttackPower; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int myYaruoModifyingDeffencePower; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-/*!!!!*/@property int myGikoModifyingAttackPowerFromEnemy; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int myGikoModifyingDeffencePowerFromEnemy; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int myMonarModifyingAttackPowerFromEnemy; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int myMonarModifyingDeffencePowerFromEnemy; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int mySyobonModifyingAttackPowerFromEnemy; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int mySyobonModifyingDeffencePowerFromEnemy; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int myYaruoModifyingAttackPowerFromEnemy; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-/*!!!!*/@property int myYaruoModifyingDeffencePowerFromEnemy; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myGikoModifyingAttackPowerByMyself; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myGikoModifyingDeffencePowerByMyself; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myMonarModifyingAttackPowerByMyself; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myMonarModifyingDeffencePowerByMyself; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int mySyobonModifyingAttackPowerByMyself; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int mySyobonModifyingDeffencePowerByMyself; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myYaruoModifyingAttackPowerByMyself; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myYaruoModifyingDeffencePowerByMyself; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myGikoModifyingAttackPowerFromEnemy; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myGikoModifyingDeffencePowerFromEnemy; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myMonarModifyingAttackPowerFromEnemy; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myMonarModifyingDeffencePowerFromEnemy; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int mySyobonModifyingAttackPowerFromEnemy; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int mySyobonModifyingDeffencePowerFromEnemy; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myYaruoModifyingAttackPowerFromEnemy; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+@property int myYaruoModifyingDeffencePowerFromEnemy; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
 @property BOOL myGikoAttackPermittedByMyself; //自分の制限による自分のギコの攻撃許可
 @property BOOL myGikoDeffencePermittedByMyself; //自分の制限による自分のギコの防御許可
 @property BOOL myMonarAttackPermittedByMyself; //自分の制限による自分のモナーの攻撃許可
@@ -102,29 +143,26 @@
 @property BOOL mySyobonDeffencePermittedByMyself; //自分の制限による自分のショボンの防御許可
 @property BOOL myYaruoAttackPermittedByMyself; //自分の制限による自分のやる夫の攻撃許可
 @property BOOL myYaruoDeffencePermittedByMyself; //自分の制限による自分のやる夫の防御許可
-/*!!!!*/@property BOOL myGikoAttackPermittedFromEnemy; //相手の妨害による自分のギコの攻撃許可
-/*!!!!*/@property BOOL myGikoDeffencePermittedFromEnemy; //相手の制限による自分のギコの防御許可
-/*!!!!*/@property BOOL myMonarAttackPermittedFromEnemy; //相手の制限による自分のモナーの攻撃許可
-/*!!!!*/@property BOOL myMonarDeffencePermittedFromEnemy; //相手の制限による自分のモナーの防御許可
-/*!!!!*/@property BOOL mySyobonAttackPermittedFromEnemy; //相手の制限による自分のショボンの攻撃許可
-/*!!!!*/@property BOOL mySyobonDeffencePermittedFromEnemy; //相手の制限による自分のショボンの防御許可
-/*!!!!*/@property BOOL myYaruoAttackPermittedFromEnemy; //相手の制限による自分のやる夫の攻撃許可
-/*!!!!*/@property BOOL myYaruoDeffencePermittedFromEnemy; //相手の制限による自分のやる夫の防御許可
-@property (nonatomic, retain) NSMutableArray *myTomb; //自分の墓地のカードナンバー
+@property BOOL myGikoAttackPermittedFromEnemy; //相手の妨害による自分のギコの攻撃許可
+@property BOOL myGikoDeffencePermittedFromEnemy; //相手の制限による自分のギコの防御許可
+@property BOOL myMonarAttackPermittedFromEnemy; //相手の制限による自分のモナーの攻撃許可
+@property BOOL myMonarDeffencePermittedFromEnemy; //相手の制限による自分のモナーの防御許可
+@property BOOL mySyobonAttackPermittedFromEnemy; //相手の制限による自分のショボンの攻撃許可
+@property BOOL mySyobonDeffencePermittedFromEnemy; //相手の制限による自分のショボンの防御許可
+@property BOOL myYaruoAttackPermittedFromEnemy; //相手の制限による自分のやる夫の攻撃許可
+@property BOOL myYaruoDeffencePermittedFromEnemy; //相手の制限による自分のやる夫の防御許可
 @property BOOL doIUseCard; //自分がこのターンカードを使用したか
 @property int myUsingCardNumber; //自分が使用したカードの番号
-@property (nonatomic, retain) NSMutableArray *myFieldCard; //自分の場カードのカードナンバー
-@property (nonatomic, retain) NSMutableArray *myEnergyCard; //自分のエネルギーカードの数
 @property BOOL canIPlaySorceryCardByMyself; //自分の制限により自分が魔法カードを手札からプレイできるか
 @property BOOL canIPlayFieldCardByMyself; //自分の制限により自分が場カードを手札からプレイできるか
 @property BOOL canIActivateFieldCardByMyself; //自分の制限により自分が場カードの能力を起動できるか
 @property BOOL canIPlayEnergyCardByMyself; //自分の制限により自分がエネルギーカードを手札からプレイできるか
 @property BOOL canIActivateEnergyCardByMyself; //自分の制限により自分がエネルギーカードを起動できるか
-/*!!!!*/@property BOOL canIPlaySorceryCardFromEnemy; //相手の妨害により自分が魔法カードを手札からプレイできるか
-/*!!!!*/@property BOOL canIPlayFieldCardFromEnemy; //相手の妨害により自分が場カードを手札からプレイできるか
-/*!!!!*/@property BOOL canIActivateFieldCardFromEnemy; //相手の妨害により自分が場カードの能力を起動できるか
-/*!!!!*/@property BOOL canIPlayEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
-/*!!!!*/@property BOOL canIActivateEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを起動できるか
+@property BOOL canIPlaySorceryCardFromEnemy; //相手の妨害により自分が魔法カードを手札からプレイできるか
+@property BOOL canIPlayFieldCardFromEnemy; //相手の妨害により自分が場カードを手札からプレイできるか
+@property BOOL canIActivateFieldCardFromEnemy; //相手の妨害により自分が場カードの能力を起動できるか
+@property BOOL canIPlayEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
+@property BOOL canIActivateEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを起動できるか
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
 @property int myDamageFromAA; //このターンAAから自分に与えられるダメージ
 @property int myDamageFromCard; //このターン相手の使用したカードから自分に与えられるダメージ
@@ -135,6 +173,19 @@
 @property int enemyLifeGage; //相手のライフポイント
 @property (nonatomic, retain) NSMutableArray *enemyDeckCardList; //相手のデッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
 @property (nonatomic, retain) NSMutableArray *enemyHand; //相手の手札
+@property (nonatomic, retain) NSMutableArray *enemyTomb; //相手の墓地のカードナンバー
+@property (nonatomic, retain) NSMutableArray *enemyFieldCard; //相手の場カードのカードナンバー
+@property (nonatomic, retain) NSMutableArray *enemyEnergyCard; //相手のエネルギーカードの数
+@property (nonatomic, retain) NSMutableArray *enemyDeckCardListByMyself_plus; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyHandByMyself_plus; // 自分が操作し、増加したmyHand（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyTombByMyself_plus; // 自分が操作し、増加したmyTomb（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyFieldCardByMyself_plus; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyEnergyCardByMyself_plus; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyDeckCardListByMyself_minus; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyHandByMyself_minus; // 自分が操作し、減少したmyHand（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyTombByMyself_minus; // 自分が操作し、減少したmyTomb（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyFieldCardByMyself_minus; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
+@property (nonatomic, retain) NSMutableArray *enemyEnergyCardByMyself_minus; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
 @property int enemyGikoFundamentalAttackPower; // 相手のギコの基本攻撃力
 @property int enemyGikoFundamentalDeffencePower; //相手のギコの基本防御力
 @property int enemyMonarFundamentalAttackPower; //相手のモナーの基本攻撃力
@@ -143,14 +194,14 @@
 @property int enemySyobonFundamentalDeffencePower; //相手のショボンの基本防御力
 @property int enemyYaruoFundamentalAttackPower; //相手のやる夫の基本攻撃力
 @property int enemyYaruoFundamentalDeffencePower; //相手のやる夫の基本防御力
-/*!!!!*/@property int enemyGikoFundamentalAttackPowerByMyself; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyGikoFundamentalDeffencePowerByMyself; //自分が操作した相手のギコの基本防御力（差分のみ管理）
-/*!!!!*/@property int enemyMonarFundamentalAttackPowerByMyself; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyMonarFundamentalDeffencePowerByMyself; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
-/*!!!!*/@property int enemySyobonFundamentalAttackPowerByMyself; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
-/*!!!!*/@property int enemySyobonFundamentalDeffencePowerByMyself; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
-/*!!!!*/@property int enemyYaruoFundamentalAttackPowerByMyself; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyYaruoFundamentalDeffencePowerByMyself; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
+@property int enemyGikoFundamentalAttackPowerByMyself; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
+@property int enemyGikoFundamentalDeffencePowerByMyself; //自分が操作した相手のギコの基本防御力（差分のみ管理）
+@property int enemyMonarFundamentalAttackPowerByMyself; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
+@property int enemyMonarFundamentalDeffencePowerByMyself; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
+@property int enemySyobonFundamentalAttackPowerByMyself; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
+@property int enemySyobonFundamentalDeffencePowerByMyself; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
+@property int enemyYaruoFundamentalAttackPowerByMyself; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
+@property int enemyYaruoFundamentalDeffencePowerByMyself; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
 @property int enemySelectCharacter; //相手の選んだキャラクター
 @property int enemyGikoModifyingAttackPower; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int enemyGikoModifyingDeffencePower; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -160,14 +211,14 @@
 @property int enemySyobonModifyingDeffencePower; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int enemyYaruoModifyingAttackPower; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int enemyYaruoModifyingDeffencePower; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-/*!!!!*/@property int enemyGikoModifyingAttackPowerByMyself; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyGikoModifyingDeffencePowerByMyself; //自分が操作した相手のギコの修正防御力（差分のみ管理）
-/*!!!!*/@property int enemyMonarModifyingAttackPowerByMyself; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyMonarModifyingDeffencePowerByMyself; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
-/*!!!!*/@property int enemySyobonModifyingAttackPowerByMyself; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
-/*!!!!*/@property int enemySyobonModifyingDeffencePowerByMyself; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
-/*!!!!*/@property int enemyYaruoModifyingAttackPowerByMyself; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
-/*!!!!*/@property int enemyYaruoModifyingDeffencePowerByMyself; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
+@property int enemyGikoModifyingAttackPowerByMyself; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
+@property int enemyGikoModifyingDeffencePowerByMyself; //自分が操作した相手のギコの修正防御力（差分のみ管理）
+@property int enemyMonarModifyingAttackPowerByMyself; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
+@property int enemyMonarModifyingDeffencePowerByMyself; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
+@property int enemySyobonModifyingAttackPowerByMyself; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
+@property int enemySyobonModifyingDeffencePowerByMyself; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
+@property int enemyYaruoModifyingAttackPowerByMyself; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
+@property int enemyYaruoModifyingDeffencePowerByMyself; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
 @property BOOL enemyGikoAttackPermittedByMyself; //自分の制限による相手のギコの攻撃許可
 @property BOOL enemyGikoDeffencePermittedByMyself; //自分の制限による相手のギコの防御許可
 @property BOOL enemyMonarAttackPermittedByMyself; //自分の制限による相手のモナーの攻撃許可
@@ -176,29 +227,26 @@
 @property BOOL enemySyobonDeffencePermittedByMyself; //自分の制限による相手のショボンの防御許可
 @property BOOL enemyYaruoAttackPermittedByMyself; //自分の制限による相手のやる夫の攻撃許可
 @property BOOL enemyYaruoDeffencePermittedByMyself; //自分の制限による手のやる夫の防御許可
-/*!!!!*/@property BOOL enemyGikoAttackPermittedFromEnemy; //相手の制限による相手のギコの攻撃許可
-/*!!!!*/@property BOOL enemyGikoDeffencePermittedFromEnemy; //相手の制限による相手のギコの防御許可
-/*!!!!*/@property BOOL enemyMonarAttackPermittedFromEnemy; //相手の制限による相手のモナーの攻撃許可
-/*!!!!*/@property BOOL enemyMonarDeffencePermittedFromEnemy; //相手の制限による相手のモナーの防御許可
-/*!!!!*/@property BOOL enemySyobonAttackPermittedFromEnemy; //相手の制限による相手のショボンの攻撃許可
-/*!!!!*/@property BOOL enemySyobonDeffencePermittedFromEnemy; //相手の制限による相手のショボンの防御許可
-/*!!!!*/@property BOOL enemyYaruoAttackPermittedFromEnemy; //相手の制限による相手のやる夫の攻撃許可
-/*!!!!*/@property BOOL enemyYaruoDeffencePermittedFromEnemy; //相手の制限による手のやる夫の防御許可
-@property (nonatomic, retain) NSMutableArray *enemyTomb; //相手の墓地のカードナンバー
+@property BOOL enemyGikoAttackPermittedFromEnemy; //相手の制限による相手のギコの攻撃許可
+@property BOOL enemyGikoDeffencePermittedFromEnemy; //相手の制限による相手のギコの防御許可
+@property BOOL enemyMonarAttackPermittedFromEnemy; //相手の制限による相手のモナーの攻撃許可
+@property BOOL enemyMonarDeffencePermittedFromEnemy; //相手の制限による相手のモナーの防御許可
+@property BOOL enemySyobonAttackPermittedFromEnemy; //相手の制限による相手のショボンの攻撃許可
+@property BOOL enemySyobonDeffencePermittedFromEnemy; //相手の制限による相手のショボンの防御許可
+@property BOOL enemyYaruoAttackPermittedFromEnemy; //相手の制限による相手のやる夫の攻撃許可
+@property BOOL enemyYaruoDeffencePermittedFromEnemy; //相手の制限による手のやる夫の防御許可
 @property BOOL doEnemyUseCard; //相手がこのターンカードを使用したか
 @property int enemyUsingCardNumber; //相手が使用したカードの番号
-@property (nonatomic, retain) NSMutableArray *enemyFieldCard; //相手の場カードのカードナンバー
-@property (nonatomic, retain) NSMutableArray *enemyEnergyCard; //相手のエネルギーカードの数
 @property BOOL canEnemyPlaySorceryCardByMyself; //自分の制限により相手が魔法カードを手札からプレイできるか
 @property BOOL canEnemyPlayFieldCardByMyself; //自分の制限により相手が場カードを手札からプレイできるか
 @property BOOL canEnemyActivateFieldCardByMyself; //自分の制限により相手が場カードの能力を起動できるか
 @property BOOL canEnemyPlayEnergyCardByMyself; //自分の制限により相手がエネルギーカードを手札からプレイできるか
 @property BOOL canEnemyActivateEnergyCardByMyself; //自分の制限により相手がエネルギーカードを起動できるか
-/*!!!!*/@property BOOL canEnemyPlaySorceryCardFromEnemy; //相手の制限により相手が魔法カードを手札からプレイできるか
-/*!!!!*/@property BOOL canEnemyPlayFieldCardFromEnemy; //相手の制限により相手が場カードを手札からプレイできるか
-/*!!!!*/@property BOOL canEnemyActivateFieldCardFromEnemy; //相手の制限により相手が場カードの能力を起動できるか
-/*!!!!*/@property BOOL canEnemyPlayEnergyCardFromEnemy; //相手の制限により相手がエネルギーカードを手札からプレイできるか
-/*!!!!*/@property BOOL canEnemyActivateEnergyCardFromEnemy; //相手の制限により相手がエネルギーカードを起動できるか
+@property BOOL canEnemyPlaySorceryCardFromEnemy; //相手の制限により相手が魔法カードを手札からプレイできるか
+@property BOOL canEnemyPlayFieldCardFromEnemy; //相手の制限により相手が場カードを手札からプレイできるか
+@property BOOL canEnemyActivateFieldCardFromEnemy; //相手の制限により相手が場カードの能力を起動できるか
+@property BOOL canEnemyPlayEnergyCardFromEnemy; //相手の制限により相手がエネルギーカードを手札からプレイできるか
+@property BOOL canEnemyActivateEnergyCardFromEnemy; //相手の制限により相手がエネルギーカードを起動できるか
 @property BOOL denyEnemyCardPlaying; //相手がカードのプレイを打ち消されたか
 @property int enemyDamageFromAA; //このターンAAから相手に与えられるダメージ
 @property int enemyDamageFromCard; //このターン自分の使用したカードから自分に与えられるダメージ

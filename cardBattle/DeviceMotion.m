@@ -153,7 +153,6 @@
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    NSLog(@"aaa:%@",string);
     if([string hasPrefix:@"timeout"]){
         _notFound = [[UIAlertView alloc] initWithTitle:@"再度ぶつけてください" message:@"対戦相手が見つかりませんでした。戦闘開始ボタンを押した後、再度ぶつけてください" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
         [_notFound show];

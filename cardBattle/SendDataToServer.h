@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GetEnemyDataFromServer.h"
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
 #import "SBJson.h"
 
 @interface SendDataToServer : NSObject{
     AppDelegate *app;
+    GetEnemyDataFromServer *get;
+    NSString *resultString;
 }
 
 -(NSString *)send;

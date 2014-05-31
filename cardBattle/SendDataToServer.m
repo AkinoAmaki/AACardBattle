@@ -11,6 +11,17 @@
 @implementation SendDataToServer
 
 -(NSString *)send{
+    get = [[GetEnemyDataFromServer alloc] init];
+    [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
+    [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み。但し自分が打ち消し呪文を使っていれば否定される）を送信する
+    resultString = [self sendData];//相手のカード効果等が反映済みの状態のデータ（自分の効果も反映済み）を送信する
+    [get get];//自分のカード効果等が反映済みの状態のデータ（相手の効果も反映済み。但し自分が打ち消し呪文を使っていれば否定される）を送信する
+    
+    return resultString;
+}
+
+
+-(NSString *)sendData{
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     
     app = [[UIApplication sharedApplication] delegate];
@@ -92,6 +103,16 @@
                                        [NSNumber numberWithBool:app.canEnemyPlayEnergyCardByMyself],
                                        [NSNumber numberWithBool:app.canEnemyActivateEnergyCardByMyself],
                                        [NSNumber numberWithBool:app.denyEnemyCardPlaying],
+                                       app.enemyDeckCardListByMyself_plus,
+                                       app.enemyHandByMyself_plus,
+                                       app.enemyTombByMyself_plus,
+                                       app.enemyFieldCardByMyself_plus,
+                                       app.enemyEnergyCardByMyself_plus,
+                                       app.enemyDeckCardListByMyself_minus,
+                                       app.enemyHandByMyself_minus,
+                                       app.enemyTombByMyself_minus,
+                                       app.enemyFieldCardByMyself_minus,
+                                       app.enemyEnergyCardByMyself_minus,
                                        nil];
     
     NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:
@@ -170,6 +191,16 @@
                                  @"canEnemyPlayEnergyCard",
                                  @"canEnemyActivateEnergyCard",
                                  @"denyEnemyCardPlaying",
+                                 @"enemyDeckCardListByMyself_plus",
+                                 @"enemyHandByMyself_plus",
+                                 @"enemyTombByMyself_plus",
+                                 @"enemyFieldCardByMyself_plus",
+                                 @"enemyEnergyCardByMyself_plus",
+                                 @"enemyDeckCardListByMyself_minus",
+                                 @"enemyHandByMyself_minus",
+                                 @"enemyTombByMyself_minus",
+                                 @"enemyFieldCardByMyself_minus",
+                                 @"enemyEnergyCardByMyself_minus",
                                  nil];
     
     
@@ -211,7 +242,7 @@
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
     NSLog(@"%@", string);
-    
+
     return string;
     [SVProgressHUD dismiss];
 }

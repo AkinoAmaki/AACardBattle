@@ -20,6 +20,6 @@
 
 -(void)get;
 -(void)doEnemyDecideAction :(BOOL)select;
-
++(int)indexOfObjectForNSNumber:(NSArray *)array number:(NSNumber *)number;
 
 @end

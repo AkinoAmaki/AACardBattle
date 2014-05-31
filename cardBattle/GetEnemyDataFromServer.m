@@ -11,7 +11,6 @@
 @implementation GetEnemyDataFromServer
 
 -(void)initWithGetEnemyDataFromServer:(NSString *)URLString selectCardAndAAPhase:(BOOL)select{
-    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     app = [[UIApplication sharedApplication] delegate];
     //相手プレイヤーのID等を送信
     enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
@@ -64,6 +63,7 @@
 
 
 -(void)get{
+    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
@@ -135,6 +135,7 @@
         app.canIPlayEnergyCardFromEnemy                     = [[battleDataWithoutArray objectAtIndex:66] intValue];
         app.canIActivateEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:67] intValue];
         app.denymyCardPlaying                               = [[battleDataWithoutArray objectAtIndex:68] intValue];
+
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];
     app.enemyDeckCardList = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:2]];
@@ -142,22 +143,232 @@
     app.enemyFieldCard = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:4]];
     app.enemyHand = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:5]];
     app.enemyTomb = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:6]];
+    app.myDeckCardListFromEnemy_plus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:7]];
+    app.myHandFromEnemy_plus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:8]];
+    app.myTombFromEnemy_plus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:9]];
+    app.myFieldCardFromEnemy_plus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:10]];
+    app.myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:11]];
+    app.myDeckCardListFromEnemy_minus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:12]];
+    app.myHandFromEnemy_minus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:13]];
+    app.myTombFromEnemy_minus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:14]];
+    app.myFieldCardFromEnemy_minus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:15]];
+    app.myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:16]];
     
-    //battleDataWithoutArrayを除く６つの配列について、ブランク（nullでない！）のデータが入っている部分を削除し、nullとする。
+    //battleDataWithoutArrayを除く配列について、ブランク（nullでない！）のデータが入っている部分を削除し、nullとする。
     [app.cardsEnemyUsedInThisTurn removeObject:@""];
     [app.enemyDeckCardList removeObject:@""];
     [app.enemyEnergyCard removeObject:@""];
     [app.enemyFieldCard removeObject:@""];
     [app.enemyHand removeObject:@""];
     [app.enemyTomb removeObject:@""];
+    [app.myDeckCardListFromEnemy_plus removeObject:@""];
+    [app.myHandFromEnemy_plus removeObject:@""];
+    [app.myTombFromEnemy_plus removeObject:@""];
+    [app.myFieldCardFromEnemy_plus removeObject:@""];
+    [app.myEnergyCardFromEnemy_plus removeObject:@""];
+    [app.myDeckCardListFromEnemy_minus removeObject:@""];
+    [app.myHandFromEnemy_minus removeObject:@""];
+    [app.myTombFromEnemy_minus removeObject:@""];
+    [app.myFieldCardFromEnemy_minus removeObject:@""];
+    [app.myEnergyCardFromEnemy_minus removeObject:@""];
     
-    //battleDataWithoutArrayを除く６つの配列について、先頭に入っている相手プレイヤーのplayerIDを削除する
+    //battleDataWithoutArrayを除く配列について、先頭に入っている相手プレイヤーのplayerIDを削除する
     [app.cardsEnemyUsedInThisTurn removeObjectAtIndex:0];
     [app.enemyDeckCardList removeObjectAtIndex:0];
     [app.enemyEnergyCard removeObjectAtIndex:0];
     [app.enemyFieldCard removeObjectAtIndex:0];
     [app.enemyHand removeObjectAtIndex:0];
     [app.enemyTomb removeObjectAtIndex:0];
+    [app.myDeckCardListFromEnemy_plus removeObjectAtIndex:0];
+    [app.myHandFromEnemy_plus removeObjectAtIndex:0];
+    [app.myTombFromEnemy_plus removeObjectAtIndex:0];
+    [app.myFieldCardFromEnemy_plus removeObjectAtIndex:0];
+    [app.myEnergyCardFromEnemy_plus removeObjectAtIndex:0];
+    [app.myDeckCardListFromEnemy_minus removeObjectAtIndex:0];
+    [app.myHandFromEnemy_minus removeObjectAtIndex:0];
+    [app.myTombFromEnemy_minus removeObjectAtIndex:0];
+    [app.myFieldCardFromEnemy_minus removeObjectAtIndex:0];
+    [app.myEnergyCardFromEnemy_minus removeObjectAtIndex:0];
+
+    
+    //相手プレイヤーによって操作された攻撃力・防御力・カードの操作を反映する
+    
+    app.myGikoFundamentalAttackPower    += app.myGikoFundamentalAttackPowerFromEnemy;
+    app.myGikoFundamentalDeffencePower  += app.myGikoFundamentalDeffencePowerFromEnemy;
+    app.myMonarFundamentalAttackPower   += app.myMonarFundamentalAttackPowerFromEnemy;
+    app.myMonarFundamentalDeffencePower += app.myMonarFundamentalDeffencePowerFromEnemy;
+    app.mySyobonFundamentalAttackPower  += app.mySyobonFundamentalAttackPowerFromEnemy;
+    app.mySyobonFundamentalDeffencePower+= app.mySyobonFundamentalDeffencePowerFromEnemy;
+    app.myYaruoFundamentalAttackPower   += app.myYaruoFundamentalAttackPowerFromEnemy;
+    app.myYaruoFundamentalDeffencePower += app.myYaruoFundamentalDeffencePowerFromEnemy;
+    app.myGikoModifyingAttackPower      += app.myGikoModifyingAttackPowerFromEnemy;
+    app.myGikoModifyingDeffencePower    += app.myGikoModifyingDeffencePowerFromEnemy;
+    app.myMonarModifyingAttackPower     += app.myMonarModifyingAttackPowerFromEnemy;
+    app.myMonarModifyingDeffencePower   += app.myMonarModifyingDeffencePowerFromEnemy;
+    app.mySyobonModifyingAttackPower    += app.mySyobonModifyingAttackPowerFromEnemy;
+    app.mySyobonModifyingDeffencePower  += app.mySyobonModifyingDeffencePowerFromEnemy;
+    app.myYaruoModifyingAttackPower     += app.myYaruoModifyingAttackPowerFromEnemy;
+    app.myYaruoModifyingDeffencePower   += app.myYaruoModifyingDeffencePowerFromEnemy;
+
+    if(!app.denyEnemyCardPlaying){
+        for (int i = 0; i < [app.myDeckCardListFromEnemy_plus count]; i++) {
+            [app.myDeckCardList addObject:[app.myDeckCardListFromEnemy_plus objectAtIndex:i]];
+        }
+        for (int i = 0; i < [app.myHandFromEnemy_plus count]; i++) {
+            [app.myHand addObject:[app.myHandFromEnemy_plus objectAtIndex:i]];
+        }
+        for (int i = 0; i < [app.myTombFromEnemy_plus count]; i++) {
+            [app.myTomb addObject:[app.myTombFromEnemy_plus objectAtIndex:i]];
+        }
+        for (int i = 0; i < [app.myFieldCardFromEnemy_plus count]; i++) {
+            [app.myFieldCard addObject:[app.myFieldCardFromEnemy_plus objectAtIndex:i]];
+        }
+        for (int i = 0; i < [app.myEnergyCardFromEnemy_plus count]; i++) {
+            int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+            x += [[app.myEnergyCardFromEnemy_plus objectAtIndex:i] intValue];
+            [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+        }
+        for (int i = 0; i < [app.myDeckCardListFromEnemy_minus count]; i++) {
+            [app.myDeckCardList removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myDeckCardList number:[app.myDeckCardListFromEnemy_minus objectAtIndex:i]]];
+        }
+        for (int i = 0; i < [app.myHandFromEnemy_minus count]; i++) {
+            [app.myHand removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myHand number:[app.myHandFromEnemy_minus objectAtIndex:i]]];
+        }
+        for (int i = 0; i < [app.myTombFromEnemy_minus count]; i++) {
+            [app.myTomb removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myTomb number:[app.myTombFromEnemy_minus objectAtIndex:i]]];
+        }
+        
+        
+        for (int i = 0; i < [app.myFieldCardFromEnemy_minus count]; i++) {
+            [app.myFieldCard removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[app.myFieldCardFromEnemy_minus objectAtIndex:i]]];
+        }
+        
+        for (int i = 0; i < [app.myEnergyCardFromEnemy_minus count]; i++) {
+            int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+            x -= [[app.myEnergyCardFromEnemy_minus objectAtIndex:i] intValue];
+            if(x < 0){
+                x = 0;
+            }
+            [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+        }
+        
+        app.enemyGikoFundamentalAttackPowerByMyself = 0;
+        app.enemyGikoFundamentalDeffencePowerByMyself = 0;
+        app.enemyMonarFundamentalAttackPowerByMyself = 0;
+        app.enemyMonarFundamentalDeffencePowerByMyself = 0;
+        app.enemySyobonFundamentalAttackPowerByMyself = 0;
+        app.enemySyobonFundamentalDeffencePowerByMyself = 0;
+        app.enemyYaruoFundamentalAttackPowerByMyself = 0;
+        app.enemyYaruoFundamentalDeffencePowerByMyself = 0;
+        app.enemyGikoModifyingAttackPowerByMyself = 0;
+        app.enemyGikoModifyingDeffencePowerByMyself = 0;
+        app.enemyMonarModifyingAttackPowerByMyself = 0;
+        app.enemyMonarModifyingDeffencePowerByMyself = 0;
+        app.enemySyobonModifyingAttackPowerByMyself = 0;
+        app.enemySyobonModifyingDeffencePowerByMyself = 0;
+        app.enemyYaruoModifyingAttackPowerByMyself = 0;
+        app.enemyYaruoModifyingDeffencePowerByMyself = 0;
+        app.enemyDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyDeckCardList（差分のみ管理）
+        app.enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
+        app.enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
+        app.enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
+        app.enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
+        app.enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
+        app.enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
+        app.enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
+        app.enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
+        app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
+    }
+
+    //自分によって操作されたカードの操作を反映する
+    for (int i = 0; i < [app.myDeckCardListByMyself_plus count]; i++) {
+        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:i]];
+    }
+    for (int i = 0; i < [app.myHandByMyself_plus count]; i++) {
+        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:i]];
+    }
+    for (int i = 0; i < [app.myTombByMyself_plus count]; i++) {
+        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:i]];
+    }
+    for (int i = 0; i < [app.myFieldCardByMyself_plus count]; i++) {
+        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:i]];
+    }
+    for (int i = 0; i < [app.myEnergyCardByMyself_plus count]; i++) {
+        int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+        x += [[app.myEnergyCardByMyself_plus objectAtIndex:i] intValue];
+        [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+    }
+    
+    
+    for (int i = 0; i < [app.myDeckCardListByMyself_minus count]; i++) {
+        [app.myDeckCardList removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myDeckCardList number:[app.myDeckCardListByMyself_minus objectAtIndex:i]]];
+    }
+    for (int i = 0; i < [app.myHandByMyself_minus count]; i++) {
+        [app.myHand removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myHand number:[app.myHandByMyself_minus objectAtIndex:i]]];
+    }
+    for (int i = 0; i < [app.myTombByMyself_minus count]; i++) {
+        [app.myTomb removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myTomb number:[app.myTombByMyself_minus objectAtIndex:i]]];
+    }
+    
+    
+    for (int i = 0; i < [app.myFieldCardByMyself_minus count]; i++) {
+        [app.myFieldCard removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[app.myFieldCardByMyself_minus objectAtIndex:i]]];
+    }
+    
+    for (int i = 0; i < [app.myEnergyCardByMyself_minus count]; i++) {
+        int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+        x -= [[app.myEnergyCardByMyself_minus objectAtIndex:i] intValue];
+        if(x < 0){
+            x = 0;
+        }
+        [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+    }
+    
+    app.myLifeGage += app.myLifeGageByMyself;
+    app.myGikoFundamentalAttackPower += app.myGikoFundamentalAttackPowerByMyself; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
+    app.myGikoFundamentalDeffencePower += app.myGikoFundamentalDeffencePowerByMyself; //自分が操作した自分のギコの基本防御力（差分のみ管理）
+    app.myMonarFundamentalAttackPower += app.myMonarFundamentalAttackPowerByMyself; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
+    app.myMonarFundamentalDeffencePower += app.myMonarFundamentalDeffencePowerByMyself; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
+    app.mySyobonFundamentalAttackPower += app.mySyobonFundamentalAttackPowerByMyself; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
+    app.mySyobonFundamentalDeffencePower += app.mySyobonFundamentalDeffencePowerByMyself; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
+    app.myYaruoFundamentalAttackPower += app.myYaruoFundamentalAttackPowerByMyself; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+    app.myYaruoFundamentalDeffencePower += app.myYaruoFundamentalDeffencePowerByMyself; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
+    app.myGikoModifyingAttackPower += app.myGikoModifyingAttackPowerByMyself; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myGikoModifyingDeffencePower += app.myGikoModifyingDeffencePowerByMyself; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingAttackPower += app.myMonarModifyingAttackPowerByMyself; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingDeffencePower += app.myMonarModifyingDeffencePowerByMyself; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingAttackPower += app.mySyobonModifyingAttackPowerByMyself; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingDeffencePower += app.mySyobonModifyingDeffencePowerByMyself; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingAttackPower += app.myYaruoModifyingAttackPowerByMyself; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingDeffencePower += app.myYaruoModifyingDeffencePowerByMyself; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myLifeGageByMyself = 0;
+    app.myGikoFundamentalAttackPowerByMyself = 0;
+    app.myGikoFundamentalDeffencePowerByMyself = 0;
+    app.myMonarFundamentalAttackPowerByMyself = 0;
+    app.myMonarFundamentalDeffencePowerByMyself = 0;
+    app.mySyobonFundamentalAttackPowerByMyself = 0;
+    app.mySyobonFundamentalDeffencePowerByMyself = 0;
+    app.myYaruoFundamentalAttackPowerByMyself = 0;
+    app.myYaruoFundamentalDeffencePowerByMyself = 0;
+    app.myGikoModifyingAttackPowerByMyself = 0;
+    app.myGikoModifyingDeffencePowerByMyself = 0;
+    app.myMonarModifyingAttackPowerByMyself = 0;
+    app.myMonarModifyingDeffencePowerByMyself = 0;
+    app.mySyobonModifyingAttackPowerByMyself = 0;
+    app.mySyobonModifyingDeffencePowerByMyself = 0;
+    app.myYaruoModifyingAttackPowerByMyself = 0;
+    app.myYaruoModifyingDeffencePowerByMyself = 0;
+    
+    app.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init];
+    app.myHandByMyself_plus = [[NSMutableArray alloc] init];
+    app.myTombByMyself_plus = [[NSMutableArray alloc] init];
+    app.myFieldCardByMyself_plus = [[NSMutableArray alloc] init];
+    app.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
+    app.myDeckCardListByMyself_minus = [[NSMutableArray alloc] init];
+    app.myHandByMyself_minus = [[NSMutableArray alloc] init];
+    app.myTombByMyself_minus = [[NSMutableArray alloc] init];
+    app.myFieldCardByMyself_minus = [[NSMutableArray alloc] init];
+    app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
     
     [SVProgressHUD dismiss];
 }
@@ -165,6 +376,17 @@
 -(void)doEnemyDecideAction :(BOOL)select{
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
     app.decideAction = [[statuses objectAtIndex:0] boolValue];
+}
+
++(int)indexOfObjectForNSNumber:(NSArray *)array number:(NSNumber *)number{
+    int i = [number intValue];
+    for (int j = 0; j < [array count]; j++) {
+        int k = [[array objectAtIndex:j] intValue];
+        if (i == k) {
+            return j;
+        }
+    }
+    return -1;
 }
 
 
