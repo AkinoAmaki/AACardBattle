@@ -19,6 +19,7 @@
     AppDelegate *app;
 }
 
+@property BOOL reverse;
 
 
 //相手の通常攻撃によるダメージを計算する

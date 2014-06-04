@@ -22,7 +22,6 @@
 @synthesize getEnemyData;
 @synthesize regionViewArray;
 
-//TODO: カード使用の効果で、BrowseCardInRegionを通してカード選択しようとすると、スクロールしない。原因はカード使用時の[self sync]だが、外すとregionViewArrayがセレクタのなかでnullになってしまい、バグが起きる。
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -705,9 +704,9 @@
     //MARK: デバッグ終わったら戻す    [self getACard:MYSELF];
     //MARK: デバッグ終わったら戻す}
     //MARK: デバッグ終わったら戻すapp.myAdditionalGettingCards = 0;
-    [self activateFieldCardInTiming:0];
+    [self activateCardInTiming:0];
     [sendMyData send];
-    [self activateFieldCardInTiming:99];
+    [self activateCardInTiming:99];
     app.myLifeGage = app.myLifeGage - app.myDamageFromCard;
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromCard = 0;
@@ -719,6 +718,7 @@
     
     //カード使用後
     NSLog(@"カード使用・AA選択フェーズ");
+    NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
     //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
     //MARK: デバッグ終わったら戻す[self sync];
     
@@ -728,18 +728,15 @@
     while (cardIsCompletlyUsed == NO) {
         [self sync];
     }
-    [self activateFieldCardInTiming:1];
+    [self activateCardInTiming:1];
+    
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
         [NSThread sleepForTimeInterval:1];
         [getEnemyData doEnemyDecideAction:YES];
     }
     [sendMyData send];
-    for (int i = 0; i < app.myAdditionalGettingCards; i++) {
-        [self getACard:MYSELF];
-    }
-    app.myAdditionalGettingCards = 0;
-    [self activateFieldCardInTiming:99];
+    [self activateCardInTiming:99];
     [self refleshView];
     //MARK: デバッグ終わったら戻す[self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
     //MARK: デバッグ終わったら戻す[self sync];
@@ -749,9 +746,20 @@
     //MARK: デバッグ終わったら戻す[self sync];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
-    [self activateFieldCardInTiming:2];
+    [self activateCardInTiming:2];
+    NSLog(@"入れる枚数：%d",app.myAdditionalGettingCards);
     [sendMyData send];
-    [self activateFieldCardInTiming:99];
+    [self activateCardInTiming:99];
+    //カード効果でカードを引いたら処理する
+        for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+            [self getACard:MYSELF];
+        }
+        app.myAdditionalGettingCards = 0;
+    //カード効果でカードを捨てたら処理する
+        for (int i = 0; i < app.myAdditionalDiscardingCards; i++) {
+            [self discardFromHand:MYSELF string:@"捨てるカードを一枚選んでください"];
+            [self sync];
+        }
     app.enemyDamageFromAA = [_bc damageCaliculate];
     [sendMyData send];
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
@@ -769,8 +777,8 @@
     NSLog(@"ターン終了フェイズ");
     //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ターン終了フェイズ"];
     //MARK: デバッグ終わったら戻す[self sync];
-    [self activateFieldCardInTiming:3];
-    [self activateFieldCardInTiming:99];
+    [self activateCardInTiming:3];
+    [self activateCardInTiming:99];
     app.myLifeGage = app.myLifeGage -app.myDamageFromCard;
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromCard = 0;
@@ -1075,7 +1083,7 @@
         case 36:
             //カードを１枚引き、１枚捨てる（U1)
             app.myAdditionalGettingCards++;
-            [self discardFromHand:MYSELF string:@"捨てるカードを一枚選んでください"];
+            app.myAdditionalDiscardingCards++;
             break;
         case 37:
             //カードを２枚引く（UU1)
@@ -1190,97 +1198,102 @@
         case 50:
             //一番上のカードを見て、取るか一番下に置く。（１ターンに１枚以上使用しても意味なし）（U)
             [self browseLibrary:app.myDeckCardList numberOfBrowsingCard:1 tapSelector:@selector(putACardToLibraryTopOrBottomSelector:) string:@"操作するカードを選択してください"];
-            //[self sync];
             break;
             
         case 51:
             //攻撃キャラをギコにする（U2)
-            app.enemySelectCharacter = GIKO;
+            app.enemySelectCharacterByMyself = GIKO;
             break;
         case 52:
             //攻撃キャラをモナーにする（U2)
-            app.enemySelectCharacter = MONAR;
+            app.enemySelectCharacterByMyself = MONAR;
             break;
         case 53:
             //攻撃キャラをショボンにする（U2)
-            app.enemySelectCharacter = SYOBON;
+            app.enemySelectCharacterByMyself = SYOBON;
             break;
         case 54:
-            //このターンキャラの相性関係を逆転させる（U2)
-            [self reverseCaliculate:MYSELF];
-            [self reverseCaliculate:ENEMY];
-            
+            //このターン、自分の攻撃についてキャラの相性関係を逆転させる（U2)
+            _bc.reverse = YES;
             break;
         case 55:
-            //次ターン、相手にカードを使わせない（U4)
-            [self dontPermitCardPlay:ENEMY cardType:ENERGYCARD];
-            [self dontPermitCardPlay:ENEMY cardType:FIELDCARD];
-            [self dontPermitCardPlay:ENEMY cardType:SORCERYCARD];
+            //このターン使用されたカードの枚数分だけカードを引く(U4)
+            for (int i = 0; i < ([app.cardsIUsedInThisTurn count] + [app.cardsEnemyUsedInThisTurn count]); i++) {
+                app.myAdditionalGettingCards++;
+            }
             break;
         case 56:
             //エネルギーカードの種類数だけカードを引く（U2)
         {
             int num = [self distinguishTheNumberOfEnergyCardColor:MYSELF];
-            
+            NSLog(@"num:%d",num);
             for (int i = 0; i < num; i++) {
-                [self getACard:MYSELF];
+                app.myAdditionalGettingCards++;
             }
         }
             break;
         case 57:
             //相手キャラは攻撃・防御できない。別のカードが使われたとき、これは破壊される（U1)
-            app.enemyGikoAttackPermittedByMyself = NO;
-            app.enemyMonarAttackPermittedByMyself = NO;
-            app.enemySyobonAttackPermittedByMyself = NO;
-            app.enemyYaruoAttackPermittedByMyself = NO;
-            app.enemyGikoDeffencePermittedByMyself = NO;
-            app.enemyMonarDeffencePermittedByMyself = NO;
-            app.enemySyobonDeffencePermittedByMyself = NO;
-            app.enemyYaruoDeffencePermittedByMyself = NO;
+            if([app.cardsEnemyUsedInThisTurn count] != 0){
+                [self manipulateCard:[app.myFieldCard objectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[NSNumber numberWithInt:57]]] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+            }else{
+                app.enemyGikoAttackPermittedByMyself = NO;
+                app.enemyMonarAttackPermittedByMyself = NO;
+                app.enemySyobonAttackPermittedByMyself = NO;
+                app.enemyYaruoAttackPermittedByMyself = NO;
+                app.enemyGikoDeffencePermittedByMyself = NO;
+                app.enemyMonarDeffencePermittedByMyself = NO;
+                app.enemySyobonDeffencePermittedByMyself = NO;
+                app.enemyYaruoDeffencePermittedByMyself = NO;
+            }
             break;
         case 58:
-            //このターン相手が使用したカードを打ち消す（UU)
-            [self denyCard:ENEMY];
+            //カードを２枚引き、２枚捨てる(U2)
+            app.myAdditionalGettingCards++;
+            app.myAdditionalGettingCards++;
+            app.myAdditionalDiscardingCards++;
+            app.myAdditionalDiscardingCards++;
             break;
         case 59:
-            //このターン相手が使用した場カードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_type objectAtIndex:app.enemyUsingCardNumber] intValue] == FIELDCARD){
-                [self denyCard:ENEMY];
+            //手札を全て捨て、同じだけの枚数のカードを引く(U3)
+            {
+                int i = (int)[app.myHand count];
+                for (int k = 0; k < i; k++) {
+                    [self manipulateCard:[app.myHand objectAtIndex:k] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
+                    app.myAdditionalGettingCards++;
+                }
             }
             break;
         case 60:
-            //このターン相手が白色のカードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_color objectAtIndex:app.enemyUsingCardNumber] intValue] == WHITE){
-                [self denyCard:ENEMY];
+            //互いの全てのエネルギーを1ずつ減らす(U3)
+            for (int i = 0; i < [app.myEnergyCard count]; i++) {
+                [app.myEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[app.myEnergyCardByMyself_minus objectAtIndex:i] intValue] + 1]];
+            }
+            for (int i = 0; i < [app.enemyEnergyCard count]; i++) {
+                [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[app.enemyEnergyCardByMyself_minus objectAtIndex:i] intValue] + 1]];
             }
             break;
         case 61:
-            //このターン相手が青色のカードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_color objectAtIndex:app.enemyUsingCardNumber] intValue] == BLUE){
-                [self denyCard:ENEMY];
+            //互いの全てのエネルギーを3ずつ減らす(U5)
+            for (int i = 0; i < [app.myEnergyCard count]; i++) {
+                [app.myEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[app.myEnergyCardByMyself_minus objectAtIndex:i] intValue] + 3]];
+            }
+            for (int i = 0; i < [app.enemyEnergyCard count]; i++) {
+                [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[app.enemyEnergyCardByMyself_minus objectAtIndex:i] intValue] + 3]];
             }
             break;
         case 62:
-            //このターン相手が黒色のカードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_color objectAtIndex:app.enemyUsingCardNumber] intValue] == BLACK){
-                [self denyCard:ENEMY];
-            }
+            //自分のフィールドカードと相手のフィールドカードを一枚交換する(U2)
             break;
         case 63:
-            //このターン相手が赤色のカードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_color objectAtIndex:app.enemyUsingCardNumber] intValue] == RED){
-                [self denyCard:ENEMY];
-            }
+            //このカードが場に出た時、ライフを５点得る。このカードが場から離れた時、ライフを５点失う。(UU)
             break;
         case 64:
-            //このターン相手が緑色のカードを使用した場合、それを打ち消す（U)
-            if([[app.cardList_color objectAtIndex:app.enemyUsingCardNumber] intValue] == GREEN){
-                [self denyCard:ENEMY];
-            }
+            //このカードが場に出ている限り、相手の攻撃力を３さげる(UU3)
             break;
         case 65:
             //カードを一枚引く（U1)
-            [self getACard:MYSELF];
+            app.myAdditionalGettingCards++;
             break;
         case 66:
             //対象キャラの攻撃力＋３（R)
@@ -1435,9 +1448,7 @@
         }
             break;
         case 86:
-            //相手プレイヤーはこのターンエネルギーカードを出せない。カードを一枚引く。（R2）
-            [self dontPermitCardPlay:ENEMY cardType:ENERGYCARD];
-            [self getACard:MYSELF];
+            
             break;
         case 87:
             //カードを１枚ランダムで捨てる。相手キャラの攻撃力−５（R３）
@@ -2556,12 +2567,9 @@
     
     if (cardType == SORCERYCARD){
         if([self doIHaveEnergyToUseCard:cardNumber]){
-            
+
         }
-        else if(app.canIPlaySorceryCardByMyself == NO){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"ソーサリーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-            [alert show];
-        }else{
+        else{
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
@@ -2572,7 +2580,7 @@
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
-                [self cardActivate:cardNumber string:nil];
+                //[self cardActivate:cardNumber string:nil];
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
@@ -2585,12 +2593,9 @@
     //フィールドカードの場合の実装
     else if (cardType == FIELDCARD){
         if([self doIHaveEnergyToUseCard:cardNumber]){
-            
+
         }
-        else if(app.canIPlayFieldCardByMyself == NO){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"フィールドカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-            [alert show];
-        }else{
+        else{
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
@@ -2612,10 +2617,7 @@
     
     //エネルギーカードの場合の実装
     else if (cardType == ENERGYCARD){
-        if(app.canIPlayEnergyCardByMyself == NO){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"封印" message:@"エネルギーカードの使用は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-            [alert show];
-        }else{
+        
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
@@ -2624,7 +2626,6 @@
             
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseEnergycard show];
-        }
     }
     
 }
@@ -3023,75 +3024,6 @@
     }
 }
 
-//対象プレイヤーに特定の種類のカードをプレイさせない（対象カードタイプ）
-- (void)dontPermitCardPlay :(int)man cardType:(int)cardType{
-    if (man == 0) {
-        switch (cardType) {
-            case ENERGYCARD:
-                app.canIPlayEnergyCardByMyself = NO;
-                break;
-            case FIELDCARD:
-                app.canIPlayFieldCardByMyself = NO;
-                break;
-            case SORCERYCARD:
-                app.canIPlaySorceryCardByMyself = NO;
-                break;
-            default:
-                break;
-        }
-    }else{
-        switch (cardType) {
-            case ENERGYCARD:
-                app.canEnemyPlayEnergyCardByMyself = NO;
-                break;
-            case FIELDCARD:
-                app.canEnemyPlayFieldCardByMyself = NO;
-                break;
-            case SORCERYCARD:
-                app.canEnemyPlaySorceryCardByMyself = NO;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-//対象プレイヤーに特定の種類のカードの能力を起動させない（対象カードタイプ）
-- (void)dontPermitCardActivated :(int)man cardType:(int)cardType{
-    if (man == 0) {
-        switch (cardType) {
-            case ENERGYCARD:
-                app.canIActivateEnergyCardByMyself = NO;
-                break;
-            case FIELDCARD:
-                app.canIActivateFieldCardByMyself = NO;
-                break;
-            default:
-                break;
-        }
-    }else{
-        switch (cardType) {
-            case ENERGYCARD:
-                app.canEnemyActivateEnergyCardByMyself = NO;
-                break;
-            case FIELDCARD:
-                app.canEnemyActivateFieldCardByMyself = NO;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-//対象プレイヤーが使用した対象カードを打ち消す（対象プレイヤー・対象カード）
-- (void)denyCard :(int)man {
-    if(man == 0){
-        app.denymyCardPlaying = YES;
-    }else{
-        app.denyEnemyCardPlaying = YES;
-    }
-}
 
 //特定の場面でカードの追加コストを要求する
 - (void)payAdditionalCost{
@@ -3620,6 +3552,7 @@
     
     //常に初期化するもの
     [getEnemyData doEnemyDecideAction:NO]; //app.decideAction = NOと初期化しておく
+    _bc.reverse = NO;
     
     //自分に関係する変数
     app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
@@ -3629,12 +3562,12 @@
     selectCardTag = -1;
     costLife = NO;
     app.mySelectCharacter = -1;; //自分の選んだキャラクター
+    app.mySelectCharacterFromEnemy = -1;
     app.doIUseCard = NO;//自分がこのターンカードを使用したか
     app.myUsingCardNumber = -1; //自分が使用したカードの番号
     app.myDamageFromAA = 0;
     app.myDamageFromCard = 0;
     app.mySelectColor = -1; //自分が選んだ色
-    app.denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
     app.myGikoModifyingAttackPower = 0;
     app.myGikoModifyingDeffencePower = 0;
     app.myMonarModifyingAttackPower = 0;
@@ -3676,6 +3609,7 @@
     
     //相手に関係する変数
     app.enemySelectCharacter = -1; //相手の選んだキャラクター
+    app.enemySelectCharacterByMyself = -1;
     app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
     app.enemyUsingCardNumber = -1; //相手が使用したカードの番号
     app.enemyDamageFromAA = 0;
@@ -3718,16 +3652,7 @@
     app.mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
     app.myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
     app.myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
-    app.canIPlaySorceryCardByMyself = YES; //自分が魔法カードを手札からプレイできるか
-    app.canIPlayFieldCardByMyself = YES; //自分が場カードを手札からプレイできるか
-    app.canIActivateFieldCardByMyself = YES; //自分が場カードの能力を起動できるか
-    app.canIPlayEnergyCardByMyself = YES; //自分がエネルギーカードを手札からプレイできるか
-    app.canIActivateEnergyCardByMyself = YES; //自分がエネルギーカードを起動できるか
-    app.canIPlaySorceryCardFromEnemy = YES; //相手の妨害により自分が魔法カードを手札からプレイできるか
-    app.canIPlayFieldCardFromEnemy = YES; //相手の妨害により自分が場カードを手札からプレイできるか
-    app.canIActivateFieldCardFromEnemy = YES; //相手の妨害により自分が場カードの能力を起動できるか
-    app.canIPlayEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
-    app.canIActivateEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを起動できるか
+
     
     //相手に関係する変数
     app.enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
@@ -3759,8 +3684,8 @@
 }
 
 
-//フィールドカードを定期的に発動させるメソッドを実装する
--(void) activateFieldCardInTiming :(int)timing{
+//カードを特定のタイミングで発動させるメソッドを実装する
+-(void) activateCardInTiming :(int)timing{
     //発動タイミング毎に発動させるカードを変える。
     switch (timing) {
             //ターン開始時
@@ -3784,6 +3709,11 @@
             for(int i = 0; i < [app.myFieldCard count]; i++){
                 if([app.fieldCardList_damageCaliculate containsObject:[app.myFieldCard objectAtIndex:i]]){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
+                }
+            }
+            for(int i = 0; i < [app.cardsIUsedInThisTurn count]; i++){
+                if([app.sorceryCardList containsObject:[app.cardsIUsedInThisTurn objectAtIndex:i]]){
+                    [self cardActivate:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue] string:nil];
                 }
             }
             break;
@@ -3854,7 +3784,7 @@
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.myHand objectAtIndex:selectedCardOrder] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
+    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
     [_cardInRegion removeFromSuperview];
     
     FINISHED1

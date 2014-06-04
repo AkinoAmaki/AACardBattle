@@ -20,7 +20,6 @@
 	// Do any additional setup after loading the view, typically from a nib.
     ud = [NSUserDefaults standardUserDefaults];
     int first =  [ud integerForKey:@"firstLaunch_ud"];
-    NSLog(@"%d",first);
     
     if(first == 0){
         appdelegate = [[UIApplication sharedApplication] delegate];

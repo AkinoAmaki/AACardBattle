@@ -96,45 +96,46 @@
         app.enemyYaruoDeffencePermittedFromEnemy            = [[battleDataWithoutArray objectAtIndex:27] boolValue];
         app.doEnemyUseCard                                  = [[battleDataWithoutArray objectAtIndex:28] boolValue];
         app.enemyUsingCardNumber                            = [[battleDataWithoutArray objectAtIndex:29] intValue];
-        app.canEnemyPlaySorceryCardFromEnemy                = [[battleDataWithoutArray objectAtIndex:30] boolValue];
-        app.canEnemyPlayFieldCardFromEnemy                  = [[battleDataWithoutArray objectAtIndex:31] boolValue];
-        app.canEnemyActivateFieldCardFromEnemy              = [[battleDataWithoutArray objectAtIndex:32] boolValue];
-        app.canEnemyPlayEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:33] boolValue];
-        app.canEnemyActivateEnergyCardFromEnemy             = [[battleDataWithoutArray objectAtIndex:34] boolValue];
-        app.denyEnemyCardPlaying                            = [[battleDataWithoutArray objectAtIndex:35] boolValue];
-        app.myDamageFromAA                                  = [[battleDataWithoutArray objectAtIndex:36] intValue];
-        app.myDamageFromCard                                = [[battleDataWithoutArray objectAtIndex:37] intValue];
-        app.enemySelectColor                                = [[battleDataWithoutArray objectAtIndex:38] intValue];
-        app.myGikoFundamentalAttackPowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:39] intValue];
-        app.myGikoFundamentalDeffencePowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:40] intValue];
-        app.myMonarFundamentalAttackPowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:41] intValue];
-        app.myMonarFundamentalDeffencePowerFromEnemy        = [[battleDataWithoutArray objectAtIndex:42] intValue];
-        app.mySyobonFundamentalAttackPowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:43] intValue];
-        app.mySyobonFundamentalDeffencePowerFromEnemy       = [[battleDataWithoutArray objectAtIndex:44] intValue];
-        app.myYaruoFundamentalAttackPowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:45] intValue];
-        app.myYaruoFundamentalDeffencePowerFromEnemy        = [[battleDataWithoutArray objectAtIndex:46] intValue];
-        app.myGikoModifyingAttackPowerFromEnemy             = [[battleDataWithoutArray objectAtIndex:47] intValue];
-        app.myGikoModifyingDeffencePowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:48] intValue];
-        app.myMonarModifyingAttackPowerFromEnemy            = [[battleDataWithoutArray objectAtIndex:49] intValue];
-        app.myMonarModifyingDeffencePowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:50] intValue];
-        app.mySyobonModifyingAttackPowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:51] intValue];
-        app.mySyobonModifyingDeffencePowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:52] intValue];
-        app.myYaruoModifyingAttackPowerFromEnemy            = [[battleDataWithoutArray objectAtIndex:53] intValue];
-        app.myYaruoModifyingDeffencePowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:54] intValue];
-        app.myGikoAttackPermittedFromEnemy                  = [[battleDataWithoutArray objectAtIndex:55] intValue];
-        app.myMonarAttackPermittedFromEnemy                 = [[battleDataWithoutArray objectAtIndex:56] intValue];
-        app.mySyobonAttackPermittedFromEnemy                = [[battleDataWithoutArray objectAtIndex:57] intValue];
-        app.myYaruoAttackPermittedFromEnemy                 = [[battleDataWithoutArray objectAtIndex:58] intValue];
-        app.myGikoDeffencePermittedFromEnemy                = [[battleDataWithoutArray objectAtIndex:59] intValue];
-        app.myMonarDeffencePermittedFromEnemy               = [[battleDataWithoutArray objectAtIndex:60] intValue];
-        app.mySyobonDeffencePermittedFromEnemy              = [[battleDataWithoutArray objectAtIndex:61] intValue];
-        app.myYaruoDeffencePermittedFromEnemy               = [[battleDataWithoutArray objectAtIndex:62] intValue];
-        app.canIPlaySorceryCardFromEnemy                    = [[battleDataWithoutArray objectAtIndex:63] intValue];
-        app.canIPlayFieldCardFromEnemy                      = [[battleDataWithoutArray objectAtIndex:64] intValue];
-        app.canIActivateFieldCardFromEnemy                  = [[battleDataWithoutArray objectAtIndex:65] intValue];
-        app.canIPlayEnergyCardFromEnemy                     = [[battleDataWithoutArray objectAtIndex:66] intValue];
-        app.canIActivateEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:67] intValue];
-        app.denymyCardPlaying                               = [[battleDataWithoutArray objectAtIndex:68] intValue];
+        //***app.canEnemyPlaySorceryCardFromEnemy                = [[battleDataWithoutArray objectAtIndex:30] boolValue];
+        //***app.canEnemyPlayFieldCardFromEnemy                  = [[battleDataWithoutArray objectAtIndex:31] boolValue];
+        //***app.canEnemyActivateFieldCardFromEnemy              = [[battleDataWithoutArray objectAtIndex:32] boolValue];
+        //***app.canEnemyPlayEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:33] boolValue];
+        //***app.canEnemyActivateEnergyCardFromEnemy             = [[battleDataWithoutArray objectAtIndex:34] boolValue];
+        //***app.denyEnemyCardPlaying                            = [[battleDataWithoutArray objectAtIndex:35] boolValue];
+        app.myDamageFromAA                                  = [[battleDataWithoutArray objectAtIndex:30] intValue];
+        app.myDamageFromCard                                = [[battleDataWithoutArray objectAtIndex:31] intValue];
+        app.enemySelectColor                                = [[battleDataWithoutArray objectAtIndex:32] intValue];
+        app.myGikoFundamentalAttackPowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:33] intValue];
+        app.myGikoFundamentalDeffencePowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:34] intValue];
+        app.myMonarFundamentalAttackPowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:35] intValue];
+        app.myMonarFundamentalDeffencePowerFromEnemy        = [[battleDataWithoutArray objectAtIndex:36] intValue];
+        app.mySyobonFundamentalAttackPowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:37] intValue];
+        app.mySyobonFundamentalDeffencePowerFromEnemy       = [[battleDataWithoutArray objectAtIndex:38] intValue];
+        app.myYaruoFundamentalAttackPowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:39] intValue];
+        app.myYaruoFundamentalDeffencePowerFromEnemy        = [[battleDataWithoutArray objectAtIndex:40] intValue];
+        app.myGikoModifyingAttackPowerFromEnemy             = [[battleDataWithoutArray objectAtIndex:41] intValue];
+        app.myGikoModifyingDeffencePowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:42] intValue];
+        app.myMonarModifyingAttackPowerFromEnemy            = [[battleDataWithoutArray objectAtIndex:43] intValue];
+        app.myMonarModifyingDeffencePowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:44] intValue];
+        app.mySyobonModifyingAttackPowerFromEnemy           = [[battleDataWithoutArray objectAtIndex:45] intValue];
+        app.mySyobonModifyingDeffencePowerFromEnemy         = [[battleDataWithoutArray objectAtIndex:46] intValue];
+        app.myYaruoModifyingAttackPowerFromEnemy            = [[battleDataWithoutArray objectAtIndex:47] intValue];
+        app.myYaruoModifyingDeffencePowerFromEnemy          = [[battleDataWithoutArray objectAtIndex:48] intValue];
+        app.myGikoAttackPermittedFromEnemy                  = [[battleDataWithoutArray objectAtIndex:49] boolValue];
+        app.myMonarAttackPermittedFromEnemy                 = [[battleDataWithoutArray objectAtIndex:50] boolValue];
+        app.mySyobonAttackPermittedFromEnemy                = [[battleDataWithoutArray objectAtIndex:51] boolValue];
+        app.myYaruoAttackPermittedFromEnemy                 = [[battleDataWithoutArray objectAtIndex:52] boolValue];
+        app.myGikoDeffencePermittedFromEnemy                = [[battleDataWithoutArray objectAtIndex:53] boolValue];
+        app.myMonarDeffencePermittedFromEnemy               = [[battleDataWithoutArray objectAtIndex:54] boolValue];
+        app.mySyobonDeffencePermittedFromEnemy              = [[battleDataWithoutArray objectAtIndex:55] boolValue];
+        app.myYaruoDeffencePermittedFromEnemy               = [[battleDataWithoutArray objectAtIndex:56] boolValue];
+        //***app.canIPlaySorceryCardFromEnemy                    = [[battleDataWithoutArray objectAtIndex:63] boolValue];
+        //***app.canIPlayFieldCardFromEnemy                      = [[battleDataWithoutArray objectAtIndex:64] boolValue];
+        //***app.canIActivateFieldCardFromEnemy                  = [[battleDataWithoutArray objectAtIndex:65] boolValue];
+        //***app.canIPlayEnergyCardFromEnemy                     = [[battleDataWithoutArray objectAtIndex:66] boolValue];
+        //***app.canIActivateEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:67] boolValue];
+        //***app.denymyCardPlaying                               = [[battleDataWithoutArray objectAtIndex:68] boolValue];
+        app.mySelectCharacterFromEnemy                      = [[battleDataWithoutArray objectAtIndex:57] intValue];
 
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];
@@ -191,7 +192,7 @@
     [app.myEnergyCardFromEnemy_minus removeObjectAtIndex:0];
 
     
-    //相手プレイヤーによって操作された攻撃力・防御力・カードの操作を反映する
+    //相手プレイヤーによって操作された攻撃力・防御力・カード等の操作を反映する
     
     app.myGikoFundamentalAttackPower    += app.myGikoFundamentalAttackPowerFromEnemy;
     app.myGikoFundamentalDeffencePower  += app.myGikoFundamentalDeffencePowerFromEnemy;
@@ -209,6 +210,7 @@
     app.mySyobonModifyingDeffencePower  += app.mySyobonModifyingDeffencePowerFromEnemy;
     app.myYaruoModifyingAttackPower     += app.myYaruoModifyingAttackPowerFromEnemy;
     app.myYaruoModifyingDeffencePower   += app.myYaruoModifyingDeffencePowerFromEnemy;
+    if(app.mySelectCharacterFromEnemy != -1) app.mySelectCharacter = app.mySelectCharacterFromEnemy;
 
     if(!app.denyEnemyCardPlaying){
         for (int i = 0; i < [app.myDeckCardListFromEnemy_plus count]; i++) {

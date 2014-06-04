@@ -42,6 +42,7 @@
 @property (nonatomic, retain) NSArray *cardList_cost; //カードごとのマナコスト
 @property (nonatomic, retain) NSArray *cardList_color; //カードごとの色
 @property (nonatomic, retain) NSArray *cardList_text; //カードごとの説明文
+@property (nonatomic, retain) NSArray *sorceryCardList; //ソーサリーカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_turnStart; //ターン開始時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_damageCaliculate; //ダメージ計算時に効果を発揮するカード一覧
@@ -59,6 +60,7 @@
 @property int myLifeGage; //自分のライフポイント
 @property int myLifeGageByMyself; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
 @property int myAdditionalGettingCards; //ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
+@property int myAdditionalDiscardingCards; //ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
 @property (nonatomic, retain) NSMutableArray *myDeck; //自分のデッキ
 @property (nonatomic, retain) NSMutableArray *myCards; //自分の持っている全てのカード
 @property (nonatomic, retain) NSMutableArray *myDeckCardList; //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
@@ -111,6 +113,7 @@
 @property int myYaruoFundamentalAttackPowerFromEnemy; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
 @property int myYaruoFundamentalDeffencePowerFromEnemy; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
 @property int mySelectCharacter; //自分の選んだキャラクター
+@property int mySelectCharacterFromEnemy; //相手に操作された自分のキャラクター
 @property int myGikoModifyingAttackPower; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int myGikoModifyingDeffencePower; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int myMonarModifyingAttackPower; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -153,16 +156,6 @@
 @property BOOL myYaruoDeffencePermittedFromEnemy; //相手の制限による自分のやる夫の防御許可
 @property BOOL doIUseCard; //自分がこのターンカードを使用したか
 @property int myUsingCardNumber; //自分が使用したカードの番号
-@property BOOL canIPlaySorceryCardByMyself; //自分の制限により自分が魔法カードを手札からプレイできるか
-@property BOOL canIPlayFieldCardByMyself; //自分の制限により自分が場カードを手札からプレイできるか
-@property BOOL canIActivateFieldCardByMyself; //自分の制限により自分が場カードの能力を起動できるか
-@property BOOL canIPlayEnergyCardByMyself; //自分の制限により自分がエネルギーカードを手札からプレイできるか
-@property BOOL canIActivateEnergyCardByMyself; //自分の制限により自分がエネルギーカードを起動できるか
-@property BOOL canIPlaySorceryCardFromEnemy; //相手の妨害により自分が魔法カードを手札からプレイできるか
-@property BOOL canIPlayFieldCardFromEnemy; //相手の妨害により自分が場カードを手札からプレイできるか
-@property BOOL canIActivateFieldCardFromEnemy; //相手の妨害により自分が場カードの能力を起動できるか
-@property BOOL canIPlayEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
-@property BOOL canIActivateEnergyCardFromEnemy; //相手の妨害により自分がエネルギーカードを起動できるか
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
 @property int myDamageFromAA; //このターンAAから自分に与えられるダメージ
 @property int myDamageFromCard; //このターン相手の使用したカードから自分に与えられるダメージ
@@ -203,6 +196,7 @@
 @property int enemyYaruoFundamentalAttackPowerByMyself; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
 @property int enemyYaruoFundamentalDeffencePowerByMyself; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
 @property int enemySelectCharacter; //相手の選んだキャラクター
+@property int enemySelectCharacterByMyself; //自分が操作した相手キャラクター
 @property int enemyGikoModifyingAttackPower; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int enemyGikoModifyingDeffencePower; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
 @property int enemyMonarModifyingAttackPower; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)

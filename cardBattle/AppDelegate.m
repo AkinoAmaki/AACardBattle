@@ -447,7 +447,7 @@
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:10],
+                                                   [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],//50
                                                    [NSNumber numberWithInt:0],
@@ -460,7 +460,7 @@
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],//60
-                                                   [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:10],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
@@ -583,9 +583,10 @@ nil];
     NSNumber *field  = [NSNumber numberWithInt:FIELDCARD];
     NSNumber *sorcery = [NSNumber numberWithInt:SORCERYCARD];
     
-    _cardList_type = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:0], energy, energy, energy, energy, energy, sorcery, field,sorcery,sorcery,field,field,field,field,field,field,field,field,field,field,field,sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	field, 	field, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	field, 	sorcery, 	sorcery, 	field, 	field, 	field, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery,
+    
+    _cardList_type = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:0], energy, energy, energy, energy, energy, sorcery, field,sorcery,sorcery,field,field,field,field,field,field,field,field,field,field,field,sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	field, 	field, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	field, 	field, 	sorcery, 	sorcery, 	field, 	field, 	field, 	field, 	field, 	sorcery, 	sorcery, 	sorcery, 	sorcery, 	sorcery,
  nil];
-    _cardList_cost = [[NSArray alloc] initWithObjects: @"null", @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W", 	@"W", 	@"W", 	@"W2", 	@"WW3", 	@"WW2", 	@"W5", 	@"W4", 	@"W", 	@"W1", 	@"W2", 	@"W", 	@"W1", 	@"WW2", 	@"W", 	@"U1", 	@"UU1", 	@"UU2", 	@"U", 	@"U", 	@"U", 	@"U", 	@"U", 	@"U1", 	@"UU", 	@"UU3", 	@"UU2", 	@"UU2", 	@"U3", 	@"U", 	@"U2", 	@"U2", 	@"U2", 	@"U2", 	@"U4", 	@"U2", 	@"U1", 	@"UU", 	@"U1", 	@"U1", 	@"U1", 	@"U1", 	@"U1", 	@"U1", 	@"U1", 	@"R", 	@"R2", 	@"RR2", 	@"R4", 	@"R", 	@"R1", 	@"R2", 	@"R", 	@"RR", 	@"R1", 	@"R3", 	@"RR", 	@"RR", 	@"RR", 	@"RR", 	@"R1", 	@"RR", 	@"RR", 	@"R4", 	@"R1", 	@"R2", 	@"R3", 	@"R1", 	@"R1", 	@"R1", 	@"R1", 	@"R2", 	@"R", 	@"R2", 	@"RR3", 	@"B", 	@"B1", 	@"B2", 	@"B", 	@"BB", 	@"BB3", 	@"B1", 	@"B1", 	@"BB", 	@"BB2", 	@"B1", 	@"B1", 	@"B1", 	@"BB1", 	@"B2", 	@"BB2", 	@"BB4", 	@"B2", 	@"BB2", 	@"B1", 	@"BBB5", 	@"B", 	@"B1", 	@"BB2", 	@"B1", 	@"B", 	@"BB3", 	@"B1", 	@"B1", 	@"BB3", 	@"G", 	@"G3", 	@"G", 	@"G2", 	@"G1", 	@"G2", 	@"G", 	@"G2", 	@"G1", 	@"G1", 	@"G4", 	@"G1", 	@"GG2", 	@"G1", 	@"G1", 	@"G2", 	@"G1", 	@"G2", 	@"G1", 	@"G1", 	@"G", 	@"GG1", 	@"G", 	@"G2", 	@"G2", 	@"G1", 	@"G1", 	@"G1", 	@"GG2", 	@"GG3",
+    _cardList_cost = [[NSArray alloc] initWithObjects: @"null", @"0", @"0", @"0", @"0", @"0",@"W", @"W2", @"W", @"W2", @"W2", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W1", @"W", 	@"W", 	@"W", 	@"W2", 	@"WW3", 	@"WW2", 	@"W5", 	@"W4", 	@"W", 	@"W1", 	@"W2", 	@"W", 	@"W1", 	@"WW2", 	@"W", 	@"U1", 	@"UU1", 	@"UU2", 	@"U", 	@"U", 	@"U", 	@"U", 	@"U", 	@"U1", 	@"UU", 	@"UU3", 	@"UU2", 	@"UU2", 	@"U3", 	@"U", 	@"U2", 	@"U2", 	@"U2", 	@"U2", 	@"U4", 	@"U2", 	@"U1", 	@"U2", 	@"U3", 	@"U3", 	@"U5", 	@"U2", 	@"UU", 	@"UU3", 	@"U1", 	@"R", 	@"R2", 	@"RR2", 	@"R4", 	@"R", 	@"R1", 	@"R2", 	@"R", 	@"RR", 	@"R1", 	@"R3", 	@"RR", 	@"RR", 	@"RR", 	@"RR", 	@"R1", 	@"RR", 	@"RR", 	@"R4", 	@"R1", 	@"R2", 	@"R3", 	@"R1", 	@"R1", 	@"R1", 	@"R1", 	@"R2", 	@"R", 	@"R2", 	@"RR3", 	@"B", 	@"B1", 	@"B2", 	@"B", 	@"BB", 	@"BB3", 	@"B1", 	@"B1", 	@"BB", 	@"BB2", 	@"B1", 	@"B1", 	@"B1", 	@"BB1", 	@"B2", 	@"BB2", 	@"BB4", 	@"B2", 	@"BB2", 	@"B1", 	@"BBB5", 	@"B", 	@"B1", 	@"BB2", 	@"B1", 	@"B", 	@"BB3", 	@"B1", 	@"B1", 	@"BB3", 	@"G", 	@"G3", 	@"G", 	@"G2", 	@"G1", 	@"G2", 	@"G", 	@"G2", 	@"G1", 	@"G1", 	@"G4", 	@"G1", 	@"GG2", 	@"G1", 	@"G1", 	@"G2", 	@"G1", 	@"G2", 	@"G1", 	@"G1", 	@"G", 	@"GG1", 	@"G", 	@"G2", 	@"G2", 	@"G1", 	@"G1", 	@"G1", 	@"GG2", 	@"GG3",
  nil];
     _cardList_color = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],
         [NSNumber numberWithInt:0], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE], [NSNumber numberWithInt:WHITE],
@@ -594,23 +595,16 @@ nil];
         [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK], [NSNumber numberWithInt:BLACK],
         [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:GREEN], nil];
     
-    NSLog(@"_cardList_cardName:%ld",[_cardList_cardName count]);
-    NSLog(@"_cardList_pngName:%ld",[_cardList_pngName count]);
-    NSLog(@"_cardList_text:%ld",[_cardList_text count]);
-    NSLog(@"_cardList_type:%ld",[_cardList_type count]);
-    NSLog(@"_cardList_cost:%ld", [_cardList_cost count]);
-    NSLog(@"_cardList_color:%ld",[_cardList_color count]);
-    
-    
     damageSourceOfWhite = [[NSArray alloc] initWithObjects:nil];
     damageSourceOfBlue  = [[NSArray alloc] initWithObjects:nil];
     damageSourceOfRed = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:70], [NSNumber numberWithInt:71], [NSNumber numberWithInt:73], [NSNumber numberWithInt:74], [NSNumber numberWithInt:77], [NSNumber numberWithInt:78], [NSNumber numberWithInt:79], [NSNumber numberWithInt:80], [NSNumber numberWithInt:82], [NSNumber numberWithInt:83], [NSNumber numberWithInt:84], [NSNumber numberWithInt:85], [NSNumber numberWithInt:88], [NSNumber numberWithInt:89], [NSNumber numberWithInt:90], [NSNumber numberWithInt:91], [NSNumber numberWithInt:92], [NSNumber numberWithInt:93],  nil];
     damageSourceOfBlack   = [[NSArray alloc] initWithObjects: nil];
     damageSourceOfGreen = [[NSArray alloc] initWithObjects: nil];
     
+    _sorceryCardList = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:6],	[NSNumber numberWithInt:8],	[NSNumber numberWithInt:9],	[NSNumber numberWithInt:21],	[NSNumber numberWithInt:22],	[NSNumber numberWithInt:23],	[NSNumber numberWithInt:24],	[NSNumber numberWithInt:26],	[NSNumber numberWithInt:28],	[NSNumber numberWithInt:29],	[NSNumber numberWithInt:30],	[NSNumber numberWithInt:31],	[NSNumber numberWithInt:32],	[NSNumber numberWithInt:33],	[NSNumber numberWithInt:34],	[NSNumber numberWithInt:35],	[NSNumber numberWithInt:36],	[NSNumber numberWithInt:37],	[NSNumber numberWithInt:38],	[NSNumber numberWithInt:39],	[NSNumber numberWithInt:40],	[NSNumber numberWithInt:41],	[NSNumber numberWithInt:42],	[NSNumber numberWithInt:43],	[NSNumber numberWithInt:44],	[NSNumber numberWithInt:45],	[NSNumber numberWithInt:46],	[NSNumber numberWithInt:47],	[NSNumber numberWithInt:48],	[NSNumber numberWithInt:49],	[NSNumber numberWithInt:50],	[NSNumber numberWithInt:51],	[NSNumber numberWithInt:52],	[NSNumber numberWithInt:53],	[NSNumber numberWithInt:54],	[NSNumber numberWithInt:55],	[NSNumber numberWithInt:56],	[NSNumber numberWithInt:58],	[NSNumber numberWithInt:59],	[NSNumber numberWithInt:60],	[NSNumber numberWithInt:61],	[NSNumber numberWithInt:62],	[NSNumber numberWithInt:65],	[NSNumber numberWithInt:66],	[NSNumber numberWithInt:67],	[NSNumber numberWithInt:68],	[NSNumber numberWithInt:69],	[NSNumber numberWithInt:70],	[NSNumber numberWithInt:71],	[NSNumber numberWithInt:73],	[NSNumber numberWithInt:74],	[NSNumber numberWithInt:75],	[NSNumber numberWithInt:76],	[NSNumber numberWithInt:77],	[NSNumber numberWithInt:78],	[NSNumber numberWithInt:79],	[NSNumber numberWithInt:80],	[NSNumber numberWithInt:81],	[NSNumber numberWithInt:82],	[NSNumber numberWithInt:83],	[NSNumber numberWithInt:84],	[NSNumber numberWithInt:85],	[NSNumber numberWithInt:86],	[NSNumber numberWithInt:87],	[NSNumber numberWithInt:93],	[NSNumber numberWithInt:94],	[NSNumber numberWithInt:95],	[NSNumber numberWithInt:96],	[NSNumber numberWithInt:97],	[NSNumber numberWithInt:98],	[NSNumber numberWithInt:99],	[NSNumber numberWithInt:100],	[NSNumber numberWithInt:101],	[NSNumber numberWithInt:102],	[NSNumber numberWithInt:103],	[NSNumber numberWithInt:104],	[NSNumber numberWithInt:106],	[NSNumber numberWithInt:107],	[NSNumber numberWithInt:108],	[NSNumber numberWithInt:110],	[NSNumber numberWithInt:113],	[NSNumber numberWithInt:114],	[NSNumber numberWithInt:115],	[NSNumber numberWithInt:116],	[NSNumber numberWithInt:117],	[NSNumber numberWithInt:118],	[NSNumber numberWithInt:119],	[NSNumber numberWithInt:120],	[NSNumber numberWithInt:121],	[NSNumber numberWithInt:122],	[NSNumber numberWithInt:123],	[NSNumber numberWithInt:124],	[NSNumber numberWithInt:126],	[NSNumber numberWithInt:127],	[NSNumber numberWithInt:128],	[NSNumber numberWithInt:129],	[NSNumber numberWithInt:130],	[NSNumber numberWithInt:132],	[NSNumber numberWithInt:133],	[NSNumber numberWithInt:134],	[NSNumber numberWithInt:135],	[NSNumber numberWithInt:136],	[NSNumber numberWithInt:137],	[NSNumber numberWithInt:138],	[NSNumber numberWithInt:139],	[NSNumber numberWithInt:140],	[NSNumber numberWithInt:141],	[NSNumber numberWithInt:144],	[NSNumber numberWithInt:145],	[NSNumber numberWithInt:151],	[NSNumber numberWithInt:152],	[NSNumber numberWithInt:153],	[NSNumber numberWithInt:154],	[NSNumber numberWithInt:155], nil];
     _fieldCardList_turnStart = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:105],[NSNumber numberWithInt:142], nil];
     _fieldCardList_afterCardUsed = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:112],[NSNumber numberWithInt:131],[NSNumber numberWithInt:143], nil];
-    _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:57],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:146],[NSNumber numberWithInt:148],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150], nil];
+    _fieldCardList_damageCaliculate = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:16],[NSNumber numberWithInt:17],[NSNumber numberWithInt:18],[NSNumber numberWithInt:19],[NSNumber numberWithInt:20],[NSNumber numberWithInt:25],[NSNumber numberWithInt:57],[NSNumber numberWithInt:63],[NSNumber numberWithInt:64],[NSNumber numberWithInt:88],[NSNumber numberWithInt:89],[NSNumber numberWithInt:90],[NSNumber numberWithInt:91],[NSNumber numberWithInt:92],[NSNumber numberWithInt:146],[NSNumber numberWithInt:148],[NSNumber numberWithInt:149],[NSNumber numberWithInt:150], nil];
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:125],[NSNumber numberWithInt:147], nil];
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
@@ -619,7 +613,7 @@ nil];
     
     _myHand = [[NSMutableArray alloc] init]; //自分の手札
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:7],[NSNumber numberWithInt:7], nil]; //自分の場カードのカードナンバー
+    _myFieldCard = [[NSMutableArray alloc] initWithObjects: nil]; //自分の場カードのカードナンバー
     _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
     _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
@@ -644,6 +638,7 @@ nil];
     _myLifeGage = 20;
     _myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     _myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
+    _myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
     _myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
     _myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
     _myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
@@ -669,6 +664,7 @@ nil];
     _myYaruoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
     _myYaruoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
     _mySelectCharacter = -1; //自分の選んだキャラクター
+    _mySelectCharacterFromEnemy = -1; 
     _myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _myMonarModifyingAttackPower = 0; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
@@ -710,17 +706,6 @@ nil];
     _myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
     _myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
     _doIUseCard = NO; //自分がこのターンカードを使用したか
-    _canIPlaySorceryCardByMyself =YES; //自分が魔法カードを手札からプレイできるか
-    _canIPlayFieldCardByMyself = YES; //自分が場カードを手札からプレイできるか
-    _canIActivateFieldCardByMyself = YES; //自分が場カードの能力を起動できるか
-    _canIPlayEnergyCardByMyself = YES; //自分がエネルギーカードを手札からプレイできるか
-    _canIActivateEnergyCardByMyself = YES; //自分がエネルギーカードを起動できるか
-    _canIPlaySorceryCardFromEnemy = YES; //相手の妨害により自分が魔法カードを手札からプレイできるか
-    _canIPlayFieldCardFromEnemy = YES; //相手の妨害により自分が場カードを手札からプレイできるか
-    _canIActivateFieldCardFromEnemy = YES; //相手の妨害により自分が場カードの能力を起動できるか
-    _canIPlayEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを手札からプレイできるか
-    _canIActivateEnergyCardFromEnemy = YES; //相手の妨害により自分がエネルギーカードを起動できるか
-    _denymyCardPlaying = NO; //自分がカードのプレイを打ち消されたか
     _myDamageFromAA = 0;
     _myDamageFromCard = 0;
     _mySelectColor = -1; //自分が選んだ色
@@ -759,6 +744,7 @@ nil];
     _enemyYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
     _enemyYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
     _enemySelectCharacter = -1; //相手の選んだキャラクター
+    _enemySelectCharacterByMyself = -1;
     _enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
     _enemyMonarModifyingAttackPower = 0; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
