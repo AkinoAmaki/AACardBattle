@@ -460,8 +460,8 @@
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],//60
-                                                   [NSNumber numberWithInt:10],
                                                    [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:10],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
@@ -611,30 +611,31 @@ nil];
     
 #pragma mark- 対戦に関連する各種数値の初期化
     
+    _enemyTimeStamp = @"";
     _myHand = [[NSMutableArray alloc] init]; //自分の手札
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    _myFieldCard = [[NSMutableArray alloc] initWithObjects: nil]; //自分の場カードのカードナンバー
-    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
+    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10], nil]; //自分の場カードのカードナンバー
+    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
     _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
     _myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）
     _myFieldCardByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
-    _myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
+    _myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
     _myDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
     _myHandByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyHand（差分のみ管理）
     _myTombByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyTomb（差分のみ管理）
     _myFieldCardByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
-    _myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
+    _myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
     _myDeckCardListFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyHand（差分のみ管理）
     _myTombFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyTomb（差分のみ管理）
     _myFieldCardFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyFieldCard（差分のみ管理）
-    _myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、増加したmyEnergyCard（差分のみ管理）
+    _myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、増加したmyEnergyCard（差分のみ管理）
     _myDeckCardListFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyDeckCardList（差分のみ管理）
     _myHandFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyHand（差分のみ管理）
     _myTombFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyTomb（差分のみ管理）
     _myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
-    _myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
+    _myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
     _myLifeGage = 20;
     _myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     _myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
@@ -721,12 +722,12 @@ nil];
     _enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
     _enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
     _enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
-    _enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
+    _enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
     _enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
     _enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
     _enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
     _enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
-    _enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
+    _enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
     _enemyGikoFundamentalAttackPower = 3; // 相手のギコの基本攻撃力
     _enemyGikoFundamentalDeffencePower = 0; //相手のギコの基本防御力
     _enemyMonarFundamentalAttackPower = 3; //相手のモナーの基本攻撃力
@@ -781,7 +782,7 @@ nil];
     _enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
     _doEnemyUseCard = NO; //相手がこのターンカードを使用したか
     _enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
-    _enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
+    _enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
     _canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
     _canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
     _canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか

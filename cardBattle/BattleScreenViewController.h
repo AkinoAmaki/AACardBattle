@@ -48,7 +48,7 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
-    //BOOL doEnemyDecideAction; //相手がカード使用・AAで選択フェイズを終えたかを管理する
+    NSMutableArray *targetedFieldCardInThisTurn; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
 
 
 }

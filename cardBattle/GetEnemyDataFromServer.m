@@ -14,9 +14,9 @@
     app = [[UIApplication sharedApplication] delegate];
     //相手プレイヤーのID等を送信
     enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
-                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],nil];
+                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],app.enemyTimeStamp,nil];
     enemyPlayerID_key = [[NSArray alloc] initWithObjects:
-                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",nil];
+                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",@"enemyTimeStamp",nil];
     
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:enemyPlayerID_parameter forKeys:enemyPlayerID_key];
@@ -64,6 +64,7 @@
 
 -(void)get{
     [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
@@ -136,6 +137,7 @@
         //***app.canIActivateEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:67] boolValue];
         //***app.denymyCardPlaying                               = [[battleDataWithoutArray objectAtIndex:68] boolValue];
         app.mySelectCharacterFromEnemy                      = [[battleDataWithoutArray objectAtIndex:57] intValue];
+        app.enemyTimeStamp                                  = [battleDataWithoutArray objectAtIndex:58];
 
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];
@@ -274,12 +276,12 @@
         app.enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
         app.enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
         app.enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
-        app.enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
+        app.enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
         app.enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
         app.enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
         app.enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
         app.enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
-        app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
+        app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
     }
 
     //自分によって操作されたカードの操作を反映する
@@ -365,12 +367,12 @@
     app.myHandByMyself_plus = [[NSMutableArray alloc] init];
     app.myTombByMyself_plus = [[NSMutableArray alloc] init];
     app.myFieldCardByMyself_plus = [[NSMutableArray alloc] init];
-    app.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
+    app.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
     app.myDeckCardListByMyself_minus = [[NSMutableArray alloc] init];
     app.myHandByMyself_minus = [[NSMutableArray alloc] init];
     app.myTombByMyself_minus = [[NSMutableArray alloc] init];
     app.myFieldCardByMyself_minus = [[NSMutableArray alloc] init];
-    app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
+    app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],  [NSNumber numberWithInt:0],nil];
     
     [SVProgressHUD dismiss];
 }

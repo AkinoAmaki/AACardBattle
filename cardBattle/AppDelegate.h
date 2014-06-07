@@ -54,6 +54,7 @@
 @property (nonatomic, retain) NSArray *damageSourceOfRed; //赤色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property (nonatomic, retain) NSArray *damageSourceOfGreen; //緑色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property BOOL decideAction; //自分がカードとAAをを選択し終えるとYESとなり、ターン終了時にNOに戻る
+@property NSString *enemyTimeStamp; //相手が最後にデータを更新した時刻
 
 
 //自分に関係する変数
