@@ -14,9 +14,9 @@
     app = [[UIApplication sharedApplication] delegate];
     //相手プレイヤーのID等を送信
     enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
-                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],app.enemyTimeStamp,nil];
+                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],nil];
     enemyPlayerID_key = [[NSArray alloc] initWithObjects:
-                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",@"enemyTimeStamp",nil];
+                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",nil];
     
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:enemyPlayerID_parameter forKeys:enemyPlayerID_key];
@@ -63,8 +63,6 @@
 
 
 -(void)get{
-    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
-
     [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
@@ -137,7 +135,6 @@
         //***app.canIActivateEnergyCardFromEnemy                 = [[battleDataWithoutArray objectAtIndex:67] boolValue];
         //***app.denymyCardPlaying                               = [[battleDataWithoutArray objectAtIndex:68] boolValue];
         app.mySelectCharacterFromEnemy                      = [[battleDataWithoutArray objectAtIndex:57] intValue];
-        app.enemyTimeStamp                                  = [battleDataWithoutArray objectAtIndex:58];
 
     
     app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithArray:[statuses objectAtIndex:1]];

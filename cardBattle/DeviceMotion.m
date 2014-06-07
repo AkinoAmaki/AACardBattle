@@ -187,11 +187,7 @@
                 [SVProgressHUD dismiss];
                 
                 SendDataToServer *sendData = [[SendDataToServer alloc] init];
-                while (![[sendData send] isEqualToString:@"諸データの更新が終了しました"]) {
-
-                }
-                GetEnemyDataFromServer *getEnemyData = [[GetEnemyDataFromServer alloc] init];
-                [getEnemyData get];
+                [sendData send];
                 
                 break;
             }

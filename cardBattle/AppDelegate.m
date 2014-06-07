@@ -610,11 +610,10 @@ nil];
     _decideAction = NO;
     
 #pragma mark- 対戦に関連する各種数値の初期化
-    
-    _enemyTimeStamp = @"";
+
     _myHand = [[NSMutableArray alloc] init]; //自分の手札
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10], nil]; //自分の場カードのカードナンバー
+    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:7], nil]; //自分の場カードのカードナンバー
     _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
     _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）

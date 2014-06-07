@@ -13,33 +13,23 @@
 -(NSString *)send{
     get = [[GetEnemyDataFromServer alloc] init];
     [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
+    while (!app.decideAction) {
+        [get doEnemyDecideAction:YES];
+    }
+    [NSThread sleepForTimeInterval:1.2];
+    [get doEnemyDecideAction:NO];
     [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み）を受け取る
-    resultString = [self sendData];//相手のカード効果等が反映済みの状態のデータ（自分の効果も反映済み）を送信する
-    [get get];//自分のカード効果等が反映済みの状態のデータ（相手の効果も反映済み）を受け取る
+//    resultString = [self sendData];//相手のカード効果等が反映済みの状態のデータ（自分の効果も反映済み）を送信する
+//    [get get];//自分のカード効果等が反映済みの状態のデータ（相手の効果も反映済み）を受け取る
     
     return resultString;
 }
 
 
 -(NSString *)sendData{
-    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
-    
     app = [[UIApplication sharedApplication] delegate];
 
     
-    //データを送る時のタイムスタンプを取得
-    // NSDateFormatter を用意
-    NSDateFormatter* df = [[NSDateFormatter alloc] init];
-    // カレンダーを西暦（グレゴリオ暦）で用意
-    NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    // カレンダーをセット
-    [df setCalendar:cal];
-    // タイムロケールをシステムロケールでセット（24時間表示のため）
-    [df setLocale:[NSLocale systemLocale]];
-    // タイムスタンプ書式をセット
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    // 現在日時から文字列を生成
-    NSString *dateString = [df stringFromDate:[NSDate date]];
     
     NSArray *myBattleData_parameter = [[NSArray alloc] initWithObjects:
                                        [NSNumber numberWithInt:app.playerID],
@@ -128,7 +118,6 @@
                                        app.enemyTombByMyself_minus,
                                        app.enemyFieldCardByMyself_minus,
                                        app.enemyEnergyCardByMyself_minus,
-                                       dateString,
                                        nil];
     
     NSArray *myBattleData_key = [[NSArray alloc] initWithObjects:
@@ -218,7 +207,6 @@
                                  @"enemyTombByMyself_minus",
                                  @"enemyFieldCardByMyself_minus",
                                  @"enemyEnergyCardByMyself_minus",
-                                 @"dateString",
                                  nil];
     
     
@@ -262,7 +250,6 @@
     NSLog(@"%@", string);
 
     return string;
-    [SVProgressHUD dismiss];
 }
 
 @end

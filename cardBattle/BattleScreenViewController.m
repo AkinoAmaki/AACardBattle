@@ -587,20 +587,18 @@
     
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
-//MARK: デバッグ用。終わったら元に戻す    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-//MARK: デバッグ用。終わったら元に戻す    [_battleStart show];
+//MARK: デバッグ用。終わったら元に戻す
+    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+//MARK: デバッグ用。終わったら元に戻す
+    [_battleStart show];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
-    app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 120008502;
-    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-    
-    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-    while (![[sendData send] isEqualToString:@"諸データの更新が終了しました"]) {
-        
-    }
-    GetEnemyDataFromServer *getEnemyData = [[GetEnemyDataFromServer alloc] init];
-    [getEnemyData get];
+//    app.enemyNickName = @"秋乃のiPhone4S";
+//    app.enemyPlayerID = 120008502;
+//    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+//    
+//    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+//    [sendData send];
     //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
 }
 
@@ -620,8 +618,7 @@
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-    getEnemyData = [[GetEnemyDataFromServer alloc] init];
-    [getEnemyData get];
+
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -706,6 +703,11 @@
     //MARK: デバッグ終わったら戻す}
     //MARK: デバッグ終わったら戻すapp.myAdditionalGettingCards = 0;
     [self activateCardInTiming:0];
+    while (!app.decideAction) {
+        [getEnemyData doEnemyDecideAction:YES];
+    }
+    [NSThread sleepForTimeInterval:1];
+    [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
     app.myLifeGage = app.myLifeGage - app.myDamageFromCard;
@@ -733,9 +735,10 @@
     
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
-        [NSThread sleepForTimeInterval:1];
         [getEnemyData doEnemyDecideAction:YES];
     }
+    [NSThread sleepForTimeInterval:1];
+    [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
     [self refleshView];
@@ -748,8 +751,13 @@
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
     [self activateCardInTiming:2];
-    NSLog(@"入れる枚数：%d",app.myAdditionalGettingCards);
+    while (!app.decideAction) {
+        [getEnemyData doEnemyDecideAction:YES];
+    }
+    [NSThread sleepForTimeInterval:1];
+    [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
+    NSLog(@"app.enemyGikoModifyingDeffencePower:%d",app.enemyGikoModifyingDeffencePower);
     [self activateCardInTiming:99];
     //カード効果でカードを引いたら処理する
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
@@ -762,6 +770,12 @@
             [self sync];
         }
     app.enemyDamageFromAA = [_bc damageCaliculate];
+    NSLog(@"app.enemyDamageFromAA:%d",app.enemyDamageFromAA);
+    while (!app.decideAction) {
+        [getEnemyData doEnemyDecideAction:YES];
+    }
+    [NSThread sleepForTimeInterval:1];
+    [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
     NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
@@ -773,8 +787,6 @@
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     //ターン終了時
-    [sendMyData send];
-    [self refleshView];
     NSLog(@"ターン終了フェイズ");
     //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ターン終了フェイズ"];
     //MARK: デバッグ終わったら戻す[self sync];
@@ -784,6 +796,11 @@
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
+    while (!app.decideAction) {
+        [getEnemyData doEnemyDecideAction:YES];
+    }
+    [NSThread sleepForTimeInterval:1];
+    [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self refleshView];
     //MARK: デバッグ終わったら戻す[self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
@@ -825,7 +842,6 @@
         [self sync];
     }
     [self initializeVariables];
-    [sendMyData send];
     [self nextTurn];
     
     
@@ -1285,6 +1301,7 @@
             break;
         case 62:
             //自分のフィールドカードと相手のフィールドカードを一枚交換する(U2)
+            //TODO :交換後、フィールドカードが発動しない原因を確認する
             if([app.myFieldCard count] == 0 || [app.enemyFieldCard count] == 0){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"カード使用不可" message:@"自分または相手のフィールドにカードがなかったため、使用できませんでした" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
@@ -1292,6 +1309,7 @@
                 [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) string:@"相手から奪うカードを選択してください"];
                 [self sync];
                 [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(sendMyFieldCardSelector:) string:@"相手に渡すカードを選択してください"];
+                [self sync];
             }
             break;
         case 63:
@@ -2289,6 +2307,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選ばれていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"キャラクターを選択する", nil];
         [alert show];
     }else{
+        [SVProgressHUD showWithStatus:@"相手の選択を待機中..." maskType:SVProgressHUDMaskTypeGradient];
         cardIsCompletlyUsed = YES;
         FINISHED1
     }
@@ -2815,23 +2834,23 @@
 -(void)myAttackPowerOperate:(int)character point:(int)x  temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.myGikoModifyingAttackPowerByMyself += x;
+            app.myGikoModifyingAttackPower += x;
         }else if (character == MONAR){
-            app.myMonarModifyingAttackPowerByMyself += x;
+            app.myMonarModifyingAttackPower += x;
         }else if (character == SYOBON){
-            app.mySyobonModifyingAttackPowerByMyself += x;
+            app.mySyobonModifyingAttackPower += x;
         }else if (character == YARUO){
-            app.myYaruoModifyingAttackPowerByMyself += x;
+            app.myYaruoModifyingAttackPower += x;
         }
     }else{
         if(character == GIKO){
-            app.myGikoFundamentalAttackPowerByMyself += x;
+            app.myGikoFundamentalAttackPower += x;
         }else if (character == MONAR){
-            app.myMonarFundamentalAttackPowerByMyself += x;
+            app.myMonarFundamentalAttackPower += x;
         }else if (character == SYOBON){
-            app.mySyobonFundamentalAttackPowerByMyself += x;
+            app.mySyobonFundamentalAttackPower += x;
         }else if (character == YARUO){
-            app.myYaruoFundamentalAttackPowerByMyself += x;
+            app.myYaruoFundamentalAttackPower += x;
         }
     }
 }
@@ -2840,23 +2859,23 @@
 -(void)myDeffencePowerOperate:(int)character point:(int)x temporary:(BOOL)temporary{
     if(temporary == YES){
         if(character == GIKO){
-            app.myGikoModifyingDeffencePowerByMyself += x;
+            app.myGikoModifyingDeffencePower += x;
         }else if (character == MONAR){
-            app.myMonarModifyingDeffencePowerByMyself += x;
+            app.myMonarModifyingDeffencePower += x;
         }else if (character == SYOBON){
-            app.mySyobonModifyingDeffencePowerByMyself += x;
+            app.mySyobonModifyingDeffencePower += x;
         }else if (character == YARUO){
-            app.myYaruoModifyingDeffencePowerByMyself += x;
+            app.myYaruoModifyingDeffencePower += x;
         }
     }else{
         if(character == GIKO){
-            app.myGikoFundamentalDeffencePowerByMyself += x;
+            app.myGikoFundamentalDeffencePower += x;
         }else if (character == MONAR){
-            app.myMonarFundamentalDeffencePowerByMyself += x;
+            app.myMonarFundamentalDeffencePower += x;
         }else if (character == SYOBON){
-            app.mySyobonFundamentalDeffencePowerByMyself += x;
+            app.mySyobonFundamentalDeffencePower += x;
         }else if (character == YARUO){
-            app.myYaruoFundamentalDeffencePowerByMyself += x;
+            app.myYaruoFundamentalDeffencePower += x;
         }
     }
 }
