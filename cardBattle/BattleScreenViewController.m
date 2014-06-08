@@ -587,18 +587,16 @@
     
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
-//MARK: デバッグ用。終わったら元に戻す
-    _battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-//MARK: デバッグ用。終わったら元に戻す
-    [_battleStart show];
+//MARK: デバッグ用。終わったら元に戻す_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+//MARK: デバッグ用。終わったら元に戻す[_battleStart show];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
-//    app.enemyNickName = @"秋乃のiPhone4S";
-//    app.enemyPlayerID = 120008502;
-//    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-//    
-//    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-//    [sendData send];
+    app.enemyNickName = @"秋乃のiPhone4S";
+    app.enemyPlayerID = 120008502;
+    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+    
+    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    [sendData send];
     //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
 }
 
@@ -757,7 +755,6 @@
     [NSThread sleepForTimeInterval:1];
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
-    NSLog(@"app.enemyGikoModifyingDeffencePower:%d",app.enemyGikoModifyingDeffencePower);
     [self activateCardInTiming:99];
     //カード効果でカードを引いたら処理する
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
@@ -770,7 +767,6 @@
             [self sync];
         }
     app.enemyDamageFromAA = [_bc damageCaliculate];
-    NSLog(@"app.enemyDamageFromAA:%d",app.enemyDamageFromAA);
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
@@ -1301,7 +1297,6 @@
             break;
         case 62:
             //自分のフィールドカードと相手のフィールドカードを一枚交換する(U2)
-            //TODO :交換後、フィールドカードが発動しない原因を確認する
             if([app.myFieldCard count] == 0 || [app.enemyFieldCard count] == 0){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"カード使用不可" message:@"自分または相手のフィールドにカードがなかったため、使用できませんでした" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
@@ -1315,6 +1310,7 @@
         case 63:
             //自分が場に出しているカードのフィールドカードのコピーになる(UU)
             [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(copyMyFieldCardSelector:) string:@"コピーするカードを選択してください"];
+            [self sync];
             break;
         case 64:
             //このカードが場に出ている限り、相手の攻撃力を３さげる(UU3)
@@ -1334,7 +1330,7 @@
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 67:
-            //相手のエネルギーカードを１つする破壊(RR2)
+            //相手のエネルギーカードを１つ破壊する(RR2)
             [self colorSelect];
             [self sync];
             int selectedColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
@@ -1350,7 +1346,7 @@
         }
             break;
         case 69:
-            //互いに全てのエネルギーカードを破壊する（W4)
+            //互いに全てのエネルギーカードを破壊する（R4)
             app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
             for (int i = 0; i < [app.enemyEnergyCard count]; i++) {
                 [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[app.enemyEnergyCard objectAtIndex:i]];
@@ -1358,72 +1354,75 @@
             break;
         case 70:
             //相手のライフに2点のダメージ（R)
-            app.enemyDamageFromCard += -2;
+            app.enemyDamageFromCard += 2;
             
             break;
         case 71:
             //相手のライフに3点のダメージ（R1)
-            app.enemyDamageFromCard += -3;
+            app.enemyDamageFromCard += 3;
             break;
         case 72:
             //毎ターン相手に１点のダメージ（R２)
-            app.enemyDamageFromCard += -1;
+            app.enemyDamageFromCard += 1;
             break;
         case 73:
             //自分のライフを１点削り、相手に3点ダメージ（R)
             app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-1];
-            app.enemyDamageFromCard += -3;
+            app.enemyDamageFromCard += 3;
             break;
         case 74:
             //自分のライフを２点削り、相手に4点ダメージ（RR)
             app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-2];
-            app.enemyDamageFromCard += -4;
+            app.enemyDamageFromCard += 4;
             break;
         case 75:
             //対象の場カードを破壊する（R1)
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self sync];
             break;
         case 76:
             //対象の場カードを２枚破壊する（R3)
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) string:str];
             [self sync];
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) string:str];
+            [self sync];
             break;
         case 77:
             //相手プレイヤーに2点ダメージ。相手がギコを選んでいれば5点ダメージ。（RR)
             if (app.enemySelectCharacter == GIKO) {
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-5];
+                app.enemyDamageFromCard += 5;
             }else{
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 78:
             //相手プレイヤーに2点ダメージ。相手がモナーを選んでいれば5点ダメージ。（RR)
             if (app.enemySelectCharacter == MONAR) {
-                app.enemyDamageFromCard += -5;
+                app.enemyDamageFromCard += 5;
             }else{
-                app.enemyDamageFromCard += -2;
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 79:
             //相手プレイヤーに2点ダメージ。相手がショボンを選んでいれば5点ダメージ。（RR)
             if (app.enemySelectCharacter == SYOBON) {
-                app.enemyDamageFromCard += -5;
+                app.enemyDamageFromCard += 5;
             }else{
-                app.enemyDamageFromCard += -2;
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 80:
             //相手プレイヤーに2点ダメージ。相手がやる夫を選んでいれば5点ダメージ。（RR)
             if (app.enemySelectCharacter == YARUO) {
-                app.enemyDamageFromCard += -5;
+                app.enemyDamageFromCard += 5;
             }else{
-                app.enemyDamageFromCard += -2;
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 81:
             //攻撃力が＋５される代わりに防御力が０になる（R１)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoFundamentalDeffencePowerByMyself + app.myGikoFundamentalDeffencePowerFromEnemy + app.myGikoModifyingDeffencePower + app.myGikoModifyingDeffencePowerByMyself + app.myGikoModifyingDeffencePowerFromEnemy) * -1 temporary:1];
@@ -1438,21 +1437,21 @@
         case 82:
             //相手がこのターンカードを使った場合、相手プレイヤーに3点のダメージ。使っていなければ1点ダメージ（RR)
             if(app.doEnemyUseCard == YES){
-                app.enemyDamageFromCard += -3;
+                app.enemyDamageFromCard += 3;
             }else{
-                app.enemyDamageFromCard += -1;
+                app.enemyDamageFromCard += 1;
             }
             break;
         case 83:
-            //相手がこのターンカードを使わなかった場合、相手プレイヤーに5点のダメージ。使っていなければ１点ダメージ。（RR)
+            //相手がこのターンカードを使わなかった場合、相手プレイヤーに5点のダメージ。使っていれば１点ダメージ。（RR)
             if(app.doEnemyUseCard == NO){
-                app.enemyDamageFromCard += -5;
+                app.enemyDamageFromCard += 5;
             }else{
-                app.enemyDamageFromCard += -1;
+                app.enemyDamageFromCard += 1;
             }
             break;
         case 84:
-            //相手プレイヤーに、場に出ている選んだ一色のエネルギーカードの枚数分のダメージ（R4)
+            //相手プレイヤーに、場に出ている選んだ一色のフィールドカードの枚数分のダメージ（R4)
             [self colorSelect];
             [self sync];
             int num = 0;
@@ -1466,7 +1465,7 @@
                     num++;
                 }
             }
-            app.enemyDamageFromCard -= num;
+            app.enemyDamageFromCard += num;
             app.mySelectColor = -1; //mySelectCharacerを初期化
             
             break;
@@ -1474,7 +1473,7 @@
             //エネルギーカードの種類数ぶんだけ相手プレイヤーにダメージ。（R1)
         {
             int num = [self distinguishTheNumberOfEnergyCardColor:MYSELF];
-            app.enemyDamageFromCard -= num;
+            app.enemyDamageFromCard += num;
         }
             break;
         case 86:
@@ -2892,7 +2891,6 @@
         }else if (character == YARUO){
             app.enemyYaruoModifyingAttackPowerByMyself += x;
         }
-        NSLog(@"app.enemyGikoModifyingAttackPowerByMyself:%d",app.enemyGikoModifyingAttackPowerByMyself);
     }else{
         if(character == GIKO){
             app.enemyGikoFundamentalAttackPowerByMyself += x;
@@ -3268,6 +3266,7 @@
         case 4:
             //ある領域のカードを見た際のOK,キャンセルボタンから飛んできた場合
             [_cardInRegion removeFromSuperview];
+            FINISHED1
             break;
             
         case 5:
@@ -3723,7 +3722,7 @@
             //ターン開始時
         case 0:
             for(int i = 0; i < [app.myFieldCard count]; i++){
-                if([app.fieldCardList_turnStart containsObject:[app.myFieldCard objectAtIndex:i]]){
+                if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_turnStart number:[app.myFieldCard objectAtIndex:i]] != -1){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
@@ -3731,7 +3730,7 @@
             //カード使用時
         case 1:
             for(int i = 0; i < [app.myFieldCard count]; i++){
-                if([app.fieldCardList_afterCardUsed containsObject:[app.myFieldCard objectAtIndex:i]]){
+                if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_afterCardUsed number:[app.myFieldCard objectAtIndex:i]] != -1){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
@@ -3739,7 +3738,7 @@
             //ダメージ計算時
         case 2:
             for(int i = 0; i < [app.myFieldCard count]; i++){
-                if([app.fieldCardList_damageCaliculate containsObject:[app.myFieldCard objectAtIndex:i]]){
+                if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_damageCaliculate number:[app.myFieldCard objectAtIndex:i]] != -1){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
@@ -3752,7 +3751,7 @@
             //ターン終了時
         case 3:
             for(int i = 0; i < [app.myFieldCard count]; i++){
-                if([app.fieldCardList_turnEnd containsObject:[app.myFieldCard objectAtIndex:i]]){
+                if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_turnEnd number:[app.myFieldCard objectAtIndex:i]] != -1){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
@@ -3760,7 +3759,7 @@
             //他のカード効果発動を待ってから最後に発動するカード
         case 99:
             for(int i = 0; i < [app.myFieldCard count]; i++){
-                if([app.fieldCardList_other containsObject:[app.myFieldCard objectAtIndex:i]]){
+                if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_other number:[app.myFieldCard objectAtIndex:i]] != -1){
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
@@ -3854,12 +3853,12 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
-    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedFieldCardInThisTurn number:[NSNumber numberWithInt:selectedCardOrder]] == -1){
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedFieldCardInThisTurn number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }else{
         [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-        
+        [targetedFieldCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
         [_cardInRegion removeFromSuperview];
         FINISHED1
     }
@@ -3907,6 +3906,7 @@
         [app.myFieldCardByMyself_plus addObject:[app.myFieldCard objectAtIndex:selectedCardOrder]];
         [app.myFieldCardByMyself_minus addObject:[NSNumber numberWithInt:63]];
         [_cardInRegion removeFromSuperview];
+        FINISHED1
     }
 }
 
