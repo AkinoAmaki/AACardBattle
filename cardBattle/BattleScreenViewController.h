@@ -49,7 +49,8 @@
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
     NSMutableArray *targetedFieldCardInThisTurn; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
-
+    NSMutableArray *targetedLibraryCardInThisTurn; //このターン、自分がカードを使用し、破壊対象としたライブラリのカードの一覧
+    NSMutableArray *targetedHandCardInThisTurn; //このターン、自分がカードを使用し、破壊対象とした手札のカードの一覧
 
 }
 

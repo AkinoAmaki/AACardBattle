@@ -28,8 +28,6 @@
 
 -(NSString *)sendData{
     app = [[UIApplication sharedApplication] delegate];
-
-    
     
     NSArray *myBattleData_parameter = [[NSArray alloc] initWithObjects:
                                        [NSNumber numberWithInt:app.playerID],
@@ -208,7 +206,6 @@
                                  @"enemyFieldCardByMyself_minus",
                                  @"enemyEnergyCardByMyself_minus",
                                  nil];
-    
     
     //送るデータをキーとともにディクショナリ化する
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:myBattleData_parameter forKeys:myBattleData_key];

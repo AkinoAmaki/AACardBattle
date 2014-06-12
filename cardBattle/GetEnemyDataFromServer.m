@@ -189,7 +189,6 @@
     [app.myTombFromEnemy_minus removeObjectAtIndex:0];
     [app.myFieldCardFromEnemy_minus removeObjectAtIndex:0];
     [app.myEnergyCardFromEnemy_minus removeObjectAtIndex:0];
-
     
     //相手プレイヤーによって操作された攻撃力・防御力・カード等の操作を反映する
     
@@ -281,39 +280,117 @@
         app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
     }
 
-    //自分によって操作されたカードの操作を反映する
-    for (int i = 0; i < [app.myDeckCardListByMyself_plus count]; i++) {
-        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:i]];
-    }
-    for (int i = 0; i < [app.myHandByMyself_plus count]; i++) {
-        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:i]];
-    }
-    for (int i = 0; i < [app.myTombByMyself_plus count]; i++) {
-        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:i]];
-    }
-    for (int i = 0; i < [app.myFieldCardByMyself_plus count]; i++) {
-        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:i]];
-    }
+//    //自分によって操作されたカードの操作を反映する
+//    for (int i = 0; i < [app.myDeckCardListByMyself_plus count]; i++) {
+//        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:i]];
+//    }
+//    for (int i = 0; i < [app.myHandByMyself_plus count]; i++) {
+//        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:i]];
+//    }
+//    for (int i = 0; i < [app.myTombByMyself_plus count]; i++) {
+//        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:i]];
+//    }
+//    for (int i = 0; i < [app.myFieldCardByMyself_plus count]; i++) {
+//        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:i]];
+//    }
     for (int i = 0; i < [app.myEnergyCardByMyself_plus count]; i++) {
         int x = [[app.myEnergyCard objectAtIndex:i] intValue];
         x += [[app.myEnergyCardByMyself_plus objectAtIndex:i] intValue];
         [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
     }
     
-    
     for (int i = 0; i < [app.myDeckCardListByMyself_minus count]; i++) {
-        [app.myDeckCardList removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myDeckCardList number:[app.myDeckCardListByMyself_minus objectAtIndex:i]]];
+        int j = [GetEnemyDataFromServer indexOfObjectForNSNumber:app.myDeckCardList number:[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+        if(j != -1){
+            [app.myDeckCardList removeObjectAtIndex:j];
+            
+            switch ([[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                case 0:
+                    [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 1:
+                    [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 2:
+                    [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 3:
+                    [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     for (int i = 0; i < [app.myHandByMyself_minus count]; i++) {
-        [app.myHand removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myHand number:[app.myHandByMyself_minus objectAtIndex:i]]];
+        int j = [GetEnemyDataFromServer indexOfObjectForNSNumber:app.myHand number:[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+        if(j != -1){
+            [app.myHand removeObjectAtIndex:j];
+            
+            switch ([[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                case 0:
+                    [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 1:
+                    [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 2:
+                    [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 3:
+                    [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     for (int i = 0; i < [app.myTombByMyself_minus count]; i++) {
-        [app.myTomb removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myTomb number:[app.myTombByMyself_minus objectAtIndex:i]]];
+        int j =[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myTomb number:[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+        if(j != -1){
+            [app.myTomb removeObjectAtIndex:j];
+            switch ([[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                case 0:
+                    [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 1:
+                    [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 2:
+                    [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 3:
+                    [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     
     
     for (int i = 0; i < [app.myFieldCardByMyself_minus count]; i++) {
-        [app.myFieldCard removeObjectAtIndex:[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[app.myFieldCardByMyself_minus objectAtIndex:i]]];
+        int j =[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+        if( j != -1){
+            [app.myFieldCard removeObjectAtIndex:j];
+            switch ([[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                case 0:
+                    [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 1:
+                    [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 2:
+                    [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                case 3:
+                    [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                    break;
+                default:
+                    break;
+            }
+            
+        }
     }
     
     for (int i = 0; i < [app.myEnergyCardByMyself_minus count]; i++) {

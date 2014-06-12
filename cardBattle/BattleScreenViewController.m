@@ -53,6 +53,8 @@
     doIUseCardInThisTurn = NO;
     cardIsCompletlyUsed = NO;
     targetedFieldCardInThisTurn = [[NSMutableArray alloc] init];
+    targetedLibraryCardInThisTurn = [[NSMutableArray alloc] init];
+    targetedHandCardInThisTurn = [[NSMutableArray alloc] init];
     
     _bc = [[BattleCaliculate alloc] init];
     getEnemyData = [[GetEnemyDataFromServer alloc] init];
@@ -735,7 +737,6 @@
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [NSThread sleepForTimeInterval:1];
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
@@ -763,7 +764,7 @@
         app.myAdditionalGettingCards = 0;
     //カード効果でカードを捨てたら処理する
         for (int i = 0; i < app.myAdditionalDiscardingCards; i++) {
-            [self discardFromHand:MYSELF string:@"捨てるカードを一枚選んでください"];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:@"捨てるカードを一枚選んでください"];
             [self sync];
         }
     app.enemyDamageFromAA = [_bc damageCaliculate];
@@ -834,7 +835,7 @@
     }
     
     while([app.myHand count] > 5){
-        [self discardFromHandInTurnEndPhase:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
+        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) string:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
         [self sync];
     }
     [self initializeVariables];
@@ -1069,6 +1070,7 @@
         case 30:
             //対象の場カードを破壊する
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self sync];
             break;
         case 31:
             //やる夫の攻撃力を１ターンだけ＋5する（W2)
@@ -1477,13 +1479,26 @@
         }
             break;
         case 86:
-            
+            //全てのエネルギーカードとフィールドカードを破壊する(RR5)
+        {
+            app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
+            for (int i = 0; i < [app.enemyEnergyCard count]; i++) {
+                [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:i withObject:[app.enemyEnergyCard objectAtIndex:i]];
+            }
+            for (int i = 0; i < [app.myFieldCard count]; i++) {
+                [self manipulateCard:[app.myFieldCard objectAtIndex:i] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+            }
+            for (int i = 0; i < [app.enemyFieldCard count]; i++) {
+                [self manipulateCard:[app.enemyFieldCard objectAtIndex:i] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+            }
+        }
             break;
         case 87:
-            //カードを１枚ランダムで捨てる。相手キャラの攻撃力−５（R３）
+            //カードを１枚ランダムで捨てる。相手キャラの攻撃力−５（R1）
         {
-            int rand = random() % [app.enemyHand count];
-            //                [self discardFromHand:ENEMY cardNumber:rand];
+            int rand = (int)(random() % [app.myHand count]);
+            NSLog(@"[app.myHand count]:%d",[app.myHand count]);
+            [self manipulateCard:[app.myHand objectAtIndex:rand] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
         }
             [self enemyAttackPowerOperate:GIKO point:-5 temporary:1];
             [self enemyAttackPowerOperate:MONAR point:-5 temporary:1];
@@ -1494,98 +1509,118 @@
         case 88:
             //相手がギコを選ぶたび、２点ダメージ（R1)
             if (app.enemySelectCharacter == GIKO) {
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 89:
             //相手がモナーを選ぶたび、２点ダメージ（R1)
             if (app.enemySelectCharacter == MONAR) {
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 90:
             //相手がショボンを選ぶたび、２点ダメージ（R1)
             if (app.enemySelectCharacter == SYOBON) {
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 91:
             //相手がやる夫を選ぶたび、２点ダメージ（R1)
             if (app.enemySelectCharacter == YARUO) {
-                app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+                app.enemyDamageFromCard += 2;
             }
             break;
         case 92:
             //毎ターン１点ダメージ（R2)
-            app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-1];
+            app.enemyDamageFromCard += 1;
             break;
         case 93:
             //自分の選択キャラの攻撃力−１、２点ダメージ（R)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
-            app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
+            app.enemyDamageFromCard += 1;
             break;
         case 94:
             //対象のエネルギーカードを破壊する（R2)
-            //            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
+            [self colorSelect];
+            [self sync];
+        {
+            int destroyedEnergyCard = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:destroyedEnergyCard + 1]];
+        }
+           
             break;
+
         case 95:
             //対象のエネルギーカードを２枚破壊する(RR3)
-            //            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            //            [self browseCardsInRegion:app.enemyEnergyCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyEnergyCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
+            [self colorSelect];
+            [self sync];
+        {
+            int destroyedEnergyCard = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:destroyedEnergyCard + 1]];
+        }
+            [self colorSelect];
+            [self sync];
+        {
+            int destroyedEnergyCard = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
+            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:destroyedEnergyCard + 1]];
+        }
             break;
         case 96:
             //このターン、黒エネルギーを＋３（B)
-            
+        {
+            int blackColor = [[app.enemyEnergyCardByMyself_plus objectAtIndex:2] intValue];
+            [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:(blackColor + 3)]];
+        }
             break;
         case 97:
             //相手プレイヤーのライフを１削り、自分は１回復（B１)
-            app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-1];
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:1];
+            app.enemyDamageFromCard += 1;
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:1];
             
             break;
         case 98:
             //相手プレイヤーのライフを２削り、自分は２回復（B2)
-            app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-2];
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:2];
-            
+            app.enemyDamageFromCard += 2;
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:2];
             break;
         case 99:
             //相手の手札をランダムで１枚減らす（B)
         {
-            //TODO: 対象配列にカードがないとき、エラーが起きないようにする（カードを移動する系の他のカードも全て同じ対応が必要！）
-            int rand = random() % [app.enemyHand count];
-            //                [self discardFromHand:ENEMY cardNumber:rand];
+            int rand = (int)(random() % [app.enemyHand count]);
+            [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
         }
             break;
         case 100:
             //相手の手札をランダムで２枚減らす（BB)
         {
-            int rand = random() % [app.enemyHand count];
-            //                [self discardFromHand:ENEMY cardNumber:rand];
-            
-            int rand2 = random() % [app.enemyHand count];
-            //                [self discardFromHand:ENEMY cardNumber:rand2];
+            int rand = (int)(random() % [app.enemyHand count]);
+            [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
+            int rand2 = (int)(random() % [app.enemyHand count]);
+            while(rand2 == rand){
+                rand2 = (int)(random() % [app.enemyHand count]);
+            }
+            [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
         }
             break;
         case 101:
             //相手の手札を全て減らす（BB3)
         {
             for (int i = 0; i < [app.enemyHand count]; i++) {
-                //                    [self discardFromHand:ENEMY cardNumber:0];
+                [self manipulateCard:[app.enemyHand objectAtIndex:i] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
             }
         }
             break;
         case 102:
-            //このターンに与えたダメージ分、自分は回復（B1)
-            //TODO: メソッド実装
+            //このターン相手の対象キャラの防御力を-3する（B1)
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
+            [self enemyDeffencePowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
             break;
         case 103:
             //攻撃力と防御力が−１される代わりにブロックされない（B１)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             app.enemyGikoDeffencePermittedByMyself = NO;
@@ -1595,101 +1630,97 @@
             break;
         case 104:
             //このターン、ライフを３点失う代わりに攻撃力が＋５される（BB)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:-3];
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-3];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
-            
             break;
         case 105:
             //毎ターンライフを５点失う代わりに攻撃力が＋８される（BB2)
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:-5];
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:8 temporary:0];
-            
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-5];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:8 temporary:1];
             break;
         case 106:
             //自分の場カードを破壊することでカードを２枚引く（B1)
-            //            [self browseCardsInRegion:app.myFieldCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            [self getACard:MYSELF];
-            [self getACard:MYSELF];
-            
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self sync];
+            app.myAdditionalGettingCards++;
+            app.myAdditionalGettingCards++;
             break;
         case 107:
             //エネルギーカードの種類数だけ、相手の攻撃力と防御力をマイナスさせる（B1)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self enemyAttackPowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             [self enemyDeffencePowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             break;
         case 108:
             //場のカードを破壊するが、ライフを３点失う（B1)
-            //            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-3];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self sync];
             break;
         case 109:
             //自分のターンの開始時に、相手プレイヤーはカードをランダムで１枚捨てる（BB2)
         {
-            int rand = random() % [app.enemyHand count];
-            //                [self discardFromHand:ENEMY cardNumber:rand];
+            int rand = (int)(random() % [app.enemyHand count]);
+            [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
         }
             break;
         case 110:
             //対象キャラの攻撃力・防御力を−１し、カードを一枚引く。（B2)
-            //TODO: app.mySelectCharacterに数値が入った時は、app.myCharacterAttackPowerとapp.myCharacterDeffencePowerにも数値が入るようにする。
-            //TODO: app.mySelectCharacterとapp.myCharacterAttackPowerとapp.myCharacterDeffencePowerはターン終了時に初期化する
-            
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
-            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
-            [self getACard:MYSELF];
-            
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
+            [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
+            [self enemyDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
+            app.myAdditionalGettingCards++;
             break;
         case 111:
             //自分のプレイヤーのターン終了時に場カードかエネルギーカードをランダムで１枚破壊（BB2)
         {
             int rand = random() % 2;
             if (rand == 0) {
-                int rand2 = random() % [app.enemyFieldCard count];
-                [self setCardFromXTOY:app.enemyFieldCard cardNumber:rand2 toField:app.enemyTomb];
+                int rand2 = (int)(random() % [app.enemyFieldCard count]);
+                [self manipulateCard:[app.enemyFieldCard objectAtIndex:rand2] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
             }else{
-                int rand3 = random() % [app.enemyEnergyCard count];
-                [self setCardFromXTOY:app.enemyEnergyCard cardNumber:rand3 toField:app.enemyTomb];
+                int rand3 = (int)(random() % [app.enemyEnergyCard count]);
+                int selectedColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:rand3] intValue];
+                [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:rand3 withObject:[NSNumber numberWithInt:selectedColor + 1]];
             }
         }
             break;
         case 112:
-            //相手プレイヤーがカードを使用するたび、カードを一枚引く（BB4)
+            //相手プレイヤーがこのターンカードを使用していれば、カードを一枚引く（BB4)
             if (app.doEnemyUseCard == YES) {
-                [self getACard:MYSELF];
+                app.myAdditionalGettingCards++;
             }
             break;
         case 113:
             //カードを一枚好きにサーチし、ライブラリを切り直す。ライフを４点失う（B1)
-            //            [self browseCardsInRegion:app.myDeckCardList touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
-            app.myLifeGage = [self HPOperate:app.myLifeGage point:-4];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
+            [self sync];
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-4];
             
             break;
         case 114:
             //カードを一枚好きにサーチし、ライブラリを切り直す（BB2)
-            //            [self browseCardsInRegion:app.myDeckCardList touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myDeckCardList cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myHand];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
             break;
         case 115:
             //相手プレイヤーのデッキからカードを一枚捨てる（B１)
-            //            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
-            [self discardFromLibrary:[self substituteSelectCardTagAndInitilizeIt]];
+            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardACardFromLibrarySelector:) string:str];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
             for (int i = 0; i < 10; i++) {
-                //                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES fromMethod:-1];
-                [self discardFromLibrary:[self substituteSelectCardTagAndInitilizeIt]];
+                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardMultiCardsFromLibrarySelector:) string:str];
+                [self sync];
             }
             break;
         case 117:
             //攻撃力は＋３されるが、防御力が半分になる（B)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) / 2 temporary:1];
@@ -1704,60 +1735,59 @@
             break;
         case 118:
             //相手プレイヤーの手札の中にある、カードを1枚選んで捨てる（BB2)
-            //            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
-            //            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
             break;
         case 119:
             //相手プレイヤーの手札の中にある、カードを2枚選んで捨てる（BB2)
-            //            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
-            //            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
             break;
         case 120:
             //各プレイヤーの場カードを一枚ずつランダムに破壊する（B)
         {
-            int rand1 = random() % [app.myFieldCard count];
-            [self setCardFromXTOY:app.myFieldCard cardNumber:rand1 toField:app.myTomb];
-            int rand2 = random() % [app.enemyFieldCard count];
-            [self setCardFromXTOY:app.enemyFieldCard cardNumber:rand2 toField:app.enemyTomb];
+            int rand1 = (int)(random() % [app.myFieldCard count]);
+            [self manipulateCard:[app.myFieldCard objectAtIndex:rand1] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+            int rand2 = (int)(random() % [app.enemyFieldCard count]);
+            [self manipulateCard:[app.enemyFieldCard objectAtIndex:rand2] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
         }
             break;
         case 121:
             //カードを一枚捨てる代わりに、相手のカードを好きに一枚捨てられる（B)
-            [self payAdditionalCost];
-            //            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
-            //            [self discardFromHand:ENEMY cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
             break;
         case 122:
-            //全プレイヤーは手札を捨てる（BB3)
-            
+            //全プレイヤーは手札を全て捨てる（BB3)
             for (int i = 0; i < [app.myHand count]; i++) {
-                //                    [self discardFromHand:MYSELF cardNumber:0];
+                [self manipulateCard:[app.myHand objectAtIndex:i] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
             }
             for (int i = 0; i < [app.enemyHand count]; i++) {
-                //                    [self discardFromHand:ENEMY cardNumber:0];
+                [self manipulateCard:[app.enemyHand objectAtIndex:i] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
             }
             break;
         case 123:
             //対象キャラは攻撃力＋２、防御力−２（B3)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:0];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:-2 temporary:0];
             break;
         case 124:
             //自分の場カードを破壊することで、対象プレイヤーはカードを２枚捨てる（B1)
-            //            [self browseCardsInRegion:app.myFieldCard touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myFieldCard cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            //            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
-            //            [self browseCardsInRegion:app.enemyHand touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.enemyHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.enemyTomb];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
             break;
         case 125:
             //カードを２枚捨てることで、ずっと攻撃力・防御力＋２（B1)
-            //            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
-            //            [self browseCardsInRegion:app.myHand touchCard:YES fromMethod:-1];
-            [self setCardFromXTOY:app.myHand cardNumber:[self substituteSelectCardTagAndInitilizeIt] toField:app.myTomb];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self sync];
             [self myAttackPowerOperate:GIKO point:2 temporary:0];
             [self myDeffencePowerOperate:GIKO point:2 temporary:0];
             [self myAttackPowerOperate:MONAR point:2 temporary:0];
@@ -1769,48 +1799,48 @@
             break;
         case 126:
             //毎ターン相手に３点ダメージ（BB3)
-            app.enemyLifeGage = [self HPOperate:app.enemyLifeGage point:-3];
+            app.enemyDamageFromCard += 3;
             break;
         case 127:
             //対象キャラの攻撃力・防御力を１ターン＋３（G)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             break;
         case 128:
             //対象キャラの攻撃力・防御力を１ターン＋７（G3)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:7 temporary:1];
             
             break;
         case 129:
             //対象キャラの攻撃力・防御力を１ターン＋１，カードを一枚引く（G)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
-            [self getACard:MYSELF];
+            app.myAdditionalGettingCards++;
             
             break;
         case 130:
             //１ターンの間、対象キャラの攻撃力・防御力を＋２，攻撃力そのままをダメージにする（G2)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせ、ブロックさせないAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせ、ブロックさせないAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
-            if(app.enemySelectCharacter == GIKO){
-                [self enemyDeffencePowerOperate:GIKO point:(app.enemyGikoFundamentalDeffencePower + app.enemyGikoModifyingDeffencePower) * -1 temporary:1];
-            }else if (app.enemySelectCharacter == MONAR){
-                [self enemyDeffencePowerOperate:MONAR point:(app.enemyMonarFundamentalDeffencePower + app.enemyMonarModifyingDeffencePower) * -1 temporary:1];
-            }else if (app.enemySelectCharacter == SYOBON){
-                [self enemyDeffencePowerOperate:SYOBON point:(app.enemySyobonFundamentalDeffencePower + app.enemySyobonModifyingDeffencePower) * -1 temporary:1];
-            }else{
-                [self enemyDeffencePowerOperate:YARUO point:(app.enemyYaruoFundamentalDeffencePower + app.enemyYaruoModifyingDeffencePower) * -1 temporary:1];
-            }
-            
+    
+            app.enemyGikoDeffencePermittedByMyself = NO;
+            app.enemyMonarDeffencePermittedByMyself = NO;
+            app.enemySyobonDeffencePermittedByMyself = NO;
+            app.enemyYaruoDeffencePermittedByMyself = NO;
             break;
         case 131:
             //対象キャラの攻撃力・防御力を１ターン＋4（G1)
-            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:(cardnumber + 1)]]];
+            [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             break;
@@ -2979,29 +3009,17 @@
     }
 }
 
-//対象プレイヤーは1枚カードを捨てる（対象プレイヤー（０なら自分、１なら相手）・対象プレイヤーの手札・捨てるカードの番号(myHand or enemyHandの配列番号)）
-- (void)discardFromHand :(int)man string:(NSString *)str{
-    if(man == 0){
-        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
-    }else{
-        [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
-    }
-}
 
-//ターン終了フェイズにおいて、手札が5枚を超えているときに使うメソッド
-- (void)discardFromHandInTurnEndPhase :(NSString *)str{
-    [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) string:str];
-}
-
-//対象プレイヤーの山札からカードを一枚墓地に捨てる（対象プレイヤー（対象プレイヤー・タグナンバー）
-- (void)discardFromLibrary :(int)num{
-    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:num] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
-}
 
 //対象プレイヤーのXという場（X=場カード置き場 or エネルギーカード置き場）から対象プレイヤーYという場にZというカードを置く（対象プレイヤー・移動元の場・移動元の配列の何番目に存在するか・移動後の場）
 - (void)setCardFromXTOY :(NSMutableArray *)fromField  cardNumber:(int)cardNumber toField:(NSMutableArray *)toField{
     [toField addObject:[fromField objectAtIndex:cardNumber]];
     [fromField removeObjectAtIndex:cardNumber];
+}
+
+//対象プレイヤーの山札からカードを一枚墓地に捨てる（対象プレイヤー（対象プレイヤー・タグナンバー）
+- (void)discardFromLibrary :(int)num{
+    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:num] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
 }
 
 //対象プレイヤーの山札の上からX枚のカードを見る（対象プレイヤー・見る枚数）
@@ -3051,40 +3069,6 @@
         mySelectCharacterInCharacterField = character;
         app.enemySelectCharacter = mySelectCharacterInCharacterField;
     }
-}
-
-
-//特定の場面でカードの追加コストを要求する
-- (void)payAdditionalCost{
-    
-    //TODO : カードたくさん入れるとはみ出るかも
-    
-    for (int i = 0; i < [app.myHand count]; i++) {
-        UIImageView *cardImage = [[UIImageView alloc] init];
-        [_additionalCostView addSubview:cardImage];
-        cardImage.frame = CGRectMake(10, 10 + (CARDHEIGHT) * i + (i  * 5), CARDWIDTH, CARDHEIGHT);
-        cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[app.myHand objectAtIndex:i]]];
-        cardImage.userInteractionEnabled = YES;
-        cardImage.tag = i + 1;
-        [cardImage addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(selectCard:)]];
-    }
-    [self createOkButton:CGRectMake(10, _additionalCostView.bounds.size.height - 100, 100, 20) parentView:_additionalCostView tag:0];
-    [self createCancelButton:CGRectMake(130, _additionalCostView.bounds.size.height - 100, 100, 20) parentView:_additionalCostView tag:1];
-    [_allImageView addSubview:_additionalCostView];
-    
-    
-}
-
-//特定の場面でライフの追加コストを要求する
-- (void)payAdditionalLife{
-    UITextView *textView = [[UITextView alloc] init];
-    [_additionalCostView addSubview:textView];
-    textView.frame = CGRectMake(10, 10, textView.superview.bounds.size.width -10, textView.superview.bounds.size.width -10);
-    [self createOkButton:CGRectMake(10, _additionalCostView.bounds.size.height - 100, 100, 20) parentView:_additionalCostView tag:2];
-    [self createCancelButton:CGRectMake(10, _additionalCostView.bounds.size.height - 100, 100, 20) parentView:_additionalCostView tag:3];
-    [_allImageView addSubview:_additionalCostView];
 }
 
 - (void)selectCard :(UITapGestureRecognizer *)sender{
@@ -3584,6 +3568,8 @@
     [getEnemyData doEnemyDecideAction:NO]; //app.decideAction = NOと初期化しておく
     _bc.reverse = NO;
     targetedFieldCardInThisTurn = [[NSMutableArray alloc] init];
+    targetedLibraryCardInThisTurn = [[NSMutableArray alloc] init];
+    targetedHandCardInThisTurn = [[NSMutableArray alloc] init];
     
     //自分に関係する変数
     app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
@@ -3755,6 +3741,9 @@
                     [self cardActivate:[[app.myFieldCard objectAtIndex:i] intValue] string:nil];
                 }
             }
+            if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.cardsIUsedInThisTurn number:[NSNumber numberWithInt:96]] != -1){
+                
+            }
             break;
             //他のカード効果発動を待ってから最後に発動するカード
         case 99:
@@ -3834,7 +3823,33 @@
 -(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self setCardFromXTOY:app.enemyHand cardNumber:selectedCardOrder toField:app.enemyTomb];
+    [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
+    [targetedHandCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+}
+
+-(void)discardEnemyMultiHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    
+    //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedHandCardInThisTurn number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
+        [targetedHandCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
+}
+
+-(void)destroyMyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.myFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+    
     [_cardInRegion removeFromSuperview];
     FINISHED1
 }
@@ -3843,7 +3858,7 @@
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-    
+    [targetedFieldCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
     [_cardInRegion removeFromSuperview];
     FINISHED1
 }
@@ -3910,6 +3925,37 @@
     }
 }
 
+-(void)getACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myDeckCardListByMyself_minus];
+    FINISHED1
+}
+
+-(void)discardACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+    [targetedLibraryCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    FINISHED1
+}
+
+-(void)discardMultiCardsFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    
+    //既に捨てる対象として選択されているカードが選択された場合は警告を出して弾く
+    //TODO: 捨てる対象としたカードがわかりやすいように色付けする
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedLibraryCardInThisTurn number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+        [targetedLibraryCardInThisTurn addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
+}
 
 -(void)normalSelector: (UITapGestureRecognizer *)sender{
     //selectedCardOrderに選ばれたカードの配列の順番だけ入れるセレクタ
@@ -3920,8 +3966,37 @@
 }
 
 -(void)manipulateCard:(NSNumber *)cardNumber plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{
+    //自分のカード効果等による自分自身のカードの移動は、もし先に相手の効果等により移動済みであった場合、空振りにしなければならない。そのためには、減少処理と増加処理を両方空振りさせる必要がある。
+    //マイナス配列は、GetEnemyDataFromServer.mのindexOfObjectForNSNumberにて返り値が-1となれば（相手に除去されている等の理由により）既に除去すべきカードがその領域に存在していない（減少処理の空振り）ことがわかるが、プラス配列の方は何もしないと（対応すべきマイナス配列が既に存在しないにもかかわらず）カードの増加処理を行ってしまうため、マイナス配列に対応する配列名及び配列番号を入れておくことで、マイナス配列が空振りした場合にプラス配列の増加処理も止めるように実装している。
+    //上記の通り、空振りさせるべきは「自分のカード効果等による、自分自身の」カードの移動のみであることから、自分が相手のカードを移動させるときには原則どおりマイナス配列に移動させるカードのカードナンバーを入れるだけの仕様である。
+    
+    //プラス配列毎に番号を振り、その番号をマイナス配列に保持させることでプラス配列を特定する
+    int tagNumberOfPlusArray = -1;
+    if(plusArray == app.myHandByMyself_plus){
+        tagNumberOfPlusArray = 0;
+    }else if (plusArray == app.myTombByMyself_plus){
+        tagNumberOfPlusArray = 1;
+    }else if (plusArray == app.myFieldCardByMyself_plus){
+        tagNumberOfPlusArray = 2;
+    }else if (plusArray == app.myDeckCardListByMyself_plus){
+        tagNumberOfPlusArray = 3;
+    }else if (plusArray == app.enemyHandByMyself_plus){
+        tagNumberOfPlusArray = 4;
+    }else if (plusArray == app.enemyTombByMyself_plus){
+        tagNumberOfPlusArray = 5;
+    }else if (plusArray == app.enemyFieldCardByMyself_plus){
+        tagNumberOfPlusArray = 6;
+    }else if (plusArray == app.enemyDeckCardListByMyself_plus){
+        tagNumberOfPlusArray = 7;
+    }
+    
+    if (minusArray == app.enemyHandByMyself_minus || minusArray == app.enemyTombByMyself_minus || minusArray == app.enemyFieldCardByMyself_minus || minusArray == app.enemyDeckCardListByMyself_minus) {
+        [minusArray addObject:cardNumber];
+    }else{
+        NSArray *tmpArray = [[NSArray alloc] initWithObjects:cardNumber, [NSNumber numberWithInt:tagNumberOfPlusArray],[NSNumber numberWithInt:[plusArray count]], nil];
+        [minusArray addObject:tmpArray];
+    }
     [plusArray addObject:cardNumber];
-    [minusArray addObject:cardNumber];
 }
 
 
