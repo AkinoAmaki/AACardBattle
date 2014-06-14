@@ -476,6 +476,7 @@
 }
 
 +(int)indexOfObjectForNSNumber:(NSArray *)array number:(NSNumber *)number{
+
     int i = [number intValue];
     for (int j = 0; j < [array count]; j++) {
         int k = [[array objectAtIndex:j] intValue];

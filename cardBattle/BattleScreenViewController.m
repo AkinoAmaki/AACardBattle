@@ -1269,9 +1269,9 @@
             app.myAdditionalDiscardingCards++;
             break;
         case 59:
-            //手札を全て捨て、同じだけの枚数のカードを引く(U3)
+            //手札を全て捨て、同じだけの枚数のカードを引く(１ターンに２枚以上使っても意味なし)(U3)
             {
-                int i = (int)[app.myHand count];
+                int i = (int)([app.myHand count] - [app.myHandByMyself_minus count]);
                 for (int k = 0; k < i; k++) {
                     [self manipulateCard:[app.myHand objectAtIndex:k] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
                     app.myAdditionalGettingCards++;
@@ -1309,7 +1309,7 @@
             }
             break;
         case 63:
-            //自分が場に出しているカードのフィールドカードのコピーになる(UU)
+            //自分が場に出しているカードのフィールドカードのコピーになる(このターン中に使わなければ破壊される)(UU)
             [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(copyMyFieldCardSelector:) string:@"コピーするカードを選択してください"];
             [self sync];
             break;
@@ -1471,7 +1471,7 @@
             
             break;
         case 85:
-            //エネルギーカードの種類数ぶんだけ相手プレイヤーにダメージ。（R1)
+            //エネルギーカードの種類数ぶんだけ相手プレイヤーにダメージ（R1)
         {
             int num = [self distinguishTheNumberOfEnergyCardColor:MYSELF];
             app.enemyDamageFromCard += num;
@@ -1739,7 +1739,7 @@
             [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 115:
-            //相手プレイヤーのデッキからカードを一枚捨てる（B3)
+            //相手プレイヤーのデッキからカードを一枚捨てる（BB2)
             [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardACardFromLibrarySelector:) string:str];
             [self sync];
             break;
@@ -3640,11 +3640,14 @@
     targetedEnemyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedMyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     
-        //エネルギーを１ターンだけ増やすカードを使用した場合、ターン終了時に元に戻しておく
+        //ターン終了時効果を失うカードについて、元に戻す処理をしておく
         for (int i = 0; i < [app.cardsIUsedInThisTurn count]; i++) {
-            if([[app.cardsIUsedInThisTurn objectAtIndex:i] intValue] == 96){
+            int k = [[app.cardsIUsedInThisTurn objectAtIndex:i] intValue];
+            if(k == 96){
                 int blackColor = [[app.myEnergyCard objectAtIndex:2] intValue];
                 [app.myEnergyCard replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:(blackColor - 3)]];
+            }else if (k == 63){
+                [self manipulateCard:[NSNumber numberWithInt:63] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
             }
         }
     
@@ -4015,7 +4018,10 @@
         [alert show];
     }else{
         [app.myFieldCardByMyself_plus addObject:[app.myFieldCard objectAtIndex:selectedCardOrder]];
-        [app.myFieldCardByMyself_minus addObject:[NSNumber numberWithInt:63]];
+        
+        //その他のマイナス配列と同じデータの入れ方を行う（２つめのNSNumber:2は、マイナス配列に対応するプラス配列がmyFieldCardByMyself_plusであることを意味する）
+        NSArray *tmpArray = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:63],[NSNumber numberWithInt:2],[NSNumber numberWithInt:selectedCardOrder], nil];
+        [app.myFieldCardByMyself_minus addObject:tmpArray];
         [_cardInRegion removeFromSuperview];
         FINISHED1
     }
