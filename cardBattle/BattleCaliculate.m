@@ -297,6 +297,7 @@ int manageCount;
     NSLog(@"自分の選択キャラ：%d", app.mySelectCharacter);
     NSLog(@"相手に与えたダメージ：%d",result);
     
+    if(result < 0) result = 0;
     return result;
 }
 @end

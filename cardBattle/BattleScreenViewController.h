@@ -41,6 +41,7 @@
     int myDrawCount; //自分の引いたカード枚数を管理
     int enemyDrawCount; //相手の引いたカード枚数を管理
     int selectedCardOrder; //現在選択されているカードは、手札の左から数えて何番目かを管理する（1番目なら0が入る）
+    BOOL selectCardIsCanceledInCardInRegion; //browseCardsInRegionのメソッドの中で、キャンセルボタンが押されたかどうかを管理する。
     BOOL costLife;//コストとしてライフを支払うことをOKとするか否かを管理する。
     int selectCardTag; //selectCardのメソッドが呼び出された時、呼び出し元のsender.view.tagを一時的に保存するタグ
     int mySelectCharacterInCharacterField; //カード効果により自分のキャラクターを選択する際のキャラクター
@@ -48,9 +49,12 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
-    NSMutableArray *targetedFieldCardInThisTurn; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
-    NSMutableArray *targetedLibraryCardInThisTurn; //このターン、自分がカードを使用し、破壊対象としたライブラリのカードの一覧
-    NSMutableArray *targetedHandCardInThisTurn; //このターン、自分がカードを使用し、破壊対象とした手札のカードの一覧
+    BOOL searchACardInsteadOfGetACardFromLibraryTop; //ターンの最初のドローの代わりにその他の領域からカードを引いたかを管理する（引いた場合、ターン最初のドローは無し）
+    NSMutableArray *targetedFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
+    NSMutableArray *targetedLibraryCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたライブラリのカードの一覧
+    NSMutableArray *targetedLibraryCardInThisTurn_get; //このターン、自分がカードを使用し、取得対象としたライブラリのカードの一覧
+    NSMutableArray *targetedEnemyHandCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象とした相手の手札のカードの一覧
+    NSMutableArray *targetedMyHandCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象とした自分の手札のカードの一覧
 
 }
 
@@ -188,6 +192,7 @@
 @property UIAlertView *doIUseSorcerycard;
 @property UIAlertView *doIUseFieldcard;
 @property UIAlertView *doIUseEnergycard;
+@property UIAlertView *searchEnergyCardOrGetACard;
 
 - (IBAction)keisan:(id)sender;
 - (void) transitView:(NSNotification *)note;

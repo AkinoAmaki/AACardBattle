@@ -251,23 +251,7 @@
             }
             [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
         }
-        
-        app.enemyGikoFundamentalAttackPowerByMyself = 0;
-        app.enemyGikoFundamentalDeffencePowerByMyself = 0;
-        app.enemyMonarFundamentalAttackPowerByMyself = 0;
-        app.enemyMonarFundamentalDeffencePowerByMyself = 0;
-        app.enemySyobonFundamentalAttackPowerByMyself = 0;
-        app.enemySyobonFundamentalDeffencePowerByMyself = 0;
-        app.enemyYaruoFundamentalAttackPowerByMyself = 0;
-        app.enemyYaruoFundamentalDeffencePowerByMyself = 0;
-        app.enemyGikoModifyingAttackPowerByMyself = 0;
-        app.enemyGikoModifyingDeffencePowerByMyself = 0;
-        app.enemyMonarModifyingAttackPowerByMyself = 0;
-        app.enemyMonarModifyingDeffencePowerByMyself = 0;
-        app.enemySyobonModifyingAttackPowerByMyself = 0;
-        app.enemySyobonModifyingDeffencePowerByMyself = 0;
-        app.enemyYaruoModifyingAttackPowerByMyself = 0;
-        app.enemyYaruoModifyingDeffencePowerByMyself = 0;
+
         app.enemyDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyDeckCardList（差分のみ管理）
         app.enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
         app.enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
@@ -401,6 +385,41 @@
         }
         [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
     }
+    
+    app.enemyGikoFundamentalAttackPower     +=    app.enemyGikoFundamentalAttackPowerByMyself;
+    app.enemyGikoFundamentalDeffencePower   +=    app.enemyGikoFundamentalDeffencePowerByMyself;
+    app.enemyMonarFundamentalAttackPower    +=    app.enemyMonarFundamentalAttackPowerByMyself;
+    app.enemyMonarFundamentalDeffencePower  +=    app.enemyMonarFundamentalDeffencePowerByMyself;
+    app.enemySyobonFundamentalAttackPower   +=    app.enemySyobonFundamentalAttackPowerByMyself;
+    app.enemySyobonFundamentalDeffencePower +=    app.enemySyobonFundamentalDeffencePowerByMyself;
+    app.enemyYaruoFundamentalAttackPower    +=    app.enemyYaruoFundamentalAttackPowerByMyself;
+    app.enemyYaruoFundamentalDeffencePower  +=    app.enemyYaruoFundamentalDeffencePowerByMyself;
+    app.enemyGikoModifyingAttackPower       +=    app.enemyGikoModifyingAttackPowerByMyself;
+    app.enemyGikoModifyingDeffencePower     +=    app.enemyGikoModifyingDeffencePowerByMyself;
+    app.enemyMonarModifyingAttackPower      +=    app.enemyMonarModifyingAttackPowerByMyself;
+    app.enemyMonarModifyingDeffencePower    +=    app.enemyMonarModifyingDeffencePowerByMyself;
+    app.enemySyobonModifyingAttackPower     +=    app.enemySyobonModifyingAttackPowerByMyself;
+    app.enemySyobonModifyingDeffencePower   +=    app.enemySyobonModifyingDeffencePowerByMyself;
+    app.enemyYaruoModifyingAttackPower      +=    app.enemyYaruoModifyingAttackPowerByMyself;
+    app.enemyYaruoModifyingDeffencePower    +=    app.enemyYaruoModifyingDeffencePowerByMyself;
+    
+    app.enemyGikoFundamentalAttackPowerByMyself = 0;
+    app.enemyGikoFundamentalDeffencePowerByMyself = 0;
+    app.enemyMonarFundamentalAttackPowerByMyself = 0;
+    app.enemyMonarFundamentalDeffencePowerByMyself = 0;
+    app.enemySyobonFundamentalAttackPowerByMyself = 0;
+    app.enemySyobonFundamentalDeffencePowerByMyself = 0;
+    app.enemyYaruoFundamentalAttackPowerByMyself = 0;
+    app.enemyYaruoFundamentalDeffencePowerByMyself = 0;
+    app.enemyGikoModifyingAttackPowerByMyself = 0;
+    app.enemyGikoModifyingDeffencePowerByMyself = 0;
+    app.enemyMonarModifyingAttackPowerByMyself = 0;
+    app.enemyMonarModifyingDeffencePowerByMyself = 0;
+    app.enemySyobonModifyingAttackPowerByMyself = 0;
+    app.enemySyobonModifyingDeffencePowerByMyself = 0;
+    app.enemyYaruoModifyingAttackPowerByMyself = 0;
+    app.enemyYaruoModifyingDeffencePowerByMyself = 0;
+    
     
     app.myLifeGage += app.myLifeGageByMyself;
     app.myGikoFundamentalAttackPower += app.myGikoFundamentalAttackPowerByMyself; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
