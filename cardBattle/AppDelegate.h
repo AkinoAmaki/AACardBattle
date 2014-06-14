@@ -247,7 +247,7 @@
 @property (nonatomic, retain) NSMutableArray *cardsEnemyUsedInThisTurn; //このターン相手が使用したカード一覧
 
 
-- (NSMutableArray *)shuffledArray :(NSMutableArray *)array;
++ (NSMutableArray *)shuffledArray :(NSMutableArray *)array;
 
 
 

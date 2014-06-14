@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "424431269.723103"
+            timestampString = "424456448.618305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1493"
-            endingLineNumber = "1493"
+            startingLineNumber = "1496"
+            endingLineNumber = "1496"
             landmarkName = "-cardActivate:string:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "424431505.363914"
+            timestampString = "424456448.618305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4102"
-            endingLineNumber = "4102"
+            startingLineNumber = "4121"
+            endingLineNumber = "4121"
             landmarkName = "-manipulateCard:plusArray:minusArray:"
             landmarkType = "5">
          </BreakpointContent>

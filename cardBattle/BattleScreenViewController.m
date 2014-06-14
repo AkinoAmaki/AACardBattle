@@ -1078,14 +1078,17 @@
             break;
         case 33:
             //相手のライブラリーを上から２枚削る（W１）
-            [self discardFromLibrary:0];
             [self discardFromLibrary:1];
+            [self discardFromLibrary:0];
             break;
         case 34:
-            //相手のライブラリーを上から半分削る（WW2)
-            for (int i = 0; i < [app.enemyDeckCardList count] / 2; i++) {
-                [self discardFromLibrary:i];
+            //相手のライブラリーを上から半分削る（WW5)
+        {
+            int k = [app.enemyDeckCardList count] - [app.enemyDeckCardListByMyself_minus count];
+            for (int i = k ; i > (k / 2); i--) {
+                [self discardFromLibrary:i - 1];
             }
+        }
             break;
         case 35:
             //エネルギーカードの種類数×2だけライフを回復する（W）
@@ -1492,7 +1495,7 @@
         case 87:
             //カードを１枚ランダムで捨てる。相手キャラの攻撃力−５（R1）
         {
-            int count = [app.myHand count];
+            int count = [app.myHand count] - [app.myHandByMyself_minus count];
             if(count != 0){
                 int rand = (int)(random() % count);
                 NSLog(@"[app.myHand count]:%d",[app.myHand count]);
@@ -1589,8 +1592,8 @@
         case 99:
             //相手の手札をランダムで１枚減らす（B)
         {
-            int count = [app.enemyHand count];
-            if(count != 0){
+            int count = [app.enemyHand count] - [app.enemyHandByMyself_minus count];
+            if(count >= 1){
                 int rand = (int)(random() % count);
                 [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
             }
@@ -1599,9 +1602,9 @@
         case 100:
             //相手の手札をランダムで２枚減らす（BB)
         {
-            int count = [app.enemyHand count];
+            int count = [app.enemyHand count] - [app.enemyHandByMyself_minus count];
             int rand = 0;
-            if(count != 0){
+            if(count >= 0){
                 rand  = (int)(random() % count);
             }
             if(count >= 1){
@@ -1685,8 +1688,8 @@
         case 109:
             //自分のターンの開始時に、相手プレイヤーはカードをランダムで１枚捨てる（BB2)
         {
-            int count = [app.enemyHand count];
-            if(count != 0){
+            int count = [app.enemyHand count] - [app.enemyHandByMyself_minus count];
+            if(count >= 1){
                 int rand = (int)(random() % count);
                 [self manipulateCard:[app.enemyHand objectAtIndex:rand] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
             }
@@ -1704,11 +1707,13 @@
             //自分のプレイヤーのターン終了時に場カードかエネルギーカードをランダムで１枚破壊（BB2)
         {
             int rand = random() % 2;
-            if (rand == 0) {
-                int rand2 = (int)(random() % [app.enemyFieldCard count]);
+            if (rand == 0 && ([app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count]) >= 1) {
+                int count = [app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count];
+                int rand2 = (int)(random() % count);
                 [self manipulateCard:[app.enemyFieldCard objectAtIndex:rand2] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
             }else{
-                int rand3 = (int)(random() % [app.enemyEnergyCard count]);
+                int count2 = [app.enemyEnergyCard count];
+                int rand3 = (int)(random() % count2);
                 int selectedColor = [[app.enemyEnergyCardByMyself_minus objectAtIndex:rand3] intValue];
                 [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:rand3 withObject:[NSNumber numberWithInt:selectedColor + 1]];
             }
@@ -1722,18 +1727,21 @@
             break;
         case 113:
             //カードを一枚好きにサーチし、ライブラリを切り直す。ライフを４点失う（B1)
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-4];
             [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
             [self sync];
-            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-4];
-            
+            [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 114:
             //カードを一枚好きにサーチし、ライブラリを切り直す（BB2)
             [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
+            [self sync];
+            [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 115:
-            //相手プレイヤーのデッキからカードを一枚捨てる（B１)
+            //相手プレイヤーのデッキからカードを一枚捨てる（B3)
             [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardACardFromLibrarySelector:) string:str];
+            [self sync];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
@@ -1748,33 +1756,43 @@
             [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
-                [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) / 2 temporary:1];
+                [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) * -1 / 2 temporary:1];
             }else if (mySelectCharacterInCharacterField == MONAR){
-                [self myDeffencePowerOperate:MONAR point:(app.myMonarFundamentalDeffencePower + app.myMonarModifyingDeffencePower) / 2 temporary:1];
+                [self myDeffencePowerOperate:MONAR point:(app.myMonarFundamentalDeffencePower + app.myMonarModifyingDeffencePower) * -1 / 2 temporary:1];
             }else if (mySelectCharacterInCharacterField == SYOBON){
-                [self myDeffencePowerOperate:SYOBON point:(app.mySyobonFundamentalDeffencePower + app.mySyobonModifyingDeffencePower) / 2 temporary:1];
+                [self myDeffencePowerOperate:SYOBON point:(app.mySyobonFundamentalDeffencePower + app.mySyobonModifyingDeffencePower) * -1 / 2 temporary:1];
             }else{
-                [self myDeffencePowerOperate:YARUO point:(app.myYaruoFundamentalDeffencePower + app.myYaruoModifyingDeffencePower) / 2 temporary:1];
+                [self myDeffencePowerOperate:YARUO point:(app.myYaruoFundamentalDeffencePower + app.myYaruoModifyingDeffencePower) * -1 / 2 temporary:1];
             }
             
             break;
         case 118:
             //相手プレイヤーの手札の中にある、カードを1枚選んで捨てる（BB2)
             [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
+            [self sync];
             break;
         case 119:
             //相手プレイヤーの手札の中にある、カードを2枚選んで捨てる（BB2)
             [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
             [self sync];
             [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
+            [self sync];
             break;
         case 120:
             //各プレイヤーの場カードを一枚ずつランダムに破壊する（B)
         {
-            int rand1 = (int)(random() % [app.myFieldCard count]);
-            [self manipulateCard:[app.myFieldCard objectAtIndex:rand1] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
-            int rand2 = (int)(random() % [app.enemyFieldCard count]);
-            [self manipulateCard:[app.enemyFieldCard objectAtIndex:rand2] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+            int count1 = [app.myFieldCard count] - [app.myFieldCardByMyself_minus count];
+            int count2 = [app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count];
+            
+            if(count1 >= 1){
+                int rand1 = (int)(random() % [app.myFieldCard count]);
+                [self manipulateCard:[app.myFieldCard objectAtIndex:rand1] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+            }
+            
+            if(count2 >= 1){
+                int rand2 = (int)(random() % [app.enemyFieldCard count]);
+                [self manipulateCard:[app.enemyFieldCard objectAtIndex:rand2] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+            }
         }
             break;
         case 121:
@@ -3056,7 +3074,10 @@
 
 //対象プレイヤーの山札からカードを一枚墓地に捨てる（対象プレイヤー（対象プレイヤー・タグナンバー）
 - (void)discardFromLibrary :(int)num{
-    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:num] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+    int count = [app.enemyDeckCardList count] - [app.enemyDeckCardListByMyself_minus count];
+    if(count >= num + 1){
+        [self manipulateCard:[app.enemyDeckCardList objectAtIndex:num] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+    }
 }
 
 //対象プレイヤーの山札の上からX枚のカードを見る（対象プレイヤー・見る枚数）
@@ -3606,11 +3627,6 @@
     return NO;
 }
 
-//山札を切り直す
-- (void)shuffleLibrary{
-    app.myDeckCardList = [app shuffledArray:app.myDeckCardList];
-}
-
 //ターン終了時に各種変数を初期化する
 - (void)initializeVariables{
     
@@ -4009,6 +4025,7 @@
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myDeckCardListByMyself_minus];
+    [_cardInRegion removeFromSuperview];
     FINISHED1
 }
 
@@ -4023,6 +4040,7 @@
         [alert show];
     }else{
         [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myDeckCardListByMyself_minus];
+        [_cardInRegion removeFromSuperview];
         FINISHED1
     }
 }
@@ -4048,6 +4066,7 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [self manipulateCard:[app.enemyDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
     [targetedLibraryCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    [_cardInRegion removeFromSuperview];
     FINISHED1
 }
 
