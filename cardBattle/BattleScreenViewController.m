@@ -1781,8 +1781,8 @@
         case 120:
             //各プレイヤーの場カードを一枚ずつランダムに破壊する（B)
         {
-            int count1 = [app.myFieldCard count] - [app.myFieldCardByMyself_minus count];
-            int count2 = [app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count];
+            int count1 = (int)([app.myFieldCard count] - [app.myFieldCardByMyself_minus count]);
+            int count2 = (int)([app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count]);
             
             if(count1 >= 1){
                 int rand1 = (int)(random() % [app.myFieldCard count]);
@@ -1797,9 +1797,17 @@
             break;
         case 121:
             //カードを一枚捨てる代わりに、相手のカードを好きに一枚捨てられる（B)
+            
+            //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
+            selectCardIsCanceledInCardInRegion = NO;
             [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
+            if(selectCardIsCanceledInCardInRegion == NO){
+                [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
+                [self sync];
+            }else{
+                selectCardIsCanceledInCardInRegion = NO;
+            }
             break;
         case 122:
             //全プレイヤーは手札を全て捨てる（BB3)
@@ -1811,7 +1819,7 @@
             }
             break;
         case 123:
-            //対象キャラは攻撃力＋２、防御力−２（B3)
+            //対象キャラはずっと攻撃力＋２、防御力−２（B3)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:0];
@@ -1819,18 +1827,28 @@
             break;
         case 124:
             //カードを２枚捨てることで、ずっと攻撃力・防御力＋２（B1)
+            
+            //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
+            selectCardIsCanceledInCardInRegion = NO;
             [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
             [self sync];
+            BOOL b = selectCardIsCanceledInCardInRegion;
+            
+            selectCardIsCanceledInCardInRegion = NO;
             [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
             [self sync];
-            [self myAttackPowerOperate:GIKO point:2 temporary:0];
-            [self myDeffencePowerOperate:GIKO point:2 temporary:0];
-            [self myAttackPowerOperate:MONAR point:2 temporary:0];
-            [self myDeffencePowerOperate:MONAR point:2 temporary:0];
-            [self myAttackPowerOperate:SYOBON point:2 temporary:0];
-            [self myDeffencePowerOperate:SYOBON point:2 temporary:0];
-            [self myAttackPowerOperate:YARUO point:2 temporary:0];
-            [self myDeffencePowerOperate:YARUO point:2 temporary:0];
+            if(selectCardIsCanceledInCardInRegion == NO && b == NO){
+                [self myAttackPowerOperate:GIKO point:2 temporary:0];
+                [self myDeffencePowerOperate:GIKO point:2 temporary:0];
+                [self myAttackPowerOperate:MONAR point:2 temporary:0];
+                [self myDeffencePowerOperate:MONAR point:2 temporary:0];
+                [self myAttackPowerOperate:SYOBON point:2 temporary:0];
+                [self myDeffencePowerOperate:SYOBON point:2 temporary:0];
+                [self myAttackPowerOperate:YARUO point:2 temporary:0];
+                [self myDeffencePowerOperate:YARUO point:2 temporary:0];
+            }else{
+                selectCardIsCanceledInCardInRegion = NO;
+            }
             break;
         case 125:
             //毎ターン相手に３点ダメージ（BB3)
@@ -1858,7 +1876,6 @@
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             app.myAdditionalGettingCards++;
-            
             break;
         case 129:
             //１ターンの間、対象キャラの攻撃力・防御力を＋２，攻撃力そのままをダメージにする（G2)
