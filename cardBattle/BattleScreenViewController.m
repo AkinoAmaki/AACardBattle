@@ -55,10 +55,16 @@
     doIUseCardInThisTurn = NO;
     cardIsCompletlyUsed = NO;
     searchACardInsteadOfGetACardFromLibraryTop = NO;
-    targetedFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedLibraryCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedEnemyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedMyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedMyTombCardInThisTurn_get = [[NSMutableArray alloc] init];
+    targetedMyLibraryCardInThisTurn_get = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_return = [[NSMutableArray alloc] init];
+    targetedMyTombCardInThisTurn_return = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_steal = [[NSMutableArray alloc] init];
+    targetedMyFieldCardInThisTurn_send = [[NSMutableArray alloc] init];
     
     _bc = [[BattleCaliculate alloc] init];
     getEnemyData = [[GetEnemyDataFromServer alloc] init];
@@ -1919,12 +1925,16 @@
             app.mySelectCharacter = GIKO;
             break;
         case 133:
-            //２ターン、双方ともダメージ無効（G2)
-            
+            //墓地からカードを一枚手札に戻す（G2)
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getACardFromMyTombSelector:) string:str];
+            [self sync];
             break;
         case 134:
-            //このターン、双方ともダメージ無効。次のターン攻撃させない（G1)
-            
+            //墓地からカードを二枚手札に戻す（G3)
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) string:str];
+            [self sync];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) string:str];
+            [self sync];
             break;
         case 135:
             //このターン攻撃力そのままをダメージにする（G)
@@ -1944,6 +1954,7 @@
             //エネルギーカードを１枚サーチ（G１)
             [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getAEnergyCardFromLibrarySelector:) string:str];
             [self sync];
+            [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 138:
             //エネルギーカードを２枚サーチ（GG2)
@@ -1951,9 +1962,12 @@
             [self sync];
             [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getMultiEnergyCardFromLibraryHandSelector:) string:str];
             [self sync];
+            [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 139:
-            //（G1)
+            //墓地のカードをライブラリーの一番下に戻す（G)
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(returnMyTombCardToLibrarySelector:) string:str];
+            [self sync];
             break;
         case 140:
             //対象の場カードを破壊する（G1)
@@ -3652,10 +3666,18 @@
     _bc.reverse = NO;
     searchACardInsteadOfGetACardFromLibraryTop = NO;
     selectCardIsCanceledInCardInRegion = NO;
-    targetedFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedMyFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedMyFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedLibraryCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedEnemyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedMyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
+    targetedMyTombCardInThisTurn_get = [[NSMutableArray alloc] init];
+    targetedMyLibraryCardInThisTurn_get = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_return = [[NSMutableArray alloc] init];
+    targetedMyTombCardInThisTurn_return = [[NSMutableArray alloc] init];
+    targetedEnemyFieldCardInThisTurn_steal = [[NSMutableArray alloc] init];
+    targetedMyFieldCardInThisTurn_send = [[NSMutableArray alloc] init];
     
         //ターン終了時効果を失うカードについて、元に戻す処理をしておく
         for (int i = 0; i < [app.cardsIUsedInThisTurn count]; i++) {
@@ -3905,44 +3927,14 @@
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-    [_cardInRegion removeFromSuperview];
-    
-    FINISHED1
-}
-
--(void)discardMyHandInTurnEndPhaseSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-    [_cardInRegion removeFromSuperview];
-    
-    FINISHED1
-}
-
-
--(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
-    [targetedEnemyHandCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
-}
-
--(void)discardEnemyMultiHandSelector: (UITapGestureRecognizer *)sender{
-    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
-    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
-    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyHandCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyHandCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }else{
-        [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
-        [targetedEnemyHandCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
-        [_cardInRegion removeFromSuperview];
-        FINISHED1
+    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
     }
 }
 
@@ -3962,21 +3954,76 @@
     }
 }
 
+
+-(void)discardMyHandInTurnEndPhaseSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
+    [_cardInRegion removeFromSuperview];
+    
+    FINISHED1
+}
+
+
+-(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyHandCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+    [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
+    [targetedEnemyHandCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    [_cardInRegion removeFromSuperview];
+    FINISHED1
+    }
+}
+
+-(void)discardEnemyMultiHandSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    
+    //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyHandCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyHand objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyHandByMyself_minus];
+        [targetedEnemyHandCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
+}
+
 -(void)destroyMyFieldCardSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.myFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
+    //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyFieldCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.myFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+        [targetedMyFieldCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
 }
 
 -(void)destroyEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyFieldCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
     [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-    [targetedFieldCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    [targetedEnemyFieldCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
     [_cardInRegion removeFromSuperview];
     FINISHED1
+    }
 }
 
 -(void)destroyMultiEnemyFieldCardsSelector: (UITapGestureRecognizer *)sender{
@@ -3984,12 +4031,12 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
-    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedFieldCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyFieldCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }else{
         [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-        [targetedFieldCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [targetedEnemyFieldCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
         [_cardInRegion removeFromSuperview];
         FINISHED1
     }
@@ -3998,17 +4045,46 @@
 -(void)returnEnemyFieldCardToHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
+    //既に戻す対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyFieldCardInThisTurn_return number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+        [targetedEnemyFieldCardInThisTurn_return addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
+}
+
+-(void)returnMyTombCardToLibrarySelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    //既に戻す対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyTombCardInThisTurn_return number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.myTomb objectAtIndex:selectedCardOrder] plusArray:app.myDeckCardListByMyself_plus minusArray:app.myTombByMyself_minus];
+        [targetedMyTombCardInThisTurn_return addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
 }
 
 -(void)stealEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myFieldCardByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
+    //既に盗む対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedEnemyFieldCardInThisTurn_steal number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyFieldCard objectAtIndex:selectedCardOrder] plusArray:app.myFieldCardByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+        [targetedEnemyFieldCardInThisTurn_steal addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
 }
 
 -(void)putACardToLibraryTopOrBottomSelector: (UITapGestureRecognizer *)sender{
@@ -4023,9 +4099,16 @@
 -(void)sendMyFieldCardSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.myFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyFieldCardByMyself_plus minusArray:app.myFieldCardByMyself_minus];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
+    //既に渡す対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyFieldCardInThisTurn_send number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.myFieldCard objectAtIndex:selectedCardOrder] plusArray:app.enemyFieldCardByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+        [targetedMyFieldCardInThisTurn_send addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
 }
 -(void)copyMyFieldCardSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
@@ -4047,9 +4130,15 @@
 -(void)getACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyLibraryCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
     [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myDeckCardListByMyself_minus];
+    [targetedMyLibraryCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
     [_cardInRegion removeFromSuperview];
     FINISHED1
+    }
 }
 
 -(void)getAEnergyCardFromLibrarySelector: (UITapGestureRecognizer *)sender{
@@ -4062,9 +4151,15 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"エネルギーカード以外は選択できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }else{
+        if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyLibraryCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }else{
         [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myDeckCardListByMyself_minus];
+        [targetedMyLibraryCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
         [_cardInRegion removeFromSuperview];
         FINISHED1
+        }
     }
 }
 
@@ -4073,24 +4168,68 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
     //既に取得対象として選択されているカードが選択された場合は警告を出して弾く
-    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedLibraryCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+    int num = [[app.myDeckCardList objectAtIndex:selectedCardOrder] intValue];
+    if(num <= 0 || num >= 6){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"エネルギーカード以外は選択できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyLibraryCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }else{
+            [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+            [targetedMyLibraryCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
+            [_cardInRegion removeFromSuperview];
+            FINISHED1
+        }
+    }
+}
+
+-(void)getACardFromMyTombSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    //既に取得対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyTombCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }else{
-        [self manipulateCard:[app.myDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
-        [targetedLibraryCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    [self manipulateCard:[app.myTomb objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myTombByMyself_minus];
+    [_cardInRegion removeFromSuperview];
+    [targetedMyTombCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
+    FINISHED1
+    }
+}
+
+-(void)getMultiCardFromMyTombSelector: (UITapGestureRecognizer *)sender{
+    NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
+    selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
+    
+    //既に取得対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyTombCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.myTomb objectAtIndex:selectedCardOrder] plusArray:app.myHandByMyself_plus minusArray:app.myTombByMyself_minus];
         [_cardInRegion removeFromSuperview];
+        [targetedMyTombCardInThisTurn_get addObject:[NSNumber numberWithInt:selectedCardOrder]];
         FINISHED1
     }
 }
 
+
 -(void)discardACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    [self manipulateCard:[app.enemyDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
-    [targetedLibraryCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
-    [_cardInRegion removeFromSuperview];
-    FINISHED1
+    //既に捨てる対象として選択されているカードが選択された場合は警告を出して弾く
+    if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedLibraryCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }else{
+        [self manipulateCard:[app.enemyDeckCardList objectAtIndex:selectedCardOrder] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+        [targetedLibraryCardInThisTurn_destroy addObject:[NSNumber numberWithInt:selectedCardOrder]];
+        [_cardInRegion removeFromSuperview];
+        FINISHED1
+    }
 }
 
 -(void)discardMultiCardsFromLibrarySelector: (UITapGestureRecognizer *)sender{
@@ -4098,7 +4237,6 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
     //既に捨てる対象として選択されているカードが選択された場合は警告を出して弾く
-    //TODO: 捨てる対象としたカードがわかりやすいように色付けする
     if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedLibraryCardInThisTurn_destroy number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"既に選んだカードを選ぶことはできません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];

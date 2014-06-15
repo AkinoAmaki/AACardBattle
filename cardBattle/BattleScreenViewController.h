@@ -50,11 +50,17 @@
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
     BOOL searchACardInsteadOfGetACardFromLibraryTop; //ターンの最初のドローの代わりにその他の領域からカードを引いたかを管理する（引いた場合、ターン最初のドローは無し）
-    NSMutableArray *targetedFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
+    NSMutableArray *targetedMyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
+    NSMutableArray *targetedMyFieldCardInThisTurn_send; //このターン、自分がカードを使用し、渡す対象としたフィールドカードの一覧
+    NSMutableArray *targetedEnemyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
+    NSMutableArray *targetedEnemyFieldCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象としたフィールドカードの一覧
+    NSMutableArray *targetedEnemyFieldCardInThisTurn_steal; //このターン、自分がカードを使用し、盗む対象としたフィールドカードの一覧
     NSMutableArray *targetedLibraryCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたライブラリのカードの一覧
-    NSMutableArray *targetedLibraryCardInThisTurn_get; //このターン、自分がカードを使用し、取得対象としたライブラリのカードの一覧
+    NSMutableArray *targetedMyLibraryCardInThisTurn_get; //このターン、自分がカードを使用し、取得対象としたライブラリのカードの一覧
     NSMutableArray *targetedEnemyHandCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象とした相手の手札のカードの一覧
     NSMutableArray *targetedMyHandCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象とした自分の手札のカードの一覧
+    NSMutableArray *targetedMyTombCardInThisTurn_get; //このターン、自分がカードを使用し、取得対象とした墓地のカードの一覧
+    NSMutableArray *targetedMyTombCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象とした墓地のカードの一覧
 
 }
 
