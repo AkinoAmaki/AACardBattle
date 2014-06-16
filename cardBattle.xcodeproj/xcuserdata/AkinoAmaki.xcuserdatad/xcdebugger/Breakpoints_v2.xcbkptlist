@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "424536281.782706"
+            timestampString = "424618984.514263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4282"
-            endingLineNumber = "4282"
+            startingLineNumber = "4382"
+            endingLineNumber = "4382"
             landmarkName = "-manipulateCard:plusArray:minusArray:"
             landmarkType = "5">
          </BreakpointContent>
