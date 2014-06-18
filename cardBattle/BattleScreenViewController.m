@@ -280,10 +280,18 @@
         _cardInRegion.delegate = self;
         _cardInRegion.backgroundColor = [UIColor cyanColor];
         _cardInRegion.userInteractionEnabled = YES;
-        _backGroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
+        _backGroundView = [[UIImageView alloc] init];
         _backGroundView.userInteractionEnabled = YES;
         regionViewArray =[[NSMutableArray alloc] init];
         [_cardInRegion addSubview:_backGroundView];
+        
+        
+        resultFadeinScrollView = [[UIScrollView alloc] init];
+        resultFadeinScrollView.delegate = self;
+        resultFadeinScrollView.userInteractionEnabled = YES;
+        resultFadeinScrollView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 430, 240 , 350);
+        [resultFadeinScrollView addSubview:_backGroundView];
+        resultFadeinScrollView.bounces = NO;
         
         _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440)];
         _colorView.image = [UIImage imageNamed:@"anime"];
@@ -721,14 +729,14 @@
     //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     //MARK: デバッグ終わったら戻す[self sync];
     //MARK: デバッグ終わったら戻す if(!searchACardInsteadOfGetACardFromLibraryTop){
-    //MARK: デバッグ終わったら戻す    [self getACard:MYSELF];
+    //MARK: デバッグ終わったら戻す[self getACard:MYSELF];
     //MARK: デバッグ終わったら戻す}
     //MARK: デバッグ終わったら戻すfor (int i = 0; i < app.myAdditionalGettingCards; i++) {
     //MARK: デバッグ終わったら戻す    [self getACard:MYSELF];
     //MARK: デバッグ終わったら戻す}
     //MARK: デバッグ終わったら戻すapp.myAdditionalGettingCards = 0;
-    //MARK: デバッグ終わったら戻す[self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
-    //MARK: デバッグ終わったら戻す[self sync];
+    [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self sync];
     
     
     //カード使用後
@@ -753,8 +761,8 @@
     [sendMyData send];
     [self activateCardInTiming:99];
     [self refleshView];
-    //MARK: デバッグ終わったら戻す[self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
-    //MARK: デバッグ終わったら戻す[self sync];
+    [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self sync];
     //ダメージ計算
     NSLog(@"ダメージ計算フェーズ");
     //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ダメージ計算フェイズ"];
@@ -811,8 +819,8 @@
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self refleshView];
-    //MARK: デバッグ終わったら戻す[self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
-    //MARK: デバッグ終わったら戻す[self sync];
+    [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self sync];
     
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -2177,6 +2185,15 @@
 }
 
 - (void)turnStartFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    //スクロールビューのビュー範囲を規定するため、スクロールさせるべき画面の大きさを保持しておく
+    CGRect cgRect;
+    
+    
+    //スクロールビューから既存のデータを全て取り除く
+    for (UILabel *label in [resultFadeinScrollView subviews]) {
+        [label removeFromSuperview];
+    }
+    
     
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
@@ -2184,10 +2201,7 @@
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
-    NSLog(@"1");
-    [self insertTextViewToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(80,5,180,30)];
-    NSLog(@"2");
-    
+    [self insertLabelToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(60,5,180,30)];
     
     NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する自分のフィールドカード
     NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する相手のフィールドカード
@@ -2208,23 +2222,43 @@
         }
     }
     
-    if([my1 count] == 0){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 60, 240, 20)];
-        NSLog(@"3-1");
-    }else{
-        for (int i = 0; i < [my1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 20)];
-        }
-        NSLog(@"3-2");
-    }
-    if ([enemy1 count] == 0) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
-    }else{
-        for (int i = 0; i < [enemy1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
-        }
+    int myCount = (int)[my1 count]; //自分のカードが発動した枚数
+    int enemyCount = (int)[enemy1 count]; //相手のカードが発動した枚数
+    
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    if (90 + myCount * 20 <= 200) {
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
         
+        if(myCount == 0){
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+        }else{
+            for (int i = 0; i < myCount; i++) {
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            }
+        }
+        if (enemyCount == 0) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+        }else{
+            for (int i = 0; i < enemyCount; i++) {
+                cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            }
+            
+        }
+    }else{
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30)];
+        for (int i = 0; i < myCount; i++) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+        }
+        for (int i = 0; i < enemyCount; i++) {
+            cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+        }
     }
+
+    [view addSubview:resultFadeinScrollView];
+    resultFadeinScrollView.contentSize = CGSizeMake(cgRect.size.width, 150 + (20 * (myCount + enemyCount)));
+
     
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
@@ -2238,7 +2272,15 @@
 }
 
 - (void)cardActivateFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    //スクロールビューのビュー範囲を規定するため、スクロールさせるべき画面の大きさを保持しておく
+    CGRect cgRect;
     
+    
+    //スクロールビューから既存のデータを全て取り除く
+    for (UILabel *label in [resultFadeinScrollView subviews]) {
+        [label removeFromSuperview];
+    }
+
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
@@ -2246,22 +2288,43 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
     
-    [self insertTextViewToParentView:view Text:@"カードの使用結果" Rectangle:CGRectMake(80,5,180,30)];
-    if([app.cardsIUsedInThisTurn count] == 0){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 40, 240, 20)];
-    }else{
-        for (int i = 0; i < [app.cardsIUsedInThisTurn count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 40 + (20 * i), 240, 20)];
-        }
-    }
-    if ([app.cardsEnemyUsedInThisTurn count] == 1) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
-    }else{
-        for (int i = 1; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
-        }
-    }
     
+    int myCount = (int)[app.cardsIUsedInThisTurn count]; //自分のカードが発動した枚数
+    int enemyCount = (int)[app.cardsEnemyUsedInThisTurn count]; //相手のカードが発動した枚数
+
+    [self insertLabelToParentView:view Text:@"カードの使用結果" Rectangle:CGRectMake(80,5,180,30)];
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    if (90 + myCount * 20 <= 200) {
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
+        if(myCount == 0){
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+        }else{
+            for (int i = 0; i < myCount; i++) {
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            }
+        }
+        if (enemyCount == 0) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+        }else{
+            for (int i = 0; i < enemyCount; i++) {
+                cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            }
+        }
+    }else{
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30)];
+        for (int i = 0; i < myCount; i++) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+        }
+        for (int i = 0; i < enemyCount; i++) {
+            cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect];
+        }
+
+    }
+    [view addSubview:resultFadeinScrollView];
+    resultFadeinScrollView.contentSize = CGSizeMake(cgRect.size.width, 150 + (20 * (myCount + enemyCount)));
+
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
@@ -2275,34 +2338,39 @@
 
 
 - (void)damageCaliculateFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
-    
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
+
     
+    for (UILabel *label in [resultFadeinScrollView subviews]) {
+        [label removeFromSuperview];
+    }
+    [view addSubview:resultFadeinScrollView];
+    resultFadeinScrollView.contentSize = CGSizeMake(240, 350);
     
-    [view addSubview:_myDamage];
-    [view addSubview:_myGiko];
-    [view addSubview:_myMonar];
-    [view addSubview:_mySyobon];
-    [view addSubview:_myYaruo];
-    [view addSubview:_enemyDamage];
-    [view addSubview:_enemyGiko];
-    [view addSubview:_enemyMonar];
-    [view addSubview:_enemySyobon];
-    [view addSubview:_enemyYaruo];
+    [resultFadeinScrollView addSubview:_myDamage];
+    [resultFadeinScrollView addSubview:_myGiko];
+    [resultFadeinScrollView addSubview:_myMonar];
+    [resultFadeinScrollView addSubview:_mySyobon];
+    [resultFadeinScrollView addSubview:_myYaruo];
+    [resultFadeinScrollView addSubview:_enemyDamage];
+    [resultFadeinScrollView addSubview:_enemyGiko];
+    [resultFadeinScrollView addSubview:_enemyMonar];
+    [resultFadeinScrollView addSubview:_enemySyobon];
+    [resultFadeinScrollView addSubview:_enemyYaruo];
     
-    _myGiko.frame      = CGRectMake(20,  40, view.bounds.size.width - 40, 20);
-    _myMonar.frame     = CGRectMake(20,  60, view.bounds.size.width - 40, 20);
-    _mySyobon.frame    = CGRectMake(20,  80, view.bounds.size.width - 40, 20);
-    _myYaruo.frame     = CGRectMake(20, 100, view.bounds.size.width - 40, 20);
-    _enemyGiko.frame   = CGRectMake(20, 220, view.bounds.size.width - 40, 20);
-    _enemyMonar.frame  = CGRectMake(20, 240, view.bounds.size.width - 40, 20);
-    _enemySyobon.frame = CGRectMake(20, 260, view.bounds.size.width - 40, 20);
-    _enemyYaruo.frame  = CGRectMake(20, 280, view.bounds.size.width - 40, 20);
+    _myGiko.frame      = CGRectMake(20,  10, view.bounds.size.width - 40, 20);
+    _myMonar.frame     = CGRectMake(20,  30, view.bounds.size.width - 40, 20);
+    _mySyobon.frame    = CGRectMake(20,  50, view.bounds.size.width - 40, 20);
+    _myYaruo.frame     = CGRectMake(20,  70, view.bounds.size.width - 40, 20);
+    _enemyGiko.frame   = CGRectMake(20, 190, view.bounds.size.width - 40, 20);
+    _enemyMonar.frame  = CGRectMake(20, 210, view.bounds.size.width - 40, 20);
+    _enemySyobon.frame = CGRectMake(20, 230, view.bounds.size.width - 40, 20);
+    _enemyYaruo.frame  = CGRectMake(20, 250, view.bounds.size.width - 40, 20);
     
     UIFont *font = [UIFont fontWithName:@"Didot" size:12];
     _myGiko.font = font;
@@ -2315,8 +2383,40 @@
     _enemyYaruo.font = font;
     
     
-    [self insertTextViewToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30)];
-    //TODO: 今回選ばれているキャラクターのみ赤字にする
+    [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30)];
+    
+    switch (app.mySelectCharacter) {
+        case GIKO:
+            _myGiko.textColor = [UIColor redColor];
+            break;
+        case MONAR:
+            _myMonar.textColor = [UIColor redColor];
+            break;
+        case SYOBON:
+            _mySyobon.textColor = [UIColor redColor];
+            break;
+        case YARUO:
+            _myYaruo.textColor = [UIColor redColor];
+            break;
+        default:
+            break;
+    }
+    switch (app.enemySelectCharacter) {
+        case GIKO:
+            _enemyGiko.textColor = [UIColor redColor];
+            break;
+        case MONAR:
+            _enemyMonar.textColor = [UIColor redColor];
+            break;
+        case SYOBON:
+            _enemySyobon.textColor = [UIColor redColor];
+            break;
+        case YARUO:
+            _enemyYaruo.textColor = [UIColor redColor];
+            break;
+        default:
+            break;
+    }
     
     _myGiko.text    = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower];
     _myMonar.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower];
@@ -2340,6 +2440,14 @@
 }
 
 - (void)resultFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    //スクロールビューのビュー範囲を規定するため、スクロールさせるべき画面の大きさを保持しておく
+    CGRect cgRect;
+    
+    
+    //スクロールビューから既存のデータを全て取り除く
+    for (UILabel *label in [resultFadeinScrollView subviews]) {
+        [label removeFromSuperview];
+    }
     
     view = [[UIImageView alloc] initWithImage:img];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
@@ -2347,45 +2455,64 @@
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
-    [self insertTextViewToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30)];
-    
+
+    int myCount = (int)[app.myFieldCard count]; //自分のフィールドカードの枚数
+    int enemyCount = (int)[app.enemyFieldCard count]; //相手のフィールドカードの枚数
     
     NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン終了時に発動する自分のフィールドカード
     NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン終了時に発動する相手のフィールドカード
+
     
     //何枚発動するかを計算する
-    for (int i = 0; i < [app.myFieldCard count]; i++) {
+    for (int i = 0; i < myCount; i++) {
         for (int j = 0; j < [app.fieldCardList_turnEnd count];  j++) {
             if([[app.myFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnEnd objectAtIndex:j]]){
                 [my1 addObject:[app.myFieldCard objectAtIndex:i]];
             }
         }
     }
-    for (int i = 0; i < [app.enemyFieldCard count]; i++) {
-        for (int j = 0; j < [app.fieldCardList_turnEnd count];  j++) {
-            if([[app.enemyFieldCard objectAtIndex:i] isEqual:[app.fieldCardList_turnEnd objectAtIndex:j]]){
-                [enemy1 addObject:[app.enemyFieldCard objectAtIndex:i]];
-            }
+    for (int i = 0; i < enemyCount; i++) {
+        if([GetEnemyDataFromServer indexOfObjectForNSNumber:app.fieldCardList_turnEnd number:[app.enemyFieldCard objectAtIndex:i]] != -1){
+            [enemy1 addObject:[app.enemyFieldCard objectAtIndex:i]];
         }
     }
     
-    if([my1 count] == 0){
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 60, 240, 20)];
-        NSLog(@"3-1");
-    }else{
-        for (int i = 0; i < [my1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 60 + (20 * i), 240, 20)];
+    int my1Count = (int)[my1 count];
+    int enemy1Count = (int)[enemy1 count];
+    NSLog(@"enemy1Count:%d",enemy1Count);
+    [self insertLabelToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30)];
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    if (90 + my1Count * 20 <= 200) {
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
+        if(my1Count == 0){
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+        }else{
+            for (int i = 0; i < my1Count; i++) {
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            }
         }
-        NSLog(@"3-2");
-    }
-    if ([enemy1 count] == 0) {
-        [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 220, 240, 20)];
-    }else{
-        for (int i = 0; i < [enemy1 count]; i++) {
-            [self insertTextViewToParentView:view Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 220 + (20 * i), 240, 20)];
+        if (enemy1Count == 0) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+        }else{
+            for (int i = 0; i < enemy1Count; i++) {
+                cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            }
+            
         }
-        
+    }else{
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * my1Count),150,30)];
+        for (int i = 0; i < my1Count; i++) {
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+        }
+        for (int i = 0; i < enemy1Count; i++) {
+            cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+        }
     }
+    
+    [view addSubview:resultFadeinScrollView];
+    resultFadeinScrollView.contentSize = CGSizeMake(cgRect.size.width, 150 + (20 * (my1Count + enemy1Count)));
     
     [_allImageView addSubview:view];
     [UIView beginAnimations:nil context:nil];
@@ -2415,7 +2542,7 @@
     
     _phaseNameView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phaseName"]];
     _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
-    [self insertTextViewToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,180,60)];
+    [self insertLabelToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,180,60)];
     [_allImageView addSubview:_phaseNameView];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
@@ -2493,12 +2620,13 @@
     return st;
 }
 
-- (void)insertTextViewToParentView:(UIView *)parentView Text:(NSString *)text Rectangle:(CGRect)rect{
-    UITextView *textView = [[UITextView alloc] init];
-    textView.frame = rect;
-    textView.text  = text;
-    textView.editable = NO;
-    [parentView addSubview:textView];
+- (void)insertLabelToParentView:(UIView *)parentView Text:(NSString *)text Rectangle:(CGRect)rect{
+    UILabel *label = [[UILabel alloc] init];
+    UIFont *font = [UIFont fontWithName:@"Didot" size:12];
+    label.frame = rect;
+    label.text  = text;
+    label.font = font;
+    [parentView addSubview:label];
 }
 
 
@@ -2983,6 +3111,7 @@
             [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
             
         }
+        
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         [_cardInRegion addSubview:_regionView];
         _cardInRegion.contentSize = _regionView.bounds.size;
@@ -3267,7 +3396,7 @@
 }
 
 
-//TODO: 相性を逆転させた上で、ダメージ計算を行う
+//相性を逆転させた上で、ダメージ計算を行う
 - (int)reverseCaliculate :(int)man{
     int result = 999;
     
@@ -3275,7 +3404,7 @@
 }
 
 
-//TODO: 対象のプレイヤーが何色のエネルギーカードを場においているかを判定する。
+//対象のプレイヤーが何色のエネルギーカードを場においているかを判定する。
 - (int)distinguishTheNumberOfEnergyCardColor:(int)man{
     int number = 0;
     
@@ -3987,12 +4116,10 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView == _cardInRegion){
-        CGRect scrolledRect;
-        scrolledRect.origin = CGPointMake(_cardInRegion.contentOffset.x, _cardInRegion.contentOffset.y);
-        scrolledRect.size = _backGroundView.frame.size;
-        _backGroundView.frame = scrolledRect;
-    }
+    CGRect scrolledRect;
+    scrolledRect.origin = CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y);
+    scrolledRect.size = _backGroundView.frame.size;
+    _backGroundView.frame = scrolledRect;
 }
 
 //ターン進行中にビューを更新する必要がある場合はここで実装する

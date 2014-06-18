@@ -613,7 +613,7 @@ nil];
 
     _myHand = [[NSMutableArray alloc] init]; //自分の手札
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:7],[NSNumber numberWithInt:7],nil]; //自分の場カードのカードナンバー
+    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],nil]; //自分の場カードのカードナンバー
     _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
     _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
@@ -640,7 +640,7 @@ nil];
     _myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
     _myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
     _myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
-    _myGikoFundamentalDeffencePower = 2; //自分のギコの基本防御力
+    _myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
     _myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
     _myMonarFundamentalDeffencePower = 0; //自分のモナーの基本防御力
     _mySyobonFundamentalAttackPower = 3; //自分のショボンの基本攻撃力

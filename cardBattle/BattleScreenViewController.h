@@ -61,7 +61,7 @@
     NSMutableArray *targetedMyHandCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象とした自分の手札のカードの一覧
     NSMutableArray *targetedMyTombCardInThisTurn_get; //このターン、自分がカードを使用し、取得対象とした墓地のカードの一覧
     NSMutableArray *targetedMyTombCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象とした墓地のカードの一覧
-
+    UIScrollView *resultFadeinScrollView; //結果画面の表示時に使用するスクロールビュー
 }
 
 @property int myDrawCount;
