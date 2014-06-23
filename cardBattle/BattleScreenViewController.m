@@ -2424,84 +2424,84 @@
     NSString *enemySyobonDeffencePermitted;
     NSString *enemyYaruoDeffencePermitted;
     
-    if (app.myGikoAttackPermittedByMyself || app.myGikoAttackPermittedFromEnemy) {
+    if (app.myGikoAttackPermittedByMyself && app.myGikoAttackPermittedFromEnemy) {
         myGikoAttackPermitted = @"○";
     }else{
         myGikoAttackPermitted = @"×";
     }
-    if (app.myMonarAttackPermittedByMyself || app.myMonarAttackPermittedFromEnemy) {
+    if (app.myMonarAttackPermittedByMyself && app.myMonarAttackPermittedFromEnemy) {
         myMonarAttackPermitted = @"○";
     }else{
         myMonarAttackPermitted = @"×";
     }
-    if (app.mySyobonAttackPermittedByMyself || app.mySyobonAttackPermittedFromEnemy) {
+    if (app.mySyobonAttackPermittedByMyself && app.mySyobonAttackPermittedFromEnemy) {
         mySyobonAttackPermitted = @"○";
     }else{
         mySyobonAttackPermitted = @"×";
     }
-    if (app.myYaruoAttackPermittedByMyself || app.myYaruoAttackPermittedFromEnemy) {
+    if (app.myYaruoAttackPermittedByMyself && app.myYaruoAttackPermittedFromEnemy) {
         myYaruoAttackPermitted = @"○";
     }else{
         myYaruoAttackPermitted = @"×";
     }
-    if (app.enemyGikoAttackPermittedByMyself || app.enemyGikoAttackPermittedFromEnemy) {
+    if (app.enemyGikoAttackPermittedByMyself && app.enemyGikoAttackPermittedFromEnemy) {
         enemyGikoAttackPermitted = @"○";
     }else{
         enemyGikoAttackPermitted = @"×";
     }
-    if (app.enemyMonarAttackPermittedByMyself || app.enemyMonarAttackPermittedFromEnemy) {
+    if (app.enemyMonarAttackPermittedByMyself && app.enemyMonarAttackPermittedFromEnemy) {
         enemyMonarAttackPermitted = @"○";
     }else{
         enemyMonarAttackPermitted = @"×";
     }
-    if (app.enemySyobonAttackPermittedByMyself || app.enemySyobonAttackPermittedFromEnemy) {
+    if (app.enemySyobonAttackPermittedByMyself && app.enemySyobonAttackPermittedFromEnemy) {
         enemySyobonAttackPermitted = @"○";
     }else{
         enemySyobonAttackPermitted = @"×";
     }
-    if (app.enemyYaruoAttackPermittedByMyself || app.enemyYaruoAttackPermittedFromEnemy) {
+    if (app.enemyYaruoAttackPermittedByMyself && app.enemyYaruoAttackPermittedFromEnemy) {
         enemyYaruoAttackPermitted = @"○";
     }else{
         enemyYaruoAttackPermitted = @"×";
     }
     
     
-    if (app.myGikoDeffencePermittedByMyself || app.myGikoDeffencePermittedFromEnemy) {
+    if (app.myGikoDeffencePermittedByMyself && app.myGikoDeffencePermittedFromEnemy) {
         myGikoDeffencePermitted = @"○";
     }else{
         myGikoDeffencePermitted = @"×";
     }
-    if (app.myMonarDeffencePermittedByMyself || app.myMonarDeffencePermittedFromEnemy) {
+    if (app.myMonarDeffencePermittedByMyself && app.myMonarDeffencePermittedFromEnemy) {
         myMonarDeffencePermitted = @"○";
     }else{
         myMonarDeffencePermitted = @"×";
     }
-    if (app.mySyobonDeffencePermittedByMyself || app.mySyobonDeffencePermittedFromEnemy) {
+    if (app.mySyobonDeffencePermittedByMyself && app.mySyobonDeffencePermittedFromEnemy) {
         mySyobonDeffencePermitted = @"○";
     }else{
         mySyobonDeffencePermitted = @"×";
     }
-    if (app.myYaruoDeffencePermittedByMyself || app.myYaruoDeffencePermittedFromEnemy) {
+    if (app.myYaruoDeffencePermittedByMyself && app.myYaruoDeffencePermittedFromEnemy) {
         myYaruoDeffencePermitted = @"○";
     }else{
         myYaruoDeffencePermitted = @"×";
     }
-    if (app.enemyGikoDeffencePermittedByMyself || app.enemyGikoDeffencePermittedFromEnemy) {
+    if (app.enemyGikoDeffencePermittedByMyself && app.enemyGikoDeffencePermittedFromEnemy) {
         enemyGikoDeffencePermitted = @"○";
     }else{
         enemyGikoDeffencePermitted = @"×";
     }
-    if (app.enemyMonarDeffencePermittedByMyself || app.enemyMonarDeffencePermittedFromEnemy) {
+    if (app.enemyMonarDeffencePermittedByMyself && app.enemyMonarDeffencePermittedFromEnemy) {
         enemyMonarDeffencePermitted = @"○";
     }else{
         enemyMonarDeffencePermitted = @"×";
     }
-    if (app.enemySyobonDeffencePermittedByMyself || app.enemySyobonDeffencePermittedFromEnemy) {
+    if (app.enemySyobonDeffencePermittedByMyself && app.enemySyobonDeffencePermittedFromEnemy) {
         enemySyobonDeffencePermitted = @"○";
     }else{
         enemySyobonDeffencePermitted = @"×";
     }
-    if (app.enemyYaruoDeffencePermittedByMyself || app.enemyYaruoDeffencePermittedFromEnemy) {
+    if (app.enemyYaruoDeffencePermittedByMyself && app.enemyYaruoDeffencePermittedFromEnemy) {
         enemyYaruoDeffencePermitted = @"○";
     }else{
         enemyYaruoDeffencePermitted = @"×";

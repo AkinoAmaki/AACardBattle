@@ -426,7 +426,7 @@
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0], //20
-                                                   [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:10],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
@@ -471,7 +471,7 @@
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:10],
+                                                   [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
