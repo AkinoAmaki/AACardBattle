@@ -20,12 +20,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "424795737.161012"
+            timestampString = "425187896.892391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4509"
-            endingLineNumber = "4509"
-            landmarkName = "-damageCaliculateFadeIn:animaImage:"
+            startingLineNumber = "4571"
+            endingLineNumber = "4571"
+            landmarkName = "-normalSelector:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cardBattle/BattleScreenViewController.m"
+            timestampString = "425187896.892391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2724"
+            endingLineNumber = "2724"
+            landmarkName = "-detailOfACard:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

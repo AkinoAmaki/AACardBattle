@@ -22,6 +22,7 @@
 @synthesize getEnemyData;
 @synthesize regionViewArray;
 @synthesize searchEnergyCardOrGetACard;
+@synthesize detailOfACard;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,6 +70,11 @@
     _bc = [[BattleCaliculate alloc] init];
     getEnemyData = [[GetEnemyDataFromServer alloc] init];
     sendMyData = [[SendDataToServer alloc] init];
+    detailOfACard = [[UIImageView alloc] init];
+    detailOfACard.userInteractionEnabled = YES;
+    [detailOfACard addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDetailOfACard)]];
+    detailOfACard.frame = CGRectMake(0, 0, 280, 420);
+    detailOfACard.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
     
     //iPhone5ならYES,それ以外ならNOに行く
     if([YSDeviceHelper is568h]){
@@ -274,8 +280,6 @@
         _border_usedCard.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
         _border_color = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_smallCard"]];
         
-        _additionalCostView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 60, [[UIScreen mainScreen] bounds].size.width - 40 , 400)];
-        
         _cardInRegion = [[UIScrollView alloc] init];
         _cardInRegion.delegate = self;
         _cardInRegion.backgroundColor = [UIColor cyanColor];
@@ -283,7 +287,6 @@
         _backGroundView = [[UIImageView alloc] init];
         _backGroundView.userInteractionEnabled = YES;
         regionViewArray =[[NSMutableArray alloc] init];
-        [_cardInRegion addSubview:_backGroundView];
         
         
         resultFadeinScrollView = [[UIScrollView alloc] init];
@@ -575,36 +578,6 @@
     [startButton addTarget:self action:@selector(battleStart)
           forControlEvents:UIControlEventTouchUpInside];
     
-    
-    UIButton *getButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    getButton.frame = CGRectMake(160, 280, 80, 20);
-    [getButton setTitle:@"ゲット" forState:UIControlStateNormal];
-    [_allImageView addSubview:getButton];
-    [getButton addTarget:self action:@selector(getACardForDebug)
-        forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug1.frame = CGRectMake(160, 300, 80, 20);
-    [debug1 setTitle:@"デバッグ1" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug1];
-    [debug1 addTarget:self action:@selector(debug1:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug2.frame = CGRectMake(160, 320, 80, 20);
-    [debug2 setTitle:@"デバッグ2" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug2];
-    [debug2 addTarget:self action:@selector(debug2:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug3.frame = CGRectMake(160, 340, 80, 20);
-    [debug3 setTitle:@"デバッグ3" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug3];
-    [debug3 addTarget:self action:@selector(debug3:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-    
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
 //MARK: デバッグ用。終わったら元に戻す_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
@@ -713,6 +686,8 @@
 - (IBAction)nextTurn{
     //ターン開始時
     NSLog(@"ターン開始フェイズ");
+    //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
+    [self forbidTouchAction];
     [self activateCardInTiming:0];
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
@@ -726,15 +701,15 @@
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
     [self refleshView];
-    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
-    //MARK: デバッグ終わったら戻す[self sync];
-    //MARK: デバッグ終わったら戻す if(!searchACardInsteadOfGetACardFromLibraryTop){
-    //MARK: デバッグ終わったら戻す[self getACard:MYSELF];
-    //MARK: デバッグ終わったら戻す}
-    //MARK: デバッグ終わったら戻すfor (int i = 0; i < app.myAdditionalGettingCards; i++) {
-    //MARK: デバッグ終わったら戻す    [self getACard:MYSELF];
-    //MARK: デバッグ終わったら戻す}
-    //MARK: デバッグ終わったら戻すapp.myAdditionalGettingCards = 0;
+    [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
+    [self sync];
+     if(!searchACardInsteadOfGetACardFromLibraryTop){
+    [self getACard:MYSELF];
+    }
+    for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+        [self getACard:MYSELF];
+    }
+    app.myAdditionalGettingCards = 0;
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
     
@@ -742,9 +717,10 @@
     //カード使用後
     NSLog(@"カード使用・AA選択フェーズ");
     NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
-    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
-    //MARK: デバッグ終わったら戻す[self sync];
-    
+    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
+    [self sync];
+    //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
+    [self permitTouchAction];
     
     //touchActionの入力を待つための同期処理
     
@@ -752,6 +728,9 @@
         [self sync];
     }
     [self activateCardInTiming:1];
+    
+    //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
+    [self forbidTouchAction];
     
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
@@ -765,8 +744,8 @@
     [self sync];
     //ダメージ計算
     NSLog(@"ダメージ計算フェーズ");
-    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ダメージ計算フェイズ"];
-    //MARK: デバッグ終わったら戻す[self sync];
+    [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
+    [self sync];
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
     [self activateCardInTiming:2];
@@ -804,8 +783,8 @@
     [self sync];
     //ターン終了時
     NSLog(@"ターン終了フェイズ");
-    //MARK: デバッグ終わったら戻す[self phaseNameFadeIn:@"ターン終了フェイズ"];
-    //MARK: デバッグ終わったら戻す[self sync];
+    [self phaseNameFadeIn:@"ターン終了フェイズ"];
+    [self sync];
     [self activateCardInTiming:3];
     [self activateCardInTiming:99];
     app.myLifeGage = app.myLifeGage -app.myDamageFromCard;
@@ -832,7 +811,7 @@
     NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
     NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
     NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
-    NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d\n",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
+    NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
     NSLog(@"相手のHP：%d",app.enemyLifeGage);
     NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
     NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
@@ -2196,12 +2175,13 @@
     
     
     view = [[UIImageView alloc] initWithImage:img];
+    view.frame = CGRectMake(0, 0, 280, 420);
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
-    [self insertLabelToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(60,5,180,30)];
+    [self insertLabelToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(60,5,180,30) Touch:NO];
     
     NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する自分のフィールドカード
     NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する相手のフィールドカード
@@ -2225,34 +2205,34 @@
     int myCount = (int)[my1 count]; //自分のカードが発動した枚数
     int enemyCount = (int)[enemy1 count]; //相手のカードが発動した枚数
     
-    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30) Touch:NO];
     if (90 + myCount * 20 <= 200) {
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30) Touch:NO];
         
         if(myCount == 0){
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < myCount; i++) {
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
             }
         }
         if (enemyCount == 0) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < enemyCount; i++) {
                 cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
             }
             
         }
     }else{
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30) Touch:NO];
         for (int i = 0; i < myCount; i++) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
         }
         for (int i = 0; i < enemyCount; i++) {
             cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
         }
     }
 
@@ -2282,6 +2262,7 @@
     }
 
     view = [[UIImageView alloc] initWithImage:img];
+    view.frame = CGRectMake(0, 0, 280, 420);
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
@@ -2292,33 +2273,33 @@
     int myCount = (int)[app.cardsIUsedInThisTurn count]; //自分のカードが発動した枚数
     int enemyCount = (int)[app.cardsEnemyUsedInThisTurn count]; //相手のカードが発動した枚数
 
-    [self insertLabelToParentView:view Text:@"カードの使用結果" Rectangle:CGRectMake(80,5,180,30)];
-    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    [self insertLabelToParentView:view Text:@"カードの使用結果" Rectangle:CGRectMake(80,5,180,30) Touch:NO];
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30) Touch:NO];
     if (90 + myCount * 20 <= 200) {
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30) Touch:NO];
         if(myCount == 0){
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < myCount; i++) {
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
             }
         }
         if (enemyCount == 0) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カードを使用しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < enemyCount; i++) {
                 cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
             }
         }
     }else{
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * myCount),150,30) Touch:NO];
         for (int i = 0; i < myCount; i++) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsIUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
         }
         for (int i = 0; i < enemyCount; i++) {
             cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[app.cardsEnemyUsedInThisTurn objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
         }
 
     }
@@ -2339,6 +2320,7 @@
 
 - (void)damageCaliculateFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
     view = [[UIImageView alloc] initWithImage:img];
+    view.frame = CGRectMake(0, 0, 280, 420);
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
@@ -2363,14 +2345,16 @@
     [resultFadeinScrollView addSubview:_enemySyobon];
     [resultFadeinScrollView addSubview:_enemyYaruo];
     
-    _myGiko.frame      = CGRectMake(20,  10, view.bounds.size.width - 40, 20);
-    _myMonar.frame     = CGRectMake(20,  30, view.bounds.size.width - 40, 20);
-    _mySyobon.frame    = CGRectMake(20,  50, view.bounds.size.width - 40, 20);
-    _myYaruo.frame     = CGRectMake(20,  70, view.bounds.size.width - 40, 20);
-    _enemyGiko.frame   = CGRectMake(20, 190, view.bounds.size.width - 40, 20);
-    _enemyMonar.frame  = CGRectMake(20, 210, view.bounds.size.width - 40, 20);
-    _enemySyobon.frame = CGRectMake(20, 230, view.bounds.size.width - 40, 20);
-    _enemyYaruo.frame  = CGRectMake(20, 250, view.bounds.size.width - 40, 20);
+    _myGiko.frame      = CGRectMake(20,  10, view.bounds.size.width - 20, 20);
+    _myMonar.frame     = CGRectMake(20,  30, view.bounds.size.width - 20, 20);
+    _mySyobon.frame    = CGRectMake(20,  50, view.bounds.size.width - 20, 20);
+    _myYaruo.frame     = CGRectMake(20,  70, view.bounds.size.width - 20, 20);
+    _myDamage.frame    = CGRectMake(20, 120, view.bounds.size.width - 20, 40);
+    _enemyGiko.frame   = CGRectMake(20, 190, view.bounds.size.width - 20, 20);
+    _enemyMonar.frame  = CGRectMake(20, 210, view.bounds.size.width - 20, 20);
+    _enemySyobon.frame = CGRectMake(20, 230, view.bounds.size.width - 20, 20);
+    _enemyYaruo.frame  = CGRectMake(20, 250, view.bounds.size.width - 20, 20);
+    _enemyDamage.frame = CGRectMake(20, 270, view.bounds.size.width - 20, 40);
     
     UIFont *font = [UIFont fontWithName:@"Didot" size:12];
     _myGiko.font = font;
@@ -2383,7 +2367,7 @@
     _enemyYaruo.font = font;
     
     
-    [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30)];
+    [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30) Touch:NO];
     
     switch (app.mySelectCharacter) {
         case GIKO:
@@ -2418,14 +2402,116 @@
             break;
     }
     
-    _myGiko.text    = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower];
-    _myMonar.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower];
-    _mySyobon.text  = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower];
-    _myYaruo.text   = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower];
-    _enemyGiko.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower];
-    _enemyMonar.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower];
-    _enemySyobon.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower];
-    _enemyYaruo.text = [NSString stringWithFormat:@"攻撃力：%d + %d  防御力：%d + %d" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower];
+    NSString *myGikoAttackPermitted;
+    NSString *myMonarAttackPermitted;
+    NSString *mySyobonAttackPermitted;
+    NSString *myYaruoAttackPermitted;
+    NSString *enemyGikoAttackPermitted;
+    NSString *enemyMonarAttackPermitted;
+    NSString *enemySyobonAttackPermitted;
+    NSString *enemyYaruoAttackPermitted;
+    NSString *myGikoDeffencePermitted;
+    NSString *myMonarDeffencePermitted;
+    NSString *mySyobonDeffencePermitted;
+    NSString *myYaruoDeffencePermitted;
+    NSString *enemyGikoDeffencePermitted;
+    NSString *enemyMonarDeffencePermitted;
+    NSString *enemySyobonDeffencePermitted;
+    NSString *enemyYaruoDeffencePermitted;
+    
+    if (app.myGikoAttackPermittedByMyself || app.myGikoAttackPermittedFromEnemy) {
+        myGikoAttackPermitted = @"○";
+    }else{
+        myGikoAttackPermitted = @"×";
+    }
+    if (app.myMonarAttackPermittedByMyself || app.myMonarAttackPermittedFromEnemy) {
+        myMonarAttackPermitted = @"○";
+    }else{
+        myMonarAttackPermitted = @"×";
+    }
+    if (app.mySyobonAttackPermittedByMyself || app.mySyobonAttackPermittedFromEnemy) {
+        mySyobonAttackPermitted = @"○";
+    }else{
+        mySyobonAttackPermitted = @"×";
+    }
+    if (app.myYaruoAttackPermittedByMyself || app.myYaruoAttackPermittedFromEnemy) {
+        myYaruoAttackPermitted = @"○";
+    }else{
+        myYaruoAttackPermitted = @"×";
+    }
+    if (app.enemyGikoAttackPermittedByMyself || app.enemyGikoAttackPermittedFromEnemy) {
+        enemyGikoAttackPermitted = @"○";
+    }else{
+        enemyGikoAttackPermitted = @"×";
+    }
+    if (app.enemyMonarAttackPermittedByMyself || app.enemyMonarAttackPermittedFromEnemy) {
+        enemyMonarAttackPermitted = @"○";
+    }else{
+        enemyMonarAttackPermitted = @"×";
+    }
+    if (app.enemySyobonAttackPermittedByMyself || app.enemySyobonAttackPermittedFromEnemy) {
+        enemySyobonAttackPermitted = @"○";
+    }else{
+        enemySyobonAttackPermitted = @"×";
+    }
+    if (app.enemyYaruoAttackPermittedByMyself || app.enemyYaruoAttackPermittedFromEnemy) {
+        enemyYaruoAttackPermitted = @"○";
+    }else{
+        enemyYaruoAttackPermitted = @"×";
+    }
+    
+    
+    if (app.myGikoDeffencePermittedByMyself || app.myGikoDeffencePermittedFromEnemy) {
+        myGikoDeffencePermitted = @"○";
+    }else{
+        myGikoDeffencePermitted = @"×";
+    }
+    if (app.myMonarDeffencePermittedByMyself || app.myMonarDeffencePermittedFromEnemy) {
+        myMonarDeffencePermitted = @"○";
+    }else{
+        myMonarDeffencePermitted = @"×";
+    }
+    if (app.mySyobonDeffencePermittedByMyself || app.mySyobonDeffencePermittedFromEnemy) {
+        mySyobonDeffencePermitted = @"○";
+    }else{
+        mySyobonDeffencePermitted = @"×";
+    }
+    if (app.myYaruoDeffencePermittedByMyself || app.myYaruoDeffencePermittedFromEnemy) {
+        myYaruoDeffencePermitted = @"○";
+    }else{
+        myYaruoDeffencePermitted = @"×";
+    }
+    if (app.enemyGikoDeffencePermittedByMyself || app.enemyGikoDeffencePermittedFromEnemy) {
+        enemyGikoDeffencePermitted = @"○";
+    }else{
+        enemyGikoDeffencePermitted = @"×";
+    }
+    if (app.enemyMonarDeffencePermittedByMyself || app.enemyMonarDeffencePermittedFromEnemy) {
+        enemyMonarDeffencePermitted = @"○";
+    }else{
+        enemyMonarDeffencePermitted = @"×";
+    }
+    if (app.enemySyobonDeffencePermittedByMyself || app.enemySyobonDeffencePermittedFromEnemy) {
+        enemySyobonDeffencePermitted = @"○";
+    }else{
+        enemySyobonDeffencePermitted = @"×";
+    }
+    if (app.enemyYaruoDeffencePermittedByMyself || app.enemyYaruoDeffencePermittedFromEnemy) {
+        enemyYaruoDeffencePermitted = @"○";
+    }else{
+        enemyYaruoDeffencePermitted = @"×";
+    }
+    
+    _myGiko.text    = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower,myGikoAttackPermitted,myGikoDeffencePermitted];
+    _myMonar.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
+    _mySyobon.text  = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
+    _myYaruo.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
+    _myDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",(app.myDamageFromAA + app.myDamageFromCard)];
+    _enemyGiko.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
+    _enemyMonar.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
+    _enemySyobon.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
+    _enemyYaruo.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
+    _enemyDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",(app.enemyDamageFromAA + app.enemyDamageFromCard)];
     
     
     [_allImageView addSubview:view];
@@ -2450,6 +2536,7 @@
     }
     
     view = [[UIImageView alloc] initWithImage:img];
+    view.frame = CGRectMake(0, 0, 280, 420);
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:
@@ -2479,35 +2566,34 @@
     
     int my1Count = (int)[my1 count];
     int enemy1Count = (int)[enemy1 count];
-    NSLog(@"enemy1Count:%d",enemy1Count);
-    [self insertLabelToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30)];
-    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30)];
+    [self insertLabelToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,5,180,30) Touch:NO];
+    [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30) Touch:NO];
     if (90 + my1Count * 20 <= 200) {
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30) Touch:NO];
         if(my1Count == 0){
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 30, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < my1Count; i++) {
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
             }
         }
         if (enemy1Count == 0) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"カード効果は発動しませんでした"] Rectangle:CGRectMake(20, 200, 240, 20) Touch:NO];
         }else{
             for (int i = 0; i < enemy1Count; i++) {
                 cgRect = CGRectMake(20, 200 + (20 * i), 240, 20);
-                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+                [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
             }
             
         }
     }else{
-        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * my1Count),150,30)];
+        [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,60 + (20 * my1Count),150,30) Touch:NO];
         for (int i = 0; i < my1Count; i++) {
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20)];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[my1 objectAtIndex:i] intValue]]] Rectangle:CGRectMake(20, 30 + (20 * i), 240, 20) Touch:YES];
         }
         for (int i = 0; i < enemy1Count; i++) {
             cgRect = CGRectMake(20, 90 + (20 * (myCount + i)), 240, 20);
-            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@\n",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect];
+            [self insertLabelToParentView:resultFadeinScrollView Text:[NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:[[enemy1 objectAtIndex:i] intValue]]] Rectangle:cgRect Touch:YES];
         }
     }
     
@@ -2542,7 +2628,7 @@
     
     _phaseNameView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phaseName"]];
     _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
-    [self insertLabelToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,180,60)];
+    [self insertLabelToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,180,60) Touch:NO];
     [_allImageView addSubview:_phaseNameView];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
@@ -2620,13 +2706,29 @@
     return st;
 }
 
-- (void)insertLabelToParentView:(UIView *)parentView Text:(NSString *)text Rectangle:(CGRect)rect{
+- (void)insertLabelToParentView:(UIView *)parentView Text:(NSString *)text Rectangle:(CGRect)rect Touch:(BOOL)touch{
     UILabel *label = [[UILabel alloc] init];
     UIFont *font = [UIFont fontWithName:@"Didot" size:12];
     label.frame = rect;
     label.text  = text;
     label.font = font;
+    label.tag = [app.cardList_cardName indexOfObject:text];
     [parentView addSubview:label];
+    if(touch){
+        label.userInteractionEnabled = YES;
+        [label addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]];
+    }
+}
+
+- (void)detailOfACard:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",(int)sender.view.tag]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)removeDetailOfACard{
+    [detailOfACard removeFromSuperview];
+    _allImageView.userInteractionEnabled = YES;
 }
 
 
@@ -2758,7 +2860,6 @@
     }else{
         //自分
         while (myDrawCount < 5) {
-            NSLog(@"ドローカウント：%d",myDrawCount);
             //手札のカード画像を用意する
             UIImage *myCard = [UIImage imageNamed:@"outicon"];
             _myCard = [[UIImageView alloc] initWithImage:myCard];
@@ -2815,17 +2916,9 @@
         _myLibraryCount.text = [NSString stringWithFormat:@"%d", [app.myDeckCardList count]];
         [_myLibrary addSubview:_myLibraryCount];
         
-        NSLog(@"-----------------------------------");
-        NSLog(@"%s", __func__);
-        for (int i = 0; i < [app.myHand count]; i++) {
-            NSLog(@"現在の手札のカードナンバー：%d枚目:%d",i + 1,[[app.myHand objectAtIndex:i] intValue]);
-        }
-        NSLog(@"-----------------------------------");
-        
         
         //相手
         while (enemyDrawCount < 5) {
-            NSLog(@"ドローカウント：%d",enemyDrawCount);
             //手札のカード画像を用意する
             UIImage *enemyCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.enemyDeckCardList objectAtIndex:enemyDrawCount + 1] intValue]]];
             _enemyCard = [[UIImageView alloc] initWithImage:enemyCard];
@@ -3089,6 +3182,10 @@
 -(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard tapSelector:(SEL)selector string:(NSString *)string{
     NSLog(@"%@",cards);
     [regionViewArray removeAllObjects];
+    for (int i = 0; i < [_cardInRegion.subviews count]; i++) {
+        [[_cardInRegion.subviews objectAtIndex:i] removeFromSuperview];
+    }
+    
     
     if(touchCard){
         
@@ -3108,11 +3205,12 @@
             cardImage.userInteractionEnabled = YES;
             cardImage.tag = i + 1;
             [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:selector]];
-            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
-            
+            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]];
         }
         
+        
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
+        [_cardInRegion addSubview:_backGroundView];
         [_cardInRegion addSubview:_regionView];
         _cardInRegion.contentSize = _regionView.bounds.size;
         
@@ -3351,7 +3449,7 @@
         cardImage.userInteractionEnabled = YES;
         cardImage.tag = i + 1;
         [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:selector]];
-        [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard)]]; //detailOfACard:はDeckViewControllerのメソッド。エラーが出る場合は注意。
+        [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]];
     }
     _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
     [_cardInRegion addSubview:_regionView];
@@ -3530,31 +3628,6 @@
 
 - (void)buttonPushed :(UITapGestureRecognizer *)sender{
     switch (sender.view.tag) {
-        case 0:
-            //追加コストとしてカードを捨てる際のOKボタンから飛んできた場合
-            //- (void)selectCardで事前設定済み
-            //            [self discardFromHand:MYSELF cardNumber:[self substituteSelectCardTagAndInitilizeIt]];
-            [_additionalCostView removeFromSuperview];
-            break;
-            
-        case 1:
-            //追加コストとしてカードを捨てる際のキャンセルボタンから飛んできた場合
-            //- (void)selectCardで事前設定済み
-            [_additionalCostView removeFromSuperview];
-            break;
-            
-        case 2:
-            //追加コストとしてライフを支払う際のOKボタンから飛んできた場合
-            costLife = YES;
-            [_additionalCostView removeFromSuperview];
-            break;
-            
-        case 3:
-            //追加コストとしてライフを支払う際のキャンセルボタンから飛んできた場合
-            costLife = NO;
-            [_additionalCostView removeFromSuperview];
-            break;
-            
         case 4:
             //ある領域のカードを見た際のOK,キャンセルボタンから飛んできた場合
             [_cardInRegion removeFromSuperview];
@@ -4529,6 +4602,26 @@
         [minusArray addObject:tmpArray];
     }
     [plusArray addObject:cardNumber];
+}
+
+-(void)forbidTouchAction{
+    _okButton.userInteractionEnabled = NO;
+    _myCardImageView.userInteractionEnabled = NO;
+    _myCharacterView.userInteractionEnabled = NO;
+    _myTomb.userInteractionEnabled = NO;
+    _enemyTomb.userInteractionEnabled = NO;
+    _myField.userInteractionEnabled = NO;
+    _enemyField.userInteractionEnabled = NO;
+}
+
+-(void)permitTouchAction{
+    _okButton.userInteractionEnabled        = YES;
+    _myCardImageView.userInteractionEnabled = YES;
+    _myCharacterView.userInteractionEnabled = YES;
+    _myTomb.userInteractionEnabled          = YES;
+    _enemyTomb.userInteractionEnabled       = YES;
+    _myField.userInteractionEnabled         = YES;
+    _enemyField.userInteractionEnabled      = YES;
 }
 
 

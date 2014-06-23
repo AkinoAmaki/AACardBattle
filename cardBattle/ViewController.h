@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface ViewController : UIViewController{
+@interface ViewController : UIViewController<UITextFieldDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *ud;

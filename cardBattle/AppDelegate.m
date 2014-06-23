@@ -409,7 +409,7 @@
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],//10
+                                                     [NSNumber numberWithInt:10],//10
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
@@ -553,7 +553,7 @@
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:10],
+                                                   [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    nil];
     _myDeckCardList = [[NSMutableArray alloc] init];

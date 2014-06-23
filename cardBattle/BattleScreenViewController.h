@@ -100,6 +100,7 @@
     @property UILabel *enemySyobon;
     @property UILabel *enemyYaruo;
 
+
     //ターン終了時の状況を管理するビュー
     @property UIImageView *turnResultView;
     @property UIImage *turnResult;
@@ -116,8 +117,6 @@
 //特定の色を選ぶビュー
 @property UIImageView *colorView;
 
-//追加コストを表示するビュー
-@property UIImageView *additionalCostView;
 
 //ライフゲージ画像
 @property UIImageView *myLifeImageView;
@@ -199,6 +198,9 @@
 @property UIAlertView *doIUseFieldcard;
 @property UIAlertView *doIUseEnergycard;
 @property UIAlertView *searchEnergyCardOrGetACard;
+
+//カードの詳細画面を見る際のイメージビュー
+@property UIImageView *detailOfACard;
 
 - (IBAction)keisan:(id)sender;
 - (void) transitView:(NSNotification *)note;
