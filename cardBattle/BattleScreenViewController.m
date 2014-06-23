@@ -23,6 +23,8 @@
 @synthesize regionViewArray;
 @synthesize searchEnergyCardOrGetACard;
 @synthesize detailOfACard;
+@synthesize myDrawCount;
+@synthesize selectedCardOrder;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,9 +42,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    // "MyEvent"という名前のイベントが発行されたらtransitViewが呼ばれる
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transitView:) name:@"battleStartEvent" object:nil];
     
     app = [[UIApplication sharedApplication] delegate];
     turnCount = 1;
@@ -305,7 +304,7 @@
         [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
         [_allImageView addSubview:_okButton];
         _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
-        [_okButton addTarget:self action:@selector(okButton)
+        [_okButton addTarget:self action:@selector(okButtonPushed)
             forControlEvents:UIControlEventTouchUpInside];
         
         myLifeImageView = [[UIImageView alloc] init];
@@ -558,10 +557,12 @@
         _myMonar = [[UILabel alloc] init];
         _mySyobon = [[UILabel alloc] init];
         _myYaruo = [[UILabel alloc] init];
+        _myDamage = [[UILabel alloc] init];
         _enemyGiko = [[UILabel alloc] init];
         _enemyMonar = [[UILabel alloc] init];
         _enemySyobon = [[UILabel alloc] init];
         _enemyYaruo = [[UILabel alloc] init];
+        _enemyDamage = [[UILabel alloc] init];
         
         [self.view addSubview:_allImageView];
     }
@@ -775,12 +776,12 @@
     [sendMyData send];
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
     NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
+    [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
+    [self sync];
     //ダメージを与え終えたら値を0に戻しておく
     app.myDamageFromAA = 0;
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
-    [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
-    [self sync];
     //ターン終了時
     NSLog(@"ターン終了フェイズ");
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
@@ -2339,17 +2340,19 @@
     [resultFadeinScrollView addSubview:_myMonar];
     [resultFadeinScrollView addSubview:_mySyobon];
     [resultFadeinScrollView addSubview:_myYaruo];
+    [resultFadeinScrollView addSubview:_myDamage];
     [resultFadeinScrollView addSubview:_enemyDamage];
     [resultFadeinScrollView addSubview:_enemyGiko];
     [resultFadeinScrollView addSubview:_enemyMonar];
     [resultFadeinScrollView addSubview:_enemySyobon];
     [resultFadeinScrollView addSubview:_enemyYaruo];
+    [resultFadeinScrollView addSubview:_enemyDamage];
     
     _myGiko.frame      = CGRectMake(20,  10, view.bounds.size.width - 20, 20);
     _myMonar.frame     = CGRectMake(20,  30, view.bounds.size.width - 20, 20);
     _mySyobon.frame    = CGRectMake(20,  50, view.bounds.size.width - 20, 20);
     _myYaruo.frame     = CGRectMake(20,  70, view.bounds.size.width - 20, 20);
-    _myDamage.frame    = CGRectMake(20, 120, view.bounds.size.width - 20, 40);
+    _myDamage.frame    = CGRectMake(20,  90, view.bounds.size.width - 20, 40);
     _enemyGiko.frame   = CGRectMake(20, 190, view.bounds.size.width - 20, 20);
     _enemyMonar.frame  = CGRectMake(20, 210, view.bounds.size.width - 20, 20);
     _enemySyobon.frame = CGRectMake(20, 230, view.bounds.size.width - 20, 20);
@@ -2361,10 +2364,12 @@
     _myMonar.font = font;
     _mySyobon.font = font;
     _myYaruo.font = font;
+    _myDamage.font = font;
     _enemyGiko.font = font;
     _enemyMonar.font = font;
     _enemySyobon.font = font;
     _enemyYaruo.font = font;
+    _enemyDamage.font = font;
     
     
     [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,5,180,30) Touch:NO];
@@ -2732,7 +2737,7 @@
 }
 
 
--(void)okButton{
+-(void)okButtonPushed{
     if (app.mySelectCharacter == -1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選ばれていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"キャラクターを選択する", nil];
         [alert show];
@@ -3032,6 +3037,9 @@
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
+                //使用したエネルギーを減らす
+                
+                
                 //エネルギーを増やすカードの場合は、すぐに効果を発動させる。それ以外はAA・カード選択フェーズの後に効果を発動させる
                 if(cardNumber == 96){
                     [self cardActivate:cardNumber string:nil];
@@ -3402,7 +3410,7 @@
         //引いたカードの数を増やす
         myDrawCount++;
         _myGetCard.tag = myDrawCount;
-        NSLog(@"手札に入れたカードのタグ：%ld",_myGetCard.tag);
+        NSLog(@"手札に入れたカードのタグ：%d",_myGetCard.tag);
         
         //デッキのカード枚数を減らし、手札に入れる
         [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
@@ -3855,7 +3863,7 @@
             default:
                 break;
         }
-    }else if (alertView == _battleStart){
+    }else if (alertView == _battleStartView){
         switch (buttonIndex) {
             case 0:
                 motion = [[DeviceMotion alloc] init];
@@ -4568,6 +4576,10 @@
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [_cardInRegion removeFromSuperview];
     FINISHED1
+}
+
+-(void)nullSelector: (UITapGestureRecognizer *)sender{
+    //何もしないセレクタ
 }
 
 -(void)manipulateCard:(NSNumber *)cardNumber plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{

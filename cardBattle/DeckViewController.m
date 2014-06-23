@@ -14,6 +14,9 @@
 @end
 
 @implementation DeckViewController
+@synthesize selectedCards;
+@synthesize isSelectedCards;
+@synthesize detailOfACard;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,7 +33,7 @@
 	// Do any additional setup after loading the view.
     
     app = [[UIApplication sharedApplication] delegate];
-    _isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
+    isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
     
     
     allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 1704)];
@@ -68,7 +71,7 @@
         UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
         txtView.backgroundColor = alphaZero;//テキストビューの背景を透明化
         
-        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[_isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
+        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
         txtView.userInteractionEnabled = NO;
         [txtView addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
@@ -95,14 +98,14 @@
 }
 
 - (void) touchAction: (UITapGestureRecognizer *)sender{
-    NSLog(@"タッチ感知 from %ld",sender.view.tag);
+    NSLog(@"タッチ感知 from %d",sender.view.tag);
 
-    if ([[_isSelectedCards objectAtIndex:sender.view.tag] intValue] == 4 || [[_isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
-        [_isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
+    if ([[isSelectedCards objectAtIndex:sender.view.tag] intValue] == 4 || [[isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
+        [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
     }else{
-        int i = [[_isSelectedCards objectAtIndex:sender.view.tag] intValue];
+        int i = [[isSelectedCards objectAtIndex:sender.view.tag] intValue];
         i++;
-        [_isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
+        [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
     }
     
     [allImage removeFromSuperview];
@@ -117,7 +120,7 @@
         UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
         txtView.backgroundColor = alphaZero;//テキストビューの背景を透明化
         
-        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[_isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
+        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
         txtView.userInteractionEnabled = NO;
         [txtView addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
@@ -135,14 +138,14 @@
 
     
     NSLog(@"カードナンバー%dの所持カード数：%d",sender.view.tag,[[app.myCards objectAtIndex:sender.view.tag] intValue]);
-    NSLog(@"デッキに入っているカードナンバー%dの枚数:%d",sender.view.tag , [[_isSelectedCards objectAtIndex:sender.view.tag] intValue]);
+    NSLog(@"デッキに入っているカードナンバー%dの枚数:%d",sender.view.tag , [[isSelectedCards objectAtIndex:sender.view.tag] intValue]);
 
 }
 
 - (void)cardSelectDecideButtonPushed{
     int numberOfCardsInDeck = 0;
-    for(int i = 0; i < [_isSelectedCards count] ; i++){
-        numberOfCardsInDeck += [[_isSelectedCards objectAtIndex:i] intValue];
+    for(int i = 0; i < [isSelectedCards count] ; i++){
+        numberOfCardsInDeck += [[isSelectedCards objectAtIndex:i] intValue];
     }
     NSLog(@"デッキ枚数：%d",numberOfCardsInDeck);
     if(numberOfCardsInDeck <40){
@@ -152,25 +155,25 @@
         [alert show];
     }else{
         [app.myDeck removeAllObjects];
-        app.myDeck = [[NSMutableArray alloc] initWithArray:_isSelectedCards];
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        [ud setObject:app.myDeck forKey:@"myDeck_ud"];
-        [ud synchronize];
-        NSLog(@"%@",[ud arrayForKey:@"myDeck_ud"]);
+        app.myDeck = [[NSMutableArray alloc] initWithArray:isSelectedCards];
+        NSUserDefaults *tmp = [NSUserDefaults standardUserDefaults];
+        [tmp setObject:app.myDeck forKey:@"myDeck_ud"];
+        [tmp synchronize];
+        NSLog(@"%@",[tmp arrayForKey:@"myDeck_ud"]);
         
     }
 }
 
 - (void)cardSelectCancelButtonPushed{
-    _isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
-    NSLog(@"%@",_isSelectedCards);
+    isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
+    NSLog(@"%@",isSelectedCards);
 }
 
 
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender
 {
-    NSLog(@"感知 from %ld",sender.view.tag);
+    NSLog(@"感知 from %d",sender.view.tag);
     if(detailOfACardCount == 0){
         [self detailOfACard:sender.view.tag];
         detailOfACardCount = 1;
@@ -179,9 +182,9 @@
 
 - (void)detailOfACard:(int)tagNum{
     
-    _detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
-    _detailOfACard.image = [UIImage imageNamed:@"detailImage.png"];
-    [scrollView addSubview:_detailOfACard];
+    detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
+    detailOfACard.image = [UIImage imageNamed:@"detailImage.png"];
+    [scrollView addSubview:detailOfACard];
     [self putACancelButton:CGRectMake(45,scrollView.contentOffset.y + 45, 25, 25)];
     [self touchesPermittion:NO];
 }
@@ -207,7 +210,7 @@
 
 - (void)cancelButtonTouched:(UIButton *)sender{
     [sender removeFromSuperview];
-    [_detailOfACard removeFromSuperview];
+    [detailOfACard removeFromSuperview];
     [self touchesPermittion:YES];
     detailOfACardCount = 0;
     

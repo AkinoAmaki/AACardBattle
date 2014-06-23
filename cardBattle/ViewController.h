@@ -12,7 +12,7 @@
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
-    NSUserDefaults *ud;
+    NSUserDefaults *userDefault;
     AppDelegate *appdelegate;
 }
 

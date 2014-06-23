@@ -18,8 +18,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    ud = [NSUserDefaults standardUserDefaults];
-    int first =  [ud integerForKey:@"firstLaunch_ud"];
+    userDefault = [NSUserDefaults standardUserDefaults];
+    int first =  [userDefault integerForKey:@"firstLaunch_ud"];
     
     if(first == 0){
         appdelegate = [[UIApplication sharedApplication] delegate];
@@ -34,7 +34,7 @@
         tf.text = @"test";
         [firstLaunchView addSubview:tf];
         [self.view addSubview:firstLaunchView];
-        [ud setInteger:1 forKey:@"firstLaunch_ud"];
+        [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
 }
 
@@ -45,10 +45,10 @@
 }
 
  -(BOOL)textFieldShouldReturn:(UITextField*)textField{
-     ud = [NSUserDefaults standardUserDefaults];
-     [ud setObject:tf.text forKey:@"myNickName_ud"];
-     [ud synchronize];
-     appdelegate.myNickName = [ud objectForKey:@"myNickName_ud"];
+     userDefault = [NSUserDefaults standardUserDefaults];
+     [userDefault setObject:tf.text forKey:@"myNickName_ud"];
+     [userDefault synchronize];
+     appdelegate.myNickName = [userDefault objectForKey:@"myNickName_ud"];
      NSLog(@"ニックネーム：%@",appdelegate.myNickName);
      [tf resignFirstResponder];
      [firstLaunchView removeFromSuperview];

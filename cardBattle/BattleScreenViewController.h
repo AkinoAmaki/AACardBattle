@@ -35,7 +35,7 @@
 #define FINISHED1 syncFinished = YES;
 
 
-@interface BattleScreenViewController : BattleCaliculate{
+@interface BattleScreenViewController : BattleCaliculate<UIScrollViewDelegate>{
     
     int turnCount; //ターン数を管理
     int myDrawCount; //自分の引いたカード枚数を管理
@@ -192,7 +192,7 @@
 
 
 //各種アラートビューを実装(ボタン押下時にアクションを起こす必要のあるものに限る)
-@property UIAlertView *battleStart;
+@property UIAlertView *battleStartView;
 @property UIAlertView *putACardToLibraryTopOrBottom;
 @property UIAlertView *doIUseSorcerycard;
 @property UIAlertView *doIUseFieldcard;
@@ -201,8 +201,5 @@
 
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
-
-- (IBAction)keisan:(id)sender;
-- (void) transitView:(NSNotification *)note;
 
 @end
