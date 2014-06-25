@@ -55,6 +55,20 @@
     doIUseCardInThisTurn = NO;
     cardIsCompletlyUsed = NO;
     searchACardInsteadOfGetACardFromLibraryTop = NO;
+    
+    numberOfUsingWhiteEnergy    = 0;//使用しようとしているカードに費やす白エネルギーの数
+    numberOfUsingBlueEnergy     = 0;//使用しようとしているカードに費やす青エネルギーの数
+    numberOfUsingBlackEnergy    = 0;//使用しようとしているカードに費やす黒エネルギーの数
+    numberOfUsingRedEnergy      = 0;//使用しようとしているカードに費やす赤エネルギーの数
+    numberOfUsingGreenEnergy    = 0;//使用しようとしているカードに費やす緑エネルギーの数
+    whiteNumberOfText   = [[UITextView alloc] init];//使用しようとしているカードに費やす白エネルギーの数を表示するビュー
+    blueNumberOfText    = [[UITextView alloc] init];//使用しようとしているカードに費やす青エネルギーの数を表示するビュー
+    blackNumberOfText   = [[UITextView alloc] init];//使用しようとしているカードに費やす黒エネルギーの数を表示するビュー
+    redNumberOfText     = [[UITextView alloc] init];//使用しようとしているカードに費やす赤エネルギーの数を表示するビュー
+    greenNumberOfText   = [[UITextView alloc] init];//使用しようとしているカードに費やす緑エネルギーの数を表示するビュー
+    
+    
+    
     targetedEnemyFieldCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedLibraryCardInThisTurn_destroy = [[NSMutableArray alloc] init];
     targetedEnemyHandCardInThisTurn_destroy = [[NSMutableArray alloc] init];
@@ -74,6 +88,7 @@
     [detailOfACard addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDetailOfACard)]];
     detailOfACard.frame = CGRectMake(0, 0, 280, 420);
     detailOfACard.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
+    costOfCard = [[NSArray alloc] init];
     
     //iPhone5ならYES,それ以外ならNOに行く
     if([YSDeviceHelper is568h]){
@@ -601,7 +616,7 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    
+    [self selectUsingEnergy:10];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
@@ -2991,7 +3006,7 @@
 - (void)handTouched :(UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
-    int cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
+    cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
     cardType = [[app.cardList_type objectAtIndex:cardNumber] intValue];
     app.myUsingCardNumber = cardNumber;
     app.doIUseCard = YES;
@@ -3030,14 +3045,15 @@
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
-            app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
             
             _doIUseSorcerycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"ソーサリーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseSorcerycard show];
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
             if(doIUseCardInThisTurn == YES){
-                //使用したエネルギーを減らす
+                //使用したエネルギーを使用済みエネルギーとして把握する
+                [self selectUsingEnergy:selectedCardOrder];
+                [self sync];
                 
                 
                 //エネルギーを増やすカードの場合は、すぐに効果を発動させる。それ以外はAA・カード選択フェーズの後に効果を発動させる
@@ -3064,13 +3080,16 @@
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
-            app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
             
             
             _doIUseFieldcard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"フィールドカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseFieldcard show];
             [self sync];
             if(doIUseCardInThisTurn == YES){
+                //使用したエネルギーを使用済みエネルギーとして把握する
+                [self selectUsingEnergy:selectedCardOrder];
+                [self sync];
+                
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
@@ -3086,7 +3105,6 @@
             [_border_usedCard removeFromSuperview];
             [_regionView addSubview:_border_usedCard];
             _border_usedCard.frame = sender.view.frame;
-            app.myUsingCardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue]; //今選んでいるカードのナンバー
             
             
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
@@ -3378,9 +3396,9 @@
 }
 
 //カードの色を判断する（カードナンバー）
--(int)distinguishCardColor :(int)cardNumber{
+-(int)distinguishCardColor :(int)cardNum{
     int colorNumber = 0;
-    colorNumber = [[app.cardList_color objectAtIndex:cardNumber] intValue];
+    colorNumber = [[app.cardList_color objectAtIndex:cardNum] intValue];
     return colorNumber;
 }
 
@@ -3423,9 +3441,9 @@
 
 
 //対象プレイヤーのXという場（X=場カード置き場 or エネルギーカード置き場）から対象プレイヤーYという場にZというカードを置く（対象プレイヤー・移動元の場・移動元の配列の何番目に存在するか・移動後の場）
-- (void)setCardFromXTOY :(NSMutableArray *)fromField  cardNumber:(int)cardNumber toField:(NSMutableArray *)toField{
-    [toField addObject:[fromField objectAtIndex:cardNumber]];
-    [fromField removeObjectAtIndex:cardNumber];
+- (void)setCardFromXTOY :(NSMutableArray *)fromField  cardNumber:(int)cardNum toField:(NSMutableArray *)toField{
+    [toField addObject:[fromField objectAtIndex:cardNum]];
+    [fromField removeObjectAtIndex:cardNum];
 }
 
 //対象プレイヤーの山札からカードを一枚墓地に捨てる（対象プレイヤー（対象プレイヤー・タグナンバー）
@@ -3683,6 +3701,41 @@
             }
             break;
             
+        case 10:
+            //カードのコストとして費やすマナを選択する画面のOKボタンから飛んできた場合
+        
+            
+        {
+            NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
+            
+            int whiteNumber  = numberOfUsingWhiteEnergy - [[tempArray objectAtIndex:0] intValue];
+            int blueNumber   = numberOfUsingBlueEnergy - [[tempArray objectAtIndex:1] intValue];
+            int blackeNumber = numberOfUsingBlackEnergy - [[tempArray objectAtIndex:2] intValue];
+            int redNumber    = numberOfUsingRedEnergy - [[tempArray objectAtIndex:3] intValue];
+            int greenNumber  = numberOfUsingGreenEnergy - [[tempArray objectAtIndex:4] intValue];
+            
+            //費やしたマナがカード使用条件（有色マナを十分に満たす）を満たさない場合、警告を出して弾く
+            if(whiteNumber < 0 || blueNumber < 0 || blackeNumber < 0 || redNumber < 0 || greenNumber < 0 || whiteNumber + blueNumber + blackeNumber + redNumber + greenNumber != [[tempArray objectAtIndex:5] intValue]){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エネルギー不足" message:@"カードの使用条件を満たしていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"使用するエネルギーを選択しなおす", nil];
+                [alert show];
+            }else{
+                [app.myUsingEnergy replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[app.myUsingEnergy objectAtIndex:0] intValue] + numberOfUsingWhiteEnergy]];
+                [app.myUsingEnergy replaceObjectAtIndex:1 withObject:[NSNumber numberWithInt:[[app.myUsingEnergy objectAtIndex:1] intValue] + numberOfUsingBlueEnergy]];
+                [app.myUsingEnergy replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:[[app.myUsingEnergy objectAtIndex:2] intValue] + numberOfUsingBlackEnergy]];
+                [app.myUsingEnergy replaceObjectAtIndex:3 withObject:[NSNumber numberWithInt:[[app.myUsingEnergy objectAtIndex:3] intValue] + numberOfUsingRedEnergy]];
+                [app.myUsingEnergy replaceObjectAtIndex:4 withObject:[NSNumber numberWithInt:[[app.myUsingEnergy objectAtIndex:4] intValue] + numberOfUsingGreenEnergy]];
+                
+                numberOfUsingWhiteEnergy = 0;
+                numberOfUsingBlueEnergy  = 0;
+                numberOfUsingBlackEnergy = 0;
+                numberOfUsingRedEnergy   = 0;
+                numberOfUsingGreenEnergy = 0;
+                [_colorView removeFromSuperview];
+                FINISHED1
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -3697,6 +3750,9 @@
 
 //特定の色を選択する画面を生成
 -(void)colorSelect{
+    for (UIView *view in _colorView.subviews) {
+        [view removeFromSuperview];
+    }
     
     UIImageView *whiteImage = [[UIImageView alloc] init];
     UIImageView *blueImage = [[UIImageView alloc] init];
@@ -3808,10 +3864,8 @@
                 //後続でソーサリー・フィールドカードを使用する場合があるため、各種カード関係の変数を初期化しておく
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
-                app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 
-                NSLog(@"selectCardNum:%d",app.myUsingCardNumber);
                 NSLog(@"手札の内容：%@",app.myHand);
                 NSLog(@"墓地の内容：%@",app.myTomb);
                 FINISHED1
@@ -3820,7 +3874,6 @@
                 //キャンセルボタンの場合は数値のみ初期化
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
-                app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 [_border_usedCard removeFromSuperview];
                 FINISHED1
@@ -3835,7 +3888,6 @@
             case 1:
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
-                app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
                 [_border_usedCard removeFromSuperview];
@@ -3854,7 +3906,6 @@
             case 1:
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
-                app.myUsingCardNumber = -1;
                 app.doIUseCard = NO;
                 doIUseCardInThisTurn = NO;
                 [_border_usedCard removeFromSuperview];
@@ -3891,7 +3942,7 @@
 
 
 //対象のカードのエネルギーコストを配列に収める（カードナンバー）
-- (NSArray *)caliculateEnergyCost:(int)cardNumber{
+- (NSArray *)caliculateEnergyCost:(int)cardNum{
     
     int whiteNumber = 0;//必要な白エネルギーの数を集計する
     int blueNumber = 0;//必要な青エネルギーの数を集計する
@@ -3901,7 +3952,7 @@
     int otherNumber = 0;//任意の色でよいエネルギーの数を集計する
     
     NSMutableArray *array = [[NSMutableArray alloc] init]; //白・青・黒・赤・緑・無色の配列順でコストがどれだけかかるかを管理する。
-    NSString *energyCost = [app.cardList_cost objectAtIndex:cardNumber]; //コストの文字列を取得
+    NSString *energyCost = [app.cardList_cost objectAtIndex:cardNum]; //コストの文字列を取得
     int costLength = (int)[energyCost length];
     for (int i = 0; i < costLength; i++) {
         if([[energyCost substringWithRange:NSMakeRange(i,1)] isEqualToString:@"W"]){
@@ -3937,15 +3988,15 @@
 }
 
 //対象のカードを使用するのに必要なエネルギーがあるか判定する（カードナンバー）
-- (BOOL)doIHaveEnergyToUseCard :(int)cardNumber{
+- (BOOL)doIHaveEnergyToUseCard :(int)cardNum{
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
-    NSArray *cardCost = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:cardNumber]];
-    int whiteNumber = [[app.myEnergyCard objectAtIndex:0] intValue] - [[cardCost objectAtIndex:0] intValue];
-    int blueNumber = [[app.myEnergyCard objectAtIndex:1] intValue] - [[cardCost objectAtIndex:1] intValue];
-    int blackeNumber = [[app.myEnergyCard objectAtIndex:2] intValue] - [[cardCost objectAtIndex:2] intValue];
-    int redNumber = [[app.myEnergyCard objectAtIndex:3] intValue] - [[cardCost objectAtIndex:3] intValue];
-    int greenNumber = [[app.myEnergyCard objectAtIndex:4] intValue] - [[cardCost objectAtIndex:4] intValue];
+    NSArray *cardCost = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:cardNum]];
+    int whiteNumber = [[app.myEnergyCard objectAtIndex:0] intValue] - [[app.myUsingEnergy objectAtIndex:0] intValue] - [[cardCost objectAtIndex:0] intValue];
+    int blueNumber = [[app.myEnergyCard objectAtIndex:1] intValue] - [[app.myUsingEnergy objectAtIndex:1] intValue] - [[cardCost objectAtIndex:1] intValue];
+    int blackeNumber = [[app.myEnergyCard objectAtIndex:2] intValue] - [[app.myUsingEnergy objectAtIndex:2] intValue] - [[cardCost objectAtIndex:2] intValue];
+    int redNumber = [[app.myEnergyCard objectAtIndex:3] intValue] - [[app.myUsingEnergy objectAtIndex:3] intValue] - [[cardCost objectAtIndex:3] intValue];
+    int greenNumber = [[app.myEnergyCard objectAtIndex:4] intValue] - [[app.myUsingEnergy objectAtIndex:4] intValue] - [[cardCost objectAtIndex:4] intValue];
     
     if(whiteNumber < 0 || blueNumber < 0 || blackeNumber < 0 || redNumber < 0 || greenNumber < 0 || whiteNumber + blueNumber + blackeNumber + redNumber + greenNumber < [[cardCost objectAtIndex:5] intValue]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エネルギー不足" message:@"エネルギーが足りません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを選択しなおす", nil];
@@ -3994,6 +4045,7 @@
     
     
     //自分に関係する変数
+    app.myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
     app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     [_border_middleCard removeFromSuperview];
     [_border_character removeFromSuperview];
@@ -4190,8 +4242,8 @@
 }
 
 
-- (void)setCardToCardsIUsedInThisTurn:(NSMutableArray *)fromField  cardNumber:(int)cardNumber{
-    [app.cardsIUsedInThisTurn addObject:[fromField objectAtIndex:cardNumber]];
+- (void)setCardToCardsIUsedInThisTurn:(NSMutableArray *)fromField  cardNumber:(int)cardNum{
+    [app.cardsIUsedInThisTurn addObject:[fromField objectAtIndex:cardNum]];
 }
 
 
@@ -4582,7 +4634,7 @@
     //何もしないセレクタ
 }
 
--(void)manipulateCard:(NSNumber *)cardNumber plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{
+-(void)manipulateCard:(NSNumber *)cardNum plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{
     //自分のカード効果等による自分自身のカードの移動は、もし先に相手の効果等により移動済みであった場合、空振りにしなければならない。そのためには、減少処理と増加処理を両方空振りさせる必要がある。
     //マイナス配列は、GetEnemyDataFromServer.mのindexOfObjectForNSNumberにて返り値が-1となれば（相手に除去されている等の理由により）既に除去すべきカードがその領域に存在していない（減少処理の空振り）ことがわかるが、プラス配列の方は何もしないと（対応すべきマイナス配列が既に存在しないにもかかわらず）カードの増加処理を行ってしまうため、マイナス配列に対応する配列名及び配列番号を入れておくことで、マイナス配列が空振りした場合にプラス配列の増加処理も止めるように実装している。
     //上記の通り、空振りさせるべきは「自分のカード効果等による、自分自身の」カードの移動のみであることから、自分が相手のカードを移動させるときには原則どおりマイナス配列に移動させるカードのカードナンバーを入れるだけの仕様である。
@@ -4608,12 +4660,12 @@
     }
     
     if (minusArray == app.enemyHandByMyself_minus || minusArray == app.enemyTombByMyself_minus || minusArray == app.enemyFieldCardByMyself_minus || minusArray == app.enemyDeckCardListByMyself_minus) {
-        [minusArray addObject:cardNumber];
+        [minusArray addObject:cardNum];
     }else{
-        NSArray *tmpArray = [[NSArray alloc] initWithObjects:cardNumber, [NSNumber numberWithInt:tagNumberOfPlusArray],[NSNumber numberWithInt:(int)[plusArray count]], nil];
+        NSArray *tmpArray = [[NSArray alloc] initWithObjects:cardNum, [NSNumber numberWithInt:tagNumberOfPlusArray],[NSNumber numberWithInt:(int)[plusArray count]], nil];
         [minusArray addObject:tmpArray];
     }
-    [plusArray addObject:cardNumber];
+    [plusArray addObject:cardNum];
 }
 
 -(void)forbidTouchAction{
@@ -4634,6 +4686,238 @@
     _enemyTomb.userInteractionEnabled       = YES;
     _myField.userInteractionEnabled         = YES;
     _enemyField.userInteractionEnabled      = YES;
+}
+
+//各色毎にいくつのエネルギーを使用するか選択する
+-(void)selectUsingEnergy:(int)cardNum{
+    //色を選択する画面を作成する
+    for (UIView *view in _colorView.subviews) {
+        [view removeFromSuperview];
+    }
+
+    UIImageView *whiteImage = [[UIImageView alloc] init];
+    UIImageView *blueImage = [[UIImageView alloc] init];
+    UIImageView *blackImage = [[UIImageView alloc] init];
+    UIImageView *redImage = [[UIImageView alloc] init];
+    UIImageView *greenImage = [[UIImageView alloc] init];
+    UIImageView *whiteUp = [[UIImageView alloc] init];
+    UIImageView *blueUp = [[UIImageView alloc] init];
+    UIImageView *blackUp = [[UIImageView alloc] init];
+    UIImageView *redUp = [[UIImageView alloc] init];
+    UIImageView *greenUp = [[UIImageView alloc] init];
+    UIImageView *whiteDown = [[UIImageView alloc] init];
+    UIImageView *blueDown = [[UIImageView alloc] init];
+    UIImageView *blackDown = [[UIImageView alloc] init];
+    UIImageView *redDown = [[UIImageView alloc] init];
+    UIImageView *greenDown = [[UIImageView alloc] init];
+    
+    [_colorView addSubview:whiteImage];
+    [_colorView addSubview:blueImage];
+    [_colorView addSubview:blackImage];
+    [_colorView addSubview:redImage];
+    [_colorView addSubview:greenImage];
+    [_colorView addSubview:whiteUp];
+    [_colorView addSubview:blueUp];
+    [_colorView addSubview:blackUp];
+    [_colorView addSubview:redUp];
+    [_colorView addSubview:greenUp];
+    [_colorView addSubview:whiteDown];
+    [_colorView addSubview:blueDown];
+    [_colorView addSubview:blackDown];
+    [_colorView addSubview:redDown];
+    [_colorView addSubview:greenDown];
+    [_colorView addSubview:whiteNumberOfText];
+    [_colorView addSubview:blueNumberOfText];
+    [_colorView addSubview:blackNumberOfText];
+    [_colorView addSubview:redNumberOfText];
+    [_colorView addSubview:greenNumberOfText];
+    
+    whiteImage.frame    = CGRectMake(10, 40, 50, 50);
+    blueImage.frame     = CGRectMake(10, 120, 50, 50);
+    blackImage.frame    = CGRectMake(10, 200, 50, 50);
+    redImage.frame      = CGRectMake(10, 280, 50, 50);
+    greenImage.frame    = CGRectMake(10, 360, 50, 50);
+    
+    whiteDown.frame     = CGRectMake(80, 40, 50, 50);
+    blueDown.frame      = CGRectMake(80, 120, 50, 50);
+    blackDown.frame     = CGRectMake(80, 200, 50, 50);
+    redDown.frame       = CGRectMake(80, 280, 50, 50);
+    greenDown.frame     = CGRectMake(80, 360, 50, 50);
+    
+    whiteNumberOfText.frame   = CGRectMake(140, 40, 50, 50);
+    blueNumberOfText.frame    = CGRectMake(140, 120, 50, 50);
+    blackNumberOfText.frame   = CGRectMake(140, 200, 50, 50);
+    redNumberOfText.frame     = CGRectMake(140, 280, 50, 50);
+    greenNumberOfText.frame   = CGRectMake(140, 360, 50, 50);
+    
+    whiteUp.frame       = CGRectMake(200, 40, 50, 50);
+    blueUp.frame        = CGRectMake(200, 120, 50, 50);
+    blackUp.frame       = CGRectMake(200, 200, 50, 50);
+    redUp.frame         = CGRectMake(200, 280, 50, 50);
+    greenUp.frame       = CGRectMake(200, 360, 50, 50);
+    
+    whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage"];
+    blueImage.image = [UIImage imageNamed:@"blueEnergyImage"];
+    blackImage.image = [UIImage imageNamed:@"blackEnergyImage"];
+    redImage.image = [UIImage imageNamed:@"redEnergyImage"];
+    greenImage.image = [UIImage imageNamed:@"greenEnergyImage"];
+    
+    whiteUp.image = [UIImage imageNamed:@"rightArrow"];
+    blueUp.image = [UIImage imageNamed:@"rightArrow"];
+    blackUp.image = [UIImage imageNamed:@"rightArrow"];
+    redUp.image = [UIImage imageNamed:@"rightArrow"];
+    greenUp.image = [UIImage imageNamed:@"rightArrow"];
+    
+    whiteDown.image = [UIImage imageNamed:@"leftArrow"];
+    blueDown.image = [UIImage imageNamed:@"leftArrow"];
+    blackDown.image = [UIImage imageNamed:@"leftArrow"];
+    redDown.image = [UIImage imageNamed:@"leftArrow"];
+    greenDown.image = [UIImage imageNamed:@"leftArrow"];
+    
+    whiteUp.userInteractionEnabled = YES;
+    blueUp.userInteractionEnabled = YES;
+    blackUp.userInteractionEnabled = YES;
+    redUp.userInteractionEnabled = YES;
+    greenUp.userInteractionEnabled = YES;
+    
+    whiteDown.userInteractionEnabled = YES;
+    blueDown.userInteractionEnabled = YES;
+    blackDown.userInteractionEnabled = YES;
+    redDown.userInteractionEnabled = YES;
+    greenDown.userInteractionEnabled = YES;
+    
+    [whiteUp addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(plusEnergy:)]];
+    [blueUp addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(plusEnergy:)]];
+    [blackUp addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(plusEnergy:)]];
+    [redUp addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(plusEnergy:)]];
+    [greenUp addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(plusEnergy:)]];
+    
+    [whiteDown addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(minusEnergy:)]];
+    [blueDown addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(minusEnergy:)]];
+    [blackDown addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(minusEnergy:)]];
+    [redDown addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(minusEnergy:)]];
+    [greenDown addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(minusEnergy:)]];
+    
+    whiteUp.tag = 1;
+    blueUp.tag = 2;
+    blackUp.tag = 3;
+    redUp.tag = 4;
+    greenUp.tag = 5;
+    
+    whiteDown.tag = 1;
+    blueDown.tag = 2;
+    blackDown.tag = 3;
+    redDown.tag = 4;
+    greenDown.tag = 5;
+    
+    
+    numberOfUsingWhiteEnergy = 0;
+    numberOfUsingBlueEnergy = 0;
+    numberOfUsingBlackEnergy = 0;
+    numberOfUsingRedEnergy = 0;
+    numberOfUsingGreenEnergy = 0;
+    
+    whiteNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingWhiteEnergy];
+    blueNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlueEnergy];
+    blackNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlackEnergy];
+    redNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingRedEnergy];
+    greenNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingGreenEnergy];
+    whiteNumberOfText.editable = NO;
+    blueNumberOfText.editable = NO;
+    blackNumberOfText.editable = NO;
+    redNumberOfText.editable = NO;
+    greenNumberOfText.editable = NO;
+    
+    costOfCard= [self caliculateEnergyCost:cardNum];
+    
+    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 40), 100, 20) parentView:_colorView tag:10];
+    [_allImageView addSubview:_colorView];
+}
+
+-(void)plusEnergy: (UITapGestureRecognizer *)sender{
+    NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
+    int i = 0;
+    for (NSNumber *num in tempArray) {
+        i += [num intValue];
+    }
+    NSLog(@"i:%d",i);
+    
+    int allNumber = numberOfUsingWhiteEnergy + numberOfUsingBlueEnergy + numberOfUsingBlackEnergy + numberOfUsingRedEnergy + numberOfUsingRedEnergy;
+    
+    NSLog(@"allNumber:%d",allNumber);
+    
+    switch (sender.view.tag) {
+        case 1:
+            if(numberOfUsingWhiteEnergy < ([[app.myEnergyCard objectAtIndex:0] intValue] - [[app.myUsingEnergy objectAtIndex:0] intValue]) && allNumber < i){
+                numberOfUsingWhiteEnergy++;
+                whiteNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingWhiteEnergy];
+            }
+            break;
+        case 2:
+            if(numberOfUsingBlueEnergy < ([[app.myEnergyCard objectAtIndex:1] intValue] - [[app.myUsingEnergy objectAtIndex:1] intValue]) && allNumber < i){
+                numberOfUsingBlueEnergy++;
+                blueNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlueEnergy];
+            }
+            
+            break;
+        case 3:
+            if(numberOfUsingBlackEnergy < ([[app.myEnergyCard objectAtIndex:2] intValue] - [[app.myUsingEnergy objectAtIndex:2] intValue]) && allNumber < i){
+                numberOfUsingBlackEnergy++;
+                blackNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlackEnergy];
+            }
+            break;
+        case 4:
+            if(numberOfUsingRedEnergy < ([[app.myEnergyCard objectAtIndex:3] intValue] - [[app.myUsingEnergy objectAtIndex:3] intValue]) && allNumber < i){
+                numberOfUsingRedEnergy++;
+                redNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingRedEnergy];
+            }
+            break;
+        case 5:
+            if(numberOfUsingGreenEnergy < ([[app.myEnergyCard objectAtIndex:4] intValue] - [[app.myUsingEnergy objectAtIndex:4] intValue]) && allNumber < i){
+                numberOfUsingGreenEnergy++;
+                greenNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingGreenEnergy];
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)minusEnergy: (UITapGestureRecognizer *)sender{
+    switch (sender.view.tag) {
+        case 1:
+            if(numberOfUsingWhiteEnergy > 0){
+                numberOfUsingWhiteEnergy--;
+                whiteNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingWhiteEnergy];
+            }
+            break;
+        case 2:
+            if(numberOfUsingBlueEnergy > 0){
+                numberOfUsingBlueEnergy--;
+                blueNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlueEnergy];
+            }
+            break;
+        case 3:
+            if(numberOfUsingBlackEnergy > 0){
+                numberOfUsingBlackEnergy--;
+                blackNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlackEnergy];
+            }
+            break;
+        case 4:
+            if(numberOfUsingRedEnergy > 0){
+                numberOfUsingRedEnergy--;
+                redNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingRedEnergy];
+            }
+            break;
+        case 5:
+            if(numberOfUsingGreenEnergy > 0){
+                numberOfUsingGreenEnergy--;
+                greenNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingGreenEnergy];
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 

@@ -37,6 +37,7 @@
 
 @interface BattleScreenViewController : BattleCaliculate<UIScrollViewDelegate>{
     
+    int cardNumber;//今選択されているカードの番号(手札タッチ時にデータが格納される)
     int turnCount; //ターン数を管理
     int myDrawCount; //自分の引いたカード枚数を管理
     int enemyDrawCount; //相手の引いたカード枚数を管理
@@ -50,6 +51,19 @@
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
     BOOL searchACardInsteadOfGetACardFromLibraryTop; //ターンの最初のドローの代わりにその他の領域からカードを引いたかを管理する（引いた場合、ターン最初のドローは無し）
+    int numberOfUsingWhiteEnergy;//使用しようとしているカードに費やす白エネルギーの数
+    int numberOfUsingBlueEnergy;//使用しようとしているカードに費やす青エネルギーの数
+    int numberOfUsingBlackEnergy;//使用しようとしているカードに費やす黒エネルギーの数
+    int numberOfUsingRedEnergy;//使用しようとしているカードに費やす赤エネルギーの数
+    int numberOfUsingGreenEnergy;//使用しようとしているカードに費やす緑エネルギーの数
+    UITextView *whiteNumberOfText;//使用しようとしているカードに費やす白エネルギーの数を表示するビュー
+    UITextView *blueNumberOfText;//使用しようとしているカードに費やす青エネルギーの数を表示するビュー
+    UITextView *blackNumberOfText;//使用しようとしているカードに費やす黒エネルギーの数を表示するビュー
+    UITextView *redNumberOfText;//使用しようとしているカードに費やす赤エネルギーの数を表示するビュー
+    UITextView *greenNumberOfText;//使用しようとしているカードに費やす緑エネルギーの数を表示するビュー
+    
+    
+    NSArray *costOfCard; //使用しようとしているカードのコストを入れ込む配列
     NSMutableArray *targetedMyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
     NSMutableArray *targetedMyFieldCardInThisTurn_send; //このターン、自分がカードを使用し、渡す対象としたフィールドカードの一覧
     NSMutableArray *targetedEnemyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧

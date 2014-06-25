@@ -426,11 +426,11 @@
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0],
                                                      [NSNumber numberWithInt:0], //20
+                                                   [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:0],
+                                                   [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:10],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
                                                    [NSNumber numberWithInt:0],
@@ -620,7 +620,7 @@ nil];
     _myHand = [[NSMutableArray alloc] init]; //自分の手札
     _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],nil]; //自分の場カードのカードナンバー
-    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20], [NSNumber numberWithInt:20],nil]; //自分のエネルギーカードの数
+    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
     _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
     _myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）
@@ -641,6 +641,7 @@ nil];
     _myTombFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyTomb（差分のみ管理）
     _myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
     _myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
+    _myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分がこのターン使用したエネルギーの量
     _myLifeGage = 20;
     _myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     _myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する

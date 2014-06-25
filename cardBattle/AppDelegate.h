@@ -56,6 +56,7 @@
 @property BOOL decideAction; //自分がカードとAAをを選択し終えるとYESとなり、ターン終了時にNOに戻る
 
 //自分に関係する変数
+@property NSMutableArray *myUsingEnergy; //自分がこのターン使用したエネルギーの量
 @property int myLifeGage; //自分のライフポイント
 @property int myLifeGageByMyself; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
 @property int myAdditionalGettingCards; //ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
@@ -154,7 +155,7 @@
 @property BOOL myYaruoAttackPermittedFromEnemy; //相手の制限による自分のやる夫の攻撃許可
 @property BOOL myYaruoDeffencePermittedFromEnemy; //相手の制限による自分のやる夫の防御許可
 @property BOOL doIUseCard; //自分がこのターンカードを使用したか
-@property int myUsingCardNumber; //自分が使用したカードの番号
+@property int myUsingCardNumber; //自分が現在手札から選択しているカードの番号
 @property BOOL denymyCardPlaying; //自分がカードのプレイを打ち消されたか
 @property int myDamageFromAA; //このターンAAから自分に与えられるダメージ
 @property int myDamageFromCard; //このターン相手の使用したカードから自分に与えられるダメージ
