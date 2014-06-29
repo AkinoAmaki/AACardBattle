@@ -42,6 +42,7 @@
 @property (nonatomic, retain) NSArray *cardList_cost; //カードごとのマナコスト
 @property (nonatomic, retain) NSArray *cardList_color; //カードごとの色
 @property (nonatomic, retain) NSArray *cardList_text; //カードごとの説明文
+@property (nonatomic, retain) NSArray *cardList_rarelity; //カードごとのレアリティ
 @property (nonatomic, retain) NSArray *sorceryCardList; //ソーサリーカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_turnStart; //ターン開始時に効果を発揮するカード一覧
 @property (nonatomic, retain) NSArray *fieldCardList_afterCardUsed; //カード使用時に効果を発揮するカード一覧
