@@ -212,7 +212,9 @@
 @property UIAlertView *doIUseFieldcard;
 @property UIAlertView *doIUseEnergycard;
 @property UIAlertView *searchEnergyCardOrGetACard;
-
+@property UIAlertView *loseAlert;
+@property UIAlertView *winAlert;
+@property UIAlertView *drawAlert;
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
 

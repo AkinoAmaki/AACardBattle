@@ -38,10 +38,8 @@
 
 
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     app = [[UIApplication sharedApplication] delegate];
     turnCount = 1;
@@ -601,7 +599,7 @@
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
     app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 120008502;
+    app.enemyPlayerID = 570396735;
     NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
     
     SendDataToServer *sendData = [[SendDataToServer alloc] init];
@@ -728,6 +726,9 @@
     app.myAdditionalGettingCards = 0;
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
+    if([self isGameOver]){
+        return;
+    }
     
     
     //カード使用後
@@ -797,6 +798,9 @@
     app.myDamageFromAA = 0;
     app.myDamageFromCard = 0;
     app.enemyDamageFromCard = 0;
+    if([self isGameOver]){
+        return;
+    }
     //ターン終了時
     NSLog(@"ターン終了フェイズ");
     [self phaseNameFadeIn:@"ターン終了フェイズ"];
@@ -816,6 +820,9 @@
     [self refleshView];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
+    if([self isGameOver]){
+        return;
+    }
     
     NSLog(@"-----------------------------------");
     NSLog(@"%s",__func__);
@@ -1092,7 +1099,7 @@
         case 34:
             //相手のライブラリーを上から半分削る（WW5)
         {
-            int k = [app.enemyDeckCardList count] - [app.enemyDeckCardListByMyself_minus count];
+            int k = (int)([app.enemyDeckCardList count] - [app.enemyDeckCardListByMyself_minus count]);
             for (int i = k ; i > (k / 2); i--) {
                 [self discardFromLibrary:i - 1];
             }
@@ -1506,7 +1513,7 @@
             int count = [app.myHand count] - [app.myHandByMyself_minus count];
             if(count != 0){
                 int rand = (int)(random() % count);
-                NSLog(@"[app.myHand count]:%d",[app.myHand count]);
+                NSLog(@"[app.myHand count]:%ld",[app.myHand count]);
                 [self manipulateCard:[app.myHand objectAtIndex:rand] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
                 
                 [self enemyAttackPowerOperate:GIKO point:-5 temporary:1];
@@ -3606,7 +3613,7 @@
     txtView.textAlignment = NSTextAlignmentCenter;
     txtView.editable = NO;
     txtView.text = string;
-    [view addSubview:txtView];
+    [_characterField addSubview:txtView];
     
     
     if(cancel){
@@ -3937,6 +3944,12 @@
             default:
                 break;
         }
+    }else if (alertView == _winAlert){
+        FINISHED1
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else if (alertView == _loseAlert){
+        FINISHED1
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -4918,6 +4931,21 @@
         default:
             break;
     }
+}
+
+-(BOOL)isGameOver{
+    if(app.myLifeGage <= 0){
+        _loseAlert = [[UIAlertView alloc] initWithTitle:@"敗北..." message:[NSString stringWithFormat:@"%@に敗北しました...",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"タイトル画面に戻る", nil];
+        [_loseAlert show];
+        [self sync];
+        return YES;
+    }else if(app.enemyLifeGage <= 0){
+        _winAlert = [[UIAlertView alloc] initWithTitle:@"勝利！" message:[NSString stringWithFormat:@"%@に勝利しました！",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを取得する", nil];
+        [_winAlert show];
+        [self sync];
+        return YES;
+    }
+    return NO;
 }
 
 

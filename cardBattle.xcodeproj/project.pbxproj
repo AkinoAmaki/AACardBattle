@@ -212,6 +212,7 @@
 		0FB4BC3D195322BA00794B92 /* card155.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BBB6195322BA00794B92 /* card155.png */; };
 		0FB4BC401959AF0600794B92 /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC3E1959AF0600794B92 /* leftArrow.png */; };
 		0FB4BC411959AF0600794B92 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC3F1959AF0600794B92 /* rightArrow.png */; };
+		0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4BC42195F0EB100794B92 /* GameKit.framework */; };
 		0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */; };
 		0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FD18DF22AB00E03D23 /* library.png */; };
 		0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDB97F618CAD30200C7566E /* CoreLocation.framework */; };
@@ -478,6 +479,7 @@
 		0FB4BBB6195322BA00794B92 /* card155.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card155.png; path = cardBattle/img/smallcard/card155.png; sourceTree = SOURCE_ROOT; };
 		0FB4BC3E1959AF0600794B92 /* leftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftArrow.png; sourceTree = "<group>"; };
 		0FB4BC3F1959AF0600794B92 /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
+		0FB4BC42195F0EB100794B92 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_middleCard.png; sourceTree = "<group>"; };
 		0FD1D9FD18DF22AB00E03D23 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		0FDB97F618CAD30200C7566E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -522,6 +524,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */,
 				0F6EB44E1915EAD100BD0E41 /* QuartzCore.framework in Frameworks */,
 				0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */,
 				0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */,
@@ -831,6 +834,7 @@
 		0FDCA48918CACFC2003459F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FB4BC42195F0EB100794B92 /* GameKit.framework */,
 				0F29BD0B191BDE9A00E9D59C /* libxml2.2.dylib */,
 				0F6EB44D1915EAD100BD0E41 /* QuartzCore.framework */,
 				0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */,

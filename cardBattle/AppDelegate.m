@@ -232,132 +232,132 @@
                                                                              [NSNumber numberWithInt:2],
                                                                              [NSNumber numberWithInt:2],
                                                                              [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
-                                                                             [NSNumber numberWithInt:2],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
+                                                                             [NSNumber numberWithInt:0],
                                                                              nil];
         
         [ud setObject:firstCards forKey:@"myCards_ud"];
@@ -401,176 +401,6 @@
     _myNickName = [ud objectForKey:@"myNickName_ud"];
     NSLog(@"ID:%d",_playerID);
     NSLog(@"ニックネーム:%@",_myNickName);
-    
-    
-    myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
-    //MARK: カード効果のデバッグが終わったら元に戻す　_myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
-    myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],//10
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0],
-                                                     [NSNumber numberWithInt:0], //20
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:10],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//30
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//40
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//50
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//60
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//70
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//80
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//90
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//100
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//110
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//120
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//130
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//140
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],//150
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   [NSNumber numberWithInt:0],
-                                                   nil];
-    myDeckCardList = [[NSMutableArray alloc] init];
-
-    //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
-    for (int i = 0; i < [myDeck count]; i++) {
-        for (int j = 0; j < [[myDeck objectAtIndex:i] intValue]; j++) {
-            [myDeckCardList addObject:[NSNumber numberWithInt:i]];
-        }
-    }
-    myDeckCardList = [AppDelegate shuffledArray:myDeckCardList];
 
 
     
@@ -614,197 +444,6 @@ nil];
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:147], nil];
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
-    
-#pragma mark- 対戦に関連する各種数値の初期化
-
-    _myHand = [[NSMutableArray alloc] init]; //自分の手札
-    _myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    _myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],nil]; //自分の場カードのカードナンバー
-    _myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
-    _myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
-    _myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
-    _myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）
-    _myFieldCardByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
-    _myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
-    _myDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
-    _myHandByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyHand（差分のみ管理）
-    _myTombByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyTomb（差分のみ管理）
-    _myFieldCardByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
-    _myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
-    _myDeckCardListFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyDeckCardList（差分のみ管理）
-    _myHandFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyHand（差分のみ管理）
-    _myTombFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyTomb（差分のみ管理）
-    _myFieldCardFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyFieldCard（差分のみ管理）
-    _myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、増加したmyEnergyCard（差分のみ管理）
-    _myDeckCardListFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyDeckCardList（差分のみ管理）
-    _myHandFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyHand（差分のみ管理）
-    _myTombFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyTomb（差分のみ管理）
-    _myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
-    _myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
-    _myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分がこのターン使用したエネルギーの量
-    _myLifeGage = 20;
-    _myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
-    _myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
-    _myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
-    _myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
-    _myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
-    _myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
-    _myMonarFundamentalDeffencePower = 0; //自分のモナーの基本防御力
-    _mySyobonFundamentalAttackPower = 3; //自分のショボンの基本攻撃力
-    _mySyobonFundamentalDeffencePower = 0; //自分のショボンの基本防御力
-    _myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
-    _myYaruoFundamentalDeffencePower = 3; //自分のやる夫の基本防御力
-    _myGikoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
-    _myGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のギコの基本防御力（差分のみ管理）
-    _myMonarFundamentalAttackPowerByMyself = 0; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
-    _myMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
-    _mySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
-    _mySyobonFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
-    _myYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
-    _myYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
-    _myGikoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
-    _myGikoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの基本防御力（差分のみ管理）
-    _myMonarFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
-    _myMonarFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
-    _mySyobonFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
-    _mySyobonFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
-    _myYaruoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
-    _myYaruoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
-    _mySelectCharacter = -1; //自分の選んだキャラクター
-    _mySelectCharacterFromEnemy = -1; 
-    _myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myMonarModifyingAttackPower = 0; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myMonarModifyingDeffencePower = 0; //自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _mySyobonModifyingAttackPower = 0; //自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _mySyobonModifyingDeffencePower = 0; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myYaruoModifyingAttackPower = 0; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myYaruoModifyingDeffencePower = 0; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _myGikoModifyingAttackPowerByMyself = 0; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myGikoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myMonarModifyingAttackPowerByMyself = 0; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myMonarModifyingDeffencePowerByMyself = 0; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _mySyobonModifyingAttackPowerByMyself = 0; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _mySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myYaruoModifyingAttackPowerByMyself = 0; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myMonarModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _mySyobonModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    _myGikoAttackPermittedByMyself = YES; //自分のギコの攻撃許可
-    _myGikoDeffencePermittedByMyself = YES; //自分のギコの防御許可
-    _myMonarAttackPermittedByMyself = YES; //自分のモナーの攻撃許可
-    _myMonarDeffencePermittedByMyself = YES; //自分のモナーの防御許可
-    _mySyobonAttackPermittedByMyself = YES; //自分のショボンの攻撃許可
-    _mySyobonDeffencePermittedByMyself = YES; //自分のショボンの防御許可
-    _myYaruoAttackPermittedByMyself = YES; //自分のやる夫の攻撃許可
-    _myYaruoDeffencePermittedByMyself = YES; //自分のやる夫の防御許可
-    _myGikoAttackPermittedFromEnemy = YES; //相手の妨害による自分のギコの攻撃許可
-    _myGikoDeffencePermittedFromEnemy = YES; //相手の制限による自分のギコの防御許可
-    _myMonarAttackPermittedFromEnemy = YES; //相手の制限による自分のモナーの攻撃許可
-    _myMonarDeffencePermittedFromEnemy = YES; //相手の制限による自分のモナーの防御許可
-    _mySyobonAttackPermittedFromEnemy = YES; //相手の制限による自分のショボンの攻撃許可
-    _mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
-    _myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
-    _myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
-    _doIUseCard = NO; //自分がこのターンカードを使用したか
-    _myDamageFromAA = 0;
-    _myDamageFromCard = 0;
-    _mySelectColor = -1; //自分が選んだ色
-    _cardsIUsedInThisTurn = [[NSMutableArray alloc] init];
-    
-    
-    
-    //相手に関係する変数
-    _enemyLifeGage = 20;
-    _enemyDeckCardList = [[NSMutableArray alloc] init]; //相手のデッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
-    _enemyHand = [[NSMutableArray alloc] init]; //相手の手札
-    _enemyDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyDeckCardList（差分のみ管理）
-    _enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
-    _enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
-    _enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
-    _enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
-    _enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
-    _enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
-    _enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
-    _enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
-    _enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
-    _enemyGikoFundamentalAttackPower = 3; // 相手のギコの基本攻撃力
-    _enemyGikoFundamentalDeffencePower = 0; //相手のギコの基本防御力
-    _enemyMonarFundamentalAttackPower = 3; //相手のモナーの基本攻撃力
-    _enemyMonarFundamentalDeffencePower = 0; //相手のモナーの基本防御力
-    _enemySyobonFundamentalAttackPower = 3; //相手のショボンの基本攻撃力
-    _enemySyobonFundamentalDeffencePower = 0; //相手のショボンの基本防御力
-    _enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
-    _enemyYaruoFundamentalDeffencePower = 3; //相手のやる夫の基本防御力
-    _enemyGikoFundamentalAttackPowerByMyself = 0; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
-    _enemyGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のギコの基本防御力（差分のみ管理）
-    _enemyMonarFundamentalAttackPowerByMyself = 0; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
-    _enemyMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
-    _enemySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
-    _enemySyobonFundamentalDeffencePowerByMyself = 0; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
-    _enemyYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
-    _enemyYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
-    _enemySelectCharacter = -1; //相手の選んだキャラクター
-    _enemySelectCharacterByMyself = -1;
-    _enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyMonarModifyingAttackPower = 0; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyMonarModifyingDeffencePower = 0; //相手のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemySyobonModifyingAttackPower = 0; //相手のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemySyobonModifyingDeffencePower = 0; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyYaruoModifyingAttackPower = 0; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyYaruoModifyingDeffencePower = 0; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    _enemyGikoModifyingAttackPowerByMyself = 0; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
-    _enemyGikoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のギコの修正防御力（差分のみ管理）
-    _enemyMonarModifyingAttackPowerByMyself = 0; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
-    _enemyMonarModifyingDeffencePowerByMyself = 0; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
-    _enemySyobonModifyingAttackPowerByMyself = 0; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
-    _enemySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
-    _enemyYaruoModifyingAttackPowerByMyself = 0; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
-    _enemyYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
-    
-    _enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
-    _enemyGikoDeffencePermittedByMyself = YES; //相手のギコの防御許可
-    _enemyMonarAttackPermittedByMyself = YES; //相手のモナーの攻撃許可
-    _enemyMonarDeffencePermittedByMyself = YES; //相手のモナーの防御許可
-    _enemySyobonAttackPermittedByMyself = YES; //相手のショボンの攻撃許可
-    _enemySyobonDeffencePermittedByMyself = YES; //相手のショボンの防御許可
-    _enemyYaruoAttackPermittedByMyself = YES; //相手のやる夫の攻撃許可
-    _enemyYaruoDeffencePermittedByMyself = YES; //相手のやる夫の防御許可
-    _enemyGikoAttackPermittedFromEnemy = YES; //相手の制限による相手のギコの攻撃許可
-    _enemyGikoDeffencePermittedFromEnemy = YES; //相手の制限による相手のギコの防御許可
-    _enemyMonarAttackPermittedFromEnemy = YES; //相手の制限による相手のモナーの攻撃許可
-    _enemyMonarDeffencePermittedFromEnemy = YES; //相手の制限による相手のモナーの防御許可
-    _enemySyobonAttackPermittedFromEnemy = YES; //相手の制限による相手のショボンの攻撃許可
-    _enemySyobonDeffencePermittedFromEnemy = YES; //相手の制限による相手のショボンの防御許可
-    _enemyYaruoAttackPermittedFromEnemy = YES; //相手の制限による相手のやる夫の攻撃許可
-    _enemyYaruoDeffencePermittedFromEnemy = YES; //相手の制限による手のやる夫の防御許可
-    _enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
-    _doEnemyUseCard = NO; //相手がこのターンカードを使用したか
-    _enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
-    _enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
-    _canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
-    _canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
-    _canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか
-    _canEnemyPlayEnergyCardByMyself = YES; //相手がエネルギーカードを手札からプレイできるか
-    _canEnemyActivateEnergyCardByMyself = YES; //相手がエネルギーカードを起動できるか
-    _canEnemyPlaySorceryCardFromEnemy = YES; //相手の制限により相手が魔法カードを手札からプレイできるか
-    _canEnemyPlayFieldCardFromEnemy = YES; //相手の制限により相手が場カードを手札からプレイできるか
-    _canEnemyActivateFieldCardFromEnemy = YES; //相手の制限により相手が場カードの能力を起動できるか
-    _canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
-    _canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
-    _denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
-    _enemyDamageFromAA = 0;
-    _enemyDamageFromCard = 0;
-    _enemySelectColor = -1; //相手が選んだ色
-    _cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
-    
     
     // 一括でテキストビューのフォントをArialのサイズ12.0fに統一する
     [[UITextView appearance] setFont:[UIFont fontWithName:@"Arial" size:12]];
