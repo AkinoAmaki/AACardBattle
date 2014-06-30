@@ -213,6 +213,7 @@
 		0FB4BC401959AF0600794B92 /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC3E1959AF0600794B92 /* leftArrow.png */; };
 		0FB4BC411959AF0600794B92 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC3F1959AF0600794B92 /* rightArrow.png */; };
 		0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4BC42195F0EB100794B92 /* GameKit.framework */; };
+		0FB4BC461961138E00794B92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC441961138E00794B92 /* Main.storyboard */; };
 		0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */; };
 		0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FD18DF22AB00E03D23 /* library.png */; };
 		0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDB97F618CAD30200C7566E /* CoreLocation.framework */; };
@@ -234,7 +235,6 @@
 		0FDCA49518CACFC2003459F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA49318CACFC2003459F8 /* InfoPlist.strings */; };
 		0FDCA49718CACFC2003459F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA49618CACFC2003459F8 /* main.m */; };
 		0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA49A18CACFC2003459F8 /* AppDelegate.m */; };
-		0FDCA49E18CACFC2003459F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA49C18CACFC2003459F8 /* Main.storyboard */; };
 		0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA4A018CACFC2003459F8 /* ViewController.m */; };
 		0FDCA4AA18CACFC2003459F8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDCA4A918CACFC2003459F8 /* XCTest.framework */; };
 		0FDCA4AB18CACFC2003459F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDCA48A18CACFC2003459F8 /* Foundation.framework */; };
@@ -480,6 +480,7 @@
 		0FB4BC3E1959AF0600794B92 /* leftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftArrow.png; sourceTree = "<group>"; };
 		0FB4BC3F1959AF0600794B92 /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
 		0FB4BC42195F0EB100794B92 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		0FB4BC451961138E00794B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_middleCard.png; sourceTree = "<group>"; };
 		0FD1D9FD18DF22AB00E03D23 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		0FDB97F618CAD30200C7566E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -509,7 +510,6 @@
 		0FDCA49818CACFC2003459F8 /* cardBattle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cardBattle-Prefix.pch"; sourceTree = "<group>"; };
 		0FDCA49918CACFC2003459F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0FDCA49A18CACFC2003459F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0FDCA49D18CACFC2003459F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0FDCA49F18CACFC2003459F8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0FDCA4A018CACFC2003459F8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0FDCA4A818CACFC2003459F8 /* cardBattleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cardBattleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -852,7 +852,7 @@
 			children = (
 				0FDCA49918CACFC2003459F8 /* AppDelegate.h */,
 				0FDCA49A18CACFC2003459F8 /* AppDelegate.m */,
-				0FDCA49C18CACFC2003459F8 /* Main.storyboard */,
+				0FB4BC441961138E00794B92 /* Main.storyboard */,
 				0FDCA49F18CACFC2003459F8 /* ViewController.h */,
 				0FDCA4A018CACFC2003459F8 /* ViewController.m */,
 				0FDB980A18CB59B800C7566E /* BattleScreenViewController.h */,
@@ -1008,6 +1008,7 @@
 				0F9F179E18F19461004E58BF /* card19.png in Resources */,
 				0F9F179618F19461004E58BF /* card11.png in Resources */,
 				0FB4BC0C195322BA00794B92 /* card106.png in Resources */,
+				0FB4BC461961138E00794B92 /* Main.storyboard in Resources */,
 				0FB4BBED195322BA00794B92 /* card75.png in Resources */,
 				0F9F17A718F19BA8004E58BF /* yaruo.png in Resources */,
 				0FB4BC401959AF0600794B92 /* leftArrow.png in Resources */,
@@ -1040,7 +1041,6 @@
 				0FB4BBE1195322BA00794B92 /* card63.png in Resources */,
 				0FB4BC33195322BA00794B92 /* card145.png in Resources */,
 				0FB4BBC2195322BA00794B92 /* card32.png in Resources */,
-				0FDCA49E18CACFC2003459F8 /* Main.storyboard in Resources */,
 				0FB4BC27195322BA00794B92 /* card133.png in Resources */,
 				0FB4BC13195322BA00794B92 /* card113.png in Resources */,
 				0F9F178C18F19461004E58BF /* card1.png in Resources */,
@@ -1254,20 +1254,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0FB4BC441961138E00794B92 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0FB4BC451961138E00794B92 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		0FDCA49318CACFC2003459F8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0FDCA49418CACFC2003459F8 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		0FDCA49C18CACFC2003459F8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0FDCA49D18CACFC2003459F8 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */ = {

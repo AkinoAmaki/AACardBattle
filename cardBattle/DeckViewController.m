@@ -35,7 +35,6 @@
     app = [[UIApplication sharedApplication] delegate];
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
     
-    
     allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 1704)];
     scrollView = [[UIScrollView alloc] init];
     scrollView.frame = self.view.bounds;
@@ -60,6 +59,8 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
     
+    allTxtView = [[UIView alloc] init];
+    
     for(int i = 0; i < [app.cardList_pngName count]; i++){
         
         [self openSmallCard:i];
@@ -70,17 +71,20 @@
         UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
         UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
         txtView.backgroundColor = alphaZero;//テキストビューの背景を透明化
-        
         txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
-        txtView.userInteractionEnabled = NO;
-        [txtView addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(touchAction:)]];
-        [txtView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchAcrion:)]];
         txtView.editable = NO;
         txtView.tag = i;
-        [allImage addSubview:txtView];
+        [allTxtView addSubview:txtView];
     }
+    [allImage addSubview:allTxtView];
+    
+    _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_returnToMainViewButton setTitle:@"戻る" forState:UIControlStateNormal];
+    [allImage addSubview:_returnToMainViewButton];
+    _returnToMainViewButton.frame = CGRectMake(20,20, 30, 50);
+    [_returnToMainViewButton addTarget:self action:@selector(returnToMainView:)
+                      forControlEvents:UIControlEventTouchUpInside];
+    
     allImage.userInteractionEnabled = YES;
     scrollView.userInteractionEnabled = YES;
     [scrollView addSubview:allImage];
@@ -88,7 +92,13 @@
     
     changeOfACardCount = 0;
     detailOfACardCount = 0;
+    
+    allImage.userInteractionEnabled = YES;
+    scrollView.userInteractionEnabled = YES;
+    [scrollView addSubview:allImage];
+    [self.view addSubview:scrollView];
 
+    detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,35 +117,12 @@
         i++;
         [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
     }
-    
-    [allImage removeFromSuperview];
-    for(int i = 0; i < [app.cardList_pngName count]; i++){
-        
-        [self openSmallCard:i];
-        
-        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 128 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
-        [txtView setFont:[UIFont systemFontOfSize:8]];
-        
-        UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
-        UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
-        txtView.backgroundColor = alphaZero;//テキストビューの背景を透明化
-        
-        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
-        txtView.userInteractionEnabled = NO;
-        [txtView addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(touchAction:)]];
-        [txtView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchAcrion:)]];
-        txtView.editable = NO;
-        txtView.tag = i;
-        [allImage addSubview:txtView];
-    }
-    allImage.userInteractionEnabled = YES;
-    scrollView.userInteractionEnabled = YES;    
-    [scrollView addSubview:allImage];
-    [self.view addSubview:scrollView];
-    
 
+    UITextView *tmpTextView = (UITextView *)[allTxtView viewWithTag:sender.view.tag];
+    tmpTextView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:sender.view.tag],[app.myCards objectAtIndex:sender.view.tag]];
+    [[allTxtView viewWithTag:sender.view.tag] removeFromSuperview];
+    tmpTextView.tag = sender.view.tag;
+    [allTxtView addSubview:tmpTextView];
     
     NSLog(@"カードナンバー%dの所持カード数：%d",sender.view.tag,[[app.myCards objectAtIndex:sender.view.tag] intValue]);
     NSLog(@"デッキに入っているカードナンバー%dの枚数:%d",sender.view.tag , [[isSelectedCards objectAtIndex:sender.view.tag] intValue]);
@@ -167,26 +154,52 @@
 - (void)cardSelectCancelButtonPushed{
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
     NSLog(@"%@",isSelectedCards);
+    
+    for (UIView *view in allTxtView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    for(int i = 0; i < [app.cardList_pngName count]; i++){
+        
+        [self openSmallCard:i];
+        
+        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 128 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
+        [txtView setFont:[UIFont systemFontOfSize:8]];
+        
+        UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
+        UIColor *alphaZero = [black colorWithAlphaComponent:0.0]; //黒を透明化
+        txtView.backgroundColor = alphaZero;//テキストビューの背景を透明化
+        
+        txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
+        txtView.editable = NO;
+        txtView.tag = i;
+        [allTxtView addSubview:txtView];
+    }
+    [allImage addSubview:allTxtView];
 }
 
 
+
+- (IBAction)returnToMainView:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender
 {
     NSLog(@"感知 from %d",sender.view.tag);
-    if(detailOfACardCount == 0){
-        [self detailOfACard:sender.view.tag];
-        detailOfACardCount = 1;
-    }
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",(int)sender.view.tag]];
+    [self.view addSubview:detailOfACard];
+    detailOfACard.userInteractionEnabled = YES;
+    [detailOfACard addGestureRecognizer:
+     [[UITapGestureRecognizer alloc]
+      initWithTarget:self action:@selector(removeDetailOfACard)]];
+    [self touchesPermittion:NO];
 }
 
-- (void)detailOfACard:(int)tagNum{
-    
-    detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
-    detailOfACard.image = [UIImage imageNamed:@"detailImage.png"];
-    [scrollView addSubview:detailOfACard];
-    [self putACancelButton:CGRectMake(45,scrollView.contentOffset.y + 45, 25, 25)];
-    [self touchesPermittion:NO];
+- (void)removeDetailOfACard{
+    NSLog(@"うん");
+    [detailOfACard removeFromSuperview];
+    [self touchesPermittion:YES];
 }
 
 - (void)putACancelButton:(CGRect)rect{
@@ -199,7 +212,7 @@
 }
 
 - (void) touchesPermittion:(BOOL)permit{
-    if(permit == YES){
+    if(permit){
         [scrollView setScrollEnabled:YES];
         allImage.userInteractionEnabled = YES;
     }else{
@@ -234,5 +247,6 @@
     imgView.tag = i;
     [allImage addSubview:imgView];
 }
+
 
 @end

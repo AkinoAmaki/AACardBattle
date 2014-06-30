@@ -4948,6 +4948,42 @@
     return NO;
 }
 
+-(void)cardUsingAnimation:(int)cardNum{
+    _allImageView.userInteractionEnabled = NO;
+    
+    
+    
+    _cardUsingAnimationView = [[UIImageView alloc] init];
+    
+    UIImageView *backGround = [[UIImageView alloc] init];
+    backGround.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
+    backGround.frame = CGRectMake(0, 0, backGround.superview.bounds.size.width, backGround.superview.bounds.size.height);
+    [_cardUsingAnimationView addSubview:backGround];
+    
+    UITextView *cardName = [[UITextView alloc] init];
+    cardName.text = [NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:cardNum]];
+    cardName.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    [_cardUsingAnimationView addSubview:cardName];
+    
+    UIImageView *manaCost = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
+    manaCost.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    [_cardUsingAnimationView addSubview:manaCost];
+    
+    UITextView *cardText = [[UITextView alloc] init];
+    cardText.text = [NSString stringWithFormat:@"%@",[app.cardList_text objectAtIndex:cardNum]];
+    cardText.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    [_cardUsingAnimationView addSubview:cardText];
+    
+    UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d",cardNum]]];
+    cardImage.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    [_cardUsingAnimationView addSubview:cardImage];
+    
+}
+
+-(void)removeCardUsingAnimation{
+    [_cardUsingAnimationView removeFromSuperview];
+    _allImageView.userInteractionEnabled = YES;
+}
 
 
 @end

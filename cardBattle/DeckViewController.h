@@ -17,6 +17,7 @@
     AppDelegate *app;
     UIImageView *allImage;
     UIScrollView *scrollView;
+    UIView *allTxtView; //テキストビューをまとめるビュー
     UITextView *txtView;
     UIImageView *detailOfACard;
     UIImageView *changeOfACard;
@@ -27,12 +28,15 @@
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。
 }
 
+//OKボタン・キャンセルボタン
+@property UIButton *returnToMainViewButton;
+
 @property NSMutableArray *selectedCards;
 @property NSMutableArray *isSelectedCards;
 @property UIImageView *detailOfACard;
+- (IBAction)returnToMainView:(id)sender;
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender;
-- (void)detailOfACard:(int)tagNum;
 - (void)putACancelButton:(CGRect)rect;
 
 @end

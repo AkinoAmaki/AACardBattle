@@ -218,4 +218,7 @@
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
 
+//カードのカットインを表示するビュー
+@property UIImageView *cardUsingAnimationView;
+
 @end
