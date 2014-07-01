@@ -276,6 +276,9 @@
         _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         _allImageView.userInteractionEnabled = YES;
         
+        _cardUsingAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        _cardUsingAnimationView.userInteractionEnabled = YES;
+        
         _myCardImageView = [[UIImageView alloc] init];
         _myCardImageView.userInteractionEnabled = YES;
         [_allImageView addSubview:_myCardImageView];
@@ -592,6 +595,13 @@
     [startButton addTarget:self action:@selector(battleStart)
           forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    debug1Button.frame = CGRectMake(160, 300, 80, 20);
+    [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
+    [_allImageView addSubview:debug1Button];
+    [debug1Button addTarget:self action:@selector(debug1:)
+          forControlEvents:UIControlEventTouchUpInside];
+    
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
 //MARK: デバッグ用。終わったら元に戻す_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
@@ -599,7 +609,7 @@
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
     app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 570396735;
+    app.enemyPlayerID = 816136571;
     NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
     
     SendDataToServer *sendData = [[SendDataToServer alloc] init];
@@ -614,7 +624,7 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    [self selectUsingEnergy:10];
+    [self cardUsingAnimation:10];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
@@ -2634,7 +2644,6 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2,  [[UIScreen mainScreen] bounds].size.height /2);
-    //[UIView setAnimationDidStopSelector:@selector(resultFadeOut:)]
     [UIView commitAnimations];
 }
 
@@ -4951,36 +4960,87 @@
 -(void)cardUsingAnimation:(int)cardNum{
     _allImageView.userInteractionEnabled = NO;
     
-    
-    
-    _cardUsingAnimationView = [[UIImageView alloc] init];
-    
     UIImageView *backGround = [[UIImageView alloc] init];
-    backGround.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
-    backGround.frame = CGRectMake(0, 0, backGround.superview.bounds.size.width, backGround.superview.bounds.size.height);
+    backGround.image = [UIImage imageNamed:@"blackBack"];
+    backGround.alpha = 0.6f;
+    backGround.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     [_cardUsingAnimationView addSubview:backGround];
     
     UITextView *cardName = [[UITextView alloc] init];
     cardName.text = [NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:cardNum]];
-    cardName.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    cardName.frame = CGRectMake(0, 0, 60, 30);
+    cardName.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 400);
+    [PenetrateFilter penetrate:cardName];
     [_cardUsingAnimationView addSubview:cardName];
     
     UIImageView *manaCost = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
-    manaCost.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    manaCost.frame = CGRectMake(0, 0, 60, 30);
+    manaCost.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 360);
+    [PenetrateFilter penetrate:manaCost];
     [_cardUsingAnimationView addSubview:manaCost];
+    
+    UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d",cardNum]]];
+    cardImage.frame = CGRectMake(0, 0, 100, 100);
+    cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 320);
+    [PenetrateFilter penetrate:cardImage];
+    [_cardUsingAnimationView addSubview:cardImage];
     
     UITextView *cardText = [[UITextView alloc] init];
     cardText.text = [NSString stringWithFormat:@"%@",[app.cardList_text objectAtIndex:cardNum]];
-    cardText.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    cardText.frame = CGRectMake(0, 0, 200, 150);
+    cardText.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 200);
+    [PenetrateFilter penetrate:cardText];
     [_cardUsingAnimationView addSubview:cardText];
     
-    UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d",cardNum]]];
-    cardImage.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
-    [_cardUsingAnimationView addSubview:cardImage];
+    UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rightArrow"]];
+    skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 40, 40);
+    skipButton.userInteractionEnabled = YES;
+    [skipButton addGestureRecognizer:
+     [[UITapGestureRecognizer alloc]
+      initWithTarget:self action:@selector(removeCardUsingAnimation)]];
+    [_cardUsingAnimationView addSubview:skipButton];
+    
+    [self.view addSubview:_cardUsingAnimationView];
+    
+    [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
+                         // アニメーションをする処理
+                         cardName.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 400);
+                         manaCost.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 360);
+                         cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 320);
+                         cardText.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 200);
+                     }
+                     completion:^(BOOL finished){
+                         //アニメーション終了後の処理
+                         [UIView animateWithDuration:10.0f delay:0.0f options:UIViewAnimationOptionCurveLinear
+                                          animations:^{
+                                              // アニメーションをする処理
+                                              cardName.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 4, [[UIScreen mainScreen] bounds].size.height - 400);
+                                              manaCost.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 4, [[UIScreen mainScreen] bounds].size.height - 360 );
+                                              cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 4, [[UIScreen mainScreen] bounds].size.height - 320);
+                                              cardText.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 4, [[UIScreen mainScreen] bounds].size.height - 200);
+                                          }
+                                          completion:^(BOOL finished){
+                                              //アニメーション終了後の処理
+                                              [cardName.layer removeAllAnimations];
+                                              [manaCost.layer removeAllAnimations];
+                                              [cardImage.layer removeAllAnimations];
+                                              [cardText.layer removeAllAnimations];
+                                              for (UIView *view in _cardUsingAnimationView.subviews) {
+                                                  [view removeFromSuperview];
+                                              }
+                                              [_cardUsingAnimationView removeFromSuperview];
+                                              _allImageView.userInteractionEnabled = YES;
+                                          }];
+                     }];
     
 }
 
 -(void)removeCardUsingAnimation{
+    NSLog(@"ok");
+    _allImageView.userInteractionEnabled = YES;
+    for (UIView *view in _cardUsingAnimationView.subviews) {
+        [view removeFromSuperview];
+    }
     [_cardUsingAnimationView removeFromSuperview];
     _allImageView.userInteractionEnabled = YES;
 }

@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5BD3574C-EE35-40C6-874E-37842AF92061</string>
+	<string>EA7A3541-87EB-4D69-9A85-2F0FB717E77D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>cardBattle</string>
+	<string>Chains</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
-		<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
+		<key>0B152AA9-542C-4C1B-8F06-AAE6F6D0BB9F</key>
+		<string>https://github.com/nyankichi820/Chains.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>cardBattle.xcodeproj/project.xcworkspace</string>
+	<string>Chains.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</key>
+		<key>0B152AA9-542C-4C1B-8F06-AAE6F6D0BB9F</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
+	<string>https://github.com/nyankichi820/Chains.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</string>
+	<string>0B152AA9-542C-4C1B-8F06-AAE6F6D0BB9F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CF7ABAA4-C358-481F-8B43-8C1C531E9AF2</string>
+			<string>0B152AA9-542C-4C1B-8F06-AAE6F6D0BB9F</string>
 			<key>IDESourceControlWCCName</key>
-			<string>AACardBattle</string>
+			<string>Chains</string>
 		</dict>
 	</array>
 </dict>

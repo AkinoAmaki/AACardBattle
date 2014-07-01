@@ -48,6 +48,8 @@
 		0F6EB47B1916B2E400BD0E41 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB46B1916B2E400BD0E41 /* SBJsonTokeniser.m */; };
 		0F6EB47C1916B2E400BD0E41 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB46D1916B2E400BD0E41 /* SBJsonUTF8Stream.m */; };
 		0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB46F1916B2E400BD0E41 /* SBJsonWriter.m */; };
+		0F9E6494196303B200AA5BE4 /* blackBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6492196303B200AA5BE4 /* blackBack.png */; };
+		0F9E6495196303B200AA5BE4 /* whiteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6493196303B200AA5BE4 /* whiteBack.png */; };
 		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F178B18F19461004E58BF /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177618F19461004E58BF /* card0.png */; };
@@ -315,6 +317,8 @@
 		0F6EB46D1916B2E400BD0E41 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		0F6EB46E1916B2E400BD0E41 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		0F6EB46F1916B2E400BD0E41 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		0F9E6492196303B200AA5BE4 /* blackBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackBack.png; sourceTree = "<group>"; };
+		0F9E6493196303B200AA5BE4 /* whiteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteBack.png; sourceTree = "<group>"; };
 		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F177618F19461004E58BF /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card0.png; path = cardBattle/img/smallcard/card0.png; sourceTree = SOURCE_ROOT; };
@@ -524,8 +528,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */,
 				0F6EB44E1915EAD100BD0E41 /* QuartzCore.framework in Frameworks */,
+				0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */,
 				0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */,
 				0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */,
 				0FDCA48D18CACFC2003459F8 /* CoreGraphics.framework in Frameworks */,
@@ -808,6 +812,8 @@
 				0F3FED911928D41400ACA1BC /* outicon.png */,
 				0FB4BC3E1959AF0600794B92 /* leftArrow.png */,
 				0FB4BC3F1959AF0600794B92 /* rightArrow.png */,
+				0F9E6492196303B200AA5BE4 /* blackBack.png */,
+				0F9E6493196303B200AA5BE4 /* whiteBack.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -1050,10 +1056,12 @@
 				0FB4BBE6195322BA00794B92 /* card68.png in Resources */,
 				0FB4BBE2195322BA00794B92 /* card64.png in Resources */,
 				0F9F178E18F19461004E58BF /* card3.png in Resources */,
+				0F9E6494196303B200AA5BE4 /* blackBack.png in Resources */,
 				0FB4BBD8195322BA00794B92 /* card54.png in Resources */,
 				0FB4BC21195322BA00794B92 /* card127.png in Resources */,
 				0FB4BC11195322BA00794B92 /* card111.png in Resources */,
 				0FB4BBD1195322BA00794B92 /* card47.png in Resources */,
+				0F9E6495196303B200AA5BE4 /* whiteBack.png in Resources */,
 				0FB4BBBA195322BA00794B92 /* card24.png in Resources */,
 				0FB4BC25195322BA00794B92 /* card131.png in Resources */,
 				0FB4BBFF195322BA00794B92 /* card93.png in Resources */,

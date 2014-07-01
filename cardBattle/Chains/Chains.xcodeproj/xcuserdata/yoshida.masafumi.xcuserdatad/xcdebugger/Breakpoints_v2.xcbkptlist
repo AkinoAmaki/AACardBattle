@@ -4,28 +4,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "425921662.963974"
+            filePath = "Chains/CANViewController.m"
+            timestampString = "423976821.858338"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4649"
-            endingLineNumber = "4649"
-            landmarkName = "-normalSelector:"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "-endAnimation"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "425921662.963974"
+            filePath = "Classes/CANChain.m"
+            timestampString = "423977560.02771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2754"
-            endingLineNumber = "2754"
-            landmarkName = "-insertLabelToParentView:Text:Rectangle:Touch:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-completeChain"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
