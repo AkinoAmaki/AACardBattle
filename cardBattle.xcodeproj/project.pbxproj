@@ -50,6 +50,13 @@
 		0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB46F1916B2E400BD0E41 /* SBJsonWriter.m */; };
 		0F9E6494196303B200AA5BE4 /* blackBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6492196303B200AA5BE4 /* blackBack.png */; };
 		0F9E6495196303B200AA5BE4 /* whiteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6493196303B200AA5BE4 /* whiteBack.png */; };
+		0F9E64A81965067A00AA5BE4 /* CustomFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E64991965067A00AA5BE4 /* CustomFontLabel.m */; };
+		0F9E64A91965067A00AA5BE4 /* DamageValueLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E649C1965067A00AA5BE4 /* DamageValueLabel.m */; };
+		0F9E64AA1965067A00AA5BE4 /* DQView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E649F1965067A00AA5BE4 /* DQView.m */; };
+		0F9E64AB1965067A00AA5BE4 /* UIImage+fill.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E64A21965067A00AA5BE4 /* UIImage+fill.m */; };
+		0F9E64AC1965067A00AA5BE4 /* UIImageView+effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E64A41965067A00AA5BE4 /* UIImageView+effects.m */; };
+		0F9E64AD1965067A00AA5BE4 /* UIView+shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E64A71965067A00AA5BE4 /* UIView+shake.m */; };
+		0F9E64AF1965B3CF00AA5BE4 /* glayBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E64AE1965B3CF00AA5BE4 /* glayBack.png */; };
 		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F178B18F19461004E58BF /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177618F19461004E58BF /* card0.png */; };
@@ -319,6 +326,19 @@
 		0F6EB46F1916B2E400BD0E41 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		0F9E6492196303B200AA5BE4 /* blackBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackBack.png; sourceTree = "<group>"; };
 		0F9E6493196303B200AA5BE4 /* whiteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteBack.png; sourceTree = "<group>"; };
+		0F9E64981965067A00AA5BE4 /* CustomFontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFontLabel.h; sourceTree = "<group>"; };
+		0F9E64991965067A00AA5BE4 /* CustomFontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFontLabel.m; sourceTree = "<group>"; };
+		0F9E649B1965067A00AA5BE4 /* DamageValueLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DamageValueLabel.h; sourceTree = "<group>"; };
+		0F9E649C1965067A00AA5BE4 /* DamageValueLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DamageValueLabel.m; sourceTree = "<group>"; };
+		0F9E649E1965067A00AA5BE4 /* DQView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQView.h; sourceTree = "<group>"; };
+		0F9E649F1965067A00AA5BE4 /* DQView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQView.m; sourceTree = "<group>"; };
+		0F9E64A11965067A00AA5BE4 /* UIImage+fill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fill.h"; sourceTree = "<group>"; };
+		0F9E64A21965067A00AA5BE4 /* UIImage+fill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fill.m"; sourceTree = "<group>"; };
+		0F9E64A31965067A00AA5BE4 /* UIImageView+effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+effects.h"; sourceTree = "<group>"; };
+		0F9E64A41965067A00AA5BE4 /* UIImageView+effects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+effects.m"; sourceTree = "<group>"; };
+		0F9E64A61965067A00AA5BE4 /* UIView+shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+shake.h"; sourceTree = "<group>"; };
+		0F9E64A71965067A00AA5BE4 /* UIView+shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+shake.m"; sourceTree = "<group>"; };
+		0F9E64AE1965B3CF00AA5BE4 /* glayBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glayBack.png; sourceTree = "<group>"; };
 		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F177618F19461004E58BF /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = card0.png; path = cardBattle/img/smallcard/card0.png; sourceTree = SOURCE_ROOT; };
@@ -585,6 +605,65 @@
 			path = SBJson_3.1.1;
 			sourceTree = "<group>";
 		};
+		0F9E64961965067A00AA5BE4 /* UIKitForGame */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E64971965067A00AA5BE4 /* CustomFontLabel */,
+				0F9E649A1965067A00AA5BE4 /* DamageValueLabel */,
+				0F9E649D1965067A00AA5BE4 /* DQView */,
+				0F9E64A01965067A00AA5BE4 /* UIImageView+effects */,
+				0F9E64A51965067A00AA5BE4 /* UIView+shake */,
+			);
+			path = UIKitForGame;
+			sourceTree = "<group>";
+		};
+		0F9E64971965067A00AA5BE4 /* CustomFontLabel */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E64981965067A00AA5BE4 /* CustomFontLabel.h */,
+				0F9E64991965067A00AA5BE4 /* CustomFontLabel.m */,
+			);
+			path = CustomFontLabel;
+			sourceTree = "<group>";
+		};
+		0F9E649A1965067A00AA5BE4 /* DamageValueLabel */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E649B1965067A00AA5BE4 /* DamageValueLabel.h */,
+				0F9E649C1965067A00AA5BE4 /* DamageValueLabel.m */,
+			);
+			path = DamageValueLabel;
+			sourceTree = "<group>";
+		};
+		0F9E649D1965067A00AA5BE4 /* DQView */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E649E1965067A00AA5BE4 /* DQView.h */,
+				0F9E649F1965067A00AA5BE4 /* DQView.m */,
+			);
+			path = DQView;
+			sourceTree = "<group>";
+		};
+		0F9E64A01965067A00AA5BE4 /* UIImageView+effects */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E64A11965067A00AA5BE4 /* UIImage+fill.h */,
+				0F9E64A21965067A00AA5BE4 /* UIImage+fill.m */,
+				0F9E64A31965067A00AA5BE4 /* UIImageView+effects.h */,
+				0F9E64A41965067A00AA5BE4 /* UIImageView+effects.m */,
+			);
+			path = "UIImageView+effects";
+			sourceTree = "<group>";
+		};
+		0F9E64A51965067A00AA5BE4 /* UIView+shake */ = {
+			isa = PBXGroup;
+			children = (
+				0F9E64A61965067A00AA5BE4 /* UIView+shake.h */,
+				0F9E64A71965067A00AA5BE4 /* UIView+shake.m */,
+			);
+			path = "UIView+shake";
+			sourceTree = "<group>";
+		};
 		0FDB980F18CB655100C7566E /* img */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +893,7 @@
 				0FB4BC3F1959AF0600794B92 /* rightArrow.png */,
 				0F9E6492196303B200AA5BE4 /* blackBack.png */,
 				0F9E6493196303B200AA5BE4 /* whiteBack.png */,
+				0F9E64AE1965B3CF00AA5BE4 /* glayBack.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -879,6 +959,7 @@
 				0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */,
 				0F29BD161923B42C00E9D59C /* PenetrateFilter.h */,
 				0F29BD171923B42C00E9D59C /* PenetrateFilter.m */,
+				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
 				0F6EB4501915EB1700BD0E41 /* SVProgressHUD.h */,
@@ -1027,6 +1108,7 @@
 				0FB4BBE9195322BA00794B92 /* card71.png in Resources */,
 				0FB4BC36195322BA00794B92 /* card148.png in Resources */,
 				0FDB985E18D0A92700C7566E /* cancelButton.png in Resources */,
+				0F9E64AF1965B3CF00AA5BE4 /* glayBack.png in Resources */,
 				0FB4BC02195322BA00794B92 /* card96.png in Resources */,
 				0FDB980E18CB620800C7566E /* Images.xcassets in Resources */,
 				0FB4BBD0195322BA00794B92 /* card46.png in Resources */,
@@ -1215,15 +1297,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F9E64A81965067A00AA5BE4 /* CustomFontLabel.m in Sources */,
 				0F6EB47A1916B2E400BD0E41 /* SBJsonStreamWriterState.m in Sources */,
 				0F6EB4741916B2E400BD0E41 /* SBJsonStreamParser.m in Sources */,
 				0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */,
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
+				0F9E64AB1965067A00AA5BE4 /* UIImage+fill.m in Sources */,
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
+				0F9E64AC1965067A00AA5BE4 /* UIImageView+effects.m in Sources */,
+				0F9E64A91965067A00AA5BE4 /* DamageValueLabel.m in Sources */,
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
+				0F9E64AD1965067A00AA5BE4 /* UIView+shake.m in Sources */,
 				0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */,
 				0F6EB4781916B2E400BD0E41 /* SBJsonStreamWriter.m in Sources */,
 				0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */,
+				0F9E64AA1965067A00AA5BE4 /* DQView.m in Sources */,
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
