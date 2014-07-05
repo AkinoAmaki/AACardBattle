@@ -62,7 +62,7 @@
     appdelegate.myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
     //MARK: カード効果の実装が終わったら元に戻す appdelegate.myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
     appdelegate.myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
+                          [NSNumber numberWithInt:10],
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
@@ -86,7 +86,7 @@
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:10],
+                          [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],
                           [NSNumber numberWithInt:0],

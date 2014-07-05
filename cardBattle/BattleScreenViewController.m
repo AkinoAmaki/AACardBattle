@@ -732,15 +732,10 @@
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [NSThread sleepForTimeInterval:1];
+    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。(ターンのレスポンスは悪化するが。)
+    [NSThread sleepForTimeInterval:0.5];
     [getEnemyData doEnemyDecideAction:NO];
-    [sendMyData send];
     [self activateCardInTiming:99];
-    app.myLifeGage = app.myLifeGage - app.myDamageFromCard;
-    //ダメージを与え終えたら値を0に戻しておく
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromCard = 0;
-    [self refleshView];
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
      if(!searchACardInsteadOfGetACardFromLibraryTop){
@@ -749,6 +744,8 @@
     for (int i = 0; i < app.myAdditionalGettingCards; i++) {
         [self getACard:MYSELF];
     }
+    [sendMyData send];
+    [self refleshView];
     app.myAdditionalGettingCards = 0;
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
@@ -795,7 +792,8 @@
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [NSThread sleepForTimeInterval:1];
+    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+    [NSThread sleepForTimeInterval:0.5];
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
@@ -813,17 +811,15 @@
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [NSThread sleepForTimeInterval:1];
+    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+    [NSThread sleepForTimeInterval:0.5];
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
-    app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
     NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
+    NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
+    [self refleshView];
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"anime.png"]];
     [self sync];
-    //ダメージを与え終えたら値を0に戻しておく
-    app.myDamageFromAA = 0;
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromCard = 0;
     if([self isGameOver]){
         return;
     }
@@ -833,14 +829,11 @@
     [self sync];
     [self activateCardInTiming:3];
     [self activateCardInTiming:99];
-    app.myLifeGage = app.myLifeGage -app.myDamageFromCard;
-    //ダメージを与え終えたら値を0に戻しておく
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromCard = 0;
     while (!app.decideAction) {
         [getEnemyData doEnemyDecideAction:YES];
     }
-    [NSThread sleepForTimeInterval:1];
+    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+    [NSThread sleepForTimeInterval:0.5];
     [getEnemyData doEnemyDecideAction:NO];
     [sendMyData send];
     [self refleshView];
@@ -1579,7 +1572,7 @@
             app.enemyDamageFromCard += 1;
             break;
         case 93:
-            //自分のキャラの攻撃力−１、２点ダメージ（R)
+            //このターン自分のキャラの攻撃力−１、２点ダメージ（R)
             [self myAttackPowerOperate:GIKO point:-1 temporary:1];
             [self myAttackPowerOperate:MONAR point:-1 temporary:1];
             [self myAttackPowerOperate:SYOBON point:-1 temporary:1];
@@ -1745,7 +1738,7 @@
             app.myAdditionalGettingCards++;
             break;
         case 111:
-            //自分のプレイヤーのターン終了時に場カードかエネルギーカードをランダムで１枚破壊（BB2)
+            //自分のプレイヤーのターン終了時に、相手の場カードかエネルギーカードをランダムで１枚破壊（BB2)
         {
             int rand = random() % 2;
             if (rand == 0 && ([app.enemyFieldCard count] - [app.enemyFieldCardByMyself_minus count]) >= 1) {
@@ -1792,7 +1785,7 @@
             }
             break;
         case 117:
-            //攻撃力は＋３されるが、防御力が半分になる（B)
+            //攻撃力が＋３されるが、防御力が半分になる（B)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
             [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
@@ -1938,7 +1931,7 @@
             [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:4 temporary:1];
             break;
         case 131:
-            //相手がカードを一枚（エネルギーカード除く）使うたびに剣士・魔法使い・格闘家の攻撃力を＋１する（G2)
+            //相手がカードを一枚（エネルギーカード除く）使うたびにギコ・モナー・ショボン・やる夫の攻撃力を＋１する（G2)
             for (int i = 0; i < [app.cardsEnemyUsedInThisTurn count]; i++) {
                 [self myAttackPowerOperate:GIKO point:1 temporary:1];
                 [self myAttackPowerOperate:MONAR point:1 temporary:1];
@@ -2031,14 +2024,10 @@
 
             break;
         case 143:
-            //このターン、修正攻撃力がアップしていた場合、そのプレイヤーはカードを一枚引く（G2)
+            //このターン、修正攻撃力がアップしていた場合、カードを一枚引く（G2)
             if(app.myGikoModifyingAttackPower > 0 || app.myMonarModifyingAttackPower > 0 || app.mySyobonModifyingAttackPower > 0 || app.myYaruoModifyingAttackPower > 0){
                 app.myAdditionalGettingCards++;
-            }
-            if (app.enemyGikoModifyingAttackPower > 0 || app.enemyMonarModifyingAttackPower > 0 || app.enemySyobonModifyingAttackPower > 0 || app.enemyYaruoModifyingAttackPower > 0) {
-                [self getACard:ENEMY];
-            }
-            break;
+            }            break;
         case 144:
             //自分の場カードを破壊し、そのカードのコスト分このターン攻撃力をプラスする（G1)
         {
@@ -2972,7 +2961,7 @@
         //相手
         while (enemyDrawCount < 5) {
             //手札のカード画像を用意する
-            UIImage *enemyCard = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.enemyDeckCardList objectAtIndex:enemyDrawCount + 1] intValue]]];
+            UIImage *enemyCard = [UIImage imageNamed:@"outicon"];
             _enemyCard = [[UIImageView alloc] initWithImage:enemyCard];
             [_enemyCardImageViewArray addObject:_enemyCard];
             [_enemyCardImageView addSubview:_enemyCard];
@@ -3097,7 +3086,7 @@
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
-                [self refleshMyHand];
+                [self refleshHandsAndLibraries];
                 doIUseCardInThisTurn = NO;
             }
         }
@@ -3125,7 +3114,7 @@
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
-                [self refleshMyHand];
+                [self refleshHandsAndLibraries];
                 doIUseCardInThisTurn = NO;
             }
         }
@@ -3162,71 +3151,88 @@
 }
 
 
-- (void)refleshMyHand{
-    [_myCardImageView removeFromSuperview];
-    for (UIView *view in [_myCardImageView subviews]) {
-        [view removeFromSuperview];
+- (void)refleshHandsAndLibraries{
+    //自分の手札の更新
+    int myHandCount = (int)[app.myHand count];
+    if(myHandCount <= 5){
+        [_myCardImageView removeFromSuperview];
+        for (UIView *view in [_myCardImageView subviews]) {
+            [view removeFromSuperview];
+        }
+        
+        for (int i = 0; i < [app.myHand count]; i++){
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            [_myCardImageView addSubview:imgView];
+            imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
+            imgView.userInteractionEnabled = YES;
+            [imgView addGestureRecognizer:
+             [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(touchAction:)]];
+        }
+        
+        [_allImageView addSubview:_myCardImageView];
+    }else{
+        [_myCardImageView removeFromSuperview];
+        for (UIView *view in [_myCardImageView subviews]) {
+            [view removeFromSuperview];
+        }
+        
+        for (int i = 0; i < 5; i++){
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            [_myCardImageView addSubview:imgView];
+            imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
+            imgView.userInteractionEnabled = YES;
+            [imgView addGestureRecognizer:
+             [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(touchAction:)]];
+        }
+        [_allImageView addSubview:_myCardImageView];
+        
+        UITextView *txtView = [[UITextView alloc] initWithFrame:CGRectMake(10 + 5 * (CARDWIDTH + 5), 5, 40, CARDHEIGHT)];
+        [_myCardImageView addSubview:txtView];
+        txtView.editable = NO;
+        txtView.text = [NSString stringWithFormat:@" × %d",myHandCount];
     }
     
-    for (int i = 0; i < [app.myHand count]; i++){
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
-        [_myCardImageView addSubview:imgView];
-        imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
-        imgView.userInteractionEnabled = YES;
-        [imgView addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(touchAction:)]];
+    //自分の山札の更新
+    _myLibraryCount.text = [NSString stringWithFormat:@"%d",(int)[app.myDeckCardList count]];
+    
+    
+    //相手の山札の更新
+    int enemyHandCount = (int)[app.enemyHand count];
+    NSLog(@"enemyHandCount:%d",enemyHandCount);
+    if(enemyHandCount <= 5){
+        [_enemyCardImageView removeFromSuperview];
+        for (UIView *view in [_enemyCardImageView subviews]) {
+            [view removeFromSuperview];
+        }
+        
+        for (int i = 0; i < [app.enemyHand count]; i++){
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            [_enemyCardImageView addSubview:imgView];
+            imgView.frame = CGRectMake(imgView.superview.bounds.size.width - 50 - ((CARDWIDTH +8) * i), 0, CARDWIDTH, CARDHEIGHT);
+        }
+        
+        [_allImageView addSubview:_enemyCardImageView];
+    }else{
+        [_enemyCardImageView removeFromSuperview];
+        for (UIView *view in [_enemyCardImageView subviews]) {
+            [view removeFromSuperview];
+        }
+        
+        for (int i = 0; i < 5; i++){
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            [_enemyCardImageView addSubview:imgView];
+            imgView.frame = CGRectMake(imgView.superview.bounds.size.width - 50 - ((CARDWIDTH +8) * i), 0, CARDWIDTH, CARDHEIGHT);
+        }
+        [_allImageView addSubview:_enemyCardImageView];
+        
+        UITextView *txtView = [[UITextView alloc] initWithFrame:CGRectMake(60, 5, 40, CARDHEIGHT)];
+//        [PenetrateFilter penetrate:txtView];
+        [_enemyCardImageView addSubview:txtView];
+        txtView.editable = NO;
+        txtView.text = [NSString stringWithFormat:@" × %d",enemyHandCount];
     }
-    
-    [_allImageView addSubview:_myCardImageView];
-    
-    for (int i = 0; i < [_myCardImageViewArray count]; i++) {
-        UIImageView *tmp = [[UIImageView alloc] init];
-        tmp = [_myCardImageViewArray objectAtIndex:i];
-    }
-    
-    
-    //    [_myCardImageView removeFromSuperview];
-    //
-    //    NSLog(@"selectedCardOrder:%d",selectedCardOrder);
-    //    NSLog(@"[_myCardImageViewArray count]:%d",[_myCardImageViewArray count]);
-    //    [_myCardImageViewArray removeObjectAtIndex:selectedCardOrder];
-    //
-    //
-    //    UIImageView *temp =[[_myCardImageView subviews] objectAtIndex:selectedCardOrder];
-    //    [[_myCardImageView viewWithTag:temp.tag] removeFromSuperview];
-    //    NSLog(@"[[_myCardImageView subviews] count]:%d",[[_myCardImageView subviews] count]);
-    //
-    //    //手札の画像を全てテンポラリな配列に収め、myCardImageViewから消す
-    //    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    //    for (int i = 0; i < [[_myCardImageView subviews] count]; i++){
-    //        [tempArray addObject:[[_myCardImageView subviews] objectAtIndex:i]];
-    //    }
-    //    for (UIView *view in [_myCardImageView subviews]) {
-    //        [view removeFromSuperview];
-    //    }
-    //
-    //    _myCardImageView = [[UIImageView alloc] init];
-    //    _myCardImageView.userInteractionEnabled = YES;
-    //
-    //    for (int i = 0; i < [tempArray count]; i++){
-    //        UIImageView *imgView = [tempArray objectAtIndex:i];
-    //        [_myCardImageView addSubview:imgView];
-    //        imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
-    //        imgView.userInteractionEnabled = YES;
-    //        [imgView addGestureRecognizer:
-    //         [[UITapGestureRecognizer alloc]
-    //          initWithTarget:self action:@selector(touchAction:)]];
-    //    }
-    //
-    //    [_allImageView addSubview:_myCardImageView];
-    //    _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
-    //
-    //    for (int i = 0; i < [_myCardImageViewArray count]; i++) {
-    //        UIImageView *tmp = [[UIImageView alloc] init];
-    //        tmp = [_myCardImageViewArray objectAtIndex:i];
-    //        NSLog(@"残ってるカード：%ld",tmp.tag);
-    //    }
 }
 
 
@@ -3437,34 +3443,27 @@
 //対象プレイヤーは1枚カードを引く（対象プレイヤー（０なら自分、１なら相手）
 - (void)getACard :(int)man{
     if(man == 0){
-        _myLibraryCount.text = [NSString stringWithFormat:@"%d", [app.myDeckCardList count]];
         
-        //手札の画像を用意する
-        UIImage *card = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:0] intValue]]];
-        _myGetCard = [[UIImageView alloc] initWithImage:card];
-        [_myCardImageViewArray addObject:_myGetCard];
-        [_myCardImageView addSubview:_myGetCard];
-        _myGetCard.userInteractionEnabled = YES;
-        [_myGetCard addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(touchAction:)]];
-        //移動前
-        _myGetCard.frame = CGRectMake(_myGetCard.superview.bounds.size.width - CARDWIDTH - 20, 0, CARDWIDTH, CARDHEIGHT);
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDelay:0.2];
-        [UIView setAnimationDuration:0.5];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        //移動後
-        _myGetCard.frame = CGRectMake(10 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 0, CARDWIDTH, CARDHEIGHT);
-        
-        //引いたカードの数を増やす
-        myDrawCount++;
-        _myGetCard.tag = myDrawCount;
-        NSLog(@"手札に入れたカードのタグ：%d",_myGetCard.tag);
+//        //手札の画像を用意する
+//        UIImage *card = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:0] intValue]]];
+//        _myGetCard = [[UIImageView alloc] initWithImage:card];
+//        [_myCardImageViewArray addObject:_myGetCard];
+//        [_myCardImageView addSubview:_myGetCard];
+//        _myGetCard.userInteractionEnabled = YES;
+//        [_myGetCard addGestureRecognizer:
+//         [[UITapGestureRecognizer alloc]
+//          initWithTarget:self action:@selector(touchAction:)]];
+//        //移動前
+//        _myGetCard.frame = CGRectMake(_myGetCard.superview.bounds.size.width - CARDWIDTH - 20, 0, CARDWIDTH, CARDHEIGHT);
+//        [UIView setAnimationDelegate:self];
+//        [UIView setAnimationDelay:0.2];
+//        [UIView setAnimationDuration:0.5];
+//        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        //移動後
+//        _myGetCard.frame = CGRectMake(10 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 0, CARDWIDTH, CARDHEIGHT);
         
         //デッキのカード枚数を減らし、手札に入れる
         [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
-        
     }else{
         [self manipulateCard:[app.enemyDeckCardList objectAtIndex:0] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
     }
@@ -3883,7 +3882,7 @@
                     NSLog(@"緑エネルギーの数：%d",[[app.myEnergyCard objectAtIndex:4] intValue]);
                 }
                 
-                [self refleshMyHand];
+                [self refleshHandsAndLibraries];
                 
                 _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
                 _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
@@ -4311,7 +4310,7 @@
     _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
     
     //手札枚数の更新
-    [self refleshMyHand];
+    [self refleshHandsAndLibraries];
 }
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);

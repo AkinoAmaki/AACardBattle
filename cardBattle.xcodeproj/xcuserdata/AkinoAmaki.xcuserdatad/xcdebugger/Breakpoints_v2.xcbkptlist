@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "426095370.426709"
+            timestampString = "426226700.136565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4665"
-            endingLineNumber = "4665"
+            startingLineNumber = "4668"
+            endingLineNumber = "4668"
             landmarkName = "-normalSelector:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "426095370.426709"
+            timestampString = "426225880.668647"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2770"
-            endingLineNumber = "2770"
+            startingLineNumber = "2763"
+            endingLineNumber = "2763"
             landmarkName = "-insertLabelToParentView:Text:Rectangle:Touch:"
             landmarkType = "5">
          </BreakpointContent>
