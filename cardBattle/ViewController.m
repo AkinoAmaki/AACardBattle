@@ -19,6 +19,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    [[UITextView appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12.0f]];
+    [[UILabel appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12.0f]];
+    [[UIButton appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:14.0f]];
+    
     userDefault = [NSUserDefaults standardUserDefaults];
     int first =  [userDefault integerForKey:@"firstLaunch_ud"];
     appdelegate = [[UIApplication sharedApplication] delegate];
@@ -257,7 +261,7 @@
     appdelegate.myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
     appdelegate.myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
     appdelegate.myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分がこのターン使用したエネルギーの量
-    appdelegate.myLifeGage = 3;
+    appdelegate.myLifeGage = 20;
     appdelegate.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     appdelegate.myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
     appdelegate.myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する

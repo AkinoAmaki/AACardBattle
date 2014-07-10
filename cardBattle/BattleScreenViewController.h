@@ -18,6 +18,7 @@
 #import "YSDeviceHelper.h"
 #import "penetrateFilter.h"
 #import "UIImageView+effects.h"
+#import <AudioToolbox/AudioServices.h>
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -78,6 +79,10 @@
     NSMutableArray *targetedMyTombCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象とした墓地のカードの一覧
     UIScrollView *resultFadeinScrollView; //結果画面の表示時に使用するスクロールビュー
     
+    
+    CFURLRef soundURL;
+    SystemSoundID tapSoundID;
+    CFBundleRef mainBundle;
 }
 
 @property int myDrawCount;
@@ -223,6 +228,7 @@
 //カードのカットインを表示するビュー
 @property UIImageView *cardUsingAnimationView;
 @property UIImageView *backGround;
+
 
 
 @end
