@@ -26,6 +26,10 @@
 @synthesize myDrawCount;
 @synthesize selectedCardOrder;
 @synthesize backGround;
+@synthesize tapSoundURL;
+@synthesize tapSoundID;
+@synthesize cancelSoundURL;
+@synthesize cancelSoundID;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,7 +37,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
     }
     return self;
 }
@@ -298,7 +301,6 @@
         
         _cardInRegion = [[UIScrollView alloc] init];
         _cardInRegion.delegate = self;
-        _cardInRegion.backgroundColor = [UIColor cyanColor];
         _cardInRegion.userInteractionEnabled = YES;
         _backGroundView = [[UIImageView alloc] init];
         _backGroundView.userInteractionEnabled = YES;
@@ -590,13 +592,16 @@
         [self.view addSubview:_allImageView];
     }
     
+    //BGMの実装
     mainBundle = CFBundleGetMainBundle ();
-    
-    //決定ボタンの音を実装
-    soundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
-    AudioServicesCreateSystemSoundID (soundURL, &tapSoundID);
-    
-    
+        //キャラタップ音
+        tapSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
+        AudioServicesCreateSystemSoundID (tapSoundURL, &tapSoundID);
+        CFRelease (tapSoundURL);
+        //キャンセルボタンタップ音
+        cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
+        AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
+        CFRelease (cancelSoundURL);
     
     //--------------------------デバッグ用ボタン-----------------------------------
     
@@ -621,14 +626,22 @@
     [debug2Button addTarget:self action:@selector(debug2:)
            forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    debug3Button.frame = CGRectMake(160, 420, 80, 20);
+    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
+    [_allImageView addSubview:debug3Button];
+    [debug3Button addTarget:self action:@selector(debug3:)
+           forControlEvents:UIControlEventTouchUpInside];
+
+
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
-//MARK: デバッグ用。終わったら元に戻す_battleStart = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+
 //MARK: デバッグ用。終わったら元に戻す[_battleStart show];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
     app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 816136571;
+    app.enemyPlayerID = 757921007;
     NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
     
     SendDataToServer *sendData = [[SendDataToServer alloc] init];
@@ -647,12 +660,19 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    AudioServicesPlaySystemSound (tapSoundID);
+    
 }
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-
+     NSString* path = [[NSBundle mainBundle]
+                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
+     NSURL* url = [NSURL fileURLWithPath:path];
+     _audio = [[AVAudioPlayer alloc]
+               initWithContentsOfURL:url error:nil];
+     _audio.numberOfLoops = -1;
+    _audio.volume = 0.2f;
+     [_audio play];
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -667,6 +687,7 @@
 
 
 - (void)touchesBegan: (UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     
     
     switch (sender.view.tag) {
@@ -1535,7 +1556,7 @@
             int count = [app.myHand count] - [app.myHandByMyself_minus count];
             if(count != 0){
                 int rand = (int)(random() % count);
-                NSLog(@"[app.myHand count]:%ld",[app.myHand count]);
+                NSLog(@"[app.myHand count]:%d",(int)[app.myHand count]);
                 [self manipulateCard:[app.myHand objectAtIndex:rand] plusArray:app.myTombByMyself_plus minusArray:app.myHandByMyself_minus];
                 
                 [self enemyAttackPowerOperate:GIKO point:-5 temporary:1];
@@ -1609,10 +1630,10 @@
         }
             break;
         case 96:
-            //このターン、黒エネルギーを＋３（B)
+            //このターン、赤エネルギーを＋３（B)
         {
-            int blackColor = [[app.myEnergyCard objectAtIndex:2] intValue];
-            [app.myEnergyCard replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:(blackColor + 3)]];
+            int redColor = [[app.myEnergyCard objectAtIndex:3] intValue];
+            [app.myEnergyCard replaceObjectAtIndex:3 withObject:[NSNumber numberWithInt:(redColor + 3)]];
         }
             break;
         case 97:
@@ -2760,12 +2781,18 @@
     [parentView addSubview:label];
     if(touch){
         label.userInteractionEnabled = YES;
-        [label addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]];
+        [label addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACardForInsertLabelToParentView:)]];
     }
 }
 
 - (void)detailOfACard:(UILongPressGestureRecognizer *)sender{
-    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",(int)sender.view.tag]];
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d", [[app.myHand objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACardForInsertLabelToParentView:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d", (int)sender.view.tag]];
     [self.view addSubview:detailOfACard];
     _allImageView.userInteractionEnabled = NO;
 }
@@ -2777,6 +2804,7 @@
 
 
 -(void)okButtonPushed{
+    AudioServicesPlaySystemSound (tapSoundID);
     if (app.mySelectCharacter == -1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選ばれていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"キャラクターを選択する", nil];
         [alert show];
@@ -2790,6 +2818,16 @@
 }
 
 - (void)battleStart{
+    //メインBGMの開始
+//BEFORERELEASE:リリース前に元に戻す NSString* path = [[NSBundle mainBundle]
+//BEFORERELEASE:リリース前に元に戻す                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
+//BEFORERELEASE:リリース前に元に戻す     NSURL* url = [NSURL fileURLWithPath:path];
+//BEFORERELEASE:リリース前に元に戻す     _audio = [[AVAudioPlayer alloc]
+//BEFORERELEASE:リリース前に元に戻す               initWithContentsOfURL:url error:nil];
+//BEFORERELEASE:リリース前に元に戻す     _audio.numberOfLoops = -1;
+//BEFORERELEASE:リリース前に元に戻す     [_audio play];
+    
+    
     if([YSDeviceHelper is568h]){
         //
         //        //自分
@@ -3024,10 +3062,12 @@
 }
 
 - (void)touchAction :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(handTouched:) string:nil];
 }
 
 - (void)handTouched :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     cardNumber = [[app.myHand objectAtIndex:selectedCardOrder] intValue];
@@ -3138,18 +3178,22 @@
 }
 
 - (void)myTombTouched :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.myTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyTombTouched :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.enemyTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)myFieldTouched :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.myFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.enemyFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
 }
 
@@ -3252,7 +3296,10 @@
     for (int i = 0; i < [_cardInRegion.subviews count]; i++) {
         [[_cardInRegion.subviews objectAtIndex:i] removeFromSuperview];
     }
-    
+    _imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fadeinImage"]];
+    _imgView.userInteractionEnabled = YES;
+    [_imgView addSubview:_cardInRegion];
+    _imgView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
     
     if(touchCard){
         
@@ -3279,10 +3326,11 @@
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         [_cardInRegion addSubview:_backGroundView];
         [_cardInRegion addSubview:_regionView];
-        _cardInRegion.contentSize = _regionView.bounds.size;
+        _cardInRegion.contentSize = CGSizeMake(280 ,90 + [cards count] * (BIGCARDHEIGHT + 10) + 40);
         
         
         UITextView *title = [[UITextView alloc] init];
+        [PenetrateFilter penetrate:title];
         [_cardInRegion addSubview: title];
         title.text = string;
         title.editable = NO;
@@ -3290,7 +3338,7 @@
         title.textAlignment = NSTextAlignmentCenter;
         
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
-        [_allImageView addSubview:_cardInRegion];
+        [_allImageView addSubview:_imgView];
         
     }else{
         for (UIView *view in [_regionView subviews]) {
@@ -3311,10 +3359,11 @@
         }
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         [_cardInRegion addSubview:_regionView];
-        _cardInRegion.contentSize = _regionView.bounds.size;
+        _cardInRegion.contentSize = CGSizeMake(280 ,90 + [cards count] * (BIGCARDHEIGHT + 10) + 40);
         
         
         UITextView *title = [[UITextView alloc] init];
+        [PenetrateFilter penetrate:title];
         [_cardInRegion addSubview: title];
         title.text = string;
         title.editable = NO;
@@ -3322,7 +3371,7 @@
         title.textAlignment = NSTextAlignmentCenter;
         
         [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
-        [_allImageView addSubview:_cardInRegion];
+        [_allImageView addSubview:_imgView];
         
         
     }
@@ -3690,7 +3739,9 @@
     switch (sender.view.tag) {
         case 4:
             //ある領域のカードを見た際のOK,キャンセルボタンから飛んできた場合
+            AudioServicesPlaySystemSound (cancelSoundID);
             [_cardInRegion removeFromSuperview];
+            [_imgView removeFromSuperview];
             selectCardIsCanceledInCardInRegion = YES;
             FINISHED1
             break;
@@ -3701,11 +3752,13 @@
             
         case 6:
             //山札の上からX枚を見た際のOKボタンから飛んできた場合
+            AudioServicesPlaySystemSound (tapSoundID);
             [_cardInRegion removeFromSuperview];
             break;
             
         case 7:
             //キャラクター選択画面のOKボタンから飛んできた場合
+            AudioServicesPlaySystemSound (tapSoundID);
             if (mySelectCharacterInCharacterField == -1) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
                 [alert show];
@@ -3718,6 +3771,7 @@
             
         case 8:
             //キャラクター選択画面のキャンセルボタンから飛んできた場合
+            AudioServicesPlaySystemSound (cancelSoundID);
             mySelectCharacterInCharacterField = -1;
             [_characterField removeFromSuperview];
             FINISHED1
@@ -3725,6 +3779,7 @@
             
         case 9:
             //特定の色を選択する画面のOKボタンから飛んできた場合
+            AudioServicesPlaySystemSound (tapSoundID);
             if(app.mySelectColor == -1){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"色未選択" message:@"色が選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選択する", nil];
                 [alert show];
@@ -3737,7 +3792,7 @@
             
         case 10:
             //カードのコストとして費やすマナを選択する画面のOKボタンから飛んできた場合
-        
+        AudioServicesPlaySystemSound (tapSoundID);
             
         {
             NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
@@ -5074,6 +5129,8 @@
     [_cardUsingAnimationView removeFromSuperview];
     _allImageView.userInteractionEnabled = YES;
 }
+
+
 
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
 #define IMGWIDTH  50
 #define IMGHEIGHT 50
 #define NUMBEROFIMAGEINRAW 5 //デッキ作成画面において、一列に入るアイコン数
+
 
 
 @interface DeckViewController : ViewController{
@@ -26,6 +29,14 @@
     
     int detailOfACardCount; //1のときはカード詳細画像が表示されており、0のときは表示されていない。
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。
+    
+    //ボタンタップ時の効果音
+    CFURLRef tapSoundURL;
+    SystemSoundID tapSoundID;
+    CFURLRef cancelSoundURL;
+    SystemSoundID cancelSoundID;
+    
+    CFBundleRef mainBundle;
 }
 
 //OKボタン・キャンセルボタン
@@ -34,6 +45,11 @@
 @property NSMutableArray *selectedCards;
 @property NSMutableArray *isSelectedCards;
 @property UIImageView *detailOfACard;
+@property(readwrite) CFURLRef tapSoundURL;
+@property(readonly) SystemSoundID tapSoundID;
+@property(readwrite) CFURLRef cancelSoundURL;
+@property(readonly) SystemSoundID cancelSoundID;
+@property(nonatomic,retain)AVAudioPlayer *audio;
 - (IBAction)returnToMainView:(id)sender;
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender;

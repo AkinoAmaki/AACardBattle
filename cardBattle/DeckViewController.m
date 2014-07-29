@@ -99,6 +99,27 @@
     [self.view addSubview:scrollView];
 
     detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
+    
+    //BGMの実装
+    NSString* path = [[NSBundle mainBundle]
+                      pathForResource:@"28_machi25b" ofType:@"mp3"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    _audio = [[AVAudioPlayer alloc]
+              initWithContentsOfURL:url error:nil];
+    _audio.numberOfLoops = -1;
+    _audio.volume = 0.2f;
+    [_audio play];
+    
+
+    //キャラタップ音
+    mainBundle = CFBundleGetMainBundle ();
+    tapSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
+    AudioServicesCreateSystemSoundID (tapSoundURL, &tapSoundID);
+    CFRelease (tapSoundURL);
+    //キャンセルボタンタップ音
+    cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
+    AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
+    CFRelease (cancelSoundURL);
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +130,7 @@
 
 - (void) touchAction: (UITapGestureRecognizer *)sender{
     NSLog(@"タッチ感知 from %d",sender.view.tag);
-
+    
     if ([[isSelectedCards objectAtIndex:sender.view.tag] intValue] == 4 || [[isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
         [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
     }else{
@@ -130,6 +151,7 @@
 }
 
 - (void)cardSelectDecideButtonPushed{
+    AudioServicesPlaySystemSound (tapSoundID);
     int numberOfCardsInDeck = 0;
     for(int i = 0; i < [isSelectedCards count] ; i++){
         numberOfCardsInDeck += [[isSelectedCards objectAtIndex:i] intValue];
@@ -152,6 +174,7 @@
 }
 
 - (void)cardSelectCancelButtonPushed{
+    AudioServicesPlaySystemSound (cancelSoundID);
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
     NSLog(@"%@",isSelectedCards);
     

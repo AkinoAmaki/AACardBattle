@@ -18,7 +18,8 @@
 #import "YSDeviceHelper.h"
 #import "penetrateFilter.h"
 #import "UIImageView+effects.h"
-#import <AudioToolbox/AudioServices.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -79,10 +80,14 @@
     NSMutableArray *targetedMyTombCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象とした墓地のカードの一覧
     UIScrollView *resultFadeinScrollView; //結果画面の表示時に使用するスクロールビュー
     
-    
-    CFURLRef soundURL;
+    //ボタンタップ時の効果音
+    CFURLRef tapSoundURL;
     SystemSoundID tapSoundID;
+    CFURLRef cancelSoundURL;
+    SystemSoundID cancelSoundID;
+    
     CFBundleRef mainBundle;
+
 }
 
 @property int myDrawCount;
@@ -133,6 +138,7 @@
 //領域（自分（相手）の手札・自分（相手）の山札・自分（相手）の場カード・自分（相手）のエネルギーカード等）にあるカードを見るビュー
 @property UIScrollView *cardInRegion;
 @property UIImageView *regionView;
+@property UIImageView *imgView;
 @property (nonatomic, copy)NSMutableArray *regionViewArray;
 
 //特定の色を選ぶビュー
@@ -229,6 +235,13 @@
 @property UIImageView *cardUsingAnimationView;
 @property UIImageView *backGround;
 
+
+//BGM
+@property(readwrite) CFURLRef tapSoundURL;
+@property(readonly) SystemSoundID tapSoundID;
+@property(readwrite) CFURLRef cancelSoundURL;
+@property(readonly) SystemSoundID cancelSoundID;
+@property(nonatomic,retain)AVAudioPlayer *audio;
 
 
 @end
