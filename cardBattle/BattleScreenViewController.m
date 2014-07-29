@@ -3327,6 +3327,7 @@
         [_cardInRegion addSubview:_backGroundView];
         [_cardInRegion addSubview:_regionView];
         _cardInRegion.contentSize = CGSizeMake(280 ,90 + [cards count] * (BIGCARDHEIGHT + 10) + 40);
+        _cardInRegion.contentOffset = CGPointMake(0, 0);
         
         
         UITextView *title = [[UITextView alloc] init];
@@ -3360,6 +3361,7 @@
         _cardInRegion.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         [_cardInRegion addSubview:_regionView];
         _cardInRegion.contentSize = CGSizeMake(280 ,90 + [cards count] * (BIGCARDHEIGHT + 10) + 40);
+        _cardInRegion.contentOffset = CGPointMake(0, 0);
         
         
         UITextView *title = [[UITextView alloc] init];
