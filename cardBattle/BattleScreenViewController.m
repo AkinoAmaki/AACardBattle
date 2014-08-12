@@ -660,7 +660,7 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    
+    SummonViewController *view = [[SummonViewController alloc] init];
 }
 
 
@@ -3754,12 +3754,14 @@
             
         case 6:
             //山札の上からX枚を見た際のOKボタンから飛んできた場合
+            [_imgView removeFromSuperview];
             AudioServicesPlaySystemSound (tapSoundID);
             [_cardInRegion removeFromSuperview];
             break;
             
         case 7:
             //キャラクター選択画面のOKボタンから飛んできた場合
+            [_imgView removeFromSuperview];
             AudioServicesPlaySystemSound (tapSoundID);
             if (mySelectCharacterInCharacterField == -1) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
@@ -3773,6 +3775,7 @@
             
         case 8:
             //キャラクター選択画面のキャンセルボタンから飛んできた場合
+            [_imgView removeFromSuperview];
             AudioServicesPlaySystemSound (cancelSoundID);
             mySelectCharacterInCharacterField = -1;
             [_characterField removeFromSuperview];
@@ -3781,6 +3784,7 @@
             
         case 9:
             //特定の色を選択する画面のOKボタンから飛んできた場合
+            [_imgView removeFromSuperview];
             AudioServicesPlaySystemSound (tapSoundID);
             if(app.mySelectColor == -1){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"色未選択" message:@"色が選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選択する", nil];
@@ -3794,6 +3798,7 @@
             
         case 10:
             //カードのコストとして費やすマナを選択する画面のOKボタンから飛んできた場合
+            [_imgView removeFromSuperview];
         AudioServicesPlaySystemSound (tapSoundID);
             
         {
@@ -4373,6 +4378,7 @@
     [self refleshHandsAndLibraries];
 }
 -(void)discardMyHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4387,6 +4393,7 @@
 }
 
 -(void)discardMyMultiHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4404,6 +4411,7 @@
 
 
 -(void)discardMyHandInTurnEndPhaseSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
@@ -4414,6 +4422,7 @@
 
 
 -(void)discardEnemyHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4429,6 +4438,7 @@
 }
 
 -(void)discardEnemyMultiHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4445,6 +4455,7 @@
 }
 
 -(void)destroyMyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4460,6 +4471,7 @@
 }
 
 -(void)destroyEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に破壊対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4475,6 +4487,7 @@
 }
 
 -(void)destroyMultiEnemyFieldCardsSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4491,6 +4504,7 @@
 }
 
 -(void)returnEnemyFieldCardToHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に戻す対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4506,6 +4520,7 @@
 }
 
 -(void)returnMyTombCardToLibrarySelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に戻す対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4521,6 +4536,7 @@
 }
 
 -(void)stealEnemyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に盗む対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4536,6 +4552,7 @@
 }
 
 -(void)putACardToLibraryTopOrBottomSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     [_cardInRegion removeFromSuperview];
@@ -4545,6 +4562,7 @@
 }
 
 -(void)sendMyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に渡す対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4559,6 +4577,7 @@
     }
 }
 -(void)copyMyFieldCardSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     if ([[app.myFieldCard objectAtIndex:selectedCardOrder]intValue] == 63) {
@@ -4576,6 +4595,7 @@
 }
 
 -(void)getACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     if([GetEnemyDataFromServer indexOfObjectForNSNumber:targetedMyLibraryCardInThisTurn_get number:[NSNumber numberWithInt:selectedCardOrder]] != -1){
@@ -4590,6 +4610,7 @@
 }
 
 -(void)getAEnergyCardFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4612,6 +4633,7 @@
 }
 
 -(void)getMultiEnergyCardFromLibraryHandSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4634,6 +4656,7 @@
 }
 
 -(void)getAEnergyCardFromTombSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4657,6 +4680,7 @@
 }
 
 -(void)getACardFromMyTombSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に取得対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4672,6 +4696,7 @@
 }
 
 -(void)getMultiCardFromMyTombSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4689,6 +4714,7 @@
 
 
 -(void)discardACardFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     //既に捨てる対象として選択されているカードが選択された場合は警告を出して弾く
@@ -4704,6 +4730,7 @@
 }
 
 -(void)discardMultiCardsFromLibrarySelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
@@ -4720,6 +4747,7 @@
 }
 
 -(void)normalSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     //selectedCardOrderに選ばれたカードの配列の順番だけ入れるセレクタ
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
@@ -4728,6 +4756,7 @@
 }
 
 -(void)nullSelector: (UITapGestureRecognizer *)sender{
+    [_imgView removeFromSuperview];
     //何もしないセレクタ
 }
 
@@ -5032,6 +5061,7 @@
     return NO;
 }
 
+//カード使用時のアニメーション
 -(void)cardUsingAnimation:(int)cardNum{
     _allImageView.userInteractionEnabled = NO;
     backGround.alpha = 0.6f;

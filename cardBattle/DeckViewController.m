@@ -27,6 +27,8 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -120,6 +122,7 @@
     cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
     AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
     CFRelease (cancelSoundURL);
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -270,6 +273,8 @@
     imgView.tag = i;
     [allImage addSubview:imgView];
 }
+
+
 
 
 @end

@@ -20,6 +20,7 @@
 #import "UIImageView+effects.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "SummonViewController.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3

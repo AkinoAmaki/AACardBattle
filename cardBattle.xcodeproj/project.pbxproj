@@ -157,6 +157,10 @@
 		0F1699CE198763E500221D19 /* card153.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F169938198763E500221D19 /* card153.PNG */; };
 		0F1699CF198763E500221D19 /* card154.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F169939198763E500221D19 /* card154.PNG */; };
 		0F1699D0198763E500221D19 /* card155.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F16993A198763E500221D19 /* card155.PNG */; };
+		0F1699DA1999001D00221D19 /* MBAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1699D51999001D00221D19 /* MBAnimationView.m */; };
+		0F1699DF199902F000221D19 /* e_appear_240.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1699DD199902F000221D19 /* e_appear_240.png */; };
+		0F1699E0199902F000221D19 /* e_circle_240.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1699DE199902F000221D19 /* e_circle_240.png */; };
+		0F1699E3199915C000221D19 /* SummonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0F1699E2199915C000221D19 /* SummonViewController.mm */; };
 		0F1D265219061E1500B43A76 /* border_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D265119061E1500B43A76 /* border_character.png */; };
 		0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD0E191DEF2200E9D59C /* SendDataToServer.m */; };
 		0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD11191DF16800E9D59C /* GetEnemyDataFromServer.m */; };
@@ -431,6 +435,12 @@
 		0F169938198763E500221D19 /* card153.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card153.PNG; sourceTree = "<group>"; };
 		0F169939198763E500221D19 /* card154.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card154.PNG; sourceTree = "<group>"; };
 		0F16993A198763E500221D19 /* card155.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card155.PNG; sourceTree = "<group>"; };
+		0F1699D41999001D00221D19 /* MBAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAnimationView.h; sourceTree = "<group>"; };
+		0F1699D51999001D00221D19 /* MBAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAnimationView.m; sourceTree = "<group>"; };
+		0F1699DD199902F000221D19 /* e_appear_240.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e_appear_240.png; sourceTree = "<group>"; };
+		0F1699DE199902F000221D19 /* e_circle_240.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e_circle_240.png; sourceTree = "<group>"; };
+		0F1699E1199915C000221D19 /* SummonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummonViewController.h; sourceTree = "<group>"; };
+		0F1699E2199915C000221D19 /* SummonViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SummonViewController.mm; sourceTree = "<group>"; };
 		0F1D265119061E1500B43A76 /* border_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_character.png; sourceTree = "<group>"; };
 		0F29BD0B191BDE9A00E9D59C /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDataToServer.h; sourceTree = "<group>"; };
@@ -963,6 +973,8 @@
 				0F9E6493196303B200AA5BE4 /* whiteBack.png */,
 				0F9E64AE1965B3CF00AA5BE4 /* glayBack.png */,
 				0F9E650B196EBDCF00AA5BE4 /* fadeinImage.png */,
+				0F1699DD199902F000221D19 /* e_appear_240.png */,
+				0F1699DE199902F000221D19 /* e_circle_240.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -1030,6 +1042,10 @@
 				0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */,
 				0F29BD161923B42C00E9D59C /* PenetrateFilter.h */,
 				0F29BD171923B42C00E9D59C /* PenetrateFilter.m */,
+				0F1699E1199915C000221D19 /* SummonViewController.h */,
+				0F1699E2199915C000221D19 /* SummonViewController.mm */,
+				0F1699D41999001D00221D19 /* MBAnimationView.h */,
+				0F1699D51999001D00221D19 /* MBAnimationView.m */,
 				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
@@ -1293,6 +1309,7 @@
 				0F9E6501196E8F0700AA5BE4 /* se_maoudamashii_se_sound19.mp3 in Resources */,
 				0F169947198763E500221D19 /* card18.PNG in Resources */,
 				0F16994F198763E500221D19 /* card26.PNG in Resources */,
+				0F1699DF199902F000221D19 /* e_appear_240.png in Resources */,
 				0F16999B198763E500221D19 /* card102.PNG in Resources */,
 				0F16996D198763E500221D19 /* card56.PNG in Resources */,
 				0F16994C198763E500221D19 /* card23.PNG in Resources */,
@@ -1348,6 +1365,7 @@
 				0F1699A6198763E500221D19 /* card113.PNG in Resources */,
 				0F169986198763E500221D19 /* card81.PNG in Resources */,
 				0F169971198763E500221D19 /* card60.PNG in Resources */,
+				0F1699E0199902F000221D19 /* e_circle_240.png in Resources */,
 				0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */,
 				0F16996E198763E500221D19 /* card57.PNG in Resources */,
 				0F1699B5198763E500221D19 /* card128.PNG in Resources */,
@@ -1391,6 +1409,7 @@
 				0F6EB47A1916B2E400BD0E41 /* SBJsonStreamWriterState.m in Sources */,
 				0F6EB4741916B2E400BD0E41 /* SBJsonStreamParser.m in Sources */,
 				0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */,
+				0F1699DA1999001D00221D19 /* MBAnimationView.m in Sources */,
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
 				0F9E64AB1965067A00AA5BE4 /* UIImage+fill.m in Sources */,
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
@@ -1418,6 +1437,7 @@
 				0F6EB4771916B2E400BD0E41 /* SBJsonStreamParserState.m in Sources */,
 				0F6EB4751916B2E400BD0E41 /* SBJsonStreamParserAccumulator.m in Sources */,
 				0FDCA49718CACFC2003459F8 /* main.m in Sources */,
+				0F1699E3199915C000221D19 /* SummonViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,12 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SummonViewController.h"
+#import "MBAnimationView.h"
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *userDefault;
     AppDelegate *appdelegate;
+    
+    
+    
+    
+    //!!!:カードゲットの練習用ここから
+    
+    MBAnimationView *effect1;
+    MBAnimationView *effect2;
+    UIImageView *view;
+    UITapGestureRecognizer *tgr;
+    
+    //!!!:カードゲットの練習用ここまで
 }
 
 

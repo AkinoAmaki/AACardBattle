@@ -41,6 +41,33 @@
         [self.view addSubview:firstLaunchView];
         [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
+    
+    
+    
+    //!!!:カードゲットの練習用ここから
+    
+    // 魔法陣エフェクト準備
+    effect1 = [[MBAnimationView alloc] init];
+    [effect1 setAnimationImage:@"e_circle_240.png" :240 :240 :11];
+    effect1.frame = CGRectMake(40, 160, 240, 240);
+    effect1.animationDuration = 1;
+    
+    // 渦巻きエフェクト準備
+    effect2 = [[MBAnimationView alloc] init];
+    [effect2 setAnimationImage:@"e_appear_240.png" :94 :240 :12];
+    effect2.frame = CGRectMake(113, 60, 94, 240);
+    effect2.animationDuration = 1;
+    
+    
+    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    debug2Button.frame = CGRectMake(40, 30, 80, 20);
+    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
+    [[self view] addSubview:debug2Button];
+    [debug2Button addTarget:self action:@selector(debug2:)
+           forControlEvents:UIControlEventTouchUpInside];
+    
+    //!!!:カードゲットの練習用ここまで
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -428,7 +455,67 @@
 }
 
 
+//!!!:カードゲットの練習用ここから
+
+- (void)startAnimation
+{
+    NSLog(@"SummonViewController viewDidLoad");
+    // 背景
+    [[self view] setBackgroundColor:[UIColor blackColor]];
+
+    
+    // 魔法陣エフェクト発動
+    [[self view] addSubview:effect1];
+    [effect1 startAnimating];
+    // タイマー
+    [NSTimer scheduledTimerWithTimeInterval:0.5
+                                     target:self
+                                   selector:@selector(viewEffect2:)
+                                   userInfo:nil
+                                    repeats:false];
+}
+
+- (void)viewEffect2:(id)sender{
+    NSLog(@"viewEffect2");
+    // 渦巻きエフェクト発動
+    [[self view] addSubview:effect2];
+    [effect2 startAnimating];
+    
+    // タイマー
+    [NSTimer scheduledTimerWithTimeInterval:0.4
+                                     target:self
+                                   selector:@selector(viewEffect3:)
+                                   userInfo:nil
+                                    repeats:false];
+}
+
+- (void)viewEffect3:(id)sender{
+    NSLog(@"viewEffect3");
+    // キャラ登場
+    view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"card98"]];
+    view.frame = CGRectMake(60, 90, 200, 300);
+    [[self view] addSubview:view];
+    [[self view] addSubview:effect2];
+    
+    // タップレコグナイザー
+    tgr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewStatus:)];
+    [[self view] addGestureRecognizer:tgr];
+}
+
+- (void)viewStatus:(id)sender{
+    [view removeFromSuperview];
+    [[self view] removeGestureRecognizer:tgr];
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 
 
+
+- (void)debug2 :(UITapGestureRecognizer *)sender{
+    NSLog(@"おされた");
+    [self startAnimation];
+}
+
+
+//!!!:カードゲットの練習用ここまで
 
 @end
