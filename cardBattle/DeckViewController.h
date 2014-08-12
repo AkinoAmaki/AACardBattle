@@ -10,9 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
-#define IMGWIDTH  50
-#define IMGHEIGHT 50
-#define NUMBEROFIMAGEINRAW 5 //デッキ作成画面において、一列に入るアイコン数
+#import <QuartzCore/QuartzCore.h>
+#define IMGWIDTH  150
+#define IMGHEIGHT 225
+#define NUMBEROFIMAGEINRAW 2 //デッキ作成画面において、一列に入るアイコン数
+#define NUMBEROFCARDS 156 //カードの総種類数
 
 
 

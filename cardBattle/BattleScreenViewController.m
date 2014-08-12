@@ -3312,7 +3312,7 @@
         
         for (int i = 0; i < [cards count]; i++) {
             UIImageView *cardImage = [[UIImageView alloc] init];
-            cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d.png",[[cards objectAtIndex:i] intValue]]];
+            cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",[[cards objectAtIndex:i] intValue]]];
             [_regionView addSubview:cardImage];
             [regionViewArray addObject:cardImage];
             cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);

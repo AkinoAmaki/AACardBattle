@@ -34,14 +34,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    //AppDelegateの呼び出し
     app = [[UIApplication sharedApplication] delegate];
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck];
     
-    allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 1704)];
+    allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 160 + NUMBEROFCARDS / 2 * (IMGHEIGHT + 5))];
+    
+    
+    //スクロールビューの設定
     scrollView = [[UIScrollView alloc] init];
     scrollView.frame = self.view.bounds;
     scrollView.contentSize = allImage.bounds.size;
     
+    
+    //決定ボタンを実装
     UIImage *decideButton = [UIImage imageNamed:@"cardselectdecidebutton.png"];
     UIImageView *cardSelectDecideButton = [[UIImageView alloc] initWithFrame:CGRectMake(200, 30, 50, 20)];
     cardSelectDecideButton.image = decideButton;
@@ -51,7 +57,7 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(cardSelectDecideButtonPushed)]];
     
-    
+    //キャンセルボタンを実装
     UIImage *cancelButton = [UIImage imageNamed:@"cardselectcancelbutton.png"];
     UIImageView *cardSelectCancelButton = [[UIImageView alloc] initWithFrame:CGRectMake(140, 30, 50, 20)];
     cardSelectCancelButton.image = cancelButton;
@@ -61,6 +67,8 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
     
+    
+    //各カード毎の画像及び所持枚数を表示
     allTxtView = [[UIView alloc] init];
     
     for(int i = 0; i < [app.cardList_pngName count]; i++){
@@ -261,7 +269,7 @@
     if([[app.myCards objectAtIndex:i] intValue] == 0){
         img = [UIImage imageNamed:@"question.png"];
     }else{
-        img = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:i]];
+        img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_M.JPG",[app.cardList_pngName objectAtIndex:i]]];
     }
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
     imgView.userInteractionEnabled = YES;
@@ -269,7 +277,7 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(touchAction:)]];
     [imgView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchAcrion:)]];
-    imgView.frame = CGRectMake(20 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 100 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
+    imgView.frame = CGRectMake(10 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 100 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
     imgView.tag = i;
     [allImage addSubview:imgView];
 }
