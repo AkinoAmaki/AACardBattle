@@ -20,7 +20,7 @@
 #import "UIImageView+effects.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "SummonViewController.h"
+#import "MBAnimationView.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -86,8 +86,12 @@
     SystemSoundID tapSoundID;
     CFURLRef cancelSoundURL;
     SystemSoundID cancelSoundID;
-    
     CFBundleRef mainBundle;
+    
+    //カード使用時のアニメーション
+    MBAnimationView *effect1;
+    MBAnimationView *effect2;
+    MBAnimationView *effect3;
 
 }
 

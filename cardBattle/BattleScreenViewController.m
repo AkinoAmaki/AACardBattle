@@ -582,12 +582,7 @@
         _enemySyobon = [[UILabel alloc] init];
         _enemyYaruo = [[UILabel alloc] init];
         _enemyDamage = [[UILabel alloc] init];
-        
-        
-        backGround = [[UIImageView alloc] init];
-        backGround.image = [UIImage imageNamed:@"glayBack"];
-        
-        
+    
         
         [self.view addSubview:_allImageView];
     }
@@ -660,7 +655,7 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    SummonViewController *view = [[SummonViewController alloc] init];
+    
 }
 
 
@@ -3179,22 +3174,22 @@
 
 - (void)myTombTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.myTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyTombTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.enemyTomb touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.enemyTomb touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)myFieldTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.myFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
 }
 
 - (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.enemyFieldCard touchCard:NO tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
 }
 
 
@@ -5064,39 +5059,41 @@
 //カード使用時のアニメーション
 -(void)cardUsingAnimation:(int)cardNum{
     _allImageView.userInteractionEnabled = NO;
+    backGround = [[UIImageView alloc] init];
+    [backGround setBackgroundColor:[UIColor blackColor]];
+    backGround.image = [UIImage imageNamed:@"littleBlackBack"];
     backGround.alpha = 0.6f;
     [_allImageView addSubview:backGround];
     backGround.frame = CGRectMake(0,0, backGround.superview.bounds.size.width, backGround.superview.bounds.size.height);
 
     [backGround whiteFadeInWithDuration:1.5f delay:0.0f block:^(void){
-        backGround.alpha = 0.6f;
-        UITextView *cardName = [[UITextView alloc] init];
-        cardName.text = [NSString stringWithFormat:@"%@",[app.cardList_cardName objectAtIndex:cardNum]];
-        cardName.frame = CGRectMake(0, 0, 200, 40);
-        cardName.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 400);
-        cardName.textAlignment = NSTextAlignmentCenter;
-        [PenetrateFilter penetrate:cardName];
-        [_cardUsingAnimationView addSubview:cardName];
+        effect1 = [[MBAnimationView alloc] init];
+        [effect1 setAnimationImage:@"pipo-btleffect071.png" :120 :120 :10];
+        effect1.frame = CGRectMake(40, 160, 240, 240);
+        effect1.animationDuration = 1;
         
-        UIImageView *manaCost = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
-        manaCost.frame = CGRectMake(0, 0, 60, 30);
-        manaCost.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 360);
-        [PenetrateFilter penetrate:manaCost];
-        [_cardUsingAnimationView addSubview:manaCost];
+        effect2 = [[MBAnimationView alloc] init];
+        [effect2 setAnimationImage:@"pipo-mapeffect009.png" :288 :240 :10];
+        effect2.frame = CGRectMake(40, 100, 240, 240);
+        effect2.animationDuration = 1;
+        
+        [_cardUsingAnimationView addSubview:effect1];
+        [effect1 startAnimating];
+        
+        
+        UITextView *explain = [[UITextView alloc] init];
+        explain.text = @"このターン使用したカード";
+        explain.frame = CGRectMake(0, 0, 200, 40);
+        explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 400);
+        explain.textAlignment = NSTextAlignmentCenter;
+        [PenetrateFilter penetrate:explain];
+        [_cardUsingAnimationView addSubview:explain];
         
         UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d",cardNum]]];
         cardImage.frame = CGRectMake(0, 0, 100, 100);
         cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * -2, [[UIScreen mainScreen] bounds].size.height - 320);
         [PenetrateFilter penetrate:cardImage];
         [_cardUsingAnimationView addSubview:cardImage];
-        
-        UITextView *cardText = [[UITextView alloc] init];
-        cardText.text = [NSString stringWithFormat:@"%@",[app.cardList_text objectAtIndex:cardNum]];
-        cardText.frame = CGRectMake(0, 0, 200, 150);
-        cardText.center = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, [[UIScreen mainScreen] bounds].size.height - 200);
-        cardText.textAlignment = NSTextAlignmentCenter;
-        [PenetrateFilter penetrate:cardText];
-        [_cardUsingAnimationView addSubview:cardText];
         
         UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rightArrow"]];
         skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 40, 40);
@@ -5110,37 +5107,29 @@
         
         [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
             // アニメーションをする処理
-            cardName.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2 / 3, [[UIScreen mainScreen] bounds].size.height - 400);
-            manaCost.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2 / 3, [[UIScreen mainScreen] bounds].size.height - 360);
+            explain.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2 / 3, [[UIScreen mainScreen] bounds].size.height - 400);
             cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 3, [[UIScreen mainScreen] bounds].size.height - 320);
-            cardText.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width * 2 / 3, [[UIScreen mainScreen] bounds].size.height - 200);
         }
                          completion:^(BOOL finished){
                              //アニメーション終了後の処理
                              [UIView animateWithDuration:10.0f delay:0.0f options:UIViewAnimationOptionCurveLinear
                                               animations:^{
                                                   // アニメーションをする処理
-                                                  cardName.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 400);
-                                                  manaCost.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 360 );
+                                                  explain.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 400);
                                                   cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 320);
-                                                  cardText.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 200);
                                               }
                                               completion:^(BOOL finished){
                                                   //アニメーション終了後の処理
                                                 [UIView animateWithDuration:10.0f delay:0.0f options:UIViewAnimationOptionCurveLinear
                                                                    animations:^{
                                                   //10秒間待機時間を与える
-                                                   cardName.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 401);
-                                                   manaCost.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 361 );
+                                                   explain.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 401);
                                                    cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 321);
-                                                   cardText.center  = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height - 201);
                                                 }
                                                 completion:^(BOOL finished){
                                                     [backGround removeFromSuperview];
-                                                    [cardName.layer removeAllAnimations];
-                                                    [manaCost.layer removeAllAnimations];
+                                                    [explain.layer removeAllAnimations];
                                                     [cardImage.layer removeAllAnimations];
-                                                    [cardText.layer removeAllAnimations];
                                                     for (UIView *view in _cardUsingAnimationView.subviews) {
                                                         [view removeFromSuperview];
                                                     }

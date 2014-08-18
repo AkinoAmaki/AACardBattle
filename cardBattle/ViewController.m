@@ -42,22 +42,7 @@
         [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
     
-    
-    
-    //!!!:カードゲットの練習用ここから
-    
-    // 魔法陣エフェクト準備
-    effect1 = [[MBAnimationView alloc] init];
-    [effect1 setAnimationImage:@"e_circle_240.png" :240 :240 :11];
-    effect1.frame = CGRectMake(40, 160, 240, 240);
-    effect1.animationDuration = 1;
-    
-    // 渦巻きエフェクト準備
-    effect2 = [[MBAnimationView alloc] init];
-    [effect2 setAnimationImage:@"e_appear_240.png" :94 :240 :12];
-    effect2.frame = CGRectMake(113, 60, 94, 240);
-    effect2.animationDuration = 1;
-    
+    //!!!デバッグ用
     
     UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     debug2Button.frame = CGRectMake(40, 30, 80, 20);
@@ -66,7 +51,14 @@
     [debug2Button addTarget:self action:@selector(debug2:)
            forControlEvents:UIControlEventTouchUpInside];
     
-    //!!!:カードゲットの練習用ここまで
+    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    debug3Button.frame = CGRectMake(40, 60, 80, 20);
+    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
+    [[self view] addSubview:debug3Button];
+    [debug3Button addTarget:self action:@selector(debug3:)
+           forControlEvents:UIControlEventTouchUpInside];
+    
+    //!!!デバッグ用
     
 }
 
@@ -265,7 +257,7 @@
     
     appdelegate.myHand = [[NSMutableArray alloc] init]; //自分の手札
     appdelegate.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    appdelegate.myFieldCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],nil]; //自分の場カードのカードナンバー
+    appdelegate.myFieldCard = [[NSMutableArray alloc] initWithObjects:nil]; //自分の場カードのカードナンバー
     appdelegate.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
     appdelegate.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     appdelegate.myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
@@ -459,20 +451,7 @@
 
 - (void)startAnimation
 {
-    NSLog(@"SummonViewController viewDidLoad");
-    // 背景
-    [[self view] setBackgroundColor:[UIColor blackColor]];
 
-    
-    // 魔法陣エフェクト発動
-    [[self view] addSubview:effect1];
-    [effect1 startAnimating];
-    // タイマー
-    [NSTimer scheduledTimerWithTimeInterval:0.5
-                                     target:self
-                                   selector:@selector(viewEffect2:)
-                                   userInfo:nil
-                                    repeats:false];
 }
 
 - (void)viewEffect2:(id)sender{
@@ -512,7 +491,37 @@
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
     NSLog(@"おされた");
-    [self startAnimation];
+    
+    NSLog(@"SummonViewController viewDidLoad");
+    // 背景
+    [[self view] setBackgroundColor:[UIColor blackColor]];
+    
+    // 魔法陣エフェクト準備
+    effect1 = [[MBAnimationView alloc] init];
+    [effect1 setAnimationImage:@"e_circle_240.png" :240 :240 :11];
+    effect1.frame = CGRectMake(40, 160, 240, 240);
+    effect1.animationDuration = 1;
+    
+    // 渦巻きエフェクト準備
+    effect2 = [[MBAnimationView alloc] init];
+    [effect2 setAnimationImage:@"e_appear_240.png" :94 :240 :12];
+    effect2.frame = CGRectMake(113, 60, 94, 240);
+    effect2.animationDuration = 1;
+    
+    // 魔法陣エフェクト発動
+    [[self view] addSubview:effect1];
+    [effect1 startAnimating];
+    // タイマー
+    [NSTimer scheduledTimerWithTimeInterval:0.5
+                                     target:self
+                                   selector:@selector(viewEffect2:)
+                                   userInfo:nil
+                                    repeats:false];
+}
+
+- (void)debug3 :(UITapGestureRecognizer *)sender{
+    NSLog(@"おされた");
+   
 }
 
 
