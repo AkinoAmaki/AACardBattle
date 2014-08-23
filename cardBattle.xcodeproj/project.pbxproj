@@ -265,13 +265,27 @@
 		0FDCA4AC18CACFC2003459F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDCA48E18CACFC2003459F8 /* UIKit.framework */; };
 		0FDCA4B418CACFC2003459F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */; };
 		0FDCA4B618CACFC2003459F8 /* cardBattleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */; };
-		0FF5B3A519A6F45100602A2C /* blackEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3A019A6F45100602A2C /* blackEnergyImage.png */; };
-		0FF5B3A619A6F45100602A2C /* blueEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3A119A6F45100602A2C /* blueEnergyImage.png */; };
-		0FF5B3A719A6F45100602A2C /* greenEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3A219A6F45100602A2C /* greenEnergyImage.png */; };
-		0FF5B3A819A6F45100602A2C /* redEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3A319A6F45100602A2C /* redEnergyImage.png */; };
-		0FF5B3A919A6F45100602A2C /* whiteEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3A419A6F45100602A2C /* whiteEnergyImage.png */; };
 		0FF5B3AF19A86BD000602A2C /* Deck2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3AE19A86BD000602A2C /* Deck2.m */; };
 		0FF5B3B219A86BEA00602A2C /* Deck1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B119A86BEA00602A2C /* Deck1.m */; };
+		0FF5B3B519A8799A00602A2C /* DeckTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B419A8799A00602A2C /* DeckTabBarController.m */; };
+		0FF5B3BB19A8EB9700602A2C /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B919A8EB9700602A2C /* back.png */; };
+		0FF5B3BC19A8EB9700602A2C /* backOfACard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3BA19A8EB9700602A2C /* backOfACard.png */; };
+		0FF5B3D219A8EECB00602A2C /* blackEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3BE19A8EECB00602A2C /* blackEnergyImage.png */; };
+		0FF5B3D419A8EECB00602A2C /* blackEnergyImage_M.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C019A8EECB00602A2C /* blackEnergyImage_M.png */; };
+		0FF5B3D519A8EECB00602A2C /* blueEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C119A8EECB00602A2C /* blueEnergyImage.png */; };
+		0FF5B3D719A8EECB00602A2C /* blueEnergyImage_M.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C319A8EECB00602A2C /* blueEnergyImage_M.png */; };
+		0FF5B3D819A8EECB00602A2C /* greenEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C419A8EECB00602A2C /* greenEnergyImage.png */; };
+		0FF5B3DA19A8EECB00602A2C /* greenEnergyImage_M.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C619A8EECB00602A2C /* greenEnergyImage_M.png */; };
+		0FF5B3DB19A8EECB00602A2C /* noColor1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C719A8EECB00602A2C /* noColor1.png */; };
+		0FF5B3DC19A8EECB00602A2C /* noColor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C819A8EECB00602A2C /* noColor2.png */; };
+		0FF5B3DD19A8EECB00602A2C /* noColor3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3C919A8EECB00602A2C /* noColor3.png */; };
+		0FF5B3DE19A8EECB00602A2C /* noColor4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3CA19A8EECB00602A2C /* noColor4.png */; };
+		0FF5B3DF19A8EECB00602A2C /* noColor5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3CB19A8EECB00602A2C /* noColor5.png */; };
+		0FF5B3E019A8EECB00602A2C /* redEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3CC19A8EECB00602A2C /* redEnergyImage.png */; };
+		0FF5B3E219A8EECB00602A2C /* redEnergyImage_M.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3CE19A8EECB00602A2C /* redEnergyImage_M.png */; };
+		0FF5B3E319A8EECB00602A2C /* whiteEnergyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3CF19A8EECB00602A2C /* whiteEnergyImage.png */; };
+		0FF5B3E519A8EECB00602A2C /* whiteEnergyImage_M.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B3D119A8EECB00602A2C /* whiteEnergyImage_M.png */; };
+		0FF5B3E819A8F55800602A2C /* Deck3.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3E719A8F55800602A2C /* Deck3.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -580,15 +594,31 @@
 		0FDCA4B118CACFC2003459F8 /* cardBattleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cardBattleTests-Info.plist"; sourceTree = "<group>"; };
 		0FDCA4B318CACFC2003459F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cardBattleTests.m; sourceTree = "<group>"; };
-		0FF5B3A019A6F45100602A2C /* blackEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackEnergyImage.png; sourceTree = "<group>"; };
-		0FF5B3A119A6F45100602A2C /* blueEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueEnergyImage.png; sourceTree = "<group>"; };
-		0FF5B3A219A6F45100602A2C /* greenEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage.png; sourceTree = "<group>"; };
-		0FF5B3A319A6F45100602A2C /* redEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redEnergyImage.png; sourceTree = "<group>"; };
-		0FF5B3A419A6F45100602A2C /* whiteEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteEnergyImage.png; sourceTree = "<group>"; };
 		0FF5B3AD19A86BD000602A2C /* Deck2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck2.h; sourceTree = "<group>"; };
 		0FF5B3AE19A86BD000602A2C /* Deck2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck2.m; sourceTree = "<group>"; };
 		0FF5B3B019A86BEA00602A2C /* Deck1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck1.h; sourceTree = "<group>"; };
 		0FF5B3B119A86BEA00602A2C /* Deck1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck1.m; sourceTree = "<group>"; };
+		0FF5B3B319A8799A00602A2C /* DeckTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckTabBarController.h; sourceTree = "<group>"; };
+		0FF5B3B419A8799A00602A2C /* DeckTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckTabBarController.m; sourceTree = "<group>"; };
+		0FF5B3B919A8EB9700602A2C /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		0FF5B3BA19A8EB9700602A2C /* backOfACard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backOfACard.png; sourceTree = "<group>"; };
+		0FF5B3BE19A8EECB00602A2C /* blackEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackEnergyImage.png; sourceTree = "<group>"; };
+		0FF5B3C019A8EECB00602A2C /* blackEnergyImage_M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackEnergyImage_M.png; sourceTree = "<group>"; };
+		0FF5B3C119A8EECB00602A2C /* blueEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueEnergyImage.png; sourceTree = "<group>"; };
+		0FF5B3C319A8EECB00602A2C /* blueEnergyImage_M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueEnergyImage_M.png; sourceTree = "<group>"; };
+		0FF5B3C419A8EECB00602A2C /* greenEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage.png; sourceTree = "<group>"; };
+		0FF5B3C619A8EECB00602A2C /* greenEnergyImage_M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenEnergyImage_M.png; sourceTree = "<group>"; };
+		0FF5B3C719A8EECB00602A2C /* noColor1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noColor1.png; sourceTree = "<group>"; };
+		0FF5B3C819A8EECB00602A2C /* noColor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noColor2.png; sourceTree = "<group>"; };
+		0FF5B3C919A8EECB00602A2C /* noColor3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noColor3.png; sourceTree = "<group>"; };
+		0FF5B3CA19A8EECB00602A2C /* noColor4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noColor4.png; sourceTree = "<group>"; };
+		0FF5B3CB19A8EECB00602A2C /* noColor5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noColor5.png; sourceTree = "<group>"; };
+		0FF5B3CC19A8EECB00602A2C /* redEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redEnergyImage.png; sourceTree = "<group>"; };
+		0FF5B3CE19A8EECB00602A2C /* redEnergyImage_M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redEnergyImage_M.png; sourceTree = "<group>"; };
+		0FF5B3CF19A8EECB00602A2C /* whiteEnergyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteEnergyImage.png; sourceTree = "<group>"; };
+		0FF5B3D119A8EECB00602A2C /* whiteEnergyImage_M.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteEnergyImage_M.png; sourceTree = "<group>"; };
+		0FF5B3E619A8F55800602A2C /* Deck3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck3.h; sourceTree = "<group>"; };
+		0FF5B3E719A8F55800602A2C /* Deck3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck3.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -910,6 +940,7 @@
 		0FDB980F18CB655100C7566E /* img */ = {
 			isa = PBXGroup;
 			children = (
+				0FF5B3BD19A8EECB00602A2C /* energy */,
 				0F169B1C199A555E00221D19 /* middlecard */,
 				0FDB985C18D0A92700C7566E /* else */,
 				0FDB982118D08E8D00C7566E /* smallcard */,
@@ -943,6 +974,8 @@
 			isa = PBXGroup;
 			children = (
 				0FA2537719A24D6400A3F795 /* pipo-mapeffect009.png */,
+				0FF5B3B919A8EB9700602A2C /* back.png */,
+				0FF5B3BA19A8EB9700602A2C /* backOfACard.png */,
 				0FA2537919A253A300A3F795 /* littleBlackBack.png */,
 				0FA2537519A24CD600A3F795 /* pipo-btleffect071.png */,
 				0FDB985D18D0A92700C7566E /* cancelButton.png */,
@@ -970,11 +1003,6 @@
 				0F9E650B196EBDCF00AA5BE4 /* fadeinImage.png */,
 				0F1699DD199902F000221D19 /* e_appear_240.png */,
 				0F1699DE199902F000221D19 /* e_circle_240.png */,
-				0FF5B3A019A6F45100602A2C /* blackEnergyImage.png */,
-				0FF5B3A119A6F45100602A2C /* blueEnergyImage.png */,
-				0FF5B3A219A6F45100602A2C /* greenEnergyImage.png */,
-				0FF5B3A319A6F45100602A2C /* redEnergyImage.png */,
-				0FF5B3A419A6F45100602A2C /* whiteEnergyImage.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -1030,12 +1058,16 @@
 				0FDB980218CADB0700C7566E /* BattleCaliculate.m */,
 				0FDB980718CB599F00C7566E /* DeckScreenViewController.h */,
 				0FDB980818CB599F00C7566E /* DeckScreenViewController.m */,
+				0FF5B3B319A8799A00602A2C /* DeckTabBarController.h */,
+				0FF5B3B419A8799A00602A2C /* DeckTabBarController.m */,
 				0FDB981918CF526100C7566E /* DeckViewController.h */,
 				0FDB981A18CF526100C7566E /* DeckViewController.m */,
 				0FF5B3B019A86BEA00602A2C /* Deck1.h */,
 				0FF5B3B119A86BEA00602A2C /* Deck1.m */,
 				0FF5B3AD19A86BD000602A2C /* Deck2.h */,
 				0FF5B3AE19A86BD000602A2C /* Deck2.m */,
+				0FF5B3E619A8F55800602A2C /* Deck3.h */,
+				0FF5B3E719A8F55800602A2C /* Deck3.m */,
 				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
 				0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */,
@@ -1089,6 +1121,28 @@
 				0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0FF5B3BD19A8EECB00602A2C /* energy */ = {
+			isa = PBXGroup;
+			children = (
+				0FF5B3BE19A8EECB00602A2C /* blackEnergyImage.png */,
+				0FF5B3C019A8EECB00602A2C /* blackEnergyImage_M.png */,
+				0FF5B3C119A8EECB00602A2C /* blueEnergyImage.png */,
+				0FF5B3C319A8EECB00602A2C /* blueEnergyImage_M.png */,
+				0FF5B3C419A8EECB00602A2C /* greenEnergyImage.png */,
+				0FF5B3C619A8EECB00602A2C /* greenEnergyImage_M.png */,
+				0FF5B3C719A8EECB00602A2C /* noColor1.png */,
+				0FF5B3C819A8EECB00602A2C /* noColor2.png */,
+				0FF5B3C919A8EECB00602A2C /* noColor3.png */,
+				0FF5B3CA19A8EECB00602A2C /* noColor4.png */,
+				0FF5B3CB19A8EECB00602A2C /* noColor5.png */,
+				0FF5B3CC19A8EECB00602A2C /* redEnergyImage.png */,
+				0FF5B3CE19A8EECB00602A2C /* redEnergyImage_M.png */,
+				0FF5B3CF19A8EECB00602A2C /* whiteEnergyImage.png */,
+				0FF5B3D119A8EECB00602A2C /* whiteEnergyImage_M.png */,
+			);
+			path = energy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1184,6 +1238,7 @@
 				0F169C20199A555F00221D19 /* card63_M.JPG in Resources */,
 				0F9E64FA196E8F0700AA5BE4 /* se_maoudamashii_magical21.mp3 in Resources */,
 				0F169BD6199A555F00221D19 /* card132_M.JPG in Resources */,
+				0FF5B3E319A8EECB00602A2C /* whiteEnergyImage.png in Resources */,
 				0F9E650F196EC40D00AA5BE4 /* TanukiMagic.ttf in Resources */,
 				0FB4BC461961138E00794B92 /* Main.storyboard in Resources */,
 				0F169BD1199A555F00221D19 /* card128_M.JPG in Resources */,
@@ -1209,12 +1264,10 @@
 				0F9E6509196E8F0700AA5BE4 /* se_maoudamashii_system49.mp3 in Resources */,
 				0F169BEF199A555F00221D19 /* card155_M.JPG in Resources */,
 				0F169C42199A555F00221D19 /* card94_M.JPG in Resources */,
-				0FF5B3A919A6F45100602A2C /* whiteEnergyImage.png in Resources */,
-				0FF5B3A619A6F45100602A2C /* blueEnergyImage.png in Resources */,
 				0F169BD2199A555F00221D19 /* card129_M.JPG in Resources */,
 				0F169C16199A555F00221D19 /* card53_M.JPG in Resources */,
+				0FF5B3DC19A8EECB00602A2C /* noColor2.png in Resources */,
 				0F9E64AF1965B3CF00AA5BE4 /* glayBack.png in Resources */,
-				0FF5B3A819A6F45100602A2C /* redEnergyImage.png in Resources */,
 				0F169BBD199A555F00221D19 /* card10_M.JPG in Resources */,
 				0F169C48199A555F00221D19 /* card9_M.JPG in Resources */,
 				0F169BC7199A555F00221D19 /* card119_M.JPG in Resources */,
@@ -1230,6 +1283,7 @@
 				0F169BF7199A555F00221D19 /* card22_M.JPG in Resources */,
 				0F169BDA199A555F00221D19 /* card136_M.JPG in Resources */,
 				0F169C27199A555F00221D19 /* card6_M.JPG in Resources */,
+				0FF5B3D219A8EECB00602A2C /* blackEnergyImage.png in Resources */,
 				0F169C12199A555F00221D19 /* card49_M.JPG in Resources */,
 				0F169BEE199A555F00221D19 /* card154_M.JPG in Resources */,
 				0F169C22199A555F00221D19 /* card65_M.JPG in Resources */,
@@ -1241,6 +1295,7 @@
 				0F169BDC199A555F00221D19 /* card138_M.JPG in Resources */,
 				0FDCA49518CACFC2003459F8 /* InfoPlist.strings in Resources */,
 				0F169BEC199A555F00221D19 /* card152_M.JPG in Resources */,
+				0FF5B3D819A8EECB00602A2C /* greenEnergyImage.png in Resources */,
 				0F6EB4701916B2E400BD0E41 /* .gitattributes in Resources */,
 				0F169C3E199A555F00221D19 /* card90_M.JPG in Resources */,
 				0F169C10199A555F00221D19 /* card47_M.JPG in Resources */,
@@ -1261,13 +1316,14 @@
 				0F169BBA199A555F00221D19 /* card107_M.JPG in Resources */,
 				0F169BE9199A555F00221D19 /* card14_M.JPG in Resources */,
 				0FDB985918D0A55C00C7566E /* dummy.png in Resources */,
+				0FF5B3D519A8EECB00602A2C /* blueEnergyImage.png in Resources */,
 				0F169BDB199A555F00221D19 /* card137_M.JPG in Resources */,
 				0F169BCB199A555F00221D19 /* card122_M.JPG in Resources */,
 				0F169C2F199A555F00221D19 /* card77_M.JPG in Resources */,
 				0F169BF2199A555F00221D19 /* card17_M.JPG in Resources */,
 				0F169BB7199A555F00221D19 /* card104_M.JPG in Resources */,
-				0FF5B3A519A6F45100602A2C /* blackEnergyImage.png in Resources */,
 				0F169BE3199A555F00221D19 /* card144_M.JPG in Resources */,
+				0FF5B3D719A8EECB00602A2C /* blueEnergyImage_M.png in Resources */,
 				0F169C23199A555F00221D19 /* card66_M.JPG in Resources */,
 				0F169C36199A555F00221D19 /* card83_M.JPG in Resources */,
 				0F169BCA199A555F00221D19 /* card121_M.JPG in Resources */,
@@ -1283,6 +1339,7 @@
 				0F169BF5199A555F00221D19 /* card20_M.JPG in Resources */,
 				0F169C31199A555F00221D19 /* card79_M.JPG in Resources */,
 				0F9F17A618F19BA8004E58BF /* syobon.png in Resources */,
+				0FF5B3DA19A8EECB00602A2C /* greenEnergyImage_M.png in Resources */,
 				0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */,
 				0F169C35199A555F00221D19 /* card82_M.JPG in Resources */,
 				0F9F17A518F19BA8004E58BF /* monar.png in Resources */,
@@ -1292,6 +1349,7 @@
 				0F3FED921928D41400ACA1BC /* outicon.png in Resources */,
 				0F169C2C199A555F00221D19 /* card74_M.JPG in Resources */,
 				0F6EB4711916B2E400BD0E41 /* .gitignore in Resources */,
+				0FF5B3DB19A8EECB00602A2C /* noColor1.png in Resources */,
 				0F169C13199A555F00221D19 /* card50_M.JPG in Resources */,
 				0FB4BC411959AF0600794B92 /* rightArrow.png in Resources */,
 				0F169C33199A555F00221D19 /* card80_M.JPG in Resources */,
@@ -1299,20 +1357,24 @@
 				0F169BB4199A555F00221D19 /* card101_M.JPG in Resources */,
 				0F169C3F199A555F00221D19 /* card91_M.JPG in Resources */,
 				0F9E64FB196E8F0700AA5BE4 /* se_maoudamashii_magical25.mp3 in Resources */,
+				0FF5B3D419A8EECB00602A2C /* blackEnergyImage_M.png in Resources */,
 				0F6EB4521915EB1700BD0E41 /* SVProgressHUD.bundle in Resources */,
 				0F9F17A418F19BA8004E58BF /* giko.png in Resources */,
 				0F169BBC199A555F00221D19 /* card109_M.JPG in Resources */,
 				0F169BEA199A555F00221D19 /* card150_M.JPG in Resources */,
 				0F9E650C196EBDCF00AA5BE4 /* fadeinImage.png in Resources */,
 				0F169C25199A555F00221D19 /* card68_M.JPG in Resources */,
+				0FF5B3E519A8EECB00602A2C /* whiteEnergyImage_M.png in Resources */,
 				0F169BD7199A555F00221D19 /* card133_M.JPG in Resources */,
 				0F169BCC199A555F00221D19 /* card123_M.JPG in Resources */,
+				0FF5B3E019A8EECB00602A2C /* redEnergyImage.png in Resources */,
 				0F9E6504196E8F0700AA5BE4 /* se_maoudamashii_system10.mp3 in Resources */,
 				0F169C0B199A555F00221D19 /* card42_M.JPG in Resources */,
 				0F169C26199A555F00221D19 /* card69_M.JPG in Resources */,
 				0F169BDD199A555F00221D19 /* card139_M.JPG in Resources */,
 				0F9E6501196E8F0700AA5BE4 /* se_maoudamashii_se_sound19.mp3 in Resources */,
 				0F169C0A199A555F00221D19 /* card41_M.JPG in Resources */,
+				0FF5B3BB19A8EB9700602A2C /* back.png in Resources */,
 				0F169C07199A555F00221D19 /* card38_M.JPG in Resources */,
 				0F169C1F199A555F00221D19 /* card62_M.JPG in Resources */,
 				0F169BBF199A555F00221D19 /* card111_M.JPG in Resources */,
@@ -1339,15 +1401,19 @@
 				0F169C3A199A555F00221D19 /* card87_M.JPG in Resources */,
 				0F169BF6199A555F00221D19 /* card21_M.JPG in Resources */,
 				0F169BC1199A555F00221D19 /* card113_M.JPG in Resources */,
+				0FF5B3E219A8EECB00602A2C /* redEnergyImage_M.png in Resources */,
 				0F169BC6199A555F00221D19 /* card118_M.JPG in Resources */,
 				0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */,
+				0FF5B3DE19A8EECB00602A2C /* noColor4.png in Resources */,
 				0F169C21199A555F00221D19 /* card64_M.JPG in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
+				0FF5B3DD19A8EECB00602A2C /* noColor3.png in Resources */,
 				0F169C32199A555F00221D19 /* card7_M.JPG in Resources */,
 				0F169C29199A555F00221D19 /* card71_M.JPG in Resources */,
 				0F169C0C199A555F00221D19 /* card43_M.JPG in Resources */,
 				0F169C18199A555F00221D19 /* card55_M.JPG in Resources */,
 				0F9E64FE196E8F0700AA5BE4 /* se_maoudamashii_onepoint07.mp3 in Resources */,
+				0FF5B3BC19A8EB9700602A2C /* backOfACard.png in Resources */,
 				0F6A304B19263F8F00341623 /* field.png in Resources */,
 				0F169C2D199A555F00221D19 /* card75_M.JPG in Resources */,
 				0F9E6506196E8F0700AA5BE4 /* se_maoudamashii_system29.mp3 in Resources */,
@@ -1361,7 +1427,6 @@
 				0F9E6505196E8F0700AA5BE4 /* se_maoudamashii_system20.mp3 in Resources */,
 				0F169BEB199A555F00221D19 /* card151_M.JPG in Resources */,
 				0F5B7A0218D949D600A3D9E7 /* anime.png in Resources */,
-				0FF5B3A719A6F45100602A2C /* greenEnergyImage.png in Resources */,
 				0F169C30199A555F00221D19 /* card78_M.JPG in Resources */,
 				0F169C19199A555F00221D19 /* card56_M.JPG in Resources */,
 				0F169BE8199A555F00221D19 /* card149_M.JPG in Resources */,
@@ -1372,6 +1437,7 @@
 				0F169BC0199A555F00221D19 /* card112_M.JPG in Resources */,
 				0F169C3B199A555F00221D19 /* card88_M.JPG in Resources */,
 				0F1699E0199902F000221D19 /* e_circle_240.png in Resources */,
+				0FF5B3DF19A8EECB00602A2C /* noColor5.png in Resources */,
 				0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */,
 				0F169BD4199A555F00221D19 /* card130_M.JPG in Resources */,
 				0F169BB6199A555F00221D19 /* card103_M.JPG in Resources */,
@@ -1411,12 +1477,14 @@
 				0FF5B3B219A86BEA00602A2C /* Deck1.m in Sources */,
 				0F6EB4741916B2E400BD0E41 /* SBJsonStreamParser.m in Sources */,
 				0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */,
+				0FF5B3B519A8799A00602A2C /* DeckTabBarController.m in Sources */,
 				0F1699DA1999001D00221D19 /* MBAnimationView.m in Sources */,
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
 				0F9E64AB1965067A00AA5BE4 /* UIImage+fill.m in Sources */,
 				0FDCA4A118CACFC2003459F8 /* ViewController.m in Sources */,
 				0F9E64AC1965067A00AA5BE4 /* UIImageView+effects.m in Sources */,
 				0F9E64A91965067A00AA5BE4 /* DamageValueLabel.m in Sources */,
+				0FF5B3E819A8F55800602A2C /* Deck3.m in Sources */,
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
 				0F9E64AD1965067A00AA5BE4 /* UIView+shake.m in Sources */,
 				0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */,

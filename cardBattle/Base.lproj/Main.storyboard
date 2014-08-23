@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="827" y="-377"/>
         </scene>
-        <!--Deck View Controller-->
+        <!--Deck Tab Bar Controller-->
         <scene sceneID="rf5-ty-a9c">
             <objects>
-                <viewController id="tz6-AR-qcr" customClass="DeckViewController" sceneMemberID="viewController">
+                <viewController id="tz6-AR-qcr" customClass="DeckTabBarController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lEx-jH-Cuj"/>
                         <viewControllerLayoutGuide type="bottom" id="07Y-jV-TuQ"/>
@@ -77,6 +77,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="LKF-58-uGu"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="returnToMainView" id="rgq-01-lZg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yns-xf-DoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

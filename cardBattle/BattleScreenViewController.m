@@ -447,12 +447,12 @@
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
     app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 920465325;
+    app.enemyPlayerID = 259572723;
     NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
     
-//    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-//    [sendData send];
-    //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
+    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    [sendData send];
+//MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -3383,7 +3383,7 @@
     title.editable = NO;
     title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
     title.textAlignment = NSTextAlignmentCenter;
-    [self createOkButton:CGRectMake(10, _cardInRegion.bounds.size.height - 100, 100, 20) parentView:_cardInRegion tag:6];
+    [self createOkButton:CGRectMake(10, _cardInRegion.bounds.size.height - 100, 50, 50) parentView:_cardInRegion tag:6];
     [_allImageView addSubview:_cardInRegion];
 }
 
@@ -3507,10 +3507,10 @@
     
     
     if(cancel){
-        [self createOkButton:CGRectMake(10, _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:7];
+        [self createOkButton:CGRectMake(10, _characterField.bounds.size.height - 20 - 10, 50, 50) parentView:_characterField tag:7];
         [self createCancelButton:CGRectMake(_characterField.bounds.size.width - 10 - 100,  _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:8];
     }else{
-        [self createOkButton:CGRectMake(_characterField.bounds.size.width / 2 - 50, _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:7];
+        [self createOkButton:CGRectMake(_characterField.bounds.size.width / 2 - 50, _characterField.bounds.size.height - 20 - 10, 50, 50) parentView:_characterField tag:7];
     }
     
     
@@ -3703,7 +3703,7 @@
     [blackImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
     [redImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
     [greenImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectColor:)]];
-    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 40), 100, 20) parentView:_colorView tag:9];
+    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 40), 50, 50) parentView:_colorView tag:9];
     [_allImageView addSubview:_colorView];
     
 }
@@ -3738,7 +3738,7 @@
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 [_cardInRegion removeFromSuperview];
                 [_cancelButton removeFromSuperview];
-                
+                [_imgView removeFromSuperview];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
                 [regionViewArray removeAllObjects];
@@ -3783,6 +3783,7 @@
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.doIUseCard = NO;
+                [_imgView removeFromSuperview];
                 [_border_middleCard removeFromSuperview];
                 FINISHED1
         }
@@ -4669,35 +4670,35 @@
     [_colorView addSubview:redNumberOfText];
     [_colorView addSubview:greenNumberOfText];
     
-    whiteImage.frame    = CGRectMake(10, 40, 50, 50);
-    blueImage.frame     = CGRectMake(10, 120, 50, 50);
-    blackImage.frame    = CGRectMake(10, 200, 50, 50);
-    redImage.frame      = CGRectMake(10, 280, 50, 50);
-    greenImage.frame    = CGRectMake(10, 360, 50, 50);
+    whiteImage.frame    = CGRectMake(10, 10, 50, 50);
+    blueImage.frame     = CGRectMake(10, 90, 50, 50);
+    blackImage.frame    = CGRectMake(10, 170, 50, 50);
+    redImage.frame      = CGRectMake(10, 250, 50, 50);
+    greenImage.frame    = CGRectMake(10, 330, 50, 50);
     
-    whiteDown.frame     = CGRectMake(80, 40, 50, 50);
-    blueDown.frame      = CGRectMake(80, 120, 50, 50);
-    blackDown.frame     = CGRectMake(80, 200, 50, 50);
-    redDown.frame       = CGRectMake(80, 280, 50, 50);
-    greenDown.frame     = CGRectMake(80, 360, 50, 50);
+    whiteDown.frame     = CGRectMake(80, 10, 50, 50);
+    blueDown.frame      = CGRectMake(80, 90, 50, 50);
+    blackDown.frame     = CGRectMake(80, 170, 50, 50);
+    redDown.frame       = CGRectMake(80, 250, 50, 50);
+    greenDown.frame     = CGRectMake(80, 330, 50, 50);
     
-    whiteNumberOfText.frame   = CGRectMake(140, 40, 50, 50);
-    blueNumberOfText.frame    = CGRectMake(140, 120, 50, 50);
-    blackNumberOfText.frame   = CGRectMake(140, 200, 50, 50);
-    redNumberOfText.frame     = CGRectMake(140, 280, 50, 50);
-    greenNumberOfText.frame   = CGRectMake(140, 360, 50, 50);
+    whiteNumberOfText.frame   = CGRectMake(140, 10, 50, 50);
+    blueNumberOfText.frame    = CGRectMake(140, 90, 50, 50);
+    blackNumberOfText.frame   = CGRectMake(140, 170, 50, 50);
+    redNumberOfText.frame     = CGRectMake(140, 250, 50, 50);
+    greenNumberOfText.frame   = CGRectMake(140, 330, 50, 50);
     
-    whiteUp.frame       = CGRectMake(200, 40, 50, 50);
-    blueUp.frame        = CGRectMake(200, 120, 50, 50);
-    blackUp.frame       = CGRectMake(200, 200, 50, 50);
-    redUp.frame         = CGRectMake(200, 280, 50, 50);
-    greenUp.frame       = CGRectMake(200, 360, 50, 50);
+    whiteUp.frame       = CGRectMake(200, 10, 50, 50);
+    blueUp.frame        = CGRectMake(200, 90, 50, 50);
+    blackUp.frame       = CGRectMake(200, 170, 50, 50);
+    redUp.frame         = CGRectMake(200, 250, 50, 50);
+    greenUp.frame       = CGRectMake(200, 330, 50, 50);
     
-    whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage"];
-    blueImage.image = [UIImage imageNamed:@"blueEnergyImage"];
-    blackImage.image = [UIImage imageNamed:@"blackEnergyImage"];
-    redImage.image = [UIImage imageNamed:@"redEnergyImage"];
-    greenImage.image = [UIImage imageNamed:@"greenEnergyImage"];
+    whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage_M"];
+    blueImage.image = [UIImage imageNamed:@"blueEnergyImage_M"];
+    blackImage.image = [UIImage imageNamed:@"blackEnergyImage_M"];
+    redImage.image = [UIImage imageNamed:@"redEnergyImage_M"];
+    greenImage.image = [UIImage imageNamed:@"greenEnergyImage_M"];
     
     whiteUp.image = [UIImage imageNamed:@"rightArrow"];
     blueUp.image = [UIImage imageNamed:@"rightArrow"];
@@ -4765,7 +4766,7 @@
     redNumberOfText.editable = NO;
     greenNumberOfText.editable = NO;
     
-    [self createOkButton:CGRectMake(10, (_colorView.bounds.size.height - 40), 100, 20) parentView:_colorView tag:10];
+    [self createOkButton:CGRectMake(125, (_colorView.bounds.size.height - 60), 50, 50) parentView:_colorView tag:10];
     [_allImageView addSubview:_colorView];
 }
 

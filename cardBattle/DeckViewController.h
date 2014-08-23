@@ -7,11 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "Deck1.h"
-#import "Deck2.h"
+#import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #define IMGWIDTH  150
 #define IMGHEIGHT 225
@@ -19,8 +17,7 @@
 #define NUMBEROFCARDS 156 //カードの総種類数
 
 
-
-@interface DeckViewController : ViewController{
+@interface DeckViewController : UIViewController{
     AppDelegate *app;
     UIImageView *allImage;
     UIScrollView *scrollView;
@@ -34,40 +31,26 @@
     int detailOfACardCount; //1のときはカード詳細画像が表示されており、0のときは表示されていない。
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。
     
-    //タブバーコントローラー及びそれに載せる各々のデッキのビューコントローラー
-    UITabBarController *tabController;
-    UIViewController *deck1;
-    UIViewController *deck2;
-    
     //ボタンタップ時の効果音
+    CFBundleRef mainBundle;
     CFURLRef tapSoundURL;
     SystemSoundID tapSoundID;
     CFURLRef cancelSoundURL;
     SystemSoundID cancelSoundID;
-    
-    CFBundleRef mainBundle;
-    
-    
-    UIViewController *tab1;
-    UIViewController *tab2;
 }
-
-//タブバーコントローラーを司るwindow
-@property UIWindow *window;
 
 //OKボタン・キャンセルボタン
 @property UIButton *returnToMainViewButton;
 @property NSMutableArray *selectedCards;
 @property NSMutableArray *isSelectedCards;
 @property UIImageView *detailOfACard;
-@property(readwrite) CFURLRef tapSoundURL;
-@property(readonly) SystemSoundID tapSoundID;
-@property(readwrite) CFURLRef cancelSoundURL;
-@property(readonly) SystemSoundID cancelSoundID;
-@property(nonatomic,retain)AVAudioPlayer *audio;
+
 - (IBAction)returnToMainView:(id)sender;
+- (void)cardSelectCancelButtonPushed;
+- (void)openSmallCard:(int)i;
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender;
 - (void)putACancelButton:(CGRect)rect;
+
 
 @end

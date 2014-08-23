@@ -14,6 +14,7 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,19 +45,19 @@
     
     //!!!デバッグ用
     
-    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug2Button.frame = CGRectMake(40, 30, 80, 20);
-    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
-    [[self view] addSubview:debug2Button];
-    [debug2Button addTarget:self action:@selector(debug2:)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug3Button.frame = CGRectMake(40, 60, 80, 20);
-    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
-    [[self view] addSubview:debug3Button];
-    [debug3Button addTarget:self action:@selector(debug3:)
-           forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug2Button.frame = CGRectMake(40, 30, 80, 20);
+//    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
+//    [[self view] addSubview:debug2Button];
+//    [debug2Button addTarget:self action:@selector(debug2:)
+//           forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug3Button.frame = CGRectMake(40, 60, 80, 20);
+//    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
+//    [[self view] addSubview:debug3Button];
+//    [debug3Button addTarget:self action:@selector(debug3:)
+//           forControlEvents:UIControlEventTouchUpInside];
     
     //!!!デバッグ用
     
@@ -83,170 +84,174 @@
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     appdelegate.myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
-    //MARK: カード効果の実装が終わったら元に戻す appdelegate.myDeck = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud"]];
-    appdelegate.myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:10],//10
-                          [NSNumber numberWithInt:10],
-                          [NSNumber numberWithInt:10],
-                          [NSNumber numberWithInt:10],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0], //20
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//30
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//40
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//50
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//60
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//70
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//80
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//90
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//100
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//110
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//120
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//130
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//140
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],//150
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          [NSNumber numberWithInt:0],
-                          nil];
+    appdelegate.myDeck1 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud1"]];
+    appdelegate.myDeck2 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud2"]];
+    appdelegate.myDeck3 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud3"]];
+
+//    カード効果実装時のデバッグ用
+//    appdelegate.myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:10],//10
+//                          [NSNumber numberWithInt:10],
+//                          [NSNumber numberWithInt:10],
+//                          [NSNumber numberWithInt:10],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0], //20
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//30
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//40
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//50
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//60
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//70
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//80
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//90
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//100
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//110
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//120
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//130
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//140
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],//150
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          [NSNumber numberWithInt:0],
+//                          nil];
 
     
     appdelegate.myDeckCardList = [[NSMutableArray alloc] init];
     //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
-    for (int i = 0; i < [appdelegate.myDeck count]; i++) {
-        for (int j = 0; j < [[appdelegate.myDeck objectAtIndex:i] intValue]; j++) {
+    for (int i = 0; i < [appdelegate.myDeck1 count]; i++) {
+        for (int j = 0; j < [[appdelegate.myDeck1 objectAtIndex:i] intValue]; j++) {
             [appdelegate.myDeckCardList addObject:[NSNumber numberWithInt:i]];
         }
     }
@@ -526,5 +531,8 @@
 
 
 //!!!:カードゲットの練習用ここまで
+
+
+
 
 @end

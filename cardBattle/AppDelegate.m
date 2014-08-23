@@ -16,7 +16,9 @@
 @synthesize damageSourceOfGreen;
 @synthesize cardList_cardName;
 @synthesize cardList_pngName;
-@synthesize myDeck;
+@synthesize myDeck1;
+@synthesize myDeck2;
+@synthesize myDeck3;
 @synthesize myCards;
 @synthesize myDeckCardList;
 
@@ -360,7 +362,9 @@
                                                                              nil];
         
         [ud setObject:firstCards forKey:@"myCards_ud"];
-        [ud setObject:firstDeck forKey:@"myDeck_ud"];
+        [ud setObject:firstDeck forKey:@"myDeck_ud1"];
+        [ud setObject:firstDeck forKey:@"myDeck_ud2"];
+        [ud setObject:firstDeck forKey:@"myDeck_ud3"];
         [ud synchronize];
         
         //ユニークなプレイヤーIDを発番する

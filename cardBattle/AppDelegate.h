@@ -22,7 +22,9 @@
     int firstLaunch; //初めての起動なら0、以後は1
     NSArray *cardList_cardName;
     NSArray *cardList_pngName;
-    NSMutableArray *myDeck; //デッキに入っているカードを管理する配列(配列番号＝カード番号)
+    NSMutableArray *myDeck1; //デッキ1に入っているカードを管理する配列(配列番号＝カード番号)
+    NSMutableArray *myDeck2; //デッキ2に入っているカードを管理する配列(配列番号＝カード番号)
+    NSMutableArray *myDeck3; //デッキ3に入っているカードを管理する配列(配列番号＝カード番号)
     NSMutableArray *myDeckCardList; //デッキに入っているカードを管理する配列（配列数＝カード枚数）
     NSMutableArray *myCards; //持っているカード全てを管理する配列(配列番号＝カード番号)
     NSUserDefaults *ud;
@@ -62,7 +64,9 @@
 @property int myLifeGageByMyself; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
 @property int myAdditionalGettingCards; //ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
 @property int myAdditionalDiscardingCards; //ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
-@property (nonatomic, retain) NSMutableArray *myDeck; //自分のデッキ
+@property (nonatomic, retain) NSMutableArray *myDeck1; //自分のデッキ1
+@property (nonatomic, retain) NSMutableArray *myDeck2; //自分のデッキ2
+@property (nonatomic, retain) NSMutableArray *myDeck3; //自分のデッキ3
 @property (nonatomic, retain) NSMutableArray *myCards; //自分の持っている全てのカード
 @property (nonatomic, retain) NSMutableArray *myDeckCardList; //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
 @property (nonatomic, retain) NSMutableArray *myHand; //自分の手札
