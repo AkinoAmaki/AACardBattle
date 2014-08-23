@@ -21,6 +21,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "MBAnimationView.h"
+#import <malloc/malloc.h>
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -66,8 +67,6 @@
     UITextView *redNumberOfText;//使用しようとしているカードに費やす赤エネルギーの数を表示するビュー
     UITextView *greenNumberOfText;//使用しようとしているカードに費やす緑エネルギーの数を表示するビュー
     
-    
-    NSArray *costOfCard; //使用しようとしているカードのコストを入れ込む配列
     NSMutableArray *targetedMyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
     NSMutableArray *targetedMyFieldCardInThisTurn_send; //このターン、自分がカードを使用し、渡す対象としたフィールドカードの一覧
     NSMutableArray *targetedEnemyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧

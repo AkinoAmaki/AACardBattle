@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "430067886.517816"
+            timestampString = "430371592.303567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4747"
-            endingLineNumber = "4747"
+            startingLineNumber = "4563"
+            endingLineNumber = "4563"
             landmarkName = "-normalSelector:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "430067886.517816"
+            timestampString = "430371592.303567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2778"
-            endingLineNumber = "2778"
+            startingLineNumber = "2590"
+            endingLineNumber = "2590"
             landmarkName = "-insertLabelToParentView:Text:Rectangle:Touch:"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,12 +52,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/DeckViewController.m"
-            timestampString = "429543086.459764"
+            timestampString = "430468845.909957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "-openSmallCard:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cardBattle/BattleScreenViewController.m"
+            timestampString = "430371592.303567"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "-viewWillAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cardBattle/BattleScreenViewController.m"
+            timestampString = "430371592.303567"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "-debug2:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

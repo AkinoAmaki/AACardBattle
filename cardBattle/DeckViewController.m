@@ -46,6 +46,17 @@
     scrollView.frame = self.view.bounds;
     scrollView.contentSize = allImage.bounds.size;
     
+    //タブバーを設置
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]
+    ;
+    tab1 = [[ViewController alloc] init];
+    tab2 = [[ViewController alloc] init];
+    NSArray *tabs = [NSArray arrayWithObjects:tab1, tab2, nil];
+    tabController = [[UITabBarController alloc] init];
+    [tabController setViewControllers:tabs animated:NO];
+    [_window addSubview:tabController.view];
+    [self.window makeKeyAndVisible];
+    
     
     //決定ボタンを実装
     UIImage *decideButton = [UIImage imageNamed:@"cardselectdecidebutton.png"];
@@ -68,8 +79,12 @@
       initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
     
     
+    
+    
     //各カード毎の画像及び所持枚数を表示
     allTxtView = [[UIView alloc] init];
+    
+    
     
     for(int i = 0; i < [app.cardList_pngName count]; i++){
         

@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "Deck1.h"
+#import "Deck2.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
@@ -32,6 +34,11 @@
     int detailOfACardCount; //1のときはカード詳細画像が表示されており、0のときは表示されていない。
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。
     
+    //タブバーコントローラー及びそれに載せる各々のデッキのビューコントローラー
+    UITabBarController *tabController;
+    UIViewController *deck1;
+    UIViewController *deck2;
+    
     //ボタンタップ時の効果音
     CFURLRef tapSoundURL;
     SystemSoundID tapSoundID;
@@ -39,11 +46,17 @@
     SystemSoundID cancelSoundID;
     
     CFBundleRef mainBundle;
+    
+    
+    UIViewController *tab1;
+    UIViewController *tab2;
 }
+
+//タブバーコントローラーを司るwindow
+@property UIWindow *window;
 
 //OKボタン・キャンセルボタン
 @property UIButton *returnToMainViewButton;
-
 @property NSMutableArray *selectedCards;
 @property NSMutableArray *isSelectedCards;
 @property UIImageView *detailOfACard;
