@@ -62,6 +62,9 @@
     scrollView.userInteractionEnabled = YES;
     [scrollView addSubview:allImage];
     [self.view addSubview:scrollView];
+    
+    deckName.delegate = self;
+    deckName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"deckName2"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,6 +102,14 @@
 - (void)cardSelectCancelButtonPushed{
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck2];
     [super cardSelectCancelButtonPushed];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:deckName.text forKey:@"deckName2"];
+    [ud synchronize];
+    [deckName resignFirstResponder];
+    return YES;
 }
 
 /*

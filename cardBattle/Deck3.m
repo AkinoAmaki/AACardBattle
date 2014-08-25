@@ -63,7 +63,8 @@
     [scrollView addSubview:allImage];
     [self.view addSubview:scrollView];
     
-    
+    deckName.delegate = self;
+    deckName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"deckName3"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,6 +102,14 @@
 - (void)cardSelectCancelButtonPushed{
     isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck3];
     [super cardSelectCancelButtonPushed];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:deckName.text forKey:@"deckName3"];
+    [ud synchronize];
+    [deckName resignFirstResponder];
+    return YES;
 }
 
 /*

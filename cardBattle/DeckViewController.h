@@ -27,6 +27,7 @@
     UIImageView *changeOfACard;
     NSMutableArray *selectedCards; //デッキに入れるときに選択されているカードを入れる配列
     NSMutableArray *isSelectedCards; //対象のカードが今何枚選択されているかどうかを管理する配列
+    UITextField *deckName; //デッキ名を入力するフィールド
     
     int detailOfACardCount; //1のときはカード詳細画像が表示されており、0のときは表示されていない。
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。

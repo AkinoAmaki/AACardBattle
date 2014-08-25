@@ -442,17 +442,8 @@
 
     //--------------------------デバッグ用ボタンここまで-----------------------------
     
-
-//MARK: デバッグ用。終わったら元に戻す[_battleStart show];
-    
-    //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
-    app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 259572723;
-    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-    
-    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-    [sendData send];
-//MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
+//MARK: デバッグ用。終わったら元に戻す    _battleStartView = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+//MARK: デバッグ用。終わったら元に戻す    [_battleStartView show];
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -462,8 +453,7 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    NSArray *arr = [NSArray arrayWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10],[NSNumber numberWithInt:10], nil];
-    [self cardUsingAnimation:arr];
+    
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
@@ -472,14 +462,7 @@
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-     NSString* path = [[NSBundle mainBundle]
-                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
-     NSURL* url = [NSURL fileURLWithPath:path];
-     _audio = [[AVAudioPlayer alloc]
-               initWithContentsOfURL:url error:nil];
-     _audio.numberOfLoops = -1;
-    _audio.volume = 0.2f;
-     [_audio play];
+    
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -611,7 +594,9 @@
     [sendMyData send];
     [self activateCardInTiming:99];
     [self refleshView];
-    [self cardActivateFadeIn:_afterCardUsedView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+    [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
+    [self sync];
+    [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
     [self sync];
     //ダメージ計算
     NSLog(@"ダメージ計算フェーズ");
@@ -2635,6 +2620,23 @@
 //BEFORERELEASE:リリース前に元に戻す     [_audio play];
     
     
+    //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
+    app.enemyNickName = @"秋乃のiPhone4S";
+    app.enemyPlayerID = 820490054;
+    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+    //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
+    
+    //どのデッキを使用するかを選択する
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
+    [_usingDeckCardList show];
+    [self sync];
+    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    [sendData send];
+    
+    
+    
+    
     if([YSDeviceHelper is568h]){
         //
         //        //自分
@@ -2748,6 +2750,7 @@
         //        [self nextTurn];
     }else{
         //自分
+        
         while (myDrawCount < 5) {
             //手札のカード画像を用意する
             UIImage *myCard = [UIImage imageNamed:@"outicon"];
@@ -3852,6 +3855,43 @@
     }else if (alertView == _loseAlert){
         FINISHED1
         [self dismissViewControllerAnimated:YES completion:nil];
+    }else if (alertView == _usingDeckCardList){
+        app.myDeckCardList = [[NSMutableArray alloc] init];
+        switch (buttonIndex) {
+            case 0:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck1 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck1 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            case 1:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck2 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck2 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            case 2:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck3 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck3 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            default:
+                break;
+        }
+        app.myDeckCardList = [AppDelegate shuffledArray:app.myDeckCardList];
     }
 }
 
@@ -4872,7 +4912,7 @@
 }
 
 //カード使用時のアニメーション
--(void)cardUsingAnimation:(NSArray *)cardNum{
+-(void)cardUsingAnimation:(NSArray *)cardNum man:(int)man{
     _cardUsingAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     _cardUsingAnimationView.userInteractionEnabled = YES;
     _allImageView.userInteractionEnabled = NO;
@@ -4901,7 +4941,12 @@
 
         
         UITextView *explain = [[UITextView alloc] init];
-        explain.text = @"このターン使用したカード";
+        if(man == MYSELF){
+            explain.text = @"自分がこのターン使用したカード";
+        }else{
+            explain.text = @"相手がこのターン使用したカード";
+        }
+        
         explain.textColor = [UIColor whiteColor];
         explain.frame = CGRectMake(0, 0, 200, 40);
         explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, [[UIScreen mainScreen] bounds].size.height - 400);
@@ -4944,6 +4989,7 @@
 }
 
 -(void)removeCardUsingAnimation{
+    FINISHED1
     _allImageView.userInteractionEnabled = YES;
     [backGround removeFromSuperview];
     for (UIView *view in _cardUsingAnimationView.subviews) {

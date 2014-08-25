@@ -21,7 +21,9 @@
 
 @end
 
-@interface Deck3 : DeckViewController
+@interface Deck3 : DeckViewController<UITextFieldDelegate>{
+    
+}
 
 // デリゲート先で参照できるようにするためプロパティを定義しておく
 @property (nonatomic, assign) id<Deck3Delegate> delegate;

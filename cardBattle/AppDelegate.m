@@ -365,7 +365,14 @@
         [ud setObject:firstDeck forKey:@"myDeck_ud1"];
         [ud setObject:firstDeck forKey:@"myDeck_ud2"];
         [ud setObject:firstDeck forKey:@"myDeck_ud3"];
+        
+        //各種デッキ名を初期化
+        [ud setObject:@"デッキ1" forKey:@"deckName1"];
+        [ud setObject:@"デッキ2" forKey:@"deckName2"];
+        [ud setObject:@"デッキ3" forKey:@"deckName3"];
+        
         [ud synchronize];
+        
         
         //ユニークなプレイヤーIDを発番する
         //サーバ側で取得したIDを受け取り、playerIDとして保持する
@@ -402,6 +409,10 @@
 
     _playerID = [ud integerForKey:@"playerID_ud"];
     _myNickName = [ud objectForKey:@"myNickName_ud"];
+    _deckName1 = [ud objectForKey:@"deckName1"];
+    _deckName2 = [ud objectForKey:@"deckName1"];
+    _deckName3 = [ud objectForKey:@"deckName1"];
+    
     NSLog(@"ID:%d",_playerID);
     NSLog(@"ニックネーム:%@",_myNickName);
 

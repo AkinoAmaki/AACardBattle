@@ -232,6 +232,7 @@
 @property UIAlertView *loseAlert;
 @property UIAlertView *winAlert;
 @property UIAlertView *drawAlert;
+@property UIAlertView *usingDeckCardList;
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
 

@@ -38,7 +38,7 @@
     
     //決定ボタンを実装
     UIImage *decideButton = [UIImage imageNamed:@"cardselectdecidebutton.png"];
-    UIImageView *cardSelectDecideButton = [[UIImageView alloc] initWithFrame:CGRectMake(200, 30, 50, 20)];
+    UIImageView *cardSelectDecideButton = [[UIImageView alloc] initWithFrame:CGRectMake(200, 50, 50, 20)];
     cardSelectDecideButton.image = decideButton;
     [allImage addSubview:cardSelectDecideButton];
     cardSelectDecideButton.userInteractionEnabled = YES;
@@ -48,7 +48,7 @@
     
     //キャンセルボタンを実装
     UIImage *cancelButton = [UIImage imageNamed:@"cardselectcancelbutton.png"];
-    UIImageView *cardSelectCancelButton = [[UIImageView alloc] initWithFrame:CGRectMake(140, 30, 50, 20)];
+    UIImageView *cardSelectCancelButton = [[UIImageView alloc] initWithFrame:CGRectMake(140, 50, 50, 20)];
     cardSelectCancelButton.image = cancelButton;
     [allImage addSubview:cardSelectCancelButton];
     cardSelectCancelButton.userInteractionEnabled = YES;
@@ -59,13 +59,28 @@
     _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_returnToMainViewButton setTitle:@"戻る" forState:UIControlStateNormal];
     [allImage addSubview:_returnToMainViewButton];
-    _returnToMainViewButton.frame = CGRectMake(20,20, 30, 50);
+    _returnToMainViewButton.frame = CGRectMake(20,35, 30, 50);
     [_returnToMainViewButton addTarget:self action:@selector(returnToMainView:)
                       forControlEvents:UIControlEventTouchUpInside];
     
     changeOfACardCount = 0;
     detailOfACardCount = 0;
     detailOfACard = [[UIImageView alloc] initWithFrame:CGRectMake(40, scrollView.contentOffset.y + 40, 240, 360)];
+    
+    
+    //デッキ名入れるテキスト画面入れる
+    UILabel *deckNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 50, 30)];
+    deckNameLabel.text = @"デッキ名";
+    deckNameLabel.adjustsFontSizeToFitWidth = YES;
+    [allImage addSubview:deckNameLabel];
+    deckName = [[UITextField alloc] initWithFrame:CGRectMake(60, 10, [[UIScreen mainScreen] bounds].size.width - 80, 30)];
+    deckName.textAlignment = NSTextAlignmentCenter;
+    deckName.clearButtonMode = UITextFieldViewModeAlways;
+    deckName.borderStyle = UITextBorderStyleBezel;
+    [allImage addSubview:deckName];
+    
+    
+    
     
     //カードタップ音
     mainBundle = CFBundleGetMainBundle ();
@@ -182,7 +197,7 @@
     if([[app.myCards objectAtIndex:i] intValue] == 0){
         img = [UIImage imageNamed:@"question.png"];
     }else{
-        img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_M.JPG",[app.cardList_pngName objectAtIndex:i]]];
+        img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_D.JPG",[app.cardList_pngName objectAtIndex:i]]];
     }
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
     imgView.userInteractionEnabled = YES;
@@ -194,6 +209,8 @@
     imgView.tag = i;
     [allImage addSubview:imgView];
 }
+
+
 
 
 

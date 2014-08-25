@@ -22,7 +22,7 @@
 @end
 
 
-@interface Deck2 : DeckViewController{
+@interface Deck2 : DeckViewController<UITextFieldDelegate>{
 
 }
 

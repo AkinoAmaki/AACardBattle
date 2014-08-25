@@ -21,7 +21,7 @@
 
 @end
 
-@interface Deck1 : DeckViewController{
+@interface Deck1 : DeckViewController<UITextFieldDelegate>{
 
 }
 

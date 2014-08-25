@@ -248,16 +248,6 @@
 //                          nil];
 
     
-    appdelegate.myDeckCardList = [[NSMutableArray alloc] init];
-    //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
-    for (int i = 0; i < [appdelegate.myDeck1 count]; i++) {
-        for (int j = 0; j < [[appdelegate.myDeck1 objectAtIndex:i] intValue]; j++) {
-            [appdelegate.myDeckCardList addObject:[NSNumber numberWithInt:i]];
-        }
-    }
-    appdelegate.myDeckCardList = [AppDelegate shuffledArray:appdelegate.myDeckCardList];
-
-    
 #pragma mark- 対戦に関連する各種数値の初期化
     
     appdelegate.myHand = [[NSMutableArray alloc] init]; //自分の手札
