@@ -371,7 +371,11 @@
         [ud setObject:@"デッキ2" forKey:@"deckName2"];
         [ud setObject:@"デッキ3" forKey:@"deckName3"];
         
+        //インターネット対戦時に、待機した時間を格納する変数を初期化（０票を入れる）する
+        [ud setInteger:0 forKey:@"allWalkingTime"];
+        [ud setInteger:20 forKey:@"remainedWalkingTime"];
         [ud synchronize];
+
         
         
         //ユニークなプレイヤーIDを発番する
@@ -401,7 +405,7 @@
         [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
         [ud synchronize];
         
-        [SVProgressHUD dismiss];
+        [SVProgressHUD popActivity];
         
         NSLog(@"初回起動");
     }
@@ -462,6 +466,17 @@
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
     
+//BEFORERELEASE: リリース前に元に戻す    //アプリ起動時に、アプリがディアクティベートしたことをサーバに連絡する
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                          selector:@selector(deactivate)
+//                                          name:UIApplicationDidFinishLaunchingNotification
+//                                          object:nil];
+    
+    
+    
+    
+    //エラーで落ちた際に非アクティブとなったことをサーバに知らせるため、エラーが起きた際にそれを完治するハンドラを登録
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     return YES;
 }
@@ -522,9 +537,87 @@
     
     NSMutableArray *array2 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
         NSLog(@"array2:%@",array2);
-    
+
     return getCardNumber;
 }
+
+- (void)activate{
+    NSLog(@"あくてぃべーと");
+    [self activateFunction:YES];
+}
+
+-(void)deactivate{
+    NSLog(@"でぃあくてぃべーと");
+    [self activateFunction:NO];
+}
+
+- (void)activateFunction:(BOOL)activate{
+    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    //一旦配列に直した上でディクショナリ化する（配列１つ分のディクショナリとして格納される）。こうした場合、サーバ側の処理が楽になる。
+    NSArray *arrayParameter = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:_playerID],[NSNumber numberWithBool:activate],  nil];
+    
+    NSArray *arrayKey = [[NSArray alloc] initWithObjects:@"playerID",@"activate", nil];
+    
+    //送るデータをキーとともにディクショナリ化する
+    NSDictionary *dic = [NSDictionary dictionaryWithObjects:arrayParameter forKeys:arrayKey];
+    //JSONに変換
+    NSString *jsonRequest = [dic JSONRepresentation];
+    //JSONに変換)
+    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *url = @"http://utakatanet.dip.jp:58080/activate.php";
+    
+    NSMutableURLRequest *request;
+    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%d",[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *result;
+    result= [NSURLConnection sendSynchronousRequest:request
+                                  returningResponse:&response
+                                              error:&error];
+    
+    //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    int loop = 0;
+    while (!result) {
+        [NSThread sleepForTimeInterval:0.5];
+        result= [NSURLConnection sendSynchronousRequest:request
+                                      returningResponse:&response
+                                                  error:&error];
+        NSLog(@"再度get処理実行中...");
+        if(loop == 20){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通信不能" message:@"通信できませんでした。電波が弱いか、サーバが応答していません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+            [SVProgressHUD popActivity];
+            return;
+        }
+        loop++;
+    }
+    
+    NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+    if([string hasPrefix:@"timeout"]){
+        [SVProgressHUD popActivity];
+        UIAlertView *notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"通信不能" message:@"通信できませんでした。電波が弱いか、サーバが応答していません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [notFoundForInternetBattle show];
+    }else{
+        NSLog(@"アクティベート or ディアクティベート完了");
+        [SVProgressHUD popActivity];
+    }
+}
+
+void uncaughtExceptionHandler(NSException *exception) {
+    //!!!: クラッシュに行いたい処理(非アクティブになったことをサーバに知らせる)を記述する
+    NSLog(@"clash!!!");
+    
+}
+
+
 
 
 

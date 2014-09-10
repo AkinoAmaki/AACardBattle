@@ -14,18 +14,18 @@
     get = [[GetEnemyDataFromServer alloc] init];
     [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
     while (!app.decideAction) {
-        [get doEnemyDecideAction:YES];
+        [get doEnemyDecideActionRoopVersion:YES];
     }
     [NSThread sleepForTimeInterval:0.5];
-    [get doEnemyDecideAction:NO];
+    [get doEnemyDecideActionRoopVersion:NO];
     [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み）を受け取る
     
     [self sendData]; //相手のカード効果等が反映済みの状態のデータ（自分の効果は反映済み）を送信する
     while (!app.decideAction) {
-        [get doEnemyDecideAction:YES];
+        [get doEnemyDecideActionRoopVersion:YES];
     }
     [NSThread sleepForTimeInterval:0.5];
-    [get doEnemyDecideAction:NO];
+    [get doEnemyDecideActionRoopVersion:NO];
     [get get]; //自分のカード効果等が反映済みの状態のデータ（相手の効果は反映済み）を受け取る
     
     return resultString;

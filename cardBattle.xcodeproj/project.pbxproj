@@ -176,6 +176,10 @@
 		0F6A30461925BDEB00341623 /* tomb.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A30451925BDEB00341623 /* tomb.png */; };
 		0F6A30491925C14E00341623 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A30481925C14E00341623 /* next.png */; };
 		0F6A304B19263F8F00341623 /* field.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A304A19263F8F00341623 /* field.png */; };
+		0F6E1E1119B574B30091BDDB /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E1E1019B574B30091BDDB /* cancel.png */; };
+		0F6E1E1319B60DF80091BDDB /* pipo-btleffect058.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E1E1219B60DF80091BDDB /* pipo-btleffect058.png */; };
+		0F6E1E1519B6101D0091BDDB /* pipo-btleffect012.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E1E1419B6101D0091BDDB /* pipo-btleffect012.png */; };
+		0F6E1E1D19B615B00091BDDB /* pipo-battleffect046.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E1E1C19B615B00091BDDB /* pipo-battleffect046.png */; };
 		0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */; };
 		0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EB449190E019000BD0E41 /* DeviceMotion.m */; };
 		0F6EB44C1913AFEF00BD0E41 /* phaseName.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6EB44B1913AFEF00BD0E41 /* phaseName.png */; };
@@ -231,7 +235,6 @@
 		0F9E650F196EC40D00AA5BE4 /* TanukiMagic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E650E196EC40D00AA5BE4 /* TanukiMagic.ttf */; };
 		0F9E6511196ED6CA00AA5BE4 /* game_maoudamashii_5_village05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6510196ED6CA00AA5BE4 /* game_maoudamashii_5_village05.mp3 */; };
 		0F9E6515196F977200AA5BE4 /* 28_machi25b.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6514196F977200AA5BE4 /* 28_machi25b.mp3 */; };
-		0F9F177418EC607D004E58BF /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177218EC607D004E58BF /* cancel.png */; };
 		0F9F177518EC607D004E58BF /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F177318EC607D004E58BF /* ok.png */; };
 		0F9F17A418F19BA8004E58BF /* giko.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F17A018F19BA8004E58BF /* giko.png */; };
 		0F9F17A518F19BA8004E58BF /* monar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9F17A118F19BA8004E58BF /* monar.png */; };
@@ -244,6 +247,12 @@
 		0FB4BC411959AF0600794B92 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC3F1959AF0600794B92 /* rightArrow.png */; };
 		0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4BC42195F0EB100794B92 /* GameKit.framework */; };
 		0FB4BC461961138E00794B92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4BC441961138E00794B92 /* Main.storyboard */; };
+		0FC9685E19BD5B34001C4793 /* WaitingForInternetBattleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9685D19BD5B34001C4793 /* WaitingForInternetBattleViewController.m */; };
+		0FC9686019BDD0A5001C4793 /* cardBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9685F19BDD0A5001C4793 /* cardBox.png */; };
+		0FC9686219BDD0BE001C4793 /* gikoWalking.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9686119BDD0BE001C4793 /* gikoWalking.png */; };
+		0FC9686819BDF5E1001C4793 /* CALayer+nnCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */; };
+		0FC9686A19BF1449001C4793 /* cardBox_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9686919BF1449001C4793 /* cardBox_closed.png */; };
+		0FC9687019C08901001C4793 /* GikoGikoWaintngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */; };
 		0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */; };
 		0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FD18DF22AB00E03D23 /* library.png */; };
 		0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDB97F618CAD30200C7566E /* CoreLocation.framework */; };
@@ -624,6 +633,10 @@
 		0F6A30451925BDEB00341623 /* tomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tomb.png; sourceTree = "<group>"; };
 		0F6A30481925C14E00341623 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 		0F6A304A19263F8F00341623 /* field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = field.png; sourceTree = "<group>"; };
+		0F6E1E1019B574B30091BDDB /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
+		0F6E1E1219B60DF80091BDDB /* pipo-btleffect058.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pipo-btleffect058.png"; sourceTree = "<group>"; };
+		0F6E1E1419B6101D0091BDDB /* pipo-btleffect012.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pipo-btleffect012.png"; sourceTree = "<group>"; };
+		0F6E1E1C19B615B00091BDDB /* pipo-battleffect046.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pipo-battleffect046.png"; sourceTree = "<group>"; };
 		0F6EB3C1190CC72A00BD0E41 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		0F6EB448190E019000BD0E41 /* DeviceMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMotion.h; sourceTree = "<group>"; };
 		0F6EB449190E019000BD0E41 /* DeviceMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMotion.m; sourceTree = "<group>"; };
@@ -700,7 +713,6 @@
 		0F9E650E196EC40D00AA5BE4 /* TanukiMagic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TanukiMagic.ttf; sourceTree = "<group>"; };
 		0F9E6510196ED6CA00AA5BE4 /* game_maoudamashii_5_village05.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_maoudamashii_5_village05.mp3; sourceTree = "<group>"; };
 		0F9E6514196F977200AA5BE4 /* 28_machi25b.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 28_machi25b.mp3; sourceTree = "<group>"; };
-		0F9F177218EC607D004E58BF /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		0F9F177318EC607D004E58BF /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		0F9F17A018F19BA8004E58BF /* giko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = giko.png; sourceTree = "<group>"; };
 		0F9F17A118F19BA8004E58BF /* monar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monar.png; sourceTree = "<group>"; };
@@ -713,6 +725,15 @@
 		0FB4BC3F1959AF0600794B92 /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
 		0FB4BC42195F0EB100794B92 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0FB4BC451961138E00794B92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0FC9685C19BD5B34001C4793 /* WaitingForInternetBattleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingForInternetBattleViewController.h; sourceTree = "<group>"; };
+		0FC9685D19BD5B34001C4793 /* WaitingForInternetBattleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingForInternetBattleViewController.m; sourceTree = "<group>"; };
+		0FC9685F19BDD0A5001C4793 /* cardBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBox.png; sourceTree = "<group>"; };
+		0FC9686119BDD0BE001C4793 /* gikoWalking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoWalking.png; sourceTree = "<group>"; };
+		0FC9686619BDF5E1001C4793 /* CALayer+nnCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+nnCALayer.h"; sourceTree = "<group>"; };
+		0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+nnCALayer.m"; sourceTree = "<group>"; };
+		0FC9686919BF1449001C4793 /* cardBox_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBox_closed.png; sourceTree = "<group>"; };
+		0FC9686E19C08901001C4793 /* GikoGikoWaintngViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GikoGikoWaintngViewController.h; sourceTree = "<group>"; };
+		0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GikoGikoWaintngViewController.m; sourceTree = "<group>"; };
 		0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_middleCard.png; sourceTree = "<group>"; };
 		0FD1D9FD18DF22AB00E03D23 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		0FDB97F618CAD30200C7566E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1257,6 +1278,7 @@
 				0F9F17A118F19BA8004E58BF /* monar.png */,
 				0F9F17A218F19BA8004E58BF /* syobon.png */,
 				0F9F17A318F19BA8004E58BF /* yaruo.png */,
+				0FC9686119BDD0BE001C4793 /* gikoWalking.png */,
 			);
 			path = character;
 			sourceTree = "<group>";
@@ -1292,9 +1314,9 @@
 				0F5B79FF18D8A56A00A3D9E7 /* border_smallCard.png */,
 				0F6EB44B1913AFEF00BD0E41 /* phaseName.png */,
 				0F5EE52318F1A5B500785996 /* characterSelect.png */,
-				0F9F177218EC607D004E58BF /* cancel.png */,
 				0F6A304A19263F8F00341623 /* field.png */,
 				0F9F177318EC607D004E58BF /* ok.png */,
+				0F6E1E1019B574B30091BDDB /* cancel.png */,
 				0F3FED911928D41400ACA1BC /* outicon.png */,
 				0FB4BC3E1959AF0600794B92 /* leftArrow.png */,
 				0FB4BC3F1959AF0600794B92 /* rightArrow.png */,
@@ -1304,6 +1326,11 @@
 				0F9E650B196EBDCF00AA5BE4 /* fadeinImage.png */,
 				0F1699DD199902F000221D19 /* e_appear_240.png */,
 				0F1699DE199902F000221D19 /* e_circle_240.png */,
+				0F6E1E1219B60DF80091BDDB /* pipo-btleffect058.png */,
+				0F6E1E1419B6101D0091BDDB /* pipo-btleffect012.png */,
+				0F6E1E1C19B615B00091BDDB /* pipo-battleffect046.png */,
+				0FC9685F19BDD0A5001C4793 /* cardBox.png */,
+				0FC9686919BF1449001C4793 /* cardBox_closed.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -1369,6 +1396,10 @@
 				0FF5B3AE19A86BD000602A2C /* Deck2.m */,
 				0FF5B3E619A8F55800602A2C /* Deck3.h */,
 				0FF5B3E719A8F55800602A2C /* Deck3.m */,
+				0FC9686E19C08901001C4793 /* GikoGikoWaintngViewController.h */,
+				0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */,
+				0FC9685C19BD5B34001C4793 /* WaitingForInternetBattleViewController.h */,
+				0FC9685D19BD5B34001C4793 /* WaitingForInternetBattleViewController.m */,
 				0F6EB448190E019000BD0E41 /* DeviceMotion.h */,
 				0F6EB449190E019000BD0E41 /* DeviceMotion.m */,
 				0F29BD0D191DEF2200E9D59C /* SendDataToServer.h */,
@@ -1381,6 +1412,8 @@
 				0F29BD171923B42C00E9D59C /* PenetrateFilter.m */,
 				0F1699D41999001D00221D19 /* MBAnimationView.h */,
 				0F1699D51999001D00221D19 /* MBAnimationView.m */,
+				0FC9686619BDF5E1001C4793 /* CALayer+nnCALayer.h */,
+				0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */,
 				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
@@ -1737,6 +1770,7 @@
 				0FF5B50719A9D9DB00602A2C /* card87_D.jpg in Resources */,
 				0F169BB9199A555F00221D19 /* card106_M.JPG in Resources */,
 				0F9E6509196E8F0700AA5BE4 /* se_maoudamashii_system49.mp3 in Resources */,
+				0FC9686A19BF1449001C4793 /* cardBox_closed.png in Resources */,
 				0FF5B48F19A9D9DA00602A2C /* card114_D.jpg in Resources */,
 				0F169BEF199A555F00221D19 /* card155_M.JPG in Resources */,
 				0FF5B4CD19A9D9DA00602A2C /* card31_D.jpg in Resources */,
@@ -1747,6 +1781,7 @@
 				0FF5B4B019A9D9DA00602A2C /* card144_D.jpg in Resources */,
 				0FF5B4F819A9D9DB00602A2C /* card73_D.jpg in Resources */,
 				0FF5B3DC19A8EECB00602A2C /* noColor2.png in Resources */,
+				0FC9686019BDD0A5001C4793 /* cardBox.png in Resources */,
 				0F9E64AF1965B3CF00AA5BE4 /* glayBack.png in Resources */,
 				0FF5B49E19A9D9DA00602A2C /* card128_D.jpg in Resources */,
 				0F169BBD199A555F00221D19 /* card10_M.JPG in Resources */,
@@ -1757,6 +1792,7 @@
 				0F169C1E199A555F00221D19 /* card61_M.JPG in Resources */,
 				0F169C15199A555F00221D19 /* card52_M.JPG in Resources */,
 				0F9E64F8196E8F0700AA5BE4 /* se_maoudamashii_explosion05.mp3 in Resources */,
+				0F6E1E1319B60DF80091BDDB /* pipo-btleffect058.png in Resources */,
 				0F169BC3199A555F00221D19 /* card115_M.JPG in Resources */,
 				0FF5B48519A9D9DA00602A2C /* card105_D.jpg in Resources */,
 				0FF5B4C919A9D9DA00602A2C /* card27_D.jpg in Resources */,
@@ -1825,6 +1861,7 @@
 				0F169BD0199A555F00221D19 /* card127_M.JPG in Resources */,
 				0F169BED199A555F00221D19 /* card153_M.JPG in Resources */,
 				0F169BBA199A555F00221D19 /* card107_M.JPG in Resources */,
+				0F6E1E1119B574B30091BDDB /* cancel.png in Resources */,
 				0F169BE9199A555F00221D19 /* card14_M.JPG in Resources */,
 				0FDB985918D0A55C00C7566E /* dummy.png in Resources */,
 				0FF5B3D519A8EECB00602A2C /* blueEnergyImage.png in Resources */,
@@ -1934,6 +1971,7 @@
 				0FF5B49519A9D9DA00602A2C /* card11_D.jpg in Resources */,
 				0F169C07199A555F00221D19 /* card38_M.JPG in Resources */,
 				0F169C1F199A555F00221D19 /* card62_M.JPG in Resources */,
+				0F6E1E1D19B615B00091BDDB /* pipo-battleffect046.png in Resources */,
 				0F169BBF199A555F00221D19 /* card111_M.JPG in Resources */,
 				0F1699DF199902F000221D19 /* e_appear_240.png in Resources */,
 				0FF5B51019A9D9DB00602A2C /* card95_D.jpg in Resources */,
@@ -1987,6 +2025,7 @@
 				0FF5B50A19A9D9DB00602A2C /* card8_D.jpg in Resources */,
 				0F169C21199A555F00221D19 /* card64_M.JPG in Resources */,
 				0FF5B4B719A9D9DA00602A2C /* card150_D.jpg in Resources */,
+				0FC9686219BDD0BE001C4793 /* gikoWalking.png in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
 				0FF5B4D519A9D9DA00602A2C /* card39_D.jpg in Resources */,
 				0FF5B3DD19A8EECB00602A2C /* noColor3.png in Resources */,
@@ -2007,6 +2046,7 @@
 				0F9E6506196E8F0700AA5BE4 /* se_maoudamashii_system29.mp3 in Resources */,
 				0FF5B48219A9D9DA00602A2C /* card102_D.jpg in Resources */,
 				0FF5B4B919A9D9DA00602A2C /* card152_D.jpg in Resources */,
+				0F6E1E1519B6101D0091BDDB /* pipo-btleffect012.png in Resources */,
 				0F9F177518EC607D004E58BF /* ok.png in Resources */,
 				0F169BDF199A555F00221D19 /* card140_M.JPG in Resources */,
 				0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */,
@@ -2055,7 +2095,6 @@
 				0F9E64FF196E8F0700AA5BE4 /* se_maoudamashii_se_fall02.mp3 in Resources */,
 				0F9E6508196E8F0700AA5BE4 /* se_maoudamashii_system46.mp3 in Resources */,
 				0F169BE4199A555F00221D19 /* card145_M.JPG in Resources */,
-				0F9F177418EC607D004E58BF /* cancel.png in Resources */,
 				0F9E64F6196E8F0700AA5BE4 /* se_maoudamashii_explosion03.mp3 in Resources */,
 				0F169C05199A555F00221D19 /* card36_M.JPG in Resources */,
 				0FA2537A19A253A300A3F795 /* littleBlackBack.png in Resources */,
@@ -2086,6 +2125,7 @@
 				0F6EB4741916B2E400BD0E41 /* SBJsonStreamParser.m in Sources */,
 				0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */,
 				0FF5B3B519A8799A00602A2C /* DeckTabBarController.m in Sources */,
+				0FC9685E19BD5B34001C4793 /* WaitingForInternetBattleViewController.m in Sources */,
 				0F1699DA1999001D00221D19 /* MBAnimationView.m in Sources */,
 				0F6EB4721916B2E400BD0E41 /* NSObject+SBJson.m in Sources */,
 				0F9E64AB1965067A00AA5BE4 /* UIImage+fill.m in Sources */,
@@ -2096,6 +2136,7 @@
 				0FDB980C18CB59B800C7566E /* BattleScreenViewController.m in Sources */,
 				0F9E64AD1965067A00AA5BE4 /* UIView+shake.m in Sources */,
 				0F29BD12191DF16800E9D59C /* GetEnemyDataFromServer.m in Sources */,
+				0FC9686819BDF5E1001C4793 /* CALayer+nnCALayer.m in Sources */,
 				0F6EB4781916B2E400BD0E41 /* SBJsonStreamWriter.m in Sources */,
 				0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */,
 				0F9E64AA1965067A00AA5BE4 /* DQView.m in Sources */,
@@ -2113,6 +2154,7 @@
 				0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */,
 				0F6EB4761916B2E400BD0E41 /* SBJsonStreamParserAdapter.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,
+				0FC9687019C08901001C4793 /* GikoGikoWaintngViewController.m in Sources */,
 				0F6EB4771916B2E400BD0E41 /* SBJsonStreamParserState.m in Sources */,
 				0F6EB4751916B2E400BD0E41 /* SBJsonStreamParserAccumulator.m in Sources */,
 				0FDCA49718CACFC2003459F8 /* main.m in Sources */,

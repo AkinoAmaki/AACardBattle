@@ -21,7 +21,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "MBAnimationView.h"
-#import <malloc/malloc.h>
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -40,7 +39,7 @@
 #define FINISHED1 syncFinished = YES;
 
 
-@interface BattleScreenViewController : BattleCaliculate<UIScrollViewDelegate>{
+@interface BattleScreenViewController : BattleCaliculate<UIScrollViewDelegate,deviceMotionDelegate>{
     
     int cardNumber;//今選択されているカードの番号(手札タッチ時にデータが格納される)
     int turnCount; //ターン数を管理
@@ -91,6 +90,7 @@
     MBAnimationView *effect1;
     MBAnimationView *effect2;
     MBAnimationView *effect3;
+    MBAnimationView *effect4;
 
 }
 
@@ -196,11 +196,16 @@
 @property UIImageView *myBlackEnergyImage; //黒色のエネルギーの画像(自分)
 @property UIImageView *myRedEnergyImage; //赤色のエネルギーの画像(自分)
 @property UIImageView *myGreenEnergyImage; //緑色のエネルギーの画像(自分)
-@property UITextView  *myWhiteEnergyText;  //白色のエネルギーの数値(自分)
-@property UITextView  *myBlueEnergyText;  //青色のエネルギーの数値(自分)
-@property UITextView  *myBlackEnergyText;  //黒色のエネルギーの数値(自分)
-@property UITextView  *myRedEnergyText;  //赤色のエネルギーの数値(自分)
-@property UITextView  *myGreenEnergyText;  //緑色のエネルギーの数値(自分)
+@property UITextView  *myWhiteEnergyText;  //保有している白色のエネルギーの数値(自分)
+@property UITextView  *myBlueEnergyText;  //保有している青色のエネルギーの数値(自分)
+@property UITextView  *myBlackEnergyText;  //保有している黒色のエネルギーの数値(自分)
+@property UITextView  *myRedEnergyText;  //保有している赤色のエネルギーの数値(自分)
+@property UITextView  *myGreenEnergyText;  //保有している緑色のエネルギーの数値(自分)
+@property UITextView  *myUsingWhiteEnergyText;  //このターン使用している白色のエネルギーの数値(自分)
+@property UITextView  *myUsingBlueEnergyText;  //このターン使用している青色のエネルギーの数値(自分)
+@property UITextView  *myUsingBlackEnergyText;  //このターン使用している黒色のエネルギーの数値(自分)
+@property UITextView  *myUsingRedEnergyText;  //このターン使用している赤色のエネルギーの数値(自分)
+@property UITextView  *myUsingGreenEnergyText;  //このターン使用している緑色のエネルギーの数値(自分)
 @property UIImageView *enemyAllEnergy; //５色のエネルギーの画像とテキストをまとめる(相手)
 @property UIImageView *enemyWhiteEnergyImage; //白色のエネルギーの画像(相手)
 @property UIImageView *enemyBlueEnergyImage; //青色のエネルギーの画像(相手)
@@ -237,8 +242,8 @@
 @property UIImageView *detailOfACard;
 
 //カードのカットインを表示するビュー
-@property UIImageView *cardUsingAnimationView;
-@property UIImageView *backGround;
+@property(nonatomic) UIImageView *cardUsingAnimationView;
+@property(nonatomic) UIImageView *backGround;
 
 
 //BGM

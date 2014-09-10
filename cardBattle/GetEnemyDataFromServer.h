@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "SBJson.h"
 
+
 @interface GetEnemyDataFromServer : NSObject{
     AppDelegate *app;
     NSArray *enemyPlayerID_parameter;
@@ -19,7 +20,8 @@
 }
 
 -(void)get;
--(void)doEnemyDecideAction :(BOOL)select;
+-(void)doEnemyDecideActionRoopVersion :(BOOL)select;
+-(void)doEnemyDecideActionNonRoopVersion:(BOOL)select;
 +(int)indexOfObjectForNSNumber:(NSArray *)array number:(NSNumber *)number;
 
 @end

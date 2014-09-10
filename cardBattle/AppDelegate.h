@@ -57,9 +57,10 @@
 @property (nonatomic, retain) NSArray *damageSourceOfRed; //赤色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property (nonatomic, retain) NSArray *damageSourceOfGreen; //緑色のカードのうち、戦闘時に直接ダメージを与えるカード一覧（戦闘時以外に与えるものは除く！）
 @property BOOL decideAction; //自分がカードとAAをを選択し終えるとYESとなり、ターン終了時にNOに戻る
+@property BOOL doEnemyActivate; //対戦相手の検索時に自分が相手を見つけたが、相手が自分を見つけていない場合にNOになる。それ以外はYES。
 @property NSString *deckName1; //自分のデッキ１の名前
-@property NSString *deckName2; //自分のデッキ１の名前
-@property NSString *deckName3; //自分のデッキ１の名前
+@property NSString *deckName2; //自分のデッキ２の名前
+@property NSString *deckName3; //自分のデッキ３の名前
 
 //自分に関係する変数
 @property NSMutableArray *myUsingEnergy; //自分がこのターン使用したエネルギーの量
@@ -257,7 +258,8 @@
 
 
 + (NSMutableArray *)shuffledArray :(NSMutableArray *)array;
-
+-(void)activate;
+-(void)deactivate;
 
 
 

@@ -36,6 +36,16 @@
                                     <segue destination="tz6-AR-qcr" kind="modal" id="WUj-BM-CSO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2l-R9-P0P">
+                                <rect key="frame" x="137" y="351" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="FEW-T3-JBE" kind="modal" id="gpU-AQ-lLf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -84,6 +94,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yns-xf-DoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="827" y="331"/>
+        </scene>
+        <!--Giko Giko Waintng View Controller-->
+        <scene sceneID="di7-l0-880">
+            <objects>
+                <viewController id="FEW-T3-JBE" customClass="GikoGikoWaintngViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aCU-R4-dTp"/>
+                        <viewControllerLayoutGuide type="bottom" id="9F6-ch-HNf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3AI-7N-Yuw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zs-0G-5lp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="339" y="630"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

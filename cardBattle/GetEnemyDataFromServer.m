@@ -10,7 +10,8 @@
 
 @implementation GetEnemyDataFromServer
 
--(void)initWithGetEnemyDataFromServer:(NSString *)URLString selectCardAndAAPhase:(BOOL)select{
+//相手プレイヤーのIDを取得し、各種データを取得するメソッド(通信が確立できなかった場合、引き続き確立させようとするバージョン)
+-(void)initWithGetEnemyDataFromServerRoopVersion:(NSString *)URLString selectCardAndAAPhase:(BOOL)select{
     app = [[UIApplication sharedApplication] delegate];
     //相手プレイヤーのID等を送信
     enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
@@ -61,9 +62,74 @@
     statuses = [json_string JSONValue];
 }
 
+//相手プレイヤーのIDを取得し、各種データを取得するメソッド(通信が確立できなかった場合、自動切断する)
+-(void)initWithGetEnemyDataFromServerNonRoopVersion:(NSString *)URLString selectCardAndAAPhase:(BOOL)select{
+    app = [[UIApplication sharedApplication] delegate];
+    //相手プレイヤーのID等を送信
+    enemyPlayerID_parameter = [[NSArray alloc] initWithObjects:
+                               [NSNumber numberWithInt:app.enemyPlayerID],[NSNumber numberWithInt:app.playerID],[NSNumber numberWithBool:select],nil];
+    enemyPlayerID_key = [[NSArray alloc] initWithObjects:
+                         @"enemyPlayerID",@"playerID",@"selectCardAndAAPhase",nil];
+    
+    //送るデータをキーとともにディクショナリ化する
+    NSDictionary *dic = [NSDictionary dictionaryWithObjects:enemyPlayerID_parameter forKeys:enemyPlayerID_key];
+    //JSONに変換
+    NSString *jsonRequest = [dic JSONRepresentation];
+    //JSONに変換)
+    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //     //外部から接続する場合
+    NSString *url = URLString;
+    NSMutableURLRequest *request;
+    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%d",[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *result;
+    result= [NSURLConnection sendSynchronousRequest:request
+                                  returningResponse:&response
+                                              error:&error];
+    //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    int i = 0;
+    while (!result) {
+        if(i < 1){
+            [NSThread sleepForTimeInterval:0.5];
+            result= [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+            NSLog(@"データのget処理中...");
+            i++;
+        }else{
+            NSLog(@"相手プレイヤーとの接続確立失敗");
+            app.decideAction = YES;
+            app.doEnemyActivate = NO;
+            return;
+        }
+        
+    }
+    
+    
+    //相手プレイヤーのデータを受信
+    // URLからJSONデータを取得(NSData)
+    NSData *response2 = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    // JSONで解析するために、NSDataをNSStringに変換。
+    NSString *json_string = [[NSString alloc] initWithData:response2 encoding:NSUTF8StringEncoding];
+    // JSONデータをパースする。
+    // ここではJSONデータが配列としてパースされるので、NSArray型でデータ取得
+    statuses = [json_string JSONValue];
+    
+    //相手が検索に応答した場合に、その旨BOOL値を更新
+    app.decideAction = YES;
+    app.doEnemyActivate = YES;
+}
 
 -(void)get{
-    [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
+    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
         app.enemyPlayerID                                   = [[battleDataWithoutArray objectAtIndex:0]  intValue];
@@ -471,12 +537,17 @@
     app.myFieldCardByMyself_minus = [[NSMutableArray alloc] init];
     app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],  [NSNumber numberWithInt:0],nil];
     
-    [SVProgressHUD dismiss];
+    [SVProgressHUD popActivity];
 }
 
--(void)doEnemyDecideAction :(BOOL)select{
-    [self initWithGetEnemyDataFromServer:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
+-(void)doEnemyDecideActionRoopVersion :(BOOL)select{
+    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
     app.decideAction = [[statuses objectAtIndex:0] boolValue];
+}
+
+-(void)doEnemyDecideActionNonRoopVersion :(BOOL)select{
+    [self initWithGetEnemyDataFromServerNonRoopVersion:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
+    //app.decideActionはinitWithGetEnemyDataFromServerNonRoopVersionの中でデータ格納を行っている。
 }
 
 +(int)indexOfObjectForNSNumber:(NSArray *)array number:(NSNumber *)number{
@@ -490,7 +561,4 @@
     }
     return -1;
 }
-
-
-
 @end

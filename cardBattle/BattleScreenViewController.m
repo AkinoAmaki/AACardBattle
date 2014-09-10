@@ -299,11 +299,11 @@
         [_myAllEnergy addSubview:_myRedEnergyImage];
         [_myAllEnergy addSubview:_myGreenEnergyImage];
         
-        _myWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
-        _myBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
-        _myBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
-        _myRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
-        _myGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
+        _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
+        _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
+        _myBlackEnergyImage.frame = CGRectMake(100,  15, 20, 20);
+        _myRedEnergyImage.frame   = CGRectMake(150,  15, 20, 20);
+        _myGreenEnergyImage.frame = CGRectMake(200,  15, 20, 20);
         
         
         _myWhiteEnergyText = [[UITextView alloc] init];
@@ -318,20 +318,69 @@
         _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
         _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
         
+        [PenetrateFilter penetrate:_myWhiteEnergyText];
+        [PenetrateFilter penetrate:_myBlueEnergyText];
+        [PenetrateFilter penetrate:_myBlackEnergyText];
+        [PenetrateFilter penetrate:_myRedEnergyText];
+        [PenetrateFilter penetrate:_myGreenEnergyText];
+        
         [_myAllEnergy addSubview:_myWhiteEnergyText];
         [_myAllEnergy addSubview:_myBlueEnergyText];
         [_myAllEnergy addSubview:_myBlackEnergyText];
         [_myAllEnergy addSubview:_myRedEnergyText];
         [_myAllEnergy addSubview:_myGreenEnergyText];
         
-        _myWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
-        _myBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
-        _myBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
-        _myRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
-        _myGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
+        _myWhiteEnergyText.frame = CGRectMake( 20, 20, 30, 20);
+        _myBlueEnergyText.frame  = CGRectMake( 70, 20, 30, 20);
+        _myBlackEnergyText.frame = CGRectMake(120, 20, 30, 20);
+        _myRedEnergyText.frame   = CGRectMake(170, 20, 30, 20);
+        _myGreenEnergyText.frame = CGRectMake(220, 20, 30, 20);
+        
+        _myWhiteEnergyText.textColor = [UIColor blueColor];
+        _myBlueEnergyText.textColor = [UIColor blueColor];
+        _myBlackEnergyText.textColor = [UIColor blueColor];
+        _myRedEnergyText.textColor = [UIColor blueColor];
+        _myGreenEnergyText.textColor = [UIColor blueColor];
+        
+        _myUsingWhiteEnergyText = [[UITextView alloc] init];
+        _myUsingBlueEnergyText = [[UITextView alloc] init];
+        _myUsingBlackEnergyText = [[UITextView alloc] init];
+        _myUsingRedEnergyText = [[UITextView alloc] init];
+        _myUsingGreenEnergyText = [[UITextView alloc] init];
+        
+        _myUsingWhiteEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:0] intValue]];
+        _myUsingBlueEnergyText.text     = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:1] intValue]];
+        _myUsingBlackEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:2] intValue]];
+        _myUsingRedEnergyText.text      = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:3] intValue]];
+        _myUsingGreenEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:4] intValue]];
+        
+        [PenetrateFilter penetrate:_myUsingWhiteEnergyText];
+        [PenetrateFilter penetrate:_myUsingBlueEnergyText];
+        [PenetrateFilter penetrate:_myUsingBlackEnergyText];
+        [PenetrateFilter penetrate:_myUsingRedEnergyText];
+        [PenetrateFilter penetrate:_myUsingGreenEnergyText];
+        
+        [_myAllEnergy addSubview:_myUsingWhiteEnergyText];
+        [_myAllEnergy addSubview:_myUsingBlueEnergyText];
+        [_myAllEnergy addSubview:_myUsingBlackEnergyText];
+        [_myAllEnergy addSubview:_myUsingRedEnergyText];
+        [_myAllEnergy addSubview:_myUsingGreenEnergyText];
+        
+        _myUsingWhiteEnergyText.frame   = CGRectMake(  20, 5, 30, 20);
+        _myUsingBlueEnergyText.frame    = CGRectMake(  70, 5, 30, 20);
+        _myUsingBlackEnergyText.frame   = CGRectMake( 120, 5, 30, 20);
+        _myUsingRedEnergyText.frame     = CGRectMake( 170, 5, 30, 20);
+        _myUsingGreenEnergyText.frame   = CGRectMake( 220, 5, 30, 20);
+        
+        _myUsingWhiteEnergyText.textColor = [UIColor redColor];
+        _myUsingBlueEnergyText.textColor  = [UIColor redColor];
+        _myUsingBlackEnergyText.textColor = [UIColor redColor];
+        _myUsingRedEnergyText.textColor   = [UIColor redColor];
+        _myUsingGreenEnergyText.textColor = [UIColor redColor];
+        
         
         [_allImageView addSubview: _myAllEnergy];
-        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 30, 250, 20);
+        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 50, 250, 40);
         
         //相手側
         _enemyWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
@@ -409,13 +458,27 @@
         AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
         CFRelease (cancelSoundURL);
     
+    //アプリがアクティブ・非アクティブになった際の挙動を規定する
+    //アクティブになったとき
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(activate)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    //非アクティブになったとき
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deactivate)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+    
+    
     //--------------------------デバッグ用ボタン-----------------------------------
     
     UIButton *startButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     startButton.frame = CGRectMake(160, 240, 80, 20);
     [startButton setTitle:@"開始" forState:UIControlStateNormal];
     [_allImageView addSubview:startButton];
-    [startButton addTarget:self action:@selector(battleStart)
+    [startButton addTarget:self action:@selector(battleStartForLocalBattle)
           forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -441,10 +504,9 @@
 
 
     //--------------------------デバッグ用ボタンここまで-----------------------------
-    
-//MARK: デバッグ用。終わったら元に戻す    _battleStartView = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
-//MARK: デバッグ用。終わったら元に戻す    [_battleStartView show];
 }
+
+
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
 
@@ -453,16 +515,23 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    
+    [self cardGettingAnimation:10];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    
+    NSArray *arr = [[NSArray alloc] init];
+    NSLog(@"%@",[arr objectAtIndex:0]);
 }
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
-    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
+    [_usingDeckCardList show];
+    [self sync];
+    DeviceMotion *dev = [[DeviceMotion alloc] init];
+    dev.delegate = self;
+    [dev bumpForInternetBattle];
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -544,11 +613,11 @@
     [self forbidTouchAction];
     [self activateCardInTiming:0];
     while (!app.decideAction) {
-        [getEnemyData doEnemyDecideAction:YES];
+        [getEnemyData doEnemyDecideActionRoopVersion:YES];
     }
     //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。(ターンのレスポンスは悪化するが。)
     [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideAction:NO];
+    [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [self activateCardInTiming:99];
     [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
     [self sync];
@@ -588,9 +657,9 @@
     
     //相手の入力待ち(app.decideAction = YESとなれば先に進む)
     while (!app.decideAction) {
-        [getEnemyData doEnemyDecideAction:YES];
+        [getEnemyData doEnemyDecideActionRoopVersion:YES];
     }
-    [getEnemyData doEnemyDecideAction:NO];
+    [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
     [self refleshView];
@@ -606,11 +675,11 @@
     NSLog(@"%s",__func__);
     [self activateCardInTiming:2];
     while (!app.decideAction) {
-        [getEnemyData doEnemyDecideAction:YES];
+        [getEnemyData doEnemyDecideActionRoopVersion:YES];
     }
     //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
     [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideAction:NO];
+    [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [sendMyData send];
     [self activateCardInTiming:99];
     //カード効果でカードを引いたら処理する
@@ -625,11 +694,11 @@
         }
     app.enemyDamageFromAA = [_bc damageCaliculate];
     while (!app.decideAction) {
-        [getEnemyData doEnemyDecideAction:YES];
+        [getEnemyData doEnemyDecideActionRoopVersion:YES];
     }
     //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
     [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideAction:NO];
+    [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [sendMyData send];
     NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
     NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
@@ -646,11 +715,11 @@
     [self activateCardInTiming:3];
     [self activateCardInTiming:99];
     while (!app.decideAction) {
-        [getEnemyData doEnemyDecideAction:YES];
+        [getEnemyData doEnemyDecideActionRoopVersion:YES];
     }
     //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
     [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideAction:NO];
+    [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [sendMyData send];
     [self refleshView];
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
@@ -2611,31 +2680,21 @@
 
 - (void)battleStart{
     //メインBGMの開始
-//BEFORERELEASE:リリース前に元に戻す NSString* path = [[NSBundle mainBundle]
-//BEFORERELEASE:リリース前に元に戻す                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
-//BEFORERELEASE:リリース前に元に戻す     NSURL* url = [NSURL fileURLWithPath:path];
-//BEFORERELEASE:リリース前に元に戻す     _audio = [[AVAudioPlayer alloc]
-//BEFORERELEASE:リリース前に元に戻す               initWithContentsOfURL:url error:nil];
-//BEFORERELEASE:リリース前に元に戻す     _audio.numberOfLoops = -1;
-//BEFORERELEASE:リリース前に元に戻す     [_audio play];
-    
+    //BEFORERELEASE:リリース前に元に戻す NSString* path = [[NSBundle mainBundle]
+    //BEFORERELEASE:リリース前に元に戻す                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
+    //BEFORERELEASE:リリース前に元に戻す     NSURL* url = [NSURL fileURLWithPath:path];
+    //BEFORERELEASE:リリース前に元に戻す     _audio = [[AVAudioPlayer alloc]
+    //BEFORERELEASE:リリース前に元に戻す               initWithContentsOfURL:url error:nil];
+    //BEFORERELEASE:リリース前に元に戻す     _audio.numberOfLoops = -1;
+    //BEFORERELEASE:リリース前に元に戻す     [_audio play];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
-    app.enemyNickName = @"秋乃のiPhone4S";
-    app.enemyPlayerID = 820490054;
-    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+    //    app.enemyNickName = @"秋乃のiPhone4S";
+    //    app.enemyPlayerID = 820490054;
+    //    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
+    //    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    //    [sendData send];
     //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
-    
-    //どのデッキを使用するかを選択する
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
-    [_usingDeckCardList show];
-    [self sync];
-    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-    [sendData send];
-    
-    
-    
     
     if([YSDeviceHelper is568h]){
         //
@@ -2866,9 +2925,26 @@
         
         [self nextTurn];
     }
+
+}
+
+- (void)battleStartForLocalBattle{
+    //どのデッキを使用するかを選択する
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
+    [_usingDeckCardList show];
+    [self sync];
     
-    
-    
+    _battleStartView = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
+    [_battleStartView show];
+    [self sync]; //DeviceMotion.mの - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndexのif(alertView == _isAEnemyNameForLocalBattle)の[self.delegate syncFinished];でsyncを解除しています。
+    [getEnemyData doEnemyDecideActionRoopVersion:NO]; //対戦相手を見つける過程で、app.decideActionがYESになるため、デフォルトのNOに戻しておく
+    [self battleStart];
+}
+
+- (void)battleStartForInternetBattle{
+    [getEnemyData doEnemyDecideActionRoopVersion:NO]; //対戦相手を見つける過程で、app.decideActionがYESになるため、デフォルトのNOに戻しておく
+    [self battleStart];
 }
 
 - (void)touchAction :(UITapGestureRecognizer *)sender{
@@ -3049,6 +3125,7 @@
         [_myCardImageView addSubview:txtView];
         txtView.editable = NO;
         txtView.text = [NSString stringWithFormat:@" × %d",myHandCount];
+        [PenetrateFilter penetrate:txtView];
     }
     
     //自分の山札の更新
@@ -3089,6 +3166,7 @@
         [_enemyCardImageView addSubview:txtView];
         txtView.editable = NO;
         txtView.text = [NSString stringWithFormat:@" × %d",enemyHandCount];
+        [PenetrateFilter penetrate:txtView];
     }
 }
 
@@ -3153,7 +3231,7 @@
         title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
         title.textAlignment = NSTextAlignmentCenter;
         
-        [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
+        [self createCancelButton:CGRectMake(_regionView.bounds.size.width / 2 - 35, _regionView.bounds.size.height - 30, 50, 50) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_imgView];
         
     }else{
@@ -3187,7 +3265,7 @@
         title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
         title.textAlignment = NSTextAlignmentCenter;
         
-        [self createCancelButton:CGRectMake(10, _regionView.bounds.size.height - 30, 100, 20) parentView:_cardInRegion tag:4];
+        [self createCancelButton:CGRectMake(_regionView.bounds.size.width / 2 - 35, _regionView.bounds.size.height - 30, 50, 50) parentView:_cardInRegion tag:4];
         [_allImageView addSubview:_imgView];
         
         
@@ -3511,7 +3589,7 @@
     
     if(cancel){
         [self createOkButton:CGRectMake(10, _characterField.bounds.size.height - 20 - 10, 50, 50) parentView:_characterField tag:7];
-        [self createCancelButton:CGRectMake(_characterField.bounds.size.width - 10 - 100,  _characterField.bounds.size.height - 20 - 10, 100, 20) parentView:_characterField tag:8];
+        [self createCancelButton:CGRectMake(_characterField.bounds.size.width - 10 - 100,  _characterField.bounds.size.height - 20 - 10, 50, 50) parentView:_characterField tag:8];
     }else{
         [self createOkButton:CGRectMake(_characterField.bounds.size.width / 2 - 50, _characterField.bounds.size.height - 20 - 10, 50, 50) parentView:_characterField tag:7];
     }
@@ -3614,7 +3692,7 @@
         case 10:
             //カードのコストとして費やすマナを選択する画面のOKボタンから飛んできた場合
             [_imgView removeFromSuperview];
-        AudioServicesPlaySystemSound (tapSoundID);
+            AudioServicesPlaySystemSound (tapSoundID);
             
         {
             NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
@@ -3830,7 +3908,8 @@
         switch (buttonIndex) {
             case 0:
                 motion = [[DeviceMotion alloc] init];
-                [motion bump];
+                motion.delegate = self;
+                [motion bumpForLocalBattle];
                 break;
             default:
                 break;
@@ -3856,6 +3935,7 @@
         FINISHED1
         [self dismissViewControllerAnimated:YES completion:nil];
     }else if (alertView == _usingDeckCardList){
+        [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient]; //デッキ選択後に表示させると、SVProgressHUDの仕様により一瞬しか表示されないため、やむなくここで実装
         app.myDeckCardList = [[NSMutableArray alloc] init];
         switch (buttonIndex) {
             case 0:
@@ -3969,7 +4049,7 @@
 - (void)initializeVariables{
     
     //常に初期化するもの
-    [getEnemyData doEnemyDecideAction:NO]; //app.decideAction = NOと初期化しておく
+    [getEnemyData doEnemyDecideActionRoopVersion:NO]; //app.decideAction = NOと初期化しておく
     _bc.reverse = NO;
     searchACardInsteadOfGetACardFromLibraryTop = NO;
     selectCardIsCanceledInCardInRegion = NO;
@@ -4220,6 +4300,13 @@
     _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
     _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
     _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+    
+    _myUsingWhiteEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:0] intValue]];
+    _myUsingBlueEnergyText.text     = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:1] intValue]];
+    _myUsingBlackEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:2] intValue]];
+    _myUsingRedEnergyText.text      = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:3] intValue]];
+    _myUsingGreenEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:4] intValue]];
+    
     _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
     _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
     _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
@@ -4967,8 +5054,8 @@
         }
         [_cardUsingAnimationView addSubview:cardImageScroll];
         
-        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rightArrow"]];
-        skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 40, 40);
+        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back.png"]];
+        skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 50, 50);
         skipButton.userInteractionEnabled = YES;
         [skipButton addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
@@ -4990,16 +5077,118 @@
 
 -(void)removeCardUsingAnimation{
     FINISHED1
+    NSLog(@"OK");
     _allImageView.userInteractionEnabled = YES;
+    [BattleScreenViewController releaseUIImageView:backGround];
     [backGround removeFromSuperview];
     for (UIView *view in _cardUsingAnimationView.subviews) {
         [view removeFromSuperview];
     }
+    [BattleScreenViewController releaseUIImageView:_cardUsingAnimationView];
     [_cardUsingAnimationView removeFromSuperview];
     _allImageView.userInteractionEnabled = YES;
 }
 
+//カード使用時のアニメーション
+-(void)cardGettingAnimation:(int)cardNum {
+    _cardUsingAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    _cardUsingAnimationView.userInteractionEnabled = YES;
+    _allImageView.userInteractionEnabled = NO;
+    backGround = [[UIImageView alloc] init];
+    [backGround setBackgroundColor:[UIColor blackColor]];
+    backGround.image = [UIImage imageNamed:@"littleBlackBack.png"];
+    [_allImageView addSubview:backGround];
+    backGround.frame = CGRectMake(0,0, backGround.superview.bounds.size.width, backGround.superview.bounds.size.height);
+    effect1 = [[MBAnimationView alloc] init];
+    [effect1 setAnimationImage:@"e_circle_240.png" :240 :240 :11];
+    effect1.frame = CGRectMake(40, 160, 240, 240);
+    effect1.animationDuration = 1;
+    [backGround addSubview:effect1];
+    [effect1 startAnimating];
+    
+    UITextView *explain = [[UITextView alloc] init];
+    explain.text = @"今回手に入れたカード";
+    explain.textColor = [UIColor whiteColor];
+    explain.frame = CGRectMake(0, 0, 200, 40);
+    explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, [[UIScreen mainScreen] bounds].size.height - 400);
+    explain.textAlignment = NSTextAlignmentCenter;
+    [PenetrateFilter penetrate:explain];
+    [_cardUsingAnimationView addSubview:explain];
+    
+    [backGround whiteFadeInWithDuration:1.2f delay:1.0f block:^(void){
+        
+        
+    effect2 = [[MBAnimationView alloc] init];
+    [effect2 setAnimationImageVertical:@"pipo-btleffect058.png" :320 :120 :27];
+    effect2.frame = CGRectMake(0, 100, 320, 120);
+    effect2.animationDuration = 1;
+    effect2.animationRepeatCount = 0;
+    [backGround addSubview:effect2];
+    [effect2 startAnimating];
+        
+    effect3 = [[MBAnimationView alloc] init];
+    [effect3 setAnimationImageVertical:@"pipo-btleffect012.png" :320 :120 : 9];
+    effect3.frame = CGRectMake(0, 320, 320, 120);
+    effect3.animationDuration = 1;
+    effect3.animationRepeatCount = 0;
+    [backGround addSubview:effect3];
+    [effect3 startAnimating];
+        
+    effect4 = [[MBAnimationView alloc] init];
+    [effect4 setAnimationImage:@"pipo-battleffect046.png" :240 :240 :10];
+    effect4.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 120, 50, 240, 240);
+    effect4.animationDuration = 1.5;
+    effect4.animationRepeatCount = 0;
+    [backGround addSubview:effect4];
+    [effect4 startAnimating];
+        
+        //カード画像の表示
 
+        UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",cardNum]]];
+        cardImage.frame = CGRectMake(0, 0, 200, 300);
+        cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2 , [[UIScreen mainScreen] bounds].size.height / 2);
+        [_cardUsingAnimationView addSubview:cardImage];
+        
+        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back.png"]];
+        skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 50, 50);
+        skipButton.userInteractionEnabled = YES;
+        [skipButton addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(removeCardUsingAnimation)]];
+        [_cardUsingAnimationView addSubview:skipButton];
+        
+        [self.view addSubview:_cardUsingAnimationView];
+        
+        [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
+            // アニメーションをする処理
+            
+        }
+                         completion:^(BOOL finished){
+                             
+                         }
+         ];
+    }];
+}
+
++ (void)releaseUIImageView:(UIImageView*)uiimgv {
+    if(uiimgv != nil){
+        uiimgv.image = nil;
+        uiimgv.layer.sublayers = nil;
+        uiimgv = nil;
+    }
+}
+
+-(void)syncFinished{
+    FINISHED1
+}
+
+- (void)activate{
+    [app activate];
+}
+
+-(void)deactivate{
+    [app deactivate];
+}
 
 
 @end

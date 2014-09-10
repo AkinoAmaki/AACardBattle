@@ -16,18 +16,7 @@
     UITextField *tf;
     NSUserDefaults *userDefault;
     AppDelegate *appdelegate;
-    
-    
-    
-    
-    //!!!:カードゲットの練習用ここから
-    
-    MBAnimationView *effect1;
-    MBAnimationView *effect2;
-    UIImageView *view;
-    UITapGestureRecognizer *tgr;
-    
-    //!!!:カードゲットの練習用ここまで
+
 }
 
 

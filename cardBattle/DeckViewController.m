@@ -56,10 +56,10 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
     
-    _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_returnToMainViewButton setTitle:@"戻る" forState:UIControlStateNormal];
+    _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_returnToMainViewButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [allImage addSubview:_returnToMainViewButton];
-    _returnToMainViewButton.frame = CGRectMake(20,35, 30, 50);
+    _returnToMainViewButton.frame = CGRectMake(20,35, 50, 50);
     [_returnToMainViewButton addTarget:self action:@selector(returnToMainView:)
                       forControlEvents:UIControlEventTouchUpInside];
     
@@ -197,7 +197,7 @@
     if([[app.myCards objectAtIndex:i] intValue] == 0){
         img = [UIImage imageNamed:@"question.png"];
     }else{
-        img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_D.JPG",[app.cardList_pngName objectAtIndex:i]]];
+        img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_D.jpg",[app.cardList_pngName objectAtIndex:i]]];
     }
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
     imgView.userInteractionEnabled = YES;
