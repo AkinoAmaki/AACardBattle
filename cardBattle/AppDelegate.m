@@ -466,12 +466,6 @@
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
     
-    //アプリ起動時に、アプリがディアクティベートしたことをサーバに連絡する
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                          selector:@selector(deactivate)
-                                          name:UIApplicationDidFinishLaunchingNotification
-                                          object:nil];
-    
     //エラーで落ちた際に非アクティブとなったことをサーバに知らせるため、エラーが起きた際にそれを完治するハンドラを登録
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
@@ -499,6 +493,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -534,6 +529,12 @@
         NSLog(@"array2:%@",array2);
 
     return getCardNumber;
+}
+
+void uncaughtExceptionHandler(NSException *exception) {
+    //!!!: クラッシュに行いたい処理(非アクティブになったことをサーバに知らせる)を記述する
+    NSLog(@"clash!!!");
+    
 }
 
 - (void)activate{
@@ -605,13 +606,6 @@
         [SVProgressHUD popActivity];
     }
 }
-
-void uncaughtExceptionHandler(NSException *exception) {
-    //!!!: クラッシュに行いたい処理(非アクティブになったことをサーバに知らせる)を記述する
-    NSLog(@"clash!!!");
-    
-}
-
 
 
 

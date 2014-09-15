@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SVProgressHUD.h"
 #import "SummonViewController.h"
 #import "MBAnimationView.h"
+#define FINISHED1 syncFinished = YES;
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *userDefault;
     AppDelegate *appdelegate;
-
 }
 
 

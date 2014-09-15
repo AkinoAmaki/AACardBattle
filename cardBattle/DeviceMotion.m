@@ -312,7 +312,6 @@
                     [SVProgressHUD popActivity];
                     _notFoundForLocalBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"対戦相手が応答しませんでした。戦闘開始ボタンを押した後に再度ぶつけるか、相手プレイヤーのIDを直接入力してください" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！",@"IDを入力して指定する", nil];
                     [_notFoundForLocalBattle show];
-                    //[self sync];
                 }
                 
                 break;

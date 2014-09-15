@@ -28,6 +28,26 @@
     int first =  [userDefault integerForKey:@"firstLaunch_ud"];
     appdelegate = [[UIApplication sharedApplication] delegate];
     
+    NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"whiteBack" ofType:@"png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:backGroundImagePath]];
+    [self.view addSubview:imageView];
+    
+    UIButton *battleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    battleButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 40, 80, 80, 20);
+    [battleButton setTitle:@"たいせん" forState:UIControlStateNormal];
+    [self.view addSubview:battleButton];
+    [battleButton addTarget:self action:@selector(battleButtonPushed)
+          forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *deckButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    deckButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 40, 120, 80, 20);
+    [deckButton setTitle:@"デッキ" forState:UIControlStateNormal];
+    [self.view addSubview:deckButton];
+    [deckButton addTarget:self action:@selector(deckButtonPushed)
+          forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     if(first == 0){
         firstLaunchView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         firstLaunchView.image = [UIImage imageNamed:@"anime"];
@@ -42,30 +62,11 @@
         [self.view addSubview:firstLaunchView];
         [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
-    
-    UIButton *battleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    battleButton.frame = CGRectMake(40, 30, 80, 20);
-    [battleButton setTitle:@"対戦" forState:UIControlStateNormal];
-    [[self view] addSubview:battleButton];
-    [battleButton addTarget:self action:@selector(battleButtonPushed)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *deckButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    deckButton.frame = CGRectMake(40, 60, 80, 20);
-    [deckButton setTitle:@"デッキ" forState:UIControlStateNormal];
-    [[self view] addSubview:deckButton];
-    [deckButton addTarget:self action:@selector(deckButtonPushed)
-           forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)battleButtonPushed{
-    
+- (void)viewDidAppear:(BOOL)animated{
+
 }
-
-
-- (void)deckButtonPushed{
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -444,6 +445,15 @@
     appdelegate.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
 
     NSLog(@"初期化完了");
+}
+
+- (void)battleButtonPushed{
+    [self performSegueWithIdentifier:@"goToBattleView" sender:self];
+    
+}
+
+- (void)deckButtonPushed{
+    [self performSegueWithIdentifier:@"goToDeckView" sender:self];
 }
 
 

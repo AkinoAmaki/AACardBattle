@@ -18,6 +18,7 @@
 #define RED 4
 #define GREEN 5
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
     NSArray *cardList_cardName;

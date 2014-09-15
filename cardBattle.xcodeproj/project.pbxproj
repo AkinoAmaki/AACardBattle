@@ -275,6 +275,7 @@
 		0FDCA4AC18CACFC2003459F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDCA48E18CACFC2003459F8 /* UIKit.framework */; };
 		0FDCA4B418CACFC2003459F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */; };
 		0FDCA4B618CACFC2003459F8 /* cardBattleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */; };
+		0FF2EFA319C72B8200C36C72 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EFA219C72B8200C36C72 /* FirstViewController.m */; };
 		0FF5B3AF19A86BD000602A2C /* Deck2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3AE19A86BD000602A2C /* Deck2.m */; };
 		0FF5B3B219A86BEA00602A2C /* Deck1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B119A86BEA00602A2C /* Deck1.m */; };
 		0FF5B3B519A8799A00602A2C /* DeckTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B419A8799A00602A2C /* DeckTabBarController.m */; };
@@ -768,6 +769,8 @@
 		0FDCA4B118CACFC2003459F8 /* cardBattleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cardBattleTests-Info.plist"; sourceTree = "<group>"; };
 		0FDCA4B318CACFC2003459F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cardBattleTests.m; sourceTree = "<group>"; };
+		0FF2EFA119C72B8200C36C72 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		0FF2EFA219C72B8200C36C72 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		0FF5B3AD19A86BD000602A2C /* Deck2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck2.h; sourceTree = "<group>"; };
 		0FF5B3AE19A86BD000602A2C /* Deck2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck2.m; sourceTree = "<group>"; };
 		0FF5B3B019A86BEA00602A2C /* Deck1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck1.h; sourceTree = "<group>"; };
@@ -1381,6 +1384,8 @@
 				0FDCA49918CACFC2003459F8 /* AppDelegate.h */,
 				0FDCA49A18CACFC2003459F8 /* AppDelegate.m */,
 				0FB4BC441961138E00794B92 /* Main.storyboard */,
+				0FF2EFA119C72B8200C36C72 /* FirstViewController.h */,
+				0FF2EFA219C72B8200C36C72 /* FirstViewController.m */,
 				0FDCA49F18CACFC2003459F8 /* ViewController.h */,
 				0FDCA4A018CACFC2003459F8 /* ViewController.m */,
 				0FDB980A18CB59B800C7566E /* BattleScreenViewController.h */,
@@ -2158,6 +2163,7 @@
 				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0F6EB4731916B2E400BD0E41 /* SBJsonParser.m in Sources */,
 				0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */,
+				0FF2EFA319C72B8200C36C72 /* FirstViewController.m in Sources */,
 				0F6EB4761916B2E400BD0E41 /* SBJsonStreamParserAdapter.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,
 				0FC9687019C08901001C4793 /* GikoGikoWaintngViewController.m in Sources */,

@@ -6,7 +6,8 @@
 //  Copyright (c) 2014年 秋乃雨弓. All rights reserved.
 //
 
-#import "ViewController.h"
+//#import "ViewController.h"
+#import "FirstViewController.h"
 #import "AppDelegate.h"
 #import "DeckViewController.h"
 #import "BattleCaliculate.h"

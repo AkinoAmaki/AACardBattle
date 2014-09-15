@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 秋乃雨弓. All rights reserved.
 //
 
-#import "ViewController.h"
+//#import "ViewController.h"
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
