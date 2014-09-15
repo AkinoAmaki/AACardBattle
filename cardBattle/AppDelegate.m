@@ -466,14 +466,11 @@
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
     
-//BEFORERELEASE: リリース前に元に戻す    //アプリ起動時に、アプリがディアクティベートしたことをサーバに連絡する
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                          selector:@selector(deactivate)
-//                                          name:UIApplicationDidFinishLaunchingNotification
-//                                          object:nil];
-    
-    
-    
+    //アプリ起動時に、アプリがディアクティベートしたことをサーバに連絡する
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                          selector:@selector(deactivate)
+                                          name:UIApplicationDidFinishLaunchingNotification
+                                          object:nil];
     
     //エラーで落ちた際に非アクティブとなったことをサーバに知らせるため、エラーが起きた際にそれを完治するハンドラを登録
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
@@ -518,13 +515,11 @@
     return tmpArray;
 }
 
--(int)getANewCard{
-    int getCardNumber;
+-(int)getANewCard :(int)getCardNumber{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    
-    
-    getCardNumber = (arc4random() % [cardList_cardName count]);
     NSLog(@"getCardNumber:%d",getCardNumber);
+    
+    
     
     //自分の持っているカードを全て呼び出し、新しく手に入れたカードを増やした上で保存する
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[user arrayForKey:@"myCards_ud"]];

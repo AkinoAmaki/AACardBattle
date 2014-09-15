@@ -17,6 +17,8 @@
 @synthesize enemyNickName;
 @synthesize syncFinish;
 @synthesize delegate;
+@synthesize isAEnemyNameForInternetBattle;
+@synthesize syncFinished2;
 
 
 //ネット対戦のためのbump
@@ -33,6 +35,7 @@
     [df setCalendar:cal];
     // タイムロケールをシステムロケールでセット（24時間表示のため）
     [df setLocale:[NSLocale systemLocale]];
+    
     // タイムスタンプ書式をセット
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     // 現在日時から文字列を生成
@@ -64,42 +67,33 @@
     [request setValue:[NSString stringWithFormat:@"%d",[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
-    NSURLResponse *response;
-    NSError *error;
-    NSData *result;
-    result= [NSURLConnection sendSynchronousRequest:request
-                                  returningResponse:&response
-                                              error:&error];
-    
-    //データがgetできなければ、警告を発する
-    if(error != nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-        [app deactivate];
-        [SVProgressHUD popActivity];
-    }
-    NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-    if([string hasPrefix:@"timeout"]){
-        [SVProgressHUD popActivity];
-        _notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"再度検索します" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！", nil];
-        [_notFoundForInternetBattle show];
-        [app deactivate];
-        [self sync];
-    }else{
-        [SVProgressHUD popActivity];
-        enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
-        enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
-        _isAEnemyNameForInternetBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"対戦相手が見つかりました！相手プレイヤーは %@ さんです",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [_isAEnemyNameForInternetBattle show];
-        [self sync];
-        [self.delegate battleStartForInternetBattle];
-    }
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *result, NSError *error) {
+        //データがgetできなければ、警告を発する
+        if(error != nil) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+            [app deactivate];
+        }
+        NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+        if([string hasPrefix:@"timeout"]){
+            _notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"再度検索します" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！", nil];
+            [_notFoundForInternetBattle show];
+            [app deactivate];
+            [self sync];
+        }else{
+            enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
+            enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
+            isAEnemyNameForInternetBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"対戦相手が見つかりました！相手プレイヤーは %@ さんです",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [self.delegate stopExploringAnimation];
+            //isAEnemyNameForInternetBattleのshowはデリゲート先で実装
+            [self sync];
+        }
+    }];
 }
 
 //ローカル対戦のためのbump
 - (void)bumpForLocalBattle
 {
-    
     // インスタンスの生成
     _motionManager = [[CMMotionManager alloc] init];
     if(_motionManager.deviceMotionAvailable){
@@ -381,36 +375,36 @@
             default:
                 break;
         }
-    }else if (alertView == _isAEnemyNameForInternetBattle){
+    }else if (alertView == isAEnemyNameForInternetBattle){
         switch (buttonIndex) {
             case 0:
             {
                 FINISHED2
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
-                NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-                GetEnemyDataFromServer *get = [[GetEnemyDataFromServer alloc] init];
-                app.decideAction = NO;
-                //相手の入力待ち(app.decideAction = YESとなれば先に進む)
-                while (!app.decideAction) {
-                    [get doEnemyDecideActionNonRoopVersion:YES];
-                }
-                [NSThread sleepForTimeInterval:0.5];
-                [get doEnemyDecideActionRoopVersion:NO];
+                app.battleStart = YES;
                 
-                [SVProgressHUD popActivity];
-                SendDataToServer *sendData = [[SendDataToServer alloc] init];
-                [sendData send];
+                [self performSelectorOnMainThread:@selector(test)
+                                       withObject:nil
+                                    waitUntilDone:NO];
+                NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
             }
                 break;
         }
     }
 }
 
+- (void)test{
+    // 通知する
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BattleStartPost"
+                                               object:self
+                                             userInfo:nil];
+}
+
 - (void)sync{
     syncFinished2 = NO;
     while (!syncFinished2) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
     }
 }
 

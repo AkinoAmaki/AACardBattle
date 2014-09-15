@@ -34,6 +34,7 @@
 
 
 //双方に関係する変数及び基礎的な変数
+@property BOOL battleStart; //対戦相手の検索が完了した場合TRUEとなる。
 @property int playerID; //プレイヤー固有のID
 @property int enemyPlayerID; //相手プレイヤーのID
 @property NSString *myNickName; //プレイヤーのニックネーム
@@ -260,7 +261,7 @@
 + (NSMutableArray *)shuffledArray :(NSMutableArray *)array;
 -(void)activate;
 -(void)deactivate;
-
+-(int)getANewCard :(int)getCardNumber;
 
 
 @end

@@ -21,6 +21,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "MBAnimationView.h"
+#import "CourseSelectViewController.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -40,6 +41,9 @@
 
 
 @interface BattleScreenViewController : BattleCaliculate<UIScrollViewDelegate,deviceMotionDelegate>{
+    
+    CourseSelectViewController *course;
+    NSNotificationCenter *battleStartNotification;
     
     int cardNumber;//今選択されているカードの番号(手札タッチ時にデータが格納される)
     int turnCount; //ターン数を管理
@@ -237,7 +241,8 @@
 @property UIAlertView *loseAlert;
 @property UIAlertView *winAlert;
 @property UIAlertView *drawAlert;
-@property UIAlertView *usingDeckCardList;
+@property UIAlertView *usingDeckCardListForInternetBattle;
+@property UIAlertView *usingDeckCardListForLocalBattle;
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
 
@@ -253,5 +258,8 @@
 @property(readonly) SystemSoundID cancelSoundID;
 @property(nonatomic,retain)AVAudioPlayer *audio;
 
+
+//対戦開始メソッド
+- (void)battleStart;
 
 @end

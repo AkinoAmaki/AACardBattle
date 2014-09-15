@@ -41,11 +41,21 @@
     return self;
 }
 
+- (void)viewDidLoad{
+    app = [[UIApplication sharedApplication] delegate];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    //app.battleStartがYESになったときに対戦開始する。app.battleStartは、DeviceMotionにおいてインターネット対戦の対戦相手が決まった際にYESとなる。
+    if(app.battleStart){
+        NSLog(@"対戦開始");
+        [self battleStartForInternetBattle];
+    }
+}
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    app = [[UIApplication sharedApplication] delegate];
     turnCount = 1;
     myDrawCount = 0;
     enemyDrawCount = 0;
@@ -506,8 +516,6 @@
     //--------------------------デバッグ用ボタンここまで-----------------------------
 }
 
-
-
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
 
 -(void)getACardForDebug{
@@ -515,23 +523,27 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    [self cardGettingAnimation:10];
+    int i = arc4random() % [app.cardList_cardName count];
+    [self cardGettingAnimation:i];
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    NSArray *arr = [[NSArray alloc] init];
-    NSLog(@"%@",[arr objectAtIndex:0]);
+
+    
 }
 
 
 - (void)debug3 :(UITapGestureRecognizer *)sender{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
-    [_usingDeckCardList show];
+    _usingDeckCardListForInternetBattle = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
+    [_usingDeckCardListForInternetBattle show];
     [self sync];
-    DeviceMotion *dev = [[DeviceMotion alloc] init];
-    dev.delegate = self;
-    [dev bumpForInternetBattle];
+    course = [[CourseSelectViewController alloc] init];
+    
+    // 通知センターにオブザーバ（通知を受け取るオブジェクト）を追加
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(battleStartForInternetBattle) name:@"BattleStartPost" object:nil];
+    
+    [self presentViewController:course animated:YES completion:nil];
 }
 
 //--------------------------デバッグ用ボタン実装ここまで-----------------------------
@@ -2931,18 +2943,13 @@
 - (void)battleStartForLocalBattle{
     //どのデッキを使用するかを選択する
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    _usingDeckCardList = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
-    [_usingDeckCardList show];
+    _usingDeckCardListForLocalBattle = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
+    [_usingDeckCardListForLocalBattle show];
     [self sync];
     
     _battleStartView = [[UIAlertView alloc] initWithTitle:@"戦闘開始" message:@"戦闘開始ボタンを押した後、相手プレイヤーと端末をぶつけてください！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始", nil];
     [_battleStartView show];
     [self sync]; //DeviceMotion.mの - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndexのif(alertView == _isAEnemyNameForLocalBattle)の[self.delegate syncFinished];でsyncを解除しています。
-    [getEnemyData doEnemyDecideActionRoopVersion:NO]; //対戦相手を見つける過程で、app.decideActionがYESになるため、デフォルトのNOに戻しておく
-    [self battleStart];
-}
-
-- (void)battleStartForInternetBattle{
     [getEnemyData doEnemyDecideActionRoopVersion:NO]; //対戦相手を見つける過程で、app.decideActionがYESになるため、デフォルトのNOに戻しておく
     [self battleStart];
 }
@@ -3934,8 +3941,45 @@
     }else if (alertView == _loseAlert){
         FINISHED1
         [self dismissViewControllerAnimated:YES completion:nil];
-    }else if (alertView == _usingDeckCardList){
+    }else if (alertView == _usingDeckCardListForLocalBattle){
         [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient]; //デッキ選択後に表示させると、SVProgressHUDの仕様により一瞬しか表示されないため、やむなくここで実装
+        app.myDeckCardList = [[NSMutableArray alloc] init];
+        switch (buttonIndex) {
+            case 0:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck1 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck1 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            case 1:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck2 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck2 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            case 2:
+                //デッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+                for (int i = 0; i < [app.myDeck3 count]; i++) {
+                    for (int j = 0; j < [[app.myDeck3 objectAtIndex:i] intValue]; j++) {
+                        [app.myDeckCardList addObject:[NSNumber numberWithInt:i]];
+                    }
+                }
+                FINISHED1
+                break;
+                
+            default:
+                break;
+        }
+        app.myDeckCardList = [AppDelegate shuffledArray:app.myDeckCardList];
+    }else if (alertView == _usingDeckCardListForInternetBattle){
         app.myDeckCardList = [[NSMutableArray alloc] init];
         switch (buttonIndex) {
             case 0:
@@ -5096,7 +5140,9 @@
     _allImageView.userInteractionEnabled = NO;
     backGround = [[UIImageView alloc] init];
     [backGround setBackgroundColor:[UIColor blackColor]];
-    backGround.image = [UIImage imageNamed:@"littleBlackBack.png"];
+    
+    NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"littleBlackBack" ofType:@"png"];
+    backGround.image = [UIImage imageWithContentsOfFile:backGroundImagePath];
     [_allImageView addSubview:backGround];
     backGround.frame = CGRectMake(0,0, backGround.superview.bounds.size.width, backGround.superview.bounds.size.height);
     effect1 = [[MBAnimationView alloc] init];
@@ -5144,30 +5190,47 @@
         
         //カード画像の表示
 
-        UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",cardNum]]];
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"card%d_M",cardNum] ofType:@"JPG"];
+        UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePath]];
         cardImage.frame = CGRectMake(0, 0, 200, 300);
         cardImage.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2 , [[UIScreen mainScreen] bounds].size.height / 2);
         [_cardUsingAnimationView addSubview:cardImage];
         
-        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back.png"]];
+        NSString *backButtonImagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"back"] ofType:@"png"];
+        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:backButtonImagePath]];
         skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, [[UIScreen mainScreen] bounds].size.height - 50, 50, 50);
         skipButton.userInteractionEnabled = YES;
         [skipButton addGestureRecognizer:
          [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(removeCardUsingAnimation)]];
+          initWithTarget:self action:@selector(removeCardGettingAnimation)]];
         [_cardUsingAnimationView addSubview:skipButton];
         
         [self.view addSubview:_cardUsingAnimationView];
         
-        [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
-            // アニメーションをする処理
-            
-        }
-                         completion:^(BOOL finished){
-                             
-                         }
-         ];
+        //カードを実際に手に入れる処理
+        [app getANewCard:cardNum];
     }];
+}
+
+-(void)removeCardGettingAnimation{
+    FINISHED1
+    NSLog(@"OK");
+    _allImageView.userInteractionEnabled = YES;
+    
+    for (UIView *view in backGround.subviews) {
+        [view removeFromSuperview];
+    }
+    [BattleScreenViewController releaseUIImageView:backGround];
+    [backGround removeFromSuperview];
+    
+    for (UIView *view in _cardUsingAnimationView.subviews) {
+        [view removeFromSuperview];
+    }
+    [BattleScreenViewController releaseUIImageView:_cardUsingAnimationView];
+    [_cardUsingAnimationView removeFromSuperview];
+    _allImageView.userInteractionEnabled = YES;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 + (void)releaseUIImageView:(UIImageView*)uiimgv {
@@ -5190,5 +5253,25 @@
     [app deactivate];
 }
 
+- (void)battleStartForInternetBattle{
+    app.battleStart = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    GetEnemyDataFromServer *get = [[GetEnemyDataFromServer alloc] init];
+    app.decideAction = NO;
+    //相手の入力待ち(app.decideAction = YESとなれば先に進む)
+    while (!app.decideAction) {
+        [get doEnemyDecideActionNonRoopVersion:YES];
+    }
+    [NSThread sleepForTimeInterval:0.5];
+    [get doEnemyDecideActionRoopVersion:NO]; //対戦相手を見つける過程で、app.decideActionがYESになるため、デフォルトのNOに戻しておく
+    
+    [SVProgressHUD popActivity];
+    SendDataToServer *sendData = [[SendDataToServer alloc] init];
+    [sendData send];
+    [course dismissViewControllerAnimated:YES completion:nil];
+    [self performSelectorOnMainThread:@selector(battleStart)
+                           withObject:nil
+                        waitUntilDone:NO];
+}
 
 @end

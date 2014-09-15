@@ -10,20 +10,18 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "DeviceMotion.h"
+#import "GetEnemyDataFromServer.h"
 #import "MBAnimationView.h"
 #import "CALayer+nnCALayer.h"
 #define FINISHED3 syncFinished = YES;
 
-@protocol WaitingForInternetBattleViewControllerDelegate <NSObject>
-
-// デリゲートメソッドを宣言
-// （宣言だけしておいて，実装はデリゲート先でしてもらう）
-- (void)dismissViewController;
-
-@end
 
 
-@interface WaitingForInternetBattleViewController : UIViewController{
+@interface WaitingForInternetBattleViewController : UIViewController<deviceMotionDelegate>{
+    AppDelegate *app;
+    NSUserDefaults *ud;
+    DeviceMotion *dev;
     MBAnimationView *gikoAnimationView;
     UIImageView *backgroundImageView1;
     UIImageView *backgroundImageView2;
@@ -34,15 +32,14 @@
     UITextView *walkingMeter; //ギコがカードゲットまでに必要な残り距離を表示する
     int allWalkingTime; //総待機時間を格納する
     int remainedWalkingTime; //カードゲットまでに必要な残り時間を格納する
-    NSUserDefaults *ud;
+    int gettingCardNumber; //ゲットしたカードナンバーを格納する
     UIAlertView *walkingStartAlertView; //待機開始時に出すアラートビュー
     UIAlertView *getACardAlertView; //カードゲット時に出すアラートビュー
     NSTimer *timer;//宝箱を開けるアニメーションを待つためのタイマー
     UIButton *stopExplorationButton; //探索を中止するボタン
+    BOOL stopWalking; //対戦相手が見つかったか、探索を中止した際にYESとなる
 }
 
-// デリゲート先で参照できるようにするためプロパティを定義しておく
-@property (nonatomic, assign) id<WaitingForInternetBattleViewControllerDelegate> delegate;
-
+@property (nonatomic, assign) int course;//コース番号を格納する（CourseSelectViewControllerにて最初にデータ格納）
 
 @end

@@ -14,7 +14,7 @@
 @end
 
 @implementation WaitingForInternetBattleViewController
-@synthesize delegate;
+@synthesize course;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    app = [[UIApplication sharedApplication] delegate];
+    
+    //探索開始時にstopWalkingをNOにしておく
+    stopWalking = NO;
     
     //探索中止ボタンの実装
     stopExplorationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -56,8 +61,32 @@
     gikoAnimationView.animationDuration = 2;
     gikoAnimationView.animationRepeatCount = 0;
     
-    backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
-    backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+    //選択したコースごとに背景画像を用意する
+    switch (course) {
+        case 1:
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            break;
+        case 2:
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"glayBack"]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackBack"]];
+            break;
+        case 3:
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            break;
+        case 4:
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            break;
+        case 5:
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+            break;
+        default:
+            break;
+    }
+    
     backgroundImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     backgroundImageView2.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     
@@ -65,11 +94,14 @@
     cardBox_closed.image = [UIImage imageNamed:@"cardBox_closed"];
     
     
-    cardImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"card100_M.JPG"]];
+    gettingCardNumber = arc4random() % [app.cardList_cardName count];
+    NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"card%d_M",gettingCardNumber] ofType:@"JPG"];
+    cardImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
     cardImageView.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 16, 60, 32, 48);
 
     walkingMeter = [[UITextView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 100, 40, 80, 40)];
-    
+    walkingMeter.editable = NO;
+    walkingMeter.text = [NSString stringWithFormat:@"残り：%dｍ",(int)((remainedWalkingTime - 8) * 1.6)];
     
     getACardAlertView = [[UIAlertView alloc] initWithTitle:@"カード発見！" message:@"カードを発見しました！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"探索を再開する", nil];
     
@@ -82,7 +114,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any/ resources that can be recreated.
 }
 
 - (void)appearAnimationImage:(MBAnimationView *)animationView rect:(CGRect)rect duration:(float)duration repeatCount:(int)repeat{
@@ -114,6 +146,7 @@
     
     [self walkingTimeCaliculate];
     
+    //ギコの歩行アニメーション
     [gikoAnimationView startAnimating];
     
     //2枚の背景を次々にアニメーションさせて背景の動きを実現する
@@ -142,7 +175,7 @@
      ];
     
     //カードゲット時間に到達したあとの処理
-    [UIView animateWithDuration:8.0f delay:remainedWalkingTime - 2
+    [UIView animateWithDuration:8.0f delay:remainedWalkingTime - 16
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          // アニメーションをする処理
@@ -165,31 +198,36 @@
     if(alertView == walkingStartAlertView){
         [self startAnimation];
     }else if (alertView == getACardAlertView){
-        remainedWalkingTime = arc4random() % 21 + 30; //探索秒数は30秒〜50秒の間でランダム設定
-        [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
-        [ud synchronize];
-        NSLog(@"設定された探索秒数：%d秒",remainedWalkingTime);
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-- (void)walkingProcess{
-    while (remainedWalkingTime > 8) {
-        [NSThread sleepForTimeInterval:1.0];
-        remainedWalkingTime -= 1;
-        NSLog(@"%d", remainedWalkingTime);
+        [self setNewExploration];
     }
 }
 
 //アニメーションと並列してカードゲットの歩行時間計算を行う
 - (void)walkingTimeCaliculate{
+    //対戦相手の検索
+    dev = [[DeviceMotion alloc] init];
+    dev.delegate = self;
+    
+    [dev bumpForInternetBattle];
     //アニメーションと並列処理で歩行時間を計測する
     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t q_main   = dispatch_get_main_queue();
     dispatch_async(q_global, ^{
         
-        [self walkingProcess];
-        
+        //残り距離数の更新
+        while (remainedWalkingTime > 8) {
+            if(stopWalking == YES){
+                break;
+            }else{
+                [NSThread sleepForTimeInterval:1.0];
+                remainedWalkingTime -= 1;
+                
+                //残り距離数の更新
+                [self performSelectorOnMainThread:@selector(setWalkingMeter)
+                                       withObject:nil
+                                    waitUntilDone:NO];
+            }
+        }
         dispatch_async(q_main, ^{
         });
     });
@@ -211,6 +249,8 @@
             }completion:^(BOOL finished){
                 //カードゲット(任意で「戻る」ボタンを押した時にはshowしないようにしておく)
                 if (getACardAlertView != nil) {
+                    //Timer 設定(0.5秒設定）
+                    [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(dismissGetACardAlertView:) userInfo:getACardAlertView repeats:NO];
                     [getACardAlertView show];
                 }
             }
@@ -220,12 +260,50 @@
 }
 
 - (void)stopExploration{
+    stopWalking = YES;
     getACardAlertView = nil;
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
+    
     [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
+
+- (void)setWalkingMeter{
+    walkingMeter.text = [NSString stringWithFormat:@"残り：%dｍ",(int)((remainedWalkingTime - 8) * 1.6)];
+    NSLog(@"残り：%d秒",remainedWalkingTime - 8);
+}
+
+//deviceMotionDelegateのdelegateを実装
+- (void)stopExploringAnimation{
+    [self stopExploration];
+    [self performSelectorOnMainThread:@selector(alertShow)
+                           withObject:nil
+                        waitUntilDone:NO];
+}
+
+
+- (void)alertShow{
+    [dev.isAEnemyNameForInternetBattle show];
+    
+}
+
+- (void)dismissGetACardAlertView:(NSTimer *)theTimer{
+    NSLog(@"okokok");
+    UIAlertView *alertView = [theTimer userInfo];
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    [self setNewExploration];
+}
+
+-(void)setNewExploration{
+    [app getANewCard:gettingCardNumber];
+    remainedWalkingTime = arc4random() % 21 + 30; //探索秒数は30秒〜50秒の間でランダム設定
+    [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
+    [ud synchronize];
+    NSLog(@"設定された探索秒数：%d秒",remainedWalkingTime);
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

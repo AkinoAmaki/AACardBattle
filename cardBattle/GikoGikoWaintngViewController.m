@@ -13,6 +13,7 @@
 @end
 
 @implementation GikoGikoWaintngViewController
+@synthesize course;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     waiting = [[WaitingForInternetBattleViewController alloc] init];
+    waiting.course = self.course;
     [NSThread sleepForTimeInterval:1.0];
     [self presentViewController:waiting animated:YES completion:nil];
 }
@@ -44,6 +46,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)sync{
+    syncFinished = NO;
+    while (!syncFinished) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView == usingDeckCardList){
+        FINISHED
+    }
+}
+
 
 /*
 #pragma mark - Navigation

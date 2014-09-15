@@ -17,16 +17,18 @@
 #define FINISHED2 syncFinished2 = YES;
 
 
-@protocol deviceMotionDelegate <NSObject>
+@protocol deviceMotionDelegate<NSObject>
 
 - (void)syncFinished;
-- (void)battleStartForInternetBattle;
+- (void)stopExploringAnimation;
+
 
 @end
 @interface DeviceMotion :NSObject<CLLocationManagerDelegate, UITextFieldDelegate>{
     AppDelegate *app;
-    BOOL syncFinished2; //同期処理において、対象の被待機処理が完了したかを管理する
+
 }
+@property BOOL syncFinished2; //同期処理において、対象の被待機処理が完了したかを管理する
 @property NSString *dateString;
 @property int enemyPlayerID;
 @property NSString *enemyNickName;

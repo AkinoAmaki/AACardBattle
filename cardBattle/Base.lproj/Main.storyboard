@@ -95,10 +95,10 @@
             </objects>
             <point key="canvasLocation" x="827" y="331"/>
         </scene>
-        <!--Giko Giko Waintng View Controller-->
+        <!--Course Select View Controller-->
         <scene sceneID="di7-l0-880">
             <objects>
-                <viewController id="FEW-T3-JBE" customClass="GikoGikoWaintngViewController" sceneMemberID="viewController">
+                <viewController id="FEW-T3-JBE" customClass="CourseSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aCU-R4-dTp"/>
                         <viewControllerLayoutGuide type="bottom" id="9F6-ch-HNf"/>

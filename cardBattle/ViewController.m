@@ -43,25 +43,29 @@
         [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
     
-    //!!!デバッグ用
+    UIButton *battleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    battleButton.frame = CGRectMake(40, 30, 80, 20);
+    [battleButton setTitle:@"対戦" forState:UIControlStateNormal];
+    [[self view] addSubview:battleButton];
+    [battleButton addTarget:self action:@selector(battleButtonPushed)
+           forControlEvents:UIControlEventTouchUpInside];
     
-//    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    debug2Button.frame = CGRectMake(40, 30, 80, 20);
-//    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
-//    [[self view] addSubview:debug2Button];
-//    [debug2Button addTarget:self action:@selector(debug2:)
-//           forControlEvents:UIControlEventTouchUpInside];
-//    
-//    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    debug3Button.frame = CGRectMake(40, 60, 80, 20);
-//    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
-//    [[self view] addSubview:debug3Button];
-//    [debug3Button addTarget:self action:@selector(debug3:)
-//           forControlEvents:UIControlEventTouchUpInside];
-    
-    //!!!デバッグ用
+    UIButton *deckButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    deckButton.frame = CGRectMake(40, 60, 80, 20);
+    [deckButton setTitle:@"デッキ" forState:UIControlStateNormal];
+    [[self view] addSubview:deckButton];
+    [deckButton addTarget:self action:@selector(deckButtonPushed)
+           forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)battleButtonPushed{
     
 }
+
+
+- (void)deckButtonPushed{
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -250,6 +254,7 @@
     
 #pragma mark- 対戦に関連する各種数値の初期化
     
+    appdelegate.battleStart = NO;
     appdelegate.myHand = [[NSMutableArray alloc] init]; //自分の手札
     appdelegate.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     appdelegate.myFieldCard = [[NSMutableArray alloc] initWithObjects:nil]; //自分の場カードのカードナンバー
@@ -437,7 +442,7 @@
     appdelegate.enemyDamageFromCard = 0;
     appdelegate.enemySelectColor = -1; //相手が選んだ色
     appdelegate.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
-    
+
     NSLog(@"初期化完了");
 }
 

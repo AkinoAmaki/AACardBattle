@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WaitingForInternetBattleViewController.h"
-
+#define FINISHED syncFinished = YES;
 
 /*
  
@@ -23,11 +23,12 @@
  */
 
 
-
-
-
 @interface GikoGikoWaintngViewController : UIViewController{
     WaitingForInternetBattleViewController *waiting;
+    UIAlertView *usingDeckCardList;
+    BOOL syncFinished;
 }
+
+@property (nonatomic,assign) int course; //コース番号を格納し、WaitingForInternetBattleViewControllerに引き渡す（CourseSelectViewControllerにて最初にデータ格納）
 
 @end

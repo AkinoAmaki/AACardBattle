@@ -253,6 +253,7 @@
 		0FC9686819BDF5E1001C4793 /* CALayer+nnCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */; };
 		0FC9686A19BF1449001C4793 /* cardBox_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9686919BF1449001C4793 /* cardBox_closed.png */; };
 		0FC9687019C08901001C4793 /* GikoGikoWaintngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */; };
+		0FC9687319C14C8F001C4793 /* CourseSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9687219C14C8E001C4793 /* CourseSelectViewController.m */; };
 		0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */; };
 		0FD1D9FE18DF22AB00E03D23 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD1D9FD18DF22AB00E03D23 /* library.png */; };
 		0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDB97F618CAD30200C7566E /* CoreLocation.framework */; };
@@ -734,6 +735,8 @@
 		0FC9686919BF1449001C4793 /* cardBox_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBox_closed.png; sourceTree = "<group>"; };
 		0FC9686E19C08901001C4793 /* GikoGikoWaintngViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GikoGikoWaintngViewController.h; sourceTree = "<group>"; };
 		0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GikoGikoWaintngViewController.m; sourceTree = "<group>"; };
+		0FC9687119C14C8E001C4793 /* CourseSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseSelectViewController.h; sourceTree = "<group>"; };
+		0FC9687219C14C8E001C4793 /* CourseSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseSelectViewController.m; sourceTree = "<group>"; };
 		0FD1D9FB18DEB87A00E03D23 /* border_middleCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_middleCard.png; sourceTree = "<group>"; };
 		0FD1D9FD18DF22AB00E03D23 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		0FDB97F618CAD30200C7566E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1396,6 +1399,8 @@
 				0FF5B3AE19A86BD000602A2C /* Deck2.m */,
 				0FF5B3E619A8F55800602A2C /* Deck3.h */,
 				0FF5B3E719A8F55800602A2C /* Deck3.m */,
+				0FC9687119C14C8E001C4793 /* CourseSelectViewController.h */,
+				0FC9687219C14C8E001C4793 /* CourseSelectViewController.m */,
 				0FC9686E19C08901001C4793 /* GikoGikoWaintngViewController.h */,
 				0FC9686F19C08901001C4793 /* GikoGikoWaintngViewController.m */,
 				0FC9685C19BD5B34001C4793 /* WaitingForInternetBattleViewController.h */,
@@ -2142,6 +2147,7 @@
 				0F9E64AA1965067A00AA5BE4 /* DQView.m in Sources */,
 				0F6EB44A190E019000BD0E41 /* DeviceMotion.m in Sources */,
 				0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */,
+				0FC9687319C14C8F001C4793 /* CourseSelectViewController.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */,
 				0F6EB47C1916B2E400BD0E41 /* SBJsonUTF8Stream.m in Sources */,
