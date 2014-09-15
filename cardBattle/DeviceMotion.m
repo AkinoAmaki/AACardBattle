@@ -18,8 +18,17 @@
 @synthesize syncFinish;
 @synthesize delegate;
 @synthesize isAEnemyNameForInternetBattle;
+@synthesize exploringFinished;
 @synthesize syncFinished2;
 
+- (id)init
+{
+    if (self = [super init]) {
+        // 初期処理
+        exploringFinished = NO;
+    }
+    return self;
+}
 
 //ネット対戦のためのbump
 - (void)bumpForInternetBattle{
@@ -68,6 +77,10 @@
     [request setHTTPBody: requestData];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *result, NSError *error) {
+        if(exploringFinished){
+            return;
+        }
+        
         //データがgetできなければ、警告を発する
         if(error != nil) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -84,11 +97,20 @@
             enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
             enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
             isAEnemyNameForInternetBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"対戦相手が見つかりました！相手プレイヤーは %@ さんです",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [self.delegate stopExploringAnimation];
+            [self performSelectorOnMainThread:@selector(stopExploring)
+                                   withObject:nil
+                                waitUntilDone:NO];
             //isAEnemyNameForInternetBattleのshowはデリゲート先で実装
             [self sync];
         }
     }];
+}
+
+- (void)stopExploring{
+    // 通知する
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopExploringAnimation"
+                                                        object:self
+                                                      userInfo:nil];
 }
 
 //ローカル対戦のためのbump
@@ -384,7 +406,7 @@
                 app.enemyPlayerID = enemyPlayerID;
                 app.battleStart = YES;
                 
-                [self performSelectorOnMainThread:@selector(test)
+                [self performSelectorOnMainThread:@selector(BattleStartPost)
                                        withObject:nil
                                     waitUntilDone:NO];
                 NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
@@ -394,7 +416,7 @@
     }
 }
 
-- (void)test{
+- (void)BattleStartPost{
     // 通知する
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BattleStartPost"
                                                object:self

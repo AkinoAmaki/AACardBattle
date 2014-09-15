@@ -28,6 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"notification:on");
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopExploringAnimation)
+                                                 name:@"stopExploringAnimation"
+                                               object:nil];
 
     app = [[UIApplication sharedApplication] delegate];
     
@@ -108,7 +113,12 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    
     [self startAnimation];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,6 +155,11 @@
     [self.view addSubview:stopExplorationButton];
     
     [self walkingTimeCaliculate];
+    
+    //対戦相手の検索
+    dev = [[DeviceMotion alloc] init];
+    dev.delegate = self;
+    [dev bumpForInternetBattle];
     
     //ギコの歩行アニメーション
     [gikoAnimationView startAnimating];
@@ -188,6 +203,7 @@
                          [backgroundImageView2.layer pauseAnimation:YES];
                          [self.view addSubview:cardBoxAnimationView];
                          [cardBoxAnimationView startAnimating];
+                         dev.exploringFinished = YES;
                          timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self
                                                                 selector:@selector(onTimer:) userInfo:nil repeats:NO];
                      }
@@ -204,11 +220,6 @@
 
 //アニメーションと並列してカードゲットの歩行時間計算を行う
 - (void)walkingTimeCaliculate{
-    //対戦相手の検索
-    dev = [[DeviceMotion alloc] init];
-    dev.delegate = self;
-    
-    [dev bumpForInternetBattle];
     //アニメーションと並列処理で歩行時間を計測する
     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t q_main   = dispatch_get_main_queue();
@@ -260,6 +271,8 @@
 }
 
 - (void)stopExploration{
+    NSLog(@"notification:off");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     stopWalking = YES;
     getACardAlertView = nil;
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
@@ -278,19 +291,10 @@
 //deviceMotionDelegateのdelegateを実装
 - (void)stopExploringAnimation{
     [self stopExploration];
-    [self performSelectorOnMainThread:@selector(alertShow)
-                           withObject:nil
-                        waitUntilDone:NO];
-}
-
-
-- (void)alertShow{
     [dev.isAEnemyNameForInternetBattle show];
-    
 }
 
 - (void)dismissGetACardAlertView:(NSTimer *)theTimer{
-    NSLog(@"okokok");
     UIAlertView *alertView = [theTimer userInfo];
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
     [self setNewExploration];
@@ -301,7 +305,7 @@
     remainedWalkingTime = arc4random() % 21 + 30; //探索秒数は30秒〜50秒の間でランダム設定
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
-    NSLog(@"設定された探索秒数：%d秒",remainedWalkingTime);
+    NSLog(@"設定された探索秒数：%d秒",remainedWalkingTime - 8 );
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

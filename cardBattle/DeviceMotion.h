@@ -28,6 +28,7 @@
     AppDelegate *app;
 
 }
+@property BOOL exploringFinished; //探索が完了していたらYESを格納する
 @property BOOL syncFinished2; //同期処理において、対象の被待機処理が完了したかを管理する
 @property NSString *dateString;
 @property int enemyPlayerID;
