@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432402643.474856"
+            timestampString = "432748672.642696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4736"
-            endingLineNumber = "4736"
-            landmarkName = "-normalSelector:"
+            startingLineNumber = "5169"
+            endingLineNumber = "5169"
+            landmarkName = "-discardMultiCardsFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432402643.474856"
+            timestampString = "432744865.436609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -66,12 +66,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432402643.474856"
+            timestampString = "432744865.436609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
-            landmarkName = "-debug2:"
+            startingLineNumber = "927"
+            endingLineNumber = "927"
+            landmarkName = "-getACardForDebug"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -128,12 +128,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/DeviceMotion.m"
-            timestampString = "432487967.565087"
+            timestampString = "432532221.063286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "-stopExploring"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-stopExploringAnimation"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -144,11 +144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/DeviceMotion.m"
-            timestampString = "432487967.565087"
+            timestampString = "432532221.063286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
             <Locations>
@@ -190,11 +190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/DeviceMotion.m"
-            timestampString = "432453502.238399"
+            timestampString = "432531964.201337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "-bumpForInternetBattle"
             landmarkType = "5">
          </BreakpointContent>

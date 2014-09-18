@@ -589,7 +589,10 @@ void uncaughtExceptionHandler(NSException *exception) {
         NSLog(@"再度get処理実行中...");
         if(loop == 20){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通信不能" message:@"通信できませんでした。電波が弱いか、サーバが応答していません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [alert show];
+            });
             [SVProgressHUD popActivity];
             return;
         }

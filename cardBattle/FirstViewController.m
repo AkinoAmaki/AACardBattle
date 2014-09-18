@@ -39,12 +39,12 @@
 }
 
 - (void)moveToMainView{
-    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
+//    [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
     [self performSelector:@selector(moveToMainView2) withObject:nil afterDelay:0.1];
 }
 
 - (void)moveToMainView2{
-    [self deactivate];
+//    [self deactivate];
     [self performSegueWithIdentifier:@"goToMainView" sender:self];
 }
 
@@ -105,8 +105,7 @@
                                       returningResponse:&response
                                                   error:&error];
         NSLog(@"再度get処理実行中...");
-        if(loop == 3){
-            NSLog(@"are");
+        if(loop == 10){
             [SVProgressHUD popActivity];
             notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"通信不能" message:@"通信できませんでした。電波が弱いか、サーバが応答していません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [notFoundForInternetBattle show];
@@ -129,7 +128,6 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView == notFoundForInternetBattle){
-        NSLog(@"ok");
         FINISHED1
         if(activateOrDeactivate){
             [self activate];

@@ -41,6 +41,7 @@
 @property UIAlertView *notFoundForLocalBattle; //相手プレイヤーが見つからなかった際のアラートビュー(ローカル対戦)
 @property UIAlertView *notFoundForInternetBattle; //相手プレイヤーが見つからなかった際のアラートビュー(ネット対戦)
 @property UIAlertView *feedAEnemyID; //相手プレイヤーのIDを指定して検索する際のアラートビュー
+@property UIAlertView *errorAlert; //相手プレイヤーの検索でエラーが発生した際のアラートビュー
 @property UITextField *enemyIDField; //相手プレイヤーのIDを指定して検索する際のアラートビュー内のテキストフィールド
 @property BOOL syncFinish; //同期処理において、対象の被待機処理が完了したかを管理する
 @property (nonatomic)CMMotionManager *motionManager;

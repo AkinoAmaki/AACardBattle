@@ -20,6 +20,7 @@
 @synthesize isAEnemyNameForInternetBattle;
 @synthesize exploringFinished;
 @synthesize syncFinished2;
+@synthesize errorAlert;
 
 - (id)init
 {
@@ -83,8 +84,10 @@
         
         //データがgetできなければ、警告を発する
         if(error != nil) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
+            errorAlert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [self performSelectorOnMainThread:@selector(stopExploringForExcemption)
+                                   withObject:nil
+                                waitUntilDone:NO];
             [app deactivate];
         }
         NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
@@ -97,7 +100,7 @@
             enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
             enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
             isAEnemyNameForInternetBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"対戦相手が見つかりました！相手プレイヤーは %@ さんです",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [self performSelectorOnMainThread:@selector(stopExploring)
+            [self performSelectorOnMainThread:@selector(stopExploringAnimation)
                                    withObject:nil
                                 waitUntilDone:NO];
             //isAEnemyNameForInternetBattleのshowはデリゲート先で実装
@@ -106,9 +109,16 @@
     }];
 }
 
-- (void)stopExploring{
+- (void)stopExploringAnimation{
     // 通知する
     [[NSNotificationCenter defaultCenter] postNotificationName:@"stopExploringAnimation"
+                                                        object:self
+                                                      userInfo:nil];
+}
+
+- (void)stopExploringForExcemption{
+    // 通知する
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopExploringForExcemption"
                                                         object:self
                                                       userInfo:nil];
 }

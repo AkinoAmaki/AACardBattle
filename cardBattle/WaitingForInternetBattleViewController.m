@@ -33,6 +33,10 @@
                                              selector:@selector(stopExploringAnimation)
                                                  name:@"stopExploringAnimation"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopExploringAnimation)
+                                                 name:@"stopExploringForExcemption"
+                                               object:nil];
 
     app = [[UIApplication sharedApplication] delegate];
     
@@ -292,6 +296,11 @@
 - (void)stopExploringAnimation{
     [self stopExploration];
     [dev.isAEnemyNameForInternetBattle show];
+}
+
+- (void)stopExploringForExcemption{
+    [self stopExploration];
+    [dev.errorAlert show];
 }
 
 - (void)dismissGetACardAlertView:(NSTimer *)theTimer{
