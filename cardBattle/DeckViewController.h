@@ -11,13 +11,14 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <QuartzCore/QuartzCore.h>
+#import "NADView.h"
 #define IMGWIDTH  150
 #define IMGHEIGHT 225
 #define NUMBEROFIMAGEINRAW 2 //デッキ作成画面において、一列に入るアイコン数
 #define NUMBEROFCARDS 156 //カードの総種類数
 
 
-@interface DeckViewController : UIViewController{
+@interface DeckViewController : UIViewController<NADViewDelegate>{
     AppDelegate *app;
     UIImageView *allImage;
     UIScrollView *scrollView;
@@ -45,6 +46,7 @@
 @property NSMutableArray *selectedCards;
 @property NSMutableArray *isSelectedCards;
 @property UIImageView *detailOfACard;
+@property (nonatomic, retain) NADView * nadView; //広告枠の設置
 
 - (IBAction)returnToMainView:(id)sender;
 - (void)cardSelectCancelButtonPushed;

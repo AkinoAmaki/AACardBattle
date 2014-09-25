@@ -276,6 +276,11 @@
 		0FDCA4B418CACFC2003459F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */; };
 		0FDCA4B618CACFC2003459F8 /* cardBattleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */; };
 		0FF2EFA319C72B8200C36C72 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EFA219C72B8200C36C72 /* FirstViewController.m */; };
+		0FF2EFAC19D11E7700C36C72 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF2EFA519D11E7700C36C72 /* libNendAd.a */; };
+		0FF2EFAD19D11E7700C36C72 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EFAB19D11E7700C36C72 /* NADView_readme.txt */; };
+		0FF2EFAF19D11EAC00C36C72 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF2EFAE19D11EAC00C36C72 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0FF2EFB119D11EB900C36C72 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF2EFB019D11EB900C36C72 /* Security.framework */; };
+		0FF2EFB319D11EC000C36C72 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF2EFB219D11EC000C36C72 /* ImageIO.framework */; };
 		0FF5B3AF19A86BD000602A2C /* Deck2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3AE19A86BD000602A2C /* Deck2.m */; };
 		0FF5B3B219A86BEA00602A2C /* Deck1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B119A86BEA00602A2C /* Deck1.m */; };
 		0FF5B3B519A8799A00602A2C /* DeckTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5B3B419A8799A00602A2C /* DeckTabBarController.m */; };
@@ -771,6 +776,16 @@
 		0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cardBattleTests.m; sourceTree = "<group>"; };
 		0FF2EFA119C72B8200C36C72 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		0FF2EFA219C72B8200C36C72 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		0FF2EFA519D11E7700C36C72 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
+		0FF2EFA619D11E7700C36C72 /* NADIconArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconArrayView.h; sourceTree = "<group>"; };
+		0FF2EFA719D11E7700C36C72 /* NADIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconLoader.h; sourceTree = "<group>"; };
+		0FF2EFA819D11E7700C36C72 /* NADIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconView.h; sourceTree = "<group>"; };
+		0FF2EFA919D11E7700C36C72 /* NADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADInterstitial.h; sourceTree = "<group>"; };
+		0FF2EFAA19D11E7700C36C72 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
+		0FF2EFAB19D11E7700C36C72 /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
+		0FF2EFAE19D11EAC00C36C72 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0FF2EFB019D11EB900C36C72 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0FF2EFB219D11EC000C36C72 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0FF5B3AD19A86BD000602A2C /* Deck2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck2.h; sourceTree = "<group>"; };
 		0FF5B3AE19A86BD000602A2C /* Deck2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck2.m; sourceTree = "<group>"; };
 		0FF5B3B019A86BEA00602A2C /* Deck1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck1.h; sourceTree = "<group>"; };
@@ -953,11 +968,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FF2EFB319D11EC000C36C72 /* ImageIO.framework in Frameworks */,
+				0FF2EFB119D11EB900C36C72 /* Security.framework in Frameworks */,
+				0FF2EFAF19D11EAC00C36C72 /* AdSupport.framework in Frameworks */,
 				0F9E650A196E90D500AA5BE4 /* AudioToolbox.framework in Frameworks */,
 				0F9E64B3196E44FD00AA5BE4 /* AVFoundation.framework in Frameworks */,
 				0F6EB44E1915EAD100BD0E41 /* QuartzCore.framework in Frameworks */,
 				0FB4BC43195F0EB100794B92 /* GameKit.framework in Frameworks */,
 				0F6EB3C2190CC72A00BD0E41 /* CoreMotion.framework in Frameworks */,
+				0FF2EFAC19D11E7700C36C72 /* libNendAd.a in Frameworks */,
 				0FDB97F718CAD30200C7566E /* CoreLocation.framework in Frameworks */,
 				0FDCA48D18CACFC2003459F8 /* CoreGraphics.framework in Frameworks */,
 				0FDCA48F18CACFC2003459F8 /* UIKit.framework in Frameworks */,
@@ -1363,6 +1382,9 @@
 		0FDCA48918CACFC2003459F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FF2EFB219D11EC000C36C72 /* ImageIO.framework */,
+				0FF2EFB019D11EB900C36C72 /* Security.framework */,
+				0FF2EFAE19D11EAC00C36C72 /* AdSupport.framework */,
 				0F9E64B2196E44FD00AA5BE4 /* AVFoundation.framework */,
 				0F9E64B0196E444200AA5BE4 /* AudioToolbox.framework */,
 				0FB4BC42195F0EB100794B92 /* GameKit.framework */,
@@ -1424,6 +1446,7 @@
 				0F1699D51999001D00221D19 /* MBAnimationView.m */,
 				0FC9686619BDF5E1001C4793 /* CALayer+nnCALayer.h */,
 				0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */,
+				0FF2EFA419D11E7700C36C72 /* NendAd */,
 				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
 				0F6EB44F1915EB1700BD0E41 /* SVProgressHUD.bundle */,
@@ -1465,6 +1488,20 @@
 				0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0FF2EFA419D11E7700C36C72 /* NendAd */ = {
+			isa = PBXGroup;
+			children = (
+				0FF2EFA519D11E7700C36C72 /* libNendAd.a */,
+				0FF2EFA619D11E7700C36C72 /* NADIconArrayView.h */,
+				0FF2EFA719D11E7700C36C72 /* NADIconLoader.h */,
+				0FF2EFA819D11E7700C36C72 /* NADIconView.h */,
+				0FF2EFA919D11E7700C36C72 /* NADInterstitial.h */,
+				0FF2EFAA19D11E7700C36C72 /* NADView.h */,
+				0FF2EFAB19D11E7700C36C72 /* NADView_readme.txt */,
+			);
+			path = NendAd;
 			sourceTree = "<group>";
 		};
 		0FF5B3BD19A8EECB00602A2C /* energy */ = {
@@ -1758,6 +1795,7 @@
 				0FF5B4CE19A9D9DA00602A2C /* card32_D.jpg in Resources */,
 				0FF5B4F319A9D9DB00602A2C /* card69_D.jpg in Resources */,
 				0F9F17A718F19BA8004E58BF /* yaruo.png in Resources */,
+				0FF2EFAD19D11E7700C36C72 /* NADView_readme.txt in Resources */,
 				0F169C40199A555F00221D19 /* card92_M.JPG in Resources */,
 				0FF5B4AC19A9D9DA00602A2C /* card140_D.jpg in Resources */,
 				0F169C1C199A555F00221D19 /* card59_M.JPG in Resources */,
@@ -2303,6 +2341,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "cardBattle/cardBattle-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cardBattle/NendAd",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2319,6 +2361,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cardBattle/cardBattle-Prefix.pch";
 				INFOPLIST_FILE = "cardBattle/cardBattle-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cardBattle/NendAd",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

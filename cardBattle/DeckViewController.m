@@ -91,6 +91,30 @@
     cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
     AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
     CFRelease (cancelSoundURL);
+    
+    
+    //広告枠の設置
+    //  NADViewの作成
+    self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 98, 320, 50)];
+    //  ログ出力の指定
+    [self.nadView setIsOutputLog:NO];
+    //  set apiKey, spotId.
+    [self.nadView setNendID:@"64f46c33e622b9615a35dd87e3f8e3ea83a8e731"
+                     spotID:@"237828"];
+    //　デリゲートの設定
+    [self.nadView setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    //広告の停止
+    NSLog(@"広告を停止しました");
+    [self.nadView pause];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    //広告の再開
+    NSLog(@"広告を開始しました");
+    [self.nadView resume];
 }
 
 - (void) touchAction: (UITapGestureRecognizer *)sender{
@@ -210,7 +234,53 @@
     [allImage addSubview:imgView];
 }
 
+-(void)nadViewDidFinishLoad:(NADView *)adView {
+    NSLog(@"delegate nadViewDidFinishLoad:広告が読み込まれました");
+}
 
+-(void)nadViewDidReceiveAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidReceiveAd:広告受信に成功しました");
+}
+
+-(void)nadViewDidFailToReceiveAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidFailToLoad:");
+    // エラーごとに分岐する
+    NSError* error = adView.error;
+    NSString* domain = error.domain;
+    int errorCode = error.code;
+    // isOutputLog = NOでも、domain を利用してアプリ側で任意出力が可能
+    NSLog(@"log %d", adView.isOutputLog);
+    NSLog(@"%@",[NSString stringWithFormat: @"code=%d, message=%@",
+                 errorCode, domain]);
+    switch (errorCode) {
+        case NADVIEW_AD_SIZE_TOO_LARGE:
+            // 広告サイズがディスプレイサイズよりも大きい
+            NSLog(@"広告サイズがディスプレイサイズよりも大きい");
+            break;
+        case NADVIEW_INVALID_RESPONSE_TYPE:
+            // 不明な広告ビュータイプ
+            NSLog(@"不明な広告ビュータイプ");
+            break;
+        case NADVIEW_FAILED_AD_REQUEST:
+            // 広告取得失敗
+            NSLog(@"広告取得失敗(ネットワークエラー、サーバエラー、在庫切れなど)");
+            break;
+        case NADVIEW_FAILED_AD_DOWNLOAD:
+            // 広告画像の取得失敗
+            NSLog(@"広告画像の取得失敗");
+            break;
+        case NADVIEW_AD_SIZE_DIFFERENCES:
+            // リクエストしたサイズと取得したサイズが異なる
+            NSLog(@"リクエストしたサイズと取得したサイズが異なる");
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)nadViewDidClickAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidClickAd:広告がタップされました。但し、電波状況によってはサーバ側のカウントとは異なる可能性があります");
+}
 
 
 

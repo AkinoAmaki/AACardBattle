@@ -194,6 +194,9 @@
 @property UIImageView *myField;
 @property UIImageView *enemyField;
 
+//投了ボタン画像
+@property UIImageView *goodGame;
+
 //エネルギー表示
 @property UIImageView *myAllEnergy; //５色のエネルギーの画像とテキストをまとめる(自分)
 @property UIImageView *myWhiteEnergyImage; //白色のエネルギーの画像(自分)
@@ -244,6 +247,7 @@
 @property UIAlertView *drawAlert;
 @property UIAlertView *usingDeckCardListForInternetBattle;
 @property UIAlertView *usingDeckCardListForLocalBattle;
+@property UIAlertView *goodGameAlert;
 //カードの詳細画面を見る際のイメージビュー
 @property UIImageView *detailOfACard;
 

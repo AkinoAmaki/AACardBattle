@@ -200,6 +200,7 @@
                          // アニメーションをする処理
                          cardBox_closed.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 17, 80, 34, 64);
                      }completion:^(BOOL finished){
+                         NSLog(@"bbb");
                          cardBox_closed.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 8, [[UIScreen mainScreen] bounds].size.height * 2 + 80 , 17, 32);
                          [cardBox_closed removeFromSuperview];
                          [gikoAnimationView.layer pauseAnimation:YES];
@@ -281,7 +282,6 @@
     getACardAlertView = nil;
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
-    
     [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];

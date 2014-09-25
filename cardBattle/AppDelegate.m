@@ -440,7 +440,8 @@
     
     _cardList_type = [[NSArray alloc] initWithObjects: [NSNumber numberWithInt:0], energy,	energy,	energy,	energy,	energy,	sorcery,	field,	sorcery,	sorcery,	field,	field,	field,	field,	field,	field,	field,	field,	field,	field,	field,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	field,	field,	field,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	field,	sorcery,	field,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,	field,	field,	sorcery,	sorcery,	field,	field,	field,	field,	field,	sorcery,	sorcery,	sorcery,	sorcery,	sorcery,
  nil];
-    _cardList_cost = [[NSArray alloc] initWithObjects: @"null", @"0", @"0", @"0", @"0", @"0",@"W",	@"W2",	@"W",	@"W2",	@"W2",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W",	@"W",	@"W",	@"W2",	@"WW3",	@"WW2",	@"W5",	@"W4",	@"W",	@"W1",	@"W2",	@"W",	@"W1",	@"WW2",	@"W",	@"U1",	@"UU1",	@"UU2",	@"U",	@"U",	@"U",	@"U",	@"U",	@"U1",	@"UU",	@"UU3",	@"UU3",	@"UU1",	@"U2",	@"U",	@"U2",	@"U2",	@"U2",	@"U2",	@"U4",	@"U2",	@"U1",	@"U2",	@"U3",	@"U3",	@"U5",	@"U2",	@"UU",	@"UU3",	@"U1",	@"R",	@"RR2",	@"R2",	@"R4",	@"R",	@"R1",	@"R2",	@"R",	@"RR",	@"R1",	@"R3",	@"RR",	@"RR",	@"RR",	@"RR",	@"R1",	@"RR",	@"RR",	@"R4",	@"R1",	@"RRR4",	@"R1",	@"R1",	@"R1",	@"R1",	@"R1",	@"R2",	@"R",	@"R2",	@"RR3",	@"B",	@"B1",	@"B2",	@"B",	@"BB",	@"BB3",	@"B1",	@"B1",	@"BB",	@"BB2",	@"B1",	@"B1",	@"B1",	@"BB2",	@"B2",	@"BB2",	@"BB4",	@"B2",	@"BB2",	@"B1",	@"BBB5",	@"B",	@"B1",	@"BB2",	@"B1",	@"B",	@"BB3",	@"B3",	@"B1",	@"BB3",	@"G",	@"G3",	@"G",	@"G2",	@"G1",	@"G2",	@"G",	@"G2",	@"G3",	@"G1",	@"G4",	@"G1",	@"GG2",	@"G",	@"G1",	@"G2",	@"G1",	@"G2",	@"G1",	@"G1",	@"G",	@"GG1",	@"G",	@"G2",	@"G2",	@"G1",	@"G1",	@"G1",	@"GG2",	@"GGG3",
+    _cardList_cost = [[NSArray alloc] initWithObjects: @"null", @"0",	@"0",	@"0",	@"0",	@"W",	@"W2",	@"W",	@"W2",	@"W2",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W1",	@"W",	@"W",	@"W",	@"W2",	@"WW3",	@"WW2",	@"W5",	@"W4",	@"W",	@"W1",	@"W2",	@"W",	@"W1",	@"WW2",	@"W",	@"U1",	@"UU1",	@"UU2",	@"U",	@"U",	@"U",	@"U",	@"U",	@"U1",	@"UU",	@"UU3",	@"UU3",	@"UU1",	@"U2",	@"U",	@"U2",	@"U2",	@"U2",	@"U2",	@"U4",	@"U2",	@"U1",	@"U2",	@"U3",	@"U3",	@"U5",	@"U2",	@"UU",	@"UU3",	@"U1",	@"B",	@"BB2",	@"B2",	@"B4",	@"B",	@"B1",	@"B2",	@"B",	@"BB",	@"B1",	@"B3",	@"BB",	@"BB",	@"BB",	@"BB",	@"B1",	@"BB",	@"BB",	@"B4",	@"B1",	@"BBB4",	@"B1",	@"B1",	@"B1",	@"B1",	@"B1",	@"B2",	@"B",	@"B2",	@"BB3",	@"R",	@"R1",	@"R2",	@"R",	@"RR",	@"RR3",	@"R1",	@"R1",	@"RR",	@"RR2",	@"R1",	@"R1",	@"R1",	@"RR2",	@"R2",	@"RR2",	@"RR4",	@"R2",	@"RR2",	@"R1",	@"RRR5",	@"R",	@"R1",	@"RR2",	@"R1",	@"R",	@"RR3",	@"R3",	@"R1",	@"RR3",	@"G",	@"G3",	@"G",	@"G2",	@"G1",	@"G2",	@"G",	@"G2",	@"G3",	@"G1",	@"G4",	@"G1",	@"GG2",	@"G",	@"G1",	@"G2",	@"G1",	@"G2",	@"G1",	@"G1",	@"G",	@"GG1",	@"G",	@"G2",	@"G2",	@"G1",	@"G1",	@"G1",	@"GG2",	@"GGG3",
+
 
  nil];
     _cardList_color = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],
@@ -468,6 +469,12 @@
     
     //エラーで落ちた際に非アクティブとなったことをサーバに知らせるため、エラーが起きた際にそれを完治するハンドラを登録
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
+#pragma mark- インタースティシャル広告の設置
+    // NADInterstitialはシングルトンパターンで実装されています。
+    // 以下のように、sharedInstanceメッセージでインスタンスを取得できます。
+    [[NADInterstitial sharedInstance] loadAdWithApiKey:@"4f50c7eba45461939ee8c776be36a1e69e2380b7"
+                                                spotId:@"237834"];
     
     return YES;
 }

@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
@@ -20,28 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432748672.642696"
+            timestampString = "433080079.687417"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5169"
             endingLineNumber = "5169"
-            landmarkName = "-discardMultiCardsFromLibrarySelector:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432744865.436609"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "913"
-            endingLineNumber = "913"
-            landmarkName = "-viewWillAppear:"
+            landmarkName = "-discardACardFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -66,12 +50,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "432744865.436609"
+            timestampString = "433079867.282858"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "927"
-            endingLineNumber = "927"
-            landmarkName = "-getACardForDebug"
+            startingLineNumber = "928"
+            endingLineNumber = "928"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -82,11 +66,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/AppDelegate.m"
-            timestampString = "432482782.571447"
+            timestampString = "433137146.0597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
             landmarkName = "+shuffledArray:"
             landmarkType = "5">
             <Locations>
@@ -196,6 +180,22 @@
             startingLineNumber = "35"
             endingLineNumber = "35"
             landmarkName = "-bumpForInternetBattle"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cardBattle/BattleScreenViewController.m"
+            timestampString = "433080079.687417"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5386"
+            endingLineNumber = "5386"
+            landmarkName = "-selectUsingEnergy:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -43,19 +43,7 @@
 
 - (void)viewDidLoad{
     app = [[UIApplication sharedApplication] delegate];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    //app.battleStartがYESになったときに対戦開始する。app.battleStartは、DeviceMotionにおいてインターネット対戦の対戦相手が決まった際にYESとなる。
-    if(app.battleStart){
-        NSLog(@"対戦開始");
-        [self battleStartForInternetBattle];
-    }
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
+    
     turnCount = 1;
     myDrawCount = 0;
     enemyDrawCount = 0;
@@ -98,7 +86,7 @@
     detailOfACard = [[UIImageView alloc] init];
     detailOfACard.userInteractionEnabled = YES;
     [detailOfACard addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDetailOfACard)]];
-
+    
     
     
     
@@ -258,6 +246,17 @@
       initWithTarget:self action:@selector(enemyFieldTouched:)]];
     [_allImageView addSubview:_enemyField];
     
+    //投了ボタンを表示するビューを作成
+    _goodGame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"success"]];
+    _goodGame.userInteractionEnabled = YES;
+    [_goodGame addGestureRecognizer:
+     [[UITapGestureRecognizer alloc]
+      initWithTarget:self action:@selector(goodGameButtonTouched)]];
+    [_allImageView addSubview:_goodGame];
+    
+//    goodgameボタンのフレームを実装する。
+    
+    
     //エネルギーの数を表示するビューを作成
     //自分側
     _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
@@ -332,7 +331,6 @@
     _myUsingBlackEnergyText.textColor = [UIColor redColor];
     _myUsingRedEnergyText.textColor   = [UIColor redColor];
     _myUsingGreenEnergyText.textColor = [UIColor redColor];
-    
     
     [_allImageView addSubview: _myAllEnergy];
     
@@ -524,355 +522,355 @@
         _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
         
         _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
-//        _myCardImageViewArray = [[NSMutableArray alloc] init];
-//
-//        _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-//        _allImageView.userInteractionEnabled = YES;
-//
-//        _myCardImageView = [[UIImageView alloc] init];
-//        _myCardImageView.userInteractionEnabled = YES;
-//        [_allImageView addSubview:_myCardImageView];
-//        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
-//
-//        _enemyCardImageView = [[UIImageView alloc] init];
-//        _enemyCardImageView.userInteractionEnabled = YES;
-//        [_allImageView addSubview:_enemyCardImageView];
-//        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
-//
-//        _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
-//
-//        _backGroundView = [[UIImageView alloc] init];
-//        _backGroundView.userInteractionEnabled = YES;
-//        regionViewArray =[[NSMutableArray alloc] init];
-//        
-//        
-//        resultFadeinScrollView = [[UIScrollView alloc] init];
-//        resultFadeinScrollView.delegate = self;
-//        resultFadeinScrollView.userInteractionEnabled = YES;
-//        resultFadeinScrollView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 430, 240 , 350);
-//        [resultFadeinScrollView addSubview:_backGroundView];
-//        resultFadeinScrollView.bounces = NO;
-//        
-//        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440)];
-//        _colorView.image = [UIImage imageNamed:@"anime"];
-//        _colorView.userInteractionEnabled = YES;
-//        
-//        
-//        _okButton = [[UIButton alloc] init];
-//        [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
-//        [_allImageView addSubview:_okButton];
-//        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
-//        [_okButton addTarget:self action:@selector(okButtonPushed)
-//            forControlEvents:UIControlEventTouchUpInside];
-//        
-//        myLifeImageView = [[UIImageView alloc] init];
-//        myLifeImageView.image = [UIImage imageNamed:@"anime"];
-//        myLifeTextView = [[UITextView alloc] init];
-//        myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
-//        myLifeTextView.editable = NO;
-//        myLifeTextView.textAlignment = NSTextAlignmentCenter;
-//        [PenetrateFilter penetrate:myLifeTextView];
-//        [myLifeImageView addSubview: myLifeTextView];
-//        [_allImageView addSubview:myLifeImageView];
-//        myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
-//        myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
-//        
-//        
-//        enemyLifeImageView = [[UIImageView alloc] init];
-//        enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
-//        enemyLifeTextView = [[UITextView alloc] init];
-//        enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
-//        enemyLifeTextView.editable = NO;
-//        enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
-//        
-//        [PenetrateFilter penetrate:enemyLifeTextView];
-//        [enemyLifeImageView addSubview: enemyLifeTextView];
-//        [_allImageView addSubview:enemyLifeImageView];
-//        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
-//        enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
-//        
-//        
-//        _myCharacterView = [[UIImageView alloc] init];
-//        _enemyCharacterView = [[UIImageView alloc] init];
-//        [_allImageView addSubview:_myCharacterView];
-//        [_allImageView addSubview:_enemyCharacterView];
-//        _myCharacterView.userInteractionEnabled = YES;
-//        _enemyCharacterView.userInteractionEnabled = YES;
-//        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
-//        _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
-//        
-//        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-//        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-//        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-//        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
-//        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-//        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-//        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-//        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
-//        
-//        chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
-//        chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
-//        chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
-//        chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
-//        chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
-//        chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
-//        chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
-//        chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
-//        
-//        
-//        chara_myGiko.userInteractionEnabled         = YES;
-//        chara_myMonar.userInteractionEnabled        = YES;
-//        chara_mySyobon.userInteractionEnabled       = YES;
-//        chara_myYaruo.userInteractionEnabled        = YES;
-//        chara_enemyGiko.userInteractionEnabled      = YES;
-//        chara_enemyMonar.userInteractionEnabled     = YES;
-//        chara_enemySyobon.userInteractionEnabled    = YES;
-//        chara_enemyYaruo.userInteractionEnabled     = YES;
-//        
-//        
-//        chara_myGiko.tag    = GIKO;
-//        chara_myMonar.tag   = MONAR;
-//        chara_mySyobon.tag  = SYOBON;
-//        chara_myYaruo.tag   = YARUO;
-//        /*
-//         chara_enemyGiko.tag = ;
-//         chara_enemyMonar.tag = ;
-//         chara_enemySYOBON.tag     = ;
-//         chara_enemyYaruo.tag = ;
-//         */
-//        
-//        [chara_myGiko addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(touchesBegan:)]];
-//        [chara_myMonar addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(touchesBegan:)]];
-//        [chara_mySyobon addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(touchesBegan:)]];
-//        [chara_myYaruo addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(touchesBegan:)]];
-//        
-//        [_myCharacterView addSubview:chara_myGiko];
-//        [_myCharacterView addSubview:chara_myMonar];
-//        [_myCharacterView addSubview:chara_mySyobon];
-//        [_myCharacterView addSubview:chara_myYaruo];
-//        [_enemyCharacterView addSubview:chara_enemyGiko];
-//        [_enemyCharacterView addSubview:chara_enemyMonar];
-//        [_enemyCharacterView addSubview:chara_enemySyobon];
-//        [_enemyCharacterView addSubview:chara_enemyYaruo];
-//        
-//        
-//        
-//        //墓地を表示するビューを作成
-//        _myTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
-//        _myTomb.userInteractionEnabled = YES;
-//        [_myTomb addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(myTombTouched:)]];
-//        [_allImageView addSubview:_myTomb];
-//        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
-//        
-//        _enemyTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
-//        _enemyTomb.userInteractionEnabled = YES;
-//        [_enemyTomb addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(enemyTombTouched:)]];
-//        [_allImageView addSubview:_enemyTomb];
-//        _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
-//        
-//        
-//        //フィールドカード置き場を表示するビューを作成
-//        _myField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
-//        _myField.userInteractionEnabled = YES;
-//        [_myField addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(myFieldTouched:)]];
-//        [_allImageView addSubview:_myField];
-//        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
-//        
-//        _enemyField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
-//        _enemyField.userInteractionEnabled = YES;
-//        [_enemyField addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(enemyFieldTouched:)]];
-//        [_allImageView addSubview:_enemyField];
-//        _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
-//        
-//        //エネルギーの数を表示するビューを作成
-//        //自分側
-//        _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-//        _myBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-//        _myBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-//        _myRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-//        _myGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
-//        
-//        _myAllEnergy = [[UIImageView alloc] init];
-//        [_myAllEnergy addSubview:_myWhiteEnergyImage];
-//        [_myAllEnergy addSubview:_myBlueEnergyImage];
-//        [_myAllEnergy addSubview:_myBlackEnergyImage];
-//        [_myAllEnergy addSubview:_myRedEnergyImage];
-//        [_myAllEnergy addSubview:_myGreenEnergyImage];
-//        
-//        _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
-//        _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
-//        _myBlackEnergyImage.frame = CGRectMake(100,  15, 20, 20);
-//        _myRedEnergyImage.frame   = CGRectMake(150,  15, 20, 20);
-//        _myGreenEnergyImage.frame = CGRectMake(200,  15, 20, 20);
-//        
-//        
-//        _myWhiteEnergyText = [[UITextView alloc] init];
-//        _myBlueEnergyText = [[UITextView alloc] init];
-//        _myBlackEnergyText = [[UITextView alloc] init];
-//        _myRedEnergyText = [[UITextView alloc] init];
-//        _myGreenEnergyText = [[UITextView alloc] init];
-//        
-//        _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-//        _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-//        _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-//        _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-//        _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
-//        
-//        [PenetrateFilter penetrate:_myWhiteEnergyText];
-//        [PenetrateFilter penetrate:_myBlueEnergyText];
-//        [PenetrateFilter penetrate:_myBlackEnergyText];
-//        [PenetrateFilter penetrate:_myRedEnergyText];
-//        [PenetrateFilter penetrate:_myGreenEnergyText];
-//        
-//        [_myAllEnergy addSubview:_myWhiteEnergyText];
-//        [_myAllEnergy addSubview:_myBlueEnergyText];
-//        [_myAllEnergy addSubview:_myBlackEnergyText];
-//        [_myAllEnergy addSubview:_myRedEnergyText];
-//        [_myAllEnergy addSubview:_myGreenEnergyText];
-//        
-//        _myWhiteEnergyText.frame = CGRectMake( 20, 20, 30, 20);
-//        _myBlueEnergyText.frame  = CGRectMake( 70, 20, 30, 20);
-//        _myBlackEnergyText.frame = CGRectMake(120, 20, 30, 20);
-//        _myRedEnergyText.frame   = CGRectMake(170, 20, 30, 20);
-//        _myGreenEnergyText.frame = CGRectMake(220, 20, 30, 20);
-//        
-//        _myWhiteEnergyText.textColor = [UIColor blueColor];
-//        _myBlueEnergyText.textColor = [UIColor blueColor];
-//        _myBlackEnergyText.textColor = [UIColor blueColor];
-//        _myRedEnergyText.textColor = [UIColor blueColor];
-//        _myGreenEnergyText.textColor = [UIColor blueColor];
-//        
-//        _myUsingWhiteEnergyText = [[UITextView alloc] init];
-//        _myUsingBlueEnergyText = [[UITextView alloc] init];
-//        _myUsingBlackEnergyText = [[UITextView alloc] init];
-//        _myUsingRedEnergyText = [[UITextView alloc] init];
-//        _myUsingGreenEnergyText = [[UITextView alloc] init];
-//        
-//        _myUsingWhiteEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:0] intValue]];
-//        _myUsingBlueEnergyText.text     = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:1] intValue]];
-//        _myUsingBlackEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:2] intValue]];
-//        _myUsingRedEnergyText.text      = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:3] intValue]];
-//        _myUsingGreenEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:4] intValue]];
-//        
-//        [PenetrateFilter penetrate:_myUsingWhiteEnergyText];
-//        [PenetrateFilter penetrate:_myUsingBlueEnergyText];
-//        [PenetrateFilter penetrate:_myUsingBlackEnergyText];
-//        [PenetrateFilter penetrate:_myUsingRedEnergyText];
-//        [PenetrateFilter penetrate:_myUsingGreenEnergyText];
-//        
-//        [_myAllEnergy addSubview:_myUsingWhiteEnergyText];
-//        [_myAllEnergy addSubview:_myUsingBlueEnergyText];
-//        [_myAllEnergy addSubview:_myUsingBlackEnergyText];
-//        [_myAllEnergy addSubview:_myUsingRedEnergyText];
-//        [_myAllEnergy addSubview:_myUsingGreenEnergyText];
-//        
-//        _myUsingWhiteEnergyText.frame   = CGRectMake(  20, 5, 30, 20);
-//        _myUsingBlueEnergyText.frame    = CGRectMake(  70, 5, 30, 20);
-//        _myUsingBlackEnergyText.frame   = CGRectMake( 120, 5, 30, 20);
-//        _myUsingRedEnergyText.frame     = CGRectMake( 170, 5, 30, 20);
-//        _myUsingGreenEnergyText.frame   = CGRectMake( 220, 5, 30, 20);
-//        
-//        _myUsingWhiteEnergyText.textColor = [UIColor redColor];
-//        _myUsingBlueEnergyText.textColor  = [UIColor redColor];
-//        _myUsingBlackEnergyText.textColor = [UIColor redColor];
-//        _myUsingRedEnergyText.textColor   = [UIColor redColor];
-//        _myUsingGreenEnergyText.textColor = [UIColor redColor];
-//        
-//        
-//        [_allImageView addSubview: _myAllEnergy];
-//        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 50, 250, 40);
-//        
-//        //相手側
-//        _enemyWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-//        _enemyBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-//        _enemyBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-//        _enemyRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-//        _enemyGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
-//        
-//        _enemyAllEnergy = [[UIImageView alloc] init];
-//        [_enemyAllEnergy addSubview:_enemyWhiteEnergyImage];
-//        [_enemyAllEnergy addSubview:_enemyBlueEnergyImage];
-//        [_enemyAllEnergy addSubview:_enemyBlackEnergyImage];
-//        [_enemyAllEnergy addSubview:_enemyRedEnergyImage];
-//        [_enemyAllEnergy addSubview:_enemyGreenEnergyImage];
-//        
-//        _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
-//        _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
-//        _enemyBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
-//        _enemyRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
-//        _enemyGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
-//        
-//        
-//        _enemyWhiteEnergyText = [[UITextView alloc] init];
-//        _enemyBlueEnergyText = [[UITextView alloc] init];
-//        _enemyBlackEnergyText = [[UITextView alloc] init];
-//        _enemyRedEnergyText = [[UITextView alloc] init];
-//        _enemyGreenEnergyText = [[UITextView alloc] init];
-//        
-//        _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
-//        _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
-//        _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
-//        _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
-//        _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
-//        
-//        [_enemyAllEnergy addSubview:_enemyWhiteEnergyText];
-//        [_enemyAllEnergy addSubview:_enemyBlueEnergyText];
-//        [_enemyAllEnergy addSubview:_enemyBlackEnergyText];
-//        [_enemyAllEnergy addSubview:_enemyRedEnergyText];
-//        [_enemyAllEnergy addSubview:_enemyGreenEnergyText];
-//        
-//        _enemyWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
-//        _enemyBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
-//        _enemyBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
-//        _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
-//        _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
-//        
-//        [_allImageView addSubview: _enemyAllEnergy];
-//        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
-//        
-//        
-//        
-//        _myGiko = [[UILabel alloc] init];
-//        _myMonar = [[UILabel alloc] init];
-//        _mySyobon = [[UILabel alloc] init];
-//        _myYaruo = [[UILabel alloc] init];
-//        _myDamage = [[UILabel alloc] init];
-//        _enemyGiko = [[UILabel alloc] init];
-//        _enemyMonar = [[UILabel alloc] init];
-//        _enemySyobon = [[UILabel alloc] init];
-//        _enemyYaruo = [[UILabel alloc] init];
-//        _enemyDamage = [[UILabel alloc] init];
-//    
-//        
-//        [self.view addSubview:_allImageView];
+        //        _myCardImageViewArray = [[NSMutableArray alloc] init];
+        //
+        //        _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        //        _allImageView.userInteractionEnabled = YES;
+        //
+        //        _myCardImageView = [[UIImageView alloc] init];
+        //        _myCardImageView.userInteractionEnabled = YES;
+        //        [_allImageView addSubview:_myCardImageView];
+        //        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
+        //
+        //        _enemyCardImageView = [[UIImageView alloc] init];
+        //        _enemyCardImageView.userInteractionEnabled = YES;
+        //        [_allImageView addSubview:_enemyCardImageView];
+        //        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
+        //
+        //        _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
+        //
+        //        _backGroundView = [[UIImageView alloc] init];
+        //        _backGroundView.userInteractionEnabled = YES;
+        //        regionViewArray =[[NSMutableArray alloc] init];
+        //
+        //
+        //        resultFadeinScrollView = [[UIScrollView alloc] init];
+        //        resultFadeinScrollView.delegate = self;
+        //        resultFadeinScrollView.userInteractionEnabled = YES;
+        //        resultFadeinScrollView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 430, 240 , 350);
+        //        [resultFadeinScrollView addSubview:_backGroundView];
+        //        resultFadeinScrollView.bounces = NO;
+        //
+        //        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440)];
+        //        _colorView.image = [UIImage imageNamed:@"anime"];
+        //        _colorView.userInteractionEnabled = YES;
+        //
+        //
+        //        _okButton = [[UIButton alloc] init];
+        //        [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
+        //        [_allImageView addSubview:_okButton];
+        //        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
+        //        [_okButton addTarget:self action:@selector(okButtonPushed)
+        //            forControlEvents:UIControlEventTouchUpInside];
+        //
+        //        myLifeImageView = [[UIImageView alloc] init];
+        //        myLifeImageView.image = [UIImage imageNamed:@"anime"];
+        //        myLifeTextView = [[UITextView alloc] init];
+        //        myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
+        //        myLifeTextView.editable = NO;
+        //        myLifeTextView.textAlignment = NSTextAlignmentCenter;
+        //        [PenetrateFilter penetrate:myLifeTextView];
+        //        [myLifeImageView addSubview: myLifeTextView];
+        //        [_allImageView addSubview:myLifeImageView];
+        //        myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
+        //        myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
+        //
+        //
+        //        enemyLifeImageView = [[UIImageView alloc] init];
+        //        enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
+        //        enemyLifeTextView = [[UITextView alloc] init];
+        //        enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
+        //        enemyLifeTextView.editable = NO;
+        //        enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
+        //
+        //        [PenetrateFilter penetrate:enemyLifeTextView];
+        //        [enemyLifeImageView addSubview: enemyLifeTextView];
+        //        [_allImageView addSubview:enemyLifeImageView];
+        //        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
+        //        enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
+        //
+        //
+        //        _myCharacterView = [[UIImageView alloc] init];
+        //        _enemyCharacterView = [[UIImageView alloc] init];
+        //        [_allImageView addSubview:_myCharacterView];
+        //        [_allImageView addSubview:_enemyCharacterView];
+        //        _myCharacterView.userInteractionEnabled = YES;
+        //        _enemyCharacterView.userInteractionEnabled = YES;
+        //        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
+        //        _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
+        //
+        //        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
+        //        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
+        //        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
+        //        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
+        //        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
+        //        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
+        //        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
+        //        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
+        //
+        //        chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
+        //        chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
+        //        chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
+        //        chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
+        //        chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
+        //        chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
+        //        chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
+        //        chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
+        //
+        //
+        //        chara_myGiko.userInteractionEnabled         = YES;
+        //        chara_myMonar.userInteractionEnabled        = YES;
+        //        chara_mySyobon.userInteractionEnabled       = YES;
+        //        chara_myYaruo.userInteractionEnabled        = YES;
+        //        chara_enemyGiko.userInteractionEnabled      = YES;
+        //        chara_enemyMonar.userInteractionEnabled     = YES;
+        //        chara_enemySyobon.userInteractionEnabled    = YES;
+        //        chara_enemyYaruo.userInteractionEnabled     = YES;
+        //
+        //
+        //        chara_myGiko.tag    = GIKO;
+        //        chara_myMonar.tag   = MONAR;
+        //        chara_mySyobon.tag  = SYOBON;
+        //        chara_myYaruo.tag   = YARUO;
+        //        /*
+        //         chara_enemyGiko.tag = ;
+        //         chara_enemyMonar.tag = ;
+        //         chara_enemySYOBON.tag     = ;
+        //         chara_enemyYaruo.tag = ;
+        //         */
+        //
+        //        [chara_myGiko addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(touchesBegan:)]];
+        //        [chara_myMonar addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(touchesBegan:)]];
+        //        [chara_mySyobon addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(touchesBegan:)]];
+        //        [chara_myYaruo addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(touchesBegan:)]];
+        //
+        //        [_myCharacterView addSubview:chara_myGiko];
+        //        [_myCharacterView addSubview:chara_myMonar];
+        //        [_myCharacterView addSubview:chara_mySyobon];
+        //        [_myCharacterView addSubview:chara_myYaruo];
+        //        [_enemyCharacterView addSubview:chara_enemyGiko];
+        //        [_enemyCharacterView addSubview:chara_enemyMonar];
+        //        [_enemyCharacterView addSubview:chara_enemySyobon];
+        //        [_enemyCharacterView addSubview:chara_enemyYaruo];
+        //
+        //
+        //
+        //        //墓地を表示するビューを作成
+        //        _myTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
+        //        _myTomb.userInteractionEnabled = YES;
+        //        [_myTomb addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(myTombTouched:)]];
+        //        [_allImageView addSubview:_myTomb];
+        //        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
+        //
+        //        _enemyTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
+        //        _enemyTomb.userInteractionEnabled = YES;
+        //        [_enemyTomb addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(enemyTombTouched:)]];
+        //        [_allImageView addSubview:_enemyTomb];
+        //        _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
+        //
+        //
+        //        //フィールドカード置き場を表示するビューを作成
+        //        _myField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
+        //        _myField.userInteractionEnabled = YES;
+        //        [_myField addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(myFieldTouched:)]];
+        //        [_allImageView addSubview:_myField];
+        //        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
+        //
+        //        _enemyField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
+        //        _enemyField.userInteractionEnabled = YES;
+        //        [_enemyField addGestureRecognizer:
+        //         [[UITapGestureRecognizer alloc]
+        //          initWithTarget:self action:@selector(enemyFieldTouched:)]];
+        //        [_allImageView addSubview:_enemyField];
+        //        _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
+        //
+        //        //エネルギーの数を表示するビューを作成
+        //        //自分側
+        //        _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+        //        _myBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+        //        _myBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+        //        _myRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+        //        _myGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+        //
+        //        _myAllEnergy = [[UIImageView alloc] init];
+        //        [_myAllEnergy addSubview:_myWhiteEnergyImage];
+        //        [_myAllEnergy addSubview:_myBlueEnergyImage];
+        //        [_myAllEnergy addSubview:_myBlackEnergyImage];
+        //        [_myAllEnergy addSubview:_myRedEnergyImage];
+        //        [_myAllEnergy addSubview:_myGreenEnergyImage];
+        //
+        //        _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
+        //        _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
+        //        _myBlackEnergyImage.frame = CGRectMake(100,  15, 20, 20);
+        //        _myRedEnergyImage.frame   = CGRectMake(150,  15, 20, 20);
+        //        _myGreenEnergyImage.frame = CGRectMake(200,  15, 20, 20);
+        //
+        //
+        //        _myWhiteEnergyText = [[UITextView alloc] init];
+        //        _myBlueEnergyText = [[UITextView alloc] init];
+        //        _myBlackEnergyText = [[UITextView alloc] init];
+        //        _myRedEnergyText = [[UITextView alloc] init];
+        //        _myGreenEnergyText = [[UITextView alloc] init];
+        //
+        //        _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
+        //        _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
+        //        _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
+        //        _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
+        //        _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
+        //
+        //        [PenetrateFilter penetrate:_myWhiteEnergyText];
+        //        [PenetrateFilter penetrate:_myBlueEnergyText];
+        //        [PenetrateFilter penetrate:_myBlackEnergyText];
+        //        [PenetrateFilter penetrate:_myRedEnergyText];
+        //        [PenetrateFilter penetrate:_myGreenEnergyText];
+        //
+        //        [_myAllEnergy addSubview:_myWhiteEnergyText];
+        //        [_myAllEnergy addSubview:_myBlueEnergyText];
+        //        [_myAllEnergy addSubview:_myBlackEnergyText];
+        //        [_myAllEnergy addSubview:_myRedEnergyText];
+        //        [_myAllEnergy addSubview:_myGreenEnergyText];
+        //
+        //        _myWhiteEnergyText.frame = CGRectMake( 20, 20, 30, 20);
+        //        _myBlueEnergyText.frame  = CGRectMake( 70, 20, 30, 20);
+        //        _myBlackEnergyText.frame = CGRectMake(120, 20, 30, 20);
+        //        _myRedEnergyText.frame   = CGRectMake(170, 20, 30, 20);
+        //        _myGreenEnergyText.frame = CGRectMake(220, 20, 30, 20);
+        //
+        //        _myWhiteEnergyText.textColor = [UIColor blueColor];
+        //        _myBlueEnergyText.textColor = [UIColor blueColor];
+        //        _myBlackEnergyText.textColor = [UIColor blueColor];
+        //        _myRedEnergyText.textColor = [UIColor blueColor];
+        //        _myGreenEnergyText.textColor = [UIColor blueColor];
+        //
+        //        _myUsingWhiteEnergyText = [[UITextView alloc] init];
+        //        _myUsingBlueEnergyText = [[UITextView alloc] init];
+        //        _myUsingBlackEnergyText = [[UITextView alloc] init];
+        //        _myUsingRedEnergyText = [[UITextView alloc] init];
+        //        _myUsingGreenEnergyText = [[UITextView alloc] init];
+        //
+        //        _myUsingWhiteEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:0] intValue]];
+        //        _myUsingBlueEnergyText.text     = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:1] intValue]];
+        //        _myUsingBlackEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:2] intValue]];
+        //        _myUsingRedEnergyText.text      = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:3] intValue]];
+        //        _myUsingGreenEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:4] intValue]];
+        //
+        //        [PenetrateFilter penetrate:_myUsingWhiteEnergyText];
+        //        [PenetrateFilter penetrate:_myUsingBlueEnergyText];
+        //        [PenetrateFilter penetrate:_myUsingBlackEnergyText];
+        //        [PenetrateFilter penetrate:_myUsingRedEnergyText];
+        //        [PenetrateFilter penetrate:_myUsingGreenEnergyText];
+        //
+        //        [_myAllEnergy addSubview:_myUsingWhiteEnergyText];
+        //        [_myAllEnergy addSubview:_myUsingBlueEnergyText];
+        //        [_myAllEnergy addSubview:_myUsingBlackEnergyText];
+        //        [_myAllEnergy addSubview:_myUsingRedEnergyText];
+        //        [_myAllEnergy addSubview:_myUsingGreenEnergyText];
+        //
+        //        _myUsingWhiteEnergyText.frame   = CGRectMake(  20, 5, 30, 20);
+        //        _myUsingBlueEnergyText.frame    = CGRectMake(  70, 5, 30, 20);
+        //        _myUsingBlackEnergyText.frame   = CGRectMake( 120, 5, 30, 20);
+        //        _myUsingRedEnergyText.frame     = CGRectMake( 170, 5, 30, 20);
+        //        _myUsingGreenEnergyText.frame   = CGRectMake( 220, 5, 30, 20);
+        //
+        //        _myUsingWhiteEnergyText.textColor = [UIColor redColor];
+        //        _myUsingBlueEnergyText.textColor  = [UIColor redColor];
+        //        _myUsingBlackEnergyText.textColor = [UIColor redColor];
+        //        _myUsingRedEnergyText.textColor   = [UIColor redColor];
+        //        _myUsingGreenEnergyText.textColor = [UIColor redColor];
+        //
+        //
+        //        [_allImageView addSubview: _myAllEnergy];
+        //        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 50, 250, 40);
+        //
+        //        //相手側
+        //        _enemyWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
+        //        _enemyBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
+        //        _enemyBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
+        //        _enemyRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
+        //        _enemyGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
+        //
+        //        _enemyAllEnergy = [[UIImageView alloc] init];
+        //        [_enemyAllEnergy addSubview:_enemyWhiteEnergyImage];
+        //        [_enemyAllEnergy addSubview:_enemyBlueEnergyImage];
+        //        [_enemyAllEnergy addSubview:_enemyBlackEnergyImage];
+        //        [_enemyAllEnergy addSubview:_enemyRedEnergyImage];
+        //        [_enemyAllEnergy addSubview:_enemyGreenEnergyImage];
+        //
+        //        _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
+        //        _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
+        //        _enemyBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
+        //        _enemyRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
+        //        _enemyGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
+        //
+        //
+        //        _enemyWhiteEnergyText = [[UITextView alloc] init];
+        //        _enemyBlueEnergyText = [[UITextView alloc] init];
+        //        _enemyBlackEnergyText = [[UITextView alloc] init];
+        //        _enemyRedEnergyText = [[UITextView alloc] init];
+        //        _enemyGreenEnergyText = [[UITextView alloc] init];
+        //
+        //        _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
+        //        _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
+        //        _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
+        //        _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
+        //        _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
+        //
+        //        [_enemyAllEnergy addSubview:_enemyWhiteEnergyText];
+        //        [_enemyAllEnergy addSubview:_enemyBlueEnergyText];
+        //        [_enemyAllEnergy addSubview:_enemyBlackEnergyText];
+        //        [_enemyAllEnergy addSubview:_enemyRedEnergyText];
+        //        [_enemyAllEnergy addSubview:_enemyGreenEnergyText];
+        //
+        //        _enemyWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
+        //        _enemyBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
+        //        _enemyBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
+        //        _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
+        //        _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
+        //
+        //        [_allImageView addSubview: _enemyAllEnergy];
+        //        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
+        //
+        //
+        //
+        //        _myGiko = [[UILabel alloc] init];
+        //        _myMonar = [[UILabel alloc] init];
+        //        _mySyobon = [[UILabel alloc] init];
+        //        _myYaruo = [[UILabel alloc] init];
+        //        _myDamage = [[UILabel alloc] init];
+        //        _enemyGiko = [[UILabel alloc] init];
+        //        _enemyMonar = [[UILabel alloc] init];
+        //        _enemySyobon = [[UILabel alloc] init];
+        //        _enemyYaruo = [[UILabel alloc] init];
+        //        _enemyDamage = [[UILabel alloc] init];
+        //
+        //
+        //        [self.view addSubview:_allImageView];
     }
     
     //BGMの実装
     mainBundle = CFBundleGetMainBundle ();
-        //キャラタップ音
-        tapSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
-        AudioServicesCreateSystemSoundID (tapSoundURL, &tapSoundID);
-        CFRelease (tapSoundURL);
-        //キャンセルボタンタップ音
-        cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
-        AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
-        CFRelease (cancelSoundURL);
+    //キャラタップ音
+    tapSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
+    AudioServicesCreateSystemSoundID (tapSoundURL, &tapSoundID);
+    CFRelease (tapSoundURL);
+    //キャンセルボタンタップ音
+    cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
+    AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
+    CFRelease (cancelSoundURL);
     
     //アプリがアクティブ・非アクティブになった際の挙動を規定する
     //アクティブになったとき
@@ -886,7 +884,7 @@
                                              selector:@selector(deactivate)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
-
+    
     
     //--------------------------デバッグ用ボタン-----------------------------------
     
@@ -902,7 +900,7 @@
     [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
     [_allImageView addSubview:debug1Button];
     [debug1Button addTarget:self action:@selector(debug1:)
-          forControlEvents:UIControlEventTouchUpInside];
+           forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     debug2Button.frame = CGRectMake(160, 360, 80, 20);
@@ -917,9 +915,22 @@
     [_allImageView addSubview:debug3Button];
     [debug3Button addTarget:self action:@selector(debug3:)
            forControlEvents:UIControlEventTouchUpInside];
-
-
+    
+    
     //--------------------------デバッグ用ボタンここまで-----------------------------
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    //app.battleStartがYESになったときに対戦開始する。app.battleStartは、DeviceMotionにおいてインターネット対戦の対戦相手が決まった際にYESとなる。
+    if(app.battleStart){
+        NSLog(@"対戦開始");
+        [self battleStartForInternetBattle];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
 }
 
 //--------------------------デバッグ用ボタン実装ここから-----------------------------
@@ -3431,14 +3442,13 @@
                 //エネルギーを増やすカードの場合は、すぐに効果を発動させる。それ以外はAA・カード選択フェーズの後に効果を発動させる
                 if(cardNumber == 96){
                     [self cardActivate:cardNumber string:nil];
-                    [self refleshView];
-                    
                 }
                 [self setCardToCardsIUsedInThisTurn:app.myHand cardNumber:selectedCardOrder];
                 NSLog(@"このターン使用したカード：%@",app.cardsIUsedInThisTurn);
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myTomb];
                 [self refleshHandsAndLibraries];
                 doIUseCardInThisTurn = NO;
+                [self refleshView];
             }
         }
     }
@@ -3467,6 +3477,7 @@
                 [self setCardFromXTOY:app.myHand cardNumber:selectedCardOrder toField:app.myFieldCard];
                 [self refleshHandsAndLibraries];
                 doIUseCardInThisTurn = NO;
+                [self refleshView];
             }
         }
     }
@@ -3482,7 +3493,6 @@
             _doIUseEnergycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"エネルギーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseEnergycard show];
     }
-    
 }
 
 - (void)myTombTouched :(UITapGestureRecognizer *)sender{
@@ -3503,6 +3513,11 @@
 - (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
     [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
+}
+
+- (void)goodGameButtonTouched{
+    _goodGameAlert = [[UIAlertView alloc] initWithTitle:@"降参しますか" message:@"降参する場合は、「降参する」ボタンを押した後にゲームを進めてください。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"降参する",@"降参しない", nil];
+    [_goodGameAlert show];
 }
 
 
@@ -4436,6 +4451,17 @@
                 break;
         }
         app.myDeckCardList = [AppDelegate shuffledArray:app.myDeckCardList];
+    }else if (alertView == _goodGameAlert){
+        switch (buttonIndex) {
+            case 0:
+                app.myLifeGage = 0;
+                break;
+            case 1:
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 
@@ -5394,11 +5420,8 @@
     for (NSNumber *num in tempArray) {
         i += [num intValue];
     }
-    NSLog(@"i:%d",i);
     
-    int allNumber = numberOfUsingWhiteEnergy + numberOfUsingBlueEnergy + numberOfUsingBlackEnergy + numberOfUsingRedEnergy + numberOfUsingRedEnergy;
-    
-    NSLog(@"allNumber:%d",allNumber);
+    int allNumber = numberOfUsingWhiteEnergy + numberOfUsingBlueEnergy + numberOfUsingBlackEnergy + numberOfUsingRedEnergy + numberOfUsingGreenEnergy;
     
     switch (sender.view.tag) {
         case 1:
@@ -5435,9 +5458,24 @@
         default:
             break;
     }
+    
+    NSLog(@"　　使用に必要なE数　　　現在使用しているエネルギー数\n");
+    NSLog(@"白：     %d                %d",[[tempArray objectAtIndex:0] intValue],numberOfUsingWhiteEnergy);
+    NSLog(@"青：     %d                %d",[[tempArray objectAtIndex:1] intValue],numberOfUsingBlueEnergy);
+    NSLog(@"黒：     %d                %d",[[tempArray objectAtIndex:2] intValue],numberOfUsingBlackEnergy);
+    NSLog(@"赤：     %d                %d",[[tempArray objectAtIndex:3] intValue],numberOfUsingRedEnergy);
+    NSLog(@"緑：     %d                %d",[[tempArray objectAtIndex:4] intValue],numberOfUsingGreenEnergy);
 }
 
 -(void)minusEnergy: (UITapGestureRecognizer *)sender{
+    NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
+    int i = 0;
+    for (NSNumber *num in tempArray) {
+        i += [num intValue];
+    }
+    
+    int allNumber = numberOfUsingWhiteEnergy + numberOfUsingBlueEnergy + numberOfUsingBlackEnergy + numberOfUsingRedEnergy + numberOfUsingRedEnergy;
+    
     switch (sender.view.tag) {
         case 1:
             if(numberOfUsingWhiteEnergy > 0){
@@ -5472,6 +5510,13 @@
         default:
             break;
     }
+    
+    NSLog(@"　　使用に必要なE数　　　現在使用しているエネルギー数\n");
+    NSLog(@"白：     %d                %d",[[tempArray objectAtIndex:0] intValue],numberOfUsingWhiteEnergy);
+    NSLog(@"青：     %d                %d",[[tempArray objectAtIndex:1] intValue],numberOfUsingBlueEnergy);
+    NSLog(@"黒：     %d                %d",[[tempArray objectAtIndex:2] intValue],numberOfUsingBlackEnergy);
+    NSLog(@"赤：     %d                %d",[[tempArray objectAtIndex:3] intValue],numberOfUsingRedEnergy);
+    NSLog(@"緑：     %d                %d",[[tempArray objectAtIndex:4] intValue],numberOfUsingGreenEnergy);
 }
 
 -(BOOL)isGameOver{

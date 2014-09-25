@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SVProgressHUD.h"
 #import "SBJson.h"
+#import "NADInterstitial.h"
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3

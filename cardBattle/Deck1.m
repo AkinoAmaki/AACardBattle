@@ -66,6 +66,10 @@
     deckName.delegate = self;
     deckName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"deckName1"];
     
+    //　広告の読み込み
+    [self.view addSubview:self.nadView];
+    [self.nadView load];
+    
 }
 
 - (void)didReceiveMemoryWarning
