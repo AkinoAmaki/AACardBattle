@@ -22,29 +22,39 @@
     
     [[UITextView appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12.0f]];
     [[UILabel appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12.0f]];
-    [[UIButton appearance] setFont:[UIFont fontWithName:@"Tanuki-Permanent-Marker" size:14.0f]];
     
     userDefault = [NSUserDefaults standardUserDefaults];
     int first =  [userDefault integerForKey:@"firstLaunch_ud"];
     appdelegate = [[UIApplication sharedApplication] delegate];
     
-    NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"whiteBack" ofType:@"png"];
+    NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"backOfACard_skelton" ofType:@"png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:backGroundImagePath]];
+    imageView.frame = CGRectMake(0, 0, 320, 480);
     [self.view addSubview:imageView];
     
-    UIButton *battleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    battleButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 40, 80, 80, 20);
-    [battleButton setTitle:@"たいせん" forState:UIControlStateNormal];
-    [self.view addSubview:battleButton];
+    AAButton *battleButton = [[AAButton alloc] initWithImageAndText:@"sample-302-swords" imagePath:@"png" textString:@" 対 戦 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 120, 200, 40)];
     [battleButton addTarget:self action:@selector(battleButtonPushed)
-          forControlEvents:UIControlEventTouchUpInside];
+           forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:battleButton];
     
-    UIButton *deckButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    deckButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 40, 120, 80, 20);
-    [deckButton setTitle:@"デッキ" forState:UIControlStateNormal];
-    [self.view addSubview:deckButton];
+    AAButton *deckButton = [[AAButton alloc] initWithImageAndText:@"glyphicons_330_blog" imagePath:@"png" textString:@" デッキ編成 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 200, 200, 40)];
     [deckButton addTarget:self action:@selector(deckButtonPushed)
-          forControlEvents:UIControlEventTouchUpInside];
+         forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:deckButton];
+    
+    
+    //  NADViewの作成
+    self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 100, 320, 100)];
+    //  ログ出力の指定
+    [self.nadView setIsOutputLog:NO];
+    //  set apiKey, spotId.
+    [self.nadView setNendID:@"17df8518f899a6d562f10eb8532b19d48af66209"
+                     spotID:@"237832"];
+    //　デリゲートの設定
+    [self.nadView setDelegate:self];
+    //　広告の読み込み
+    [self.nadView load]; //(6)
+    [self.view addSubview:self.nadView]; // 最初から表示する場合
     
     
     
@@ -64,9 +74,61 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-
+- (void)viewWillDisappear:(BOOL)animated {
+    //広告の停止
+    NSLog(@"広告を停止しました");
+    [self.nadView pause];
 }
+
+-(void)nadViewDidFinishLoad:(NADView *)adView {
+    NSLog(@"delegate nadViewDidFinishLoad:広告が読み込まれました");
+}
+
+-(void)nadViewDidReceiveAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidReceiveAd:広告受信に成功しました");
+}
+
+-(void)nadViewDidFailToReceiveAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidFailToLoad:");
+    // エラーごとに分岐する
+    NSError* error = adView.error;
+    NSString* domain = error.domain;
+    int errorCode = error.code;
+    // isOutputLog = NOでも、domain を利用してアプリ側で任意出力が可能
+    NSLog(@"log %d", adView.isOutputLog);
+    NSLog(@"%@",[NSString stringWithFormat: @"code=%d, message=%@",
+                 errorCode, domain]);
+    switch (errorCode) {
+        case NADVIEW_AD_SIZE_TOO_LARGE:
+            // 広告サイズがディスプレイサイズよりも大きい
+            NSLog(@"広告サイズがディスプレイサイズよりも大きい");
+            break;
+        case NADVIEW_INVALID_RESPONSE_TYPE:
+            // 不明な広告ビュータイプ
+            NSLog(@"不明な広告ビュータイプ");
+            break;
+        case NADVIEW_FAILED_AD_REQUEST:
+            // 広告取得失敗
+            NSLog(@"広告取得失敗(ネットワークエラー、サーバエラー、在庫切れなど)");
+            break;
+        case NADVIEW_FAILED_AD_DOWNLOAD:
+            // 広告画像の取得失敗
+            NSLog(@"広告画像の取得失敗");
+            break;
+        case NADVIEW_AD_SIZE_DIFFERENCES:
+            // リクエストしたサイズと取得したサイズが異なる
+            NSLog(@"リクエストしたサイズと取得したサイズが異なる");
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)nadViewDidClickAd:(NADView *)adView {
+    NSLog(@"delegate nadViewDidClickAd:広告がタップされました。但し、電波状況によってはサーバ側のカウントとは異なる可能性があります");
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -86,6 +148,9 @@
  }
 
 -(void)viewWillAppear:(BOOL)animated{
+    //広告の再開
+    NSLog(@"広告を開始しました");
+    [self.nadView resume];
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     appdelegate.myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];

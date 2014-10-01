@@ -22,13 +22,23 @@
  
  */
 
+@protocol gikogikoViewControllerDelegate <NSObject>
+
+// デリゲートメソッドを宣言
+// （宣言だけしておいて，実装はデリゲート先でしてもらう）
+- (void)dismissGikoGikoViewController;
+
+@end
+
 
 @interface GikoGikoWaintngViewController : UIViewController{
     WaitingForInternetBattleViewController *waiting;
     UIAlertView *usingDeckCardList;
     BOOL syncFinished;
+    BOOL explorationIsFinished; //対戦相手が見つかればYESとなる
 }
 
 @property (nonatomic,assign) int course; //コース番号を格納し、WaitingForInternetBattleViewControllerに引き渡す（CourseSelectViewControllerにて最初にデータ格納）
+@property (nonatomic, assign) id<gikogikoViewControllerDelegate> delegate;// デリゲート先で参照できるようにするためプロパティを定義しておく
 
 @end

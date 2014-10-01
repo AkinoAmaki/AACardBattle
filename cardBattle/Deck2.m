@@ -18,7 +18,7 @@
 - (id)init{
     self = [super init];
     if(self){
-        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:1];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"デッキ2" image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"pen-26" ofType:@"png"]] tag:2];
             isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck2];
     }
     return  self;
@@ -43,7 +43,7 @@
     for(int i = 0; i < [app.cardList_pngName count]; i++){
         
         [super openSmallCard:i];
-        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 128 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
+        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 158 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
         [txtView setFont:[UIFont systemFontOfSize:8]];
         isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck2];
         txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];

@@ -167,6 +167,7 @@
 		0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD171923B42C00E9D59C /* PenetrateFilter.m */; };
 		0F29BD1C1924E2FF00E9D59C /* border_usedCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */; };
 		0F3FED921928D41400ACA1BC /* outicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3FED911928D41400ACA1BC /* outicon.png */; };
+		0F53DB0319D6A2D900236502 /* PBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F53DB0219D6A2D900236502 /* PBImageView.m */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
 		0F5B79FA18D7F8D600A3D9E7 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F918D7F8D600A3D9E7 /* question.png */; };
@@ -275,6 +276,16 @@
 		0FDCA4AC18CACFC2003459F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FDCA48E18CACFC2003459F8 /* UIKit.framework */; };
 		0FDCA4B418CACFC2003459F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B218CACFC2003459F8 /* InfoPlist.strings */; };
 		0FDCA4B618CACFC2003459F8 /* cardBattleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */; };
+		0FE0C26919D9982D0061057D /* backOfACard_skelton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C26819D9982D0061057D /* backOfACard_skelton.png */; };
+		0FE0C26C19D99C780061057D /* glyphicons_330_blog.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C26A19D99C780061057D /* glyphicons_330_blog.png */; };
+		0FE0C26D19D99C780061057D /* sample-302-swords.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C26B19D99C780061057D /* sample-302-swords.png */; };
+		0FE0C27319D9A5610061057D /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C27219D9A5610061057D /* buttonBack.png */; };
+		0FE0C28019DABA080061057D /* AAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE0C27F19DABA080061057D /* AAButton.m */; };
+		0FE0C28619DAD0E20061057D /* glyphicons_001_leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28119DAD0E20061057D /* glyphicons_001_leaf.png */; };
+		0FE0C28719DAD0E20061057D /* glyphicons_021_snowflake.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28219DAD0E20061057D /* glyphicons_021_snowflake.png */; };
+		0FE0C28819DAD0E20061057D /* glyphicons_230_moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28319DAD0E20061057D /* glyphicons_230_moon.png */; };
+		0FE0C28919DAD0E20061057D /* glyphicons_231_sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28419DAD0E20061057D /* glyphicons_231_sun.png */; };
+		0FE0C28A19DAD0E20061057D /* glyphicons_310_flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28519DAD0E20061057D /* glyphicons_310_flower.png */; };
 		0FF2EFA319C72B8200C36C72 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EFA219C72B8200C36C72 /* FirstViewController.m */; };
 		0FF2EFAC19D11E7700C36C72 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF2EFA519D11E7700C36C72 /* libNendAd.a */; };
 		0FF2EFAD19D11E7700C36C72 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EFAB19D11E7700C36C72 /* NADView_readme.txt */; };
@@ -452,6 +463,49 @@
 		0FF5B51319A9D9DB00602A2C /* card98_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47D19A9D9DA00602A2C /* card98_D.jpg */; };
 		0FF5B51419A9D9DB00602A2C /* card99_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47E19A9D9DA00602A2C /* card99_D.jpg */; };
 		0FF5B51519A9D9DB00602A2C /* card9_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47F19A9D9DA00602A2C /* card9_D.jpg */; };
+		0FFD0B8919DAE9B3007D9BAD /* border_color-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8619DAE9B3007D9BAD /* border_color-26.png */; };
+		0FFD0B8A19DAE9B3007D9BAD /* chisel_tip_marker-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8719DAE9B3007D9BAD /* chisel_tip_marker-26.png */; };
+		0FFD0B8B19DAE9B3007D9BAD /* pen-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8819DAE9B3007D9BAD /* pen-26.png */; };
+		0FFD0BB019DBABB4007D9BAD /* gikoAnimation10_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9019DBABB4007D9BAD /* gikoAnimation10_1.png */; };
+		0FFD0BB119DBABB4007D9BAD /* gikoAnimation10_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9119DBABB4007D9BAD /* gikoAnimation10_2.png */; };
+		0FFD0BB219DBABB4007D9BAD /* gikoAnimation10_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9219DBABB4007D9BAD /* gikoAnimation10_3.png */; };
+		0FFD0BB319DBABB4007D9BAD /* gikoAnimation10_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9319DBABB4007D9BAD /* gikoAnimation10_4.png */; };
+		0FFD0BB419DBABB4007D9BAD /* gikoAnimation1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9419DBABB4007D9BAD /* gikoAnimation1_1.png */; };
+		0FFD0BB519DBABB4007D9BAD /* gikoAnimation1_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9519DBABB4007D9BAD /* gikoAnimation1_2.png */; };
+		0FFD0BB619DBABB4007D9BAD /* gikoAnimation1_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9619DBABB4007D9BAD /* gikoAnimation1_3.png */; };
+		0FFD0BB719DBABB4007D9BAD /* gikoAnimation1_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9719DBABB4007D9BAD /* gikoAnimation1_4.png */; };
+		0FFD0BB819DBABB4007D9BAD /* gikoAnimation2_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9819DBABB4007D9BAD /* gikoAnimation2_1.png */; };
+		0FFD0BB919DBABB4007D9BAD /* gikoAnimation2_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9919DBABB4007D9BAD /* gikoAnimation2_2.png */; };
+		0FFD0BBB19DBABB4007D9BAD /* gikoAnimation3_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9B19DBABB4007D9BAD /* gikoAnimation3_1.png */; };
+		0FFD0BBC19DBABB4007D9BAD /* gikoAnimation3_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9C19DBABB4007D9BAD /* gikoAnimation3_2.png */; };
+		0FFD0BBD19DBABB4007D9BAD /* gikoAnimation4_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9D19DBABB4007D9BAD /* gikoAnimation4_1.png */; };
+		0FFD0BBE19DBABB4007D9BAD /* gikoAnimation4_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9E19DBABB4007D9BAD /* gikoAnimation4_2.png */; };
+		0FFD0BBF19DBABB4007D9BAD /* gikoAnimation4_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B9F19DBABB4007D9BAD /* gikoAnimation4_3.png */; };
+		0FFD0BC019DBABB4007D9BAD /* gikoAnimation4_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA019DBABB4007D9BAD /* gikoAnimation4_4.png */; };
+		0FFD0BC119DBABB4007D9BAD /* gikoAnimation4_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA119DBABB4007D9BAD /* gikoAnimation4_5.png */; };
+		0FFD0BC219DBABB4007D9BAD /* gikoAnimation5_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA219DBABB4007D9BAD /* gikoAnimation5_1.png */; };
+		0FFD0BC319DBABB4007D9BAD /* gikoAnimation5_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA319DBABB4007D9BAD /* gikoAnimation5_2.png */; };
+		0FFD0BC419DBABB4007D9BAD /* gikoAnimation5_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA419DBABB4007D9BAD /* gikoAnimation5_3.png */; };
+		0FFD0BC519DBABB4007D9BAD /* gikoAnimation6_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA519DBABB4007D9BAD /* gikoAnimation6_1.png */; };
+		0FFD0BC619DBABB4007D9BAD /* gikoAnimation6_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA619DBABB4007D9BAD /* gikoAnimation6_2.png */; };
+		0FFD0BC719DBABB4007D9BAD /* gikoAnimation6_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA719DBABB4007D9BAD /* gikoAnimation6_3.png */; };
+		0FFD0BC819DBABB4007D9BAD /* gikoAnimation7_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA819DBABB4007D9BAD /* gikoAnimation7_1.png */; };
+		0FFD0BC919DBABB4007D9BAD /* gikoAnimation7_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BA919DBABB4007D9BAD /* gikoAnimation7_2.png */; };
+		0FFD0BCA19DBABB4007D9BAD /* gikoAnimation8_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAA19DBABB4007D9BAD /* gikoAnimation8_1.png */; };
+		0FFD0BCB19DBABB4007D9BAD /* gikoAnimation8_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAB19DBABB4007D9BAD /* gikoAnimation8_2.png */; };
+		0FFD0BCC19DBABB4007D9BAD /* gikoAnimation8_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAC19DBABB4007D9BAD /* gikoAnimation8_3.png */; };
+		0FFD0BCD19DBABB4007D9BAD /* gikoAnimation9_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAD19DBABB4007D9BAD /* gikoAnimation9_1.png */; };
+		0FFD0BCE19DBABB4007D9BAD /* gikoAnimation9_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAE19DBABB4007D9BAD /* gikoAnimation9_2.png */; };
+		0FFD0BCF19DBABB4007D9BAD /* gikoAnimation9_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BAF19DBABB4007D9BAD /* gikoAnimation9_3.png */; };
+		0FFD0BD119DBABE6007D9BAD /* gikoAnimation2_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BD019DBABE6007D9BAD /* gikoAnimation2_3.png */; };
+		0FFD0BD319DC3C31007D9BAD /* triggering-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0BD219DC3C31007D9BAD /* triggering-50.png */; };
+		0FFDEF2219D708CC00DDA32F /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2119D708CC00DDA32F /* grass.png */; };
+		0FFDEF2419D7147A00DDA32F /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2319D7147A00DDA32F /* snow.png */; };
+		0FFDEF2619D7F34600DDA32F /* deepForest.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2519D7F34600DDA32F /* deepForest.png */; };
+		0FFDEF2819D8567C00DDA32F /* desert.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2719D8567C00DDA32F /* desert.png */; };
+		0FFDEF2A19D85E0700DDA32F /* amazon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2919D85E0700DDA32F /* amazon.png */; };
+		0FFDEF2C19D90D4800DDA32F /* 1ha-to.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2B19D90D4800DDA32F /* 1ha-to.png */; };
+		0FFDEF2E19D98B8E00DDA32F /* backOfACard_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFDEF2D19D98B8E00DDA32F /* backOfACard_small.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -631,6 +685,8 @@
 		0F29BD171923B42C00E9D59C /* PenetrateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenetrateFilter.m; sourceTree = "<group>"; };
 		0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_usedCard.png; sourceTree = "<group>"; };
 		0F3FED911928D41400ACA1BC /* outicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outicon.png; sourceTree = "<group>"; };
+		0F53DB0119D6A2D900236502 /* PBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBImageView.h; sourceTree = "<group>"; };
+		0F53DB0219D6A2D900236502 /* PBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBImageView.m; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
 		0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectdecidebutton.png; sourceTree = "<group>"; };
 		0F5B79F918D7F8D600A3D9E7 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = question.png; path = cardBattle/img/smallcard/question.png; sourceTree = SOURCE_ROOT; };
@@ -774,6 +830,17 @@
 		0FDCA4B118CACFC2003459F8 /* cardBattleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cardBattleTests-Info.plist"; sourceTree = "<group>"; };
 		0FDCA4B318CACFC2003459F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FDCA4B518CACFC2003459F8 /* cardBattleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cardBattleTests.m; sourceTree = "<group>"; };
+		0FE0C26819D9982D0061057D /* backOfACard_skelton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backOfACard_skelton.png; sourceTree = "<group>"; };
+		0FE0C26A19D99C780061057D /* glyphicons_330_blog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_330_blog.png; sourceTree = "<group>"; };
+		0FE0C26B19D99C780061057D /* sample-302-swords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sample-302-swords.png"; sourceTree = "<group>"; };
+		0FE0C27219D9A5610061057D /* buttonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonBack.png; sourceTree = "<group>"; };
+		0FE0C27E19DABA080061057D /* AAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAButton.h; sourceTree = "<group>"; };
+		0FE0C27F19DABA080061057D /* AAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAButton.m; sourceTree = "<group>"; };
+		0FE0C28119DAD0E20061057D /* glyphicons_001_leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_001_leaf.png; sourceTree = "<group>"; };
+		0FE0C28219DAD0E20061057D /* glyphicons_021_snowflake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_021_snowflake.png; sourceTree = "<group>"; };
+		0FE0C28319DAD0E20061057D /* glyphicons_230_moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_230_moon.png; sourceTree = "<group>"; };
+		0FE0C28419DAD0E20061057D /* glyphicons_231_sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_231_sun.png; sourceTree = "<group>"; };
+		0FE0C28519DAD0E20061057D /* glyphicons_310_flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_310_flower.png; sourceTree = "<group>"; };
 		0FF2EFA119C72B8200C36C72 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		0FF2EFA219C72B8200C36C72 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		0FF2EFA519D11E7700C36C72 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
@@ -961,6 +1028,49 @@
 		0FF5B47D19A9D9DA00602A2C /* card98_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card98_D.jpg; sourceTree = "<group>"; };
 		0FF5B47E19A9D9DA00602A2C /* card99_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card99_D.jpg; sourceTree = "<group>"; };
 		0FF5B47F19A9D9DA00602A2C /* card9_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card9_D.jpg; sourceTree = "<group>"; };
+		0FFD0B8619DAE9B3007D9BAD /* border_color-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border_color-26.png"; sourceTree = "<group>"; };
+		0FFD0B8719DAE9B3007D9BAD /* chisel_tip_marker-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chisel_tip_marker-26.png"; sourceTree = "<group>"; };
+		0FFD0B8819DAE9B3007D9BAD /* pen-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pen-26.png"; sourceTree = "<group>"; };
+		0FFD0B9019DBABB4007D9BAD /* gikoAnimation10_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation10_1.png; sourceTree = "<group>"; };
+		0FFD0B9119DBABB4007D9BAD /* gikoAnimation10_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation10_2.png; sourceTree = "<group>"; };
+		0FFD0B9219DBABB4007D9BAD /* gikoAnimation10_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation10_3.png; sourceTree = "<group>"; };
+		0FFD0B9319DBABB4007D9BAD /* gikoAnimation10_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation10_4.png; sourceTree = "<group>"; };
+		0FFD0B9419DBABB4007D9BAD /* gikoAnimation1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation1_1.png; sourceTree = "<group>"; };
+		0FFD0B9519DBABB4007D9BAD /* gikoAnimation1_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation1_2.png; sourceTree = "<group>"; };
+		0FFD0B9619DBABB4007D9BAD /* gikoAnimation1_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation1_3.png; sourceTree = "<group>"; };
+		0FFD0B9719DBABB4007D9BAD /* gikoAnimation1_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation1_4.png; sourceTree = "<group>"; };
+		0FFD0B9819DBABB4007D9BAD /* gikoAnimation2_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation2_1.png; sourceTree = "<group>"; };
+		0FFD0B9919DBABB4007D9BAD /* gikoAnimation2_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation2_2.png; sourceTree = "<group>"; };
+		0FFD0B9B19DBABB4007D9BAD /* gikoAnimation3_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation3_1.png; sourceTree = "<group>"; };
+		0FFD0B9C19DBABB4007D9BAD /* gikoAnimation3_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation3_2.png; sourceTree = "<group>"; };
+		0FFD0B9D19DBABB4007D9BAD /* gikoAnimation4_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation4_1.png; sourceTree = "<group>"; };
+		0FFD0B9E19DBABB4007D9BAD /* gikoAnimation4_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation4_2.png; sourceTree = "<group>"; };
+		0FFD0B9F19DBABB4007D9BAD /* gikoAnimation4_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation4_3.png; sourceTree = "<group>"; };
+		0FFD0BA019DBABB4007D9BAD /* gikoAnimation4_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation4_4.png; sourceTree = "<group>"; };
+		0FFD0BA119DBABB4007D9BAD /* gikoAnimation4_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation4_5.png; sourceTree = "<group>"; };
+		0FFD0BA219DBABB4007D9BAD /* gikoAnimation5_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation5_1.png; sourceTree = "<group>"; };
+		0FFD0BA319DBABB4007D9BAD /* gikoAnimation5_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation5_2.png; sourceTree = "<group>"; };
+		0FFD0BA419DBABB4007D9BAD /* gikoAnimation5_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation5_3.png; sourceTree = "<group>"; };
+		0FFD0BA519DBABB4007D9BAD /* gikoAnimation6_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation6_1.png; sourceTree = "<group>"; };
+		0FFD0BA619DBABB4007D9BAD /* gikoAnimation6_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation6_2.png; sourceTree = "<group>"; };
+		0FFD0BA719DBABB4007D9BAD /* gikoAnimation6_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation6_3.png; sourceTree = "<group>"; };
+		0FFD0BA819DBABB4007D9BAD /* gikoAnimation7_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation7_1.png; sourceTree = "<group>"; };
+		0FFD0BA919DBABB4007D9BAD /* gikoAnimation7_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation7_2.png; sourceTree = "<group>"; };
+		0FFD0BAA19DBABB4007D9BAD /* gikoAnimation8_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation8_1.png; sourceTree = "<group>"; };
+		0FFD0BAB19DBABB4007D9BAD /* gikoAnimation8_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation8_2.png; sourceTree = "<group>"; };
+		0FFD0BAC19DBABB4007D9BAD /* gikoAnimation8_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation8_3.png; sourceTree = "<group>"; };
+		0FFD0BAD19DBABB4007D9BAD /* gikoAnimation9_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation9_1.png; sourceTree = "<group>"; };
+		0FFD0BAE19DBABB4007D9BAD /* gikoAnimation9_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation9_2.png; sourceTree = "<group>"; };
+		0FFD0BAF19DBABB4007D9BAD /* gikoAnimation9_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation9_3.png; sourceTree = "<group>"; };
+		0FFD0BD019DBABE6007D9BAD /* gikoAnimation2_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gikoAnimation2_3.png; sourceTree = "<group>"; };
+		0FFD0BD219DC3C31007D9BAD /* triggering-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triggering-50.png"; sourceTree = "<group>"; };
+		0FFDEF2119D708CC00DDA32F /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
+		0FFDEF2319D7147A00DDA32F /* snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow.png; sourceTree = "<group>"; };
+		0FFDEF2519D7F34600DDA32F /* deepForest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deepForest.png; sourceTree = "<group>"; };
+		0FFDEF2719D8567C00DDA32F /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
+		0FFDEF2919D85E0700DDA32F /* amazon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazon.png; sourceTree = "<group>"; };
+		0FFDEF2B19D90D4800DDA32F /* 1ha-to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1ha-to.png"; sourceTree = "<group>"; };
+		0FFDEF2D19D98B8E00DDA32F /* backOfACard_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backOfACard_small.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1286,6 +1396,8 @@
 		0FDB980F18CB655100C7566E /* img */ = {
 			isa = PBXGroup;
 			children = (
+				0FFD0B8F19DBABB4007D9BAD /* loadingAnimation */,
+				0FFDEF1C19D708A600DDA32F /* map */,
 				0FF5B3E919A9D9DA00602A2C /* deckcard */,
 				0FF5B3BD19A8EECB00602A2C /* energy */,
 				0F169B1C199A555E00221D19 /* middlecard */,
@@ -1324,12 +1436,15 @@
 				0FA2537719A24D6400A3F795 /* pipo-mapeffect009.png */,
 				0FF5B3B919A8EB9700602A2C /* back.png */,
 				0FF5B3BA19A8EB9700602A2C /* backOfACard.png */,
+				0FFDEF2D19D98B8E00DDA32F /* backOfACard_small.png */,
+				0FE0C26819D9982D0061057D /* backOfACard_skelton.png */,
 				0FA2537919A253A300A3F795 /* littleBlackBack.png */,
 				0FA2537519A24CD600A3F795 /* pipo-btleffect071.png */,
 				0FDB985D18D0A92700C7566E /* cancelButton.png */,
 				0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */,
 				0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */,
 				0F5B7A0118D949D600A3D9E7 /* anime.png */,
+				0FFDEF2B19D90D4800DDA32F /* 1ha-to.png */,
 				0FD1D9FD18DF22AB00E03D23 /* library.png */,
 				0F6A30451925BDEB00341623 /* tomb.png */,
 				0F6A30481925C14E00341623 /* next.png */,
@@ -1356,6 +1471,18 @@
 				0F6E1E1C19B615B00091BDDB /* pipo-battleffect046.png */,
 				0FC9685F19BDD0A5001C4793 /* cardBox.png */,
 				0FC9686919BF1449001C4793 /* cardBox_closed.png */,
+				0FE0C26A19D99C780061057D /* glyphicons_330_blog.png */,
+				0FE0C26B19D99C780061057D /* sample-302-swords.png */,
+				0FE0C27219D9A5610061057D /* buttonBack.png */,
+				0FE0C28119DAD0E20061057D /* glyphicons_001_leaf.png */,
+				0FE0C28219DAD0E20061057D /* glyphicons_021_snowflake.png */,
+				0FE0C28319DAD0E20061057D /* glyphicons_230_moon.png */,
+				0FE0C28419DAD0E20061057D /* glyphicons_231_sun.png */,
+				0FE0C28519DAD0E20061057D /* glyphicons_310_flower.png */,
+				0FFD0B8619DAE9B3007D9BAD /* border_color-26.png */,
+				0FFD0B8719DAE9B3007D9BAD /* chisel_tip_marker-26.png */,
+				0FFD0B8819DAE9B3007D9BAD /* pen-26.png */,
+				0FFD0BD219DC3C31007D9BAD /* triggering-50.png */,
 			);
 			path = else;
 			sourceTree = "<group>";
@@ -1444,8 +1571,12 @@
 				0F29BD171923B42C00E9D59C /* PenetrateFilter.m */,
 				0F1699D41999001D00221D19 /* MBAnimationView.h */,
 				0F1699D51999001D00221D19 /* MBAnimationView.m */,
+				0FE0C27E19DABA080061057D /* AAButton.h */,
+				0FE0C27F19DABA080061057D /* AAButton.m */,
 				0FC9686619BDF5E1001C4793 /* CALayer+nnCALayer.h */,
 				0FC9686719BDF5E1001C4793 /* CALayer+nnCALayer.m */,
+				0F53DB0119D6A2D900236502 /* PBImageView.h */,
+				0F53DB0219D6A2D900236502 /* PBImageView.m */,
 				0FF2EFA419D11E7700C36C72 /* NendAd */,
 				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
@@ -1683,6 +1814,57 @@
 			path = deckcard;
 			sourceTree = "<group>";
 		};
+		0FFD0B8F19DBABB4007D9BAD /* loadingAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0FFD0B9019DBABB4007D9BAD /* gikoAnimation10_1.png */,
+				0FFD0B9119DBABB4007D9BAD /* gikoAnimation10_2.png */,
+				0FFD0B9219DBABB4007D9BAD /* gikoAnimation10_3.png */,
+				0FFD0B9319DBABB4007D9BAD /* gikoAnimation10_4.png */,
+				0FFD0B9419DBABB4007D9BAD /* gikoAnimation1_1.png */,
+				0FFD0B9519DBABB4007D9BAD /* gikoAnimation1_2.png */,
+				0FFD0B9619DBABB4007D9BAD /* gikoAnimation1_3.png */,
+				0FFD0B9719DBABB4007D9BAD /* gikoAnimation1_4.png */,
+				0FFD0B9819DBABB4007D9BAD /* gikoAnimation2_1.png */,
+				0FFD0B9919DBABB4007D9BAD /* gikoAnimation2_2.png */,
+				0FFD0BD019DBABE6007D9BAD /* gikoAnimation2_3.png */,
+				0FFD0B9B19DBABB4007D9BAD /* gikoAnimation3_1.png */,
+				0FFD0B9C19DBABB4007D9BAD /* gikoAnimation3_2.png */,
+				0FFD0B9D19DBABB4007D9BAD /* gikoAnimation4_1.png */,
+				0FFD0B9E19DBABB4007D9BAD /* gikoAnimation4_2.png */,
+				0FFD0B9F19DBABB4007D9BAD /* gikoAnimation4_3.png */,
+				0FFD0BA019DBABB4007D9BAD /* gikoAnimation4_4.png */,
+				0FFD0BA119DBABB4007D9BAD /* gikoAnimation4_5.png */,
+				0FFD0BA219DBABB4007D9BAD /* gikoAnimation5_1.png */,
+				0FFD0BA319DBABB4007D9BAD /* gikoAnimation5_2.png */,
+				0FFD0BA419DBABB4007D9BAD /* gikoAnimation5_3.png */,
+				0FFD0BA519DBABB4007D9BAD /* gikoAnimation6_1.png */,
+				0FFD0BA619DBABB4007D9BAD /* gikoAnimation6_2.png */,
+				0FFD0BA719DBABB4007D9BAD /* gikoAnimation6_3.png */,
+				0FFD0BA819DBABB4007D9BAD /* gikoAnimation7_1.png */,
+				0FFD0BA919DBABB4007D9BAD /* gikoAnimation7_2.png */,
+				0FFD0BAA19DBABB4007D9BAD /* gikoAnimation8_1.png */,
+				0FFD0BAB19DBABB4007D9BAD /* gikoAnimation8_2.png */,
+				0FFD0BAC19DBABB4007D9BAD /* gikoAnimation8_3.png */,
+				0FFD0BAD19DBABB4007D9BAD /* gikoAnimation9_1.png */,
+				0FFD0BAE19DBABB4007D9BAD /* gikoAnimation9_2.png */,
+				0FFD0BAF19DBABB4007D9BAD /* gikoAnimation9_3.png */,
+			);
+			path = loadingAnimation;
+			sourceTree = "<group>";
+		};
+		0FFDEF1C19D708A600DDA32F /* map */ = {
+			isa = PBXGroup;
+			children = (
+				0FFDEF2119D708CC00DDA32F /* grass.png */,
+				0FFDEF2319D7147A00DDA32F /* snow.png */,
+				0FFDEF2519D7F34600DDA32F /* deepForest.png */,
+				0FFDEF2919D85E0700DDA32F /* amazon.png */,
+				0FFDEF2719D8567C00DDA32F /* desert.png */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1780,9 +1962,11 @@
 				0F169BB3199A555F00221D19 /* card100_M.JPG in Resources */,
 				0FF5B4D419A9D9DA00602A2C /* card38_D.jpg in Resources */,
 				0F169C20199A555F00221D19 /* card63_M.JPG in Resources */,
+				0FFD0BB219DBABB4007D9BAD /* gikoAnimation10_3.png in Resources */,
 				0F9E64FA196E8F0700AA5BE4 /* se_maoudamashii_magical21.mp3 in Resources */,
 				0F169BD6199A555F00221D19 /* card132_M.JPG in Resources */,
 				0FF5B3E319A8EECB00602A2C /* whiteEnergyImage.png in Resources */,
+				0FFD0BCD19DBABB4007D9BAD /* gikoAnimation9_1.png in Resources */,
 				0FF5B4BE19A9D9DA00602A2C /* card16_D.jpg in Resources */,
 				0FF5B49219A9D9DA00602A2C /* card117_D.jpg in Resources */,
 				0F9E650F196EC40D00AA5BE4 /* TanukiMagic.ttf in Resources */,
@@ -1792,6 +1976,7 @@
 				0F169BFC199A555F00221D19 /* card27_M.JPG in Resources */,
 				0F169C14199A555F00221D19 /* card51_M.JPG in Resources */,
 				0F169C44199A555F00221D19 /* card96_M.JPG in Resources */,
+				0FE0C28619DAD0E20061057D /* glyphicons_001_leaf.png in Resources */,
 				0FF5B4CE19A9D9DA00602A2C /* card32_D.jpg in Resources */,
 				0FF5B4F319A9D9DB00602A2C /* card69_D.jpg in Resources */,
 				0F9F17A718F19BA8004E58BF /* yaruo.png in Resources */,
@@ -1825,10 +2010,13 @@
 				0F169C42199A555F00221D19 /* card94_M.JPG in Resources */,
 				0F169BD2199A555F00221D19 /* card129_M.JPG in Resources */,
 				0FF5B4BB19A9D9DA00602A2C /* card154_D.jpg in Resources */,
+				0FFD0BC719DBABB4007D9BAD /* gikoAnimation6_3.png in Resources */,
 				0F169C16199A555F00221D19 /* card53_M.JPG in Resources */,
 				0FF5B4B019A9D9DA00602A2C /* card144_D.jpg in Resources */,
 				0FF5B4F819A9D9DB00602A2C /* card73_D.jpg in Resources */,
+				0FFD0BBC19DBABB4007D9BAD /* gikoAnimation3_2.png in Resources */,
 				0FF5B3DC19A8EECB00602A2C /* noColor2.png in Resources */,
+				0FFD0BB119DBABB4007D9BAD /* gikoAnimation10_2.png in Resources */,
 				0FC9686019BDD0A5001C4793 /* cardBox.png in Resources */,
 				0F9E64AF1965B3CF00AA5BE4 /* glayBack.png in Resources */,
 				0FF5B49E19A9D9DA00602A2C /* card128_D.jpg in Resources */,
@@ -1850,6 +2038,7 @@
 				0FF5B4EC19A9D9DB00602A2C /* card62_D.jpg in Resources */,
 				0FF5B49B19A9D9DA00602A2C /* card125_D.jpg in Resources */,
 				0FDB980E18CB620800C7566E /* Images.xcassets in Resources */,
+				0FFDEF2219D708CC00DDA32F /* grass.png in Resources */,
 				0F169C03199A555F00221D19 /* card34_M.JPG in Resources */,
 				0F169C09199A555F00221D19 /* card40_M.JPG in Resources */,
 				0FF5B4A019A9D9DA00602A2C /* card12_D.jpg in Resources */,
@@ -1878,15 +2067,20 @@
 				0FF5B50D19A9D9DB00602A2C /* card92_D.jpg in Resources */,
 				0F6A30491925C14E00341623 /* next.png in Resources */,
 				0FF5B50019A9D9DB00602A2C /* card80_D.jpg in Resources */,
+				0FFD0BC219DBABB4007D9BAD /* gikoAnimation5_1.png in Resources */,
 				0F169BDC199A555F00221D19 /* card138_M.JPG in Resources */,
 				0FDCA49518CACFC2003459F8 /* InfoPlist.strings in Resources */,
 				0F169BEC199A555F00221D19 /* card152_M.JPG in Resources */,
+				0FFD0B8B19DAE9B3007D9BAD /* pen-26.png in Resources */,
 				0FF5B3D819A8EECB00602A2C /* greenEnergyImage.png in Resources */,
 				0FF5B4EF19A9D9DB00602A2C /* card65_D.jpg in Resources */,
+				0FFD0BBE19DBABB4007D9BAD /* gikoAnimation4_2.png in Resources */,
 				0F6EB4701916B2E400BD0E41 /* .gitattributes in Resources */,
 				0FF5B49919A9D9DA00602A2C /* card123_D.jpg in Resources */,
 				0FF5B48019A9D9DA00602A2C /* card100_D.jpg in Resources */,
 				0F169C3E199A555F00221D19 /* card90_M.JPG in Resources */,
+				0FFD0B8919DAE9B3007D9BAD /* border_color-26.png in Resources */,
+				0FFD0BB619DBABB4007D9BAD /* gikoAnimation1_3.png in Resources */,
 				0F169C10199A555F00221D19 /* card47_M.JPG in Resources */,
 				0F9E6494196303B200AA5BE4 /* blackBack.png in Resources */,
 				0FF5B48419A9D9DA00602A2C /* card104_D.jpg in Resources */,
@@ -1895,8 +2089,11 @@
 				0F9E6495196303B200AA5BE4 /* whiteBack.png in Resources */,
 				0FF5B48619A9D9DA00602A2C /* card106_D.jpg in Resources */,
 				0F1D265219061E1500B43A76 /* border_character.png in Resources */,
+				0FFD0BBD19DBABB4007D9BAD /* gikoAnimation4_1.png in Resources */,
 				0FF5B4C719A9D9DA00602A2C /* card25_D.jpg in Resources */,
 				0FF5B49419A9D9DA00602A2C /* card119_D.jpg in Resources */,
+				0FFD0BC619DBABB4007D9BAD /* gikoAnimation6_2.png in Resources */,
+				0FFD0BC119DBABB4007D9BAD /* gikoAnimation4_5.png in Resources */,
 				0F169BC8199A555F00221D19 /* card11_M.JPG in Resources */,
 				0F169C01199A555F00221D19 /* card32_M.JPG in Resources */,
 				0FF5B4C619A9D9DA00602A2C /* card24_D.jpg in Resources */,
@@ -1914,23 +2111,28 @@
 				0FDB985918D0A55C00C7566E /* dummy.png in Resources */,
 				0FF5B3D519A8EECB00602A2C /* blueEnergyImage.png in Resources */,
 				0F169BDB199A555F00221D19 /* card137_M.JPG in Resources */,
+				0FE0C26D19D99C780061057D /* sample-302-swords.png in Resources */,
 				0FF5B4F719A9D9DB00602A2C /* card72_D.jpg in Resources */,
 				0FF5B4FD19A9D9DB00602A2C /* card78_D.jpg in Resources */,
 				0F169BCB199A555F00221D19 /* card122_M.JPG in Resources */,
 				0F169C2F199A555F00221D19 /* card77_M.JPG in Resources */,
 				0F169BF2199A555F00221D19 /* card17_M.JPG in Resources */,
+				0FFD0B8A19DAE9B3007D9BAD /* chisel_tip_marker-26.png in Resources */,
 				0F169BB7199A555F00221D19 /* card104_M.JPG in Resources */,
 				0FF5B4FE19A9D9DB00602A2C /* card79_D.jpg in Resources */,
 				0F169BE3199A555F00221D19 /* card144_M.JPG in Resources */,
 				0FF5B3D719A8EECB00602A2C /* blueEnergyImage_M.png in Resources */,
 				0F169C23199A555F00221D19 /* card66_M.JPG in Resources */,
+				0FFD0BCA19DBABB4007D9BAD /* gikoAnimation8_1.png in Resources */,
 				0F169C36199A555F00221D19 /* card83_M.JPG in Resources */,
 				0F169BCA199A555F00221D19 /* card121_M.JPG in Resources */,
 				0FF5B4D619A9D9DA00602A2C /* card40_D.jpg in Resources */,
 				0FF5B4DD19A9D9DB00602A2C /* card47_D.jpg in Resources */,
 				0FF5B49319A9D9DA00602A2C /* card118_D.jpg in Resources */,
 				0F169BFF199A555F00221D19 /* card30_M.JPG in Resources */,
+				0FFD0BB019DBABB4007D9BAD /* gikoAnimation10_1.png in Resources */,
 				0F169BCF199A555F00221D19 /* card126_M.JPG in Resources */,
+				0FFD0BB319DBABB4007D9BAD /* gikoAnimation10_4.png in Resources */,
 				0F169C41199A555F00221D19 /* card93_M.JPG in Resources */,
 				0FF5B4FF19A9D9DB00602A2C /* card7_D.jpg in Resources */,
 				0FF5B48119A9D9DA00602A2C /* card101_D.jpg in Resources */,
@@ -1939,8 +2141,11 @@
 				0FF5B48819A9D9DA00602A2C /* card108_D.jpg in Resources */,
 				0FF5B4B219A9D9DA00602A2C /* card146_D.jpg in Resources */,
 				0F169BF8199A555F00221D19 /* card23_M.JPG in Resources */,
+				0FE0C26C19D99C780061057D /* glyphicons_330_blog.png in Resources */,
 				0F169BBE199A555F00221D19 /* card110_M.JPG in Resources */,
+				0FFDEF2A19D85E0700DDA32F /* amazon.png in Resources */,
 				0FF5B4DB19A9D9DA00602A2C /* card45_D.jpg in Resources */,
+				0FFD0BD119DBABE6007D9BAD /* gikoAnimation2_3.png in Resources */,
 				0F169BE0199A555F00221D19 /* card141_M.JPG in Resources */,
 				0F169BF3199A555F00221D19 /* card18_M.JPG in Resources */,
 				0FF5B4CF19A9D9DA00602A2C /* card33_D.jpg in Resources */,
@@ -1949,18 +2154,24 @@
 				0FF5B4A519A9D9DA00602A2C /* card134_D.jpg in Resources */,
 				0FF5B50F19A9D9DB00602A2C /* card94_D.jpg in Resources */,
 				0FF5B48D19A9D9DA00602A2C /* card112_D.jpg in Resources */,
+				0FFD0BBF19DBABB4007D9BAD /* gikoAnimation4_3.png in Resources */,
 				0FF5B49719A9D9DA00602A2C /* card121_D.jpg in Resources */,
+				0FFD0BC419DBABB4007D9BAD /* gikoAnimation5_3.png in Resources */,
 				0FA2537619A24CD600A3F795 /* pipo-btleffect071.png in Resources */,
 				0F169C1D199A555F00221D19 /* card60_M.JPG in Resources */,
 				0F169BF5199A555F00221D19 /* card20_M.JPG in Resources */,
+				0FFD0BC519DBABB4007D9BAD /* gikoAnimation6_1.png in Resources */,
 				0FF5B49619A9D9DA00602A2C /* card120_D.jpg in Resources */,
 				0FF5B50119A9D9DB00602A2C /* card81_D.jpg in Resources */,
 				0FF5B4F519A9D9DB00602A2C /* card70_D.jpg in Resources */,
+				0FFDEF2819D8567C00DDA32F /* desert.png in Resources */,
 				0FF5B4F419A9D9DB00602A2C /* card6_D.jpg in Resources */,
 				0FF5B4A219A9D9DA00602A2C /* card131_D.jpg in Resources */,
 				0F169C31199A555F00221D19 /* card79_M.JPG in Resources */,
 				0F9F17A618F19BA8004E58BF /* syobon.png in Resources */,
 				0FF5B3DA19A8EECB00602A2C /* greenEnergyImage_M.png in Resources */,
+				0FFD0BC319DBABB4007D9BAD /* gikoAnimation5_2.png in Resources */,
+				0FE0C28819DAD0E20061057D /* glyphicons_230_moon.png in Resources */,
 				0FD1D9FC18DEB87A00E03D23 /* border_middleCard.png in Resources */,
 				0F169C35199A555F00221D19 /* card82_M.JPG in Resources */,
 				0FF5B4DA19A9D9DA00602A2C /* card44_D.jpg in Resources */,
@@ -1970,6 +2181,7 @@
 				0F169C2E199A555F00221D19 /* card76_M.JPG in Resources */,
 				0F169C0E199A555F00221D19 /* card45_M.JPG in Resources */,
 				0F3FED921928D41400ACA1BC /* outicon.png in Resources */,
+				0FFDEF2419D7147A00DDA32F /* snow.png in Resources */,
 				0F169C2C199A555F00221D19 /* card74_M.JPG in Resources */,
 				0FF5B4C419A9D9DA00602A2C /* card22_D.jpg in Resources */,
 				0F6EB4711916B2E400BD0E41 /* .gitignore in Resources */,
@@ -2021,12 +2233,17 @@
 				0F169C1F199A555F00221D19 /* card62_M.JPG in Resources */,
 				0F6E1E1D19B615B00091BDDB /* pipo-battleffect046.png in Resources */,
 				0F169BBF199A555F00221D19 /* card111_M.JPG in Resources */,
+				0FFD0BB419DBABB4007D9BAD /* gikoAnimation1_1.png in Resources */,
 				0F1699DF199902F000221D19 /* e_appear_240.png in Resources */,
 				0FF5B51019A9D9DB00602A2C /* card95_D.jpg in Resources */,
+				0FE0C26919D9982D0061057D /* backOfACard_skelton.png in Resources */,
+				0FFDEF2E19D98B8E00DDA32F /* backOfACard_small.png in Resources */,
 				0FF5B4E319A9D9DB00602A2C /* card53_D.jpg in Resources */,
+				0FFD0BBB19DBABB4007D9BAD /* gikoAnimation3_1.png in Resources */,
 				0FF5B4FB19A9D9DB00602A2C /* card76_D.jpg in Resources */,
 				0FF5B4CC19A9D9DA00602A2C /* card30_D.jpg in Resources */,
 				0FF5B4E119A9D9DB00602A2C /* card51_D.jpg in Resources */,
+				0FFD0BB519DBABB4007D9BAD /* gikoAnimation1_2.png in Resources */,
 				0FF5B48B19A9D9DA00602A2C /* card110_D.jpg in Resources */,
 				0FF5B51419A9D9DB00602A2C /* card99_D.jpg in Resources */,
 				0F169C34199A555F00221D19 /* card81_M.JPG in Resources */,
@@ -2039,6 +2256,7 @@
 				0F169BC5199A555F00221D19 /* card117_M.JPG in Resources */,
 				0F6A30461925BDEB00341623 /* tomb.png in Resources */,
 				0F169BD5199A555F00221D19 /* card131_M.JPG in Resources */,
+				0FFD0BD319DC3C31007D9BAD /* triggering-50.png in Resources */,
 				0FF5B4C819A9D9DA00602A2C /* card26_D.jpg in Resources */,
 				0F169C3D199A555F00221D19 /* card8_M.JPG in Resources */,
 				0F169C28199A555F00221D19 /* card70_M.JPG in Resources */,
@@ -2052,6 +2270,7 @@
 				0F9E6502196E8F0700AA5BE4 /* se_maoudamashii_se_sound20.mp3 in Resources */,
 				0F169C47199A555F00221D19 /* card99_M.JPG in Resources */,
 				0FF5B4C119A9D9DA00602A2C /* card19_D.jpg in Resources */,
+				0FFDEF2C19D90D4800DDA32F /* 1ha-to.png in Resources */,
 				0F169BC2199A555F00221D19 /* card114_M.JPG in Resources */,
 				0FF5B4D219A9D9DA00602A2C /* card36_D.jpg in Resources */,
 				0F169BD9199A555F00221D19 /* card135_M.JPG in Resources */,
@@ -2067,6 +2286,7 @@
 				0FF5B4F219A9D9DB00602A2C /* card68_D.jpg in Resources */,
 				0FF5B4AF19A9D9DA00602A2C /* card143_D.jpg in Resources */,
 				0FF5B3E219A8EECB00602A2C /* redEnergyImage_M.png in Resources */,
+				0FFD0BCB19DBABB4007D9BAD /* gikoAnimation8_2.png in Resources */,
 				0F169BC6199A555F00221D19 /* card118_M.JPG in Resources */,
 				0F5EE52418F1A5B500785996 /* characterSelect.png in Resources */,
 				0FF5B3DE19A8EECB00602A2C /* noColor4.png in Resources */,
@@ -2074,7 +2294,9 @@
 				0F169C21199A555F00221D19 /* card64_M.JPG in Resources */,
 				0FF5B4B719A9D9DA00602A2C /* card150_D.jpg in Resources */,
 				0FC9686219BDD0BE001C4793 /* gikoWalking.png in Resources */,
+				0FE0C28A19DAD0E20061057D /* glyphicons_310_flower.png in Resources */,
 				0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */,
+				0FFD0BCC19DBABB4007D9BAD /* gikoAnimation8_3.png in Resources */,
 				0FF5B4D519A9D9DA00602A2C /* card39_D.jpg in Resources */,
 				0FF5B3DD19A8EECB00602A2C /* noColor3.png in Resources */,
 				0F169C32199A555F00221D19 /* card7_M.JPG in Resources */,
@@ -2091,6 +2313,7 @@
 				0F169C2D199A555F00221D19 /* card75_M.JPG in Resources */,
 				0FF5B4A419A9D9DA00602A2C /* card133_D.jpg in Resources */,
 				0FF5B4BC19A9D9DA00602A2C /* card155_D.jpg in Resources */,
+				0FFD0BC019DBABB4007D9BAD /* gikoAnimation4_4.png in Resources */,
 				0F9E6506196E8F0700AA5BE4 /* se_maoudamashii_system29.mp3 in Resources */,
 				0FF5B48219A9D9DA00602A2C /* card102_D.jpg in Resources */,
 				0FF5B4B919A9D9DA00602A2C /* card152_D.jpg in Resources */,
@@ -2103,6 +2326,7 @@
 				0F9E64F7196E8F0700AA5BE4 /* se_maoudamashii_explosion04.mp3 in Resources */,
 				0FF5B50619A9D9DB00602A2C /* card86_D.jpg in Resources */,
 				0F169BC9199A555F00221D19 /* card120_M.JPG in Resources */,
+				0FFD0BC919DBABB4007D9BAD /* gikoAnimation7_2.png in Resources */,
 				0FF5B4ED19A9D9DB00602A2C /* card63_D.jpg in Resources */,
 				0F169BE5199A555F00221D19 /* card146_M.JPG in Resources */,
 				0F9E6505196E8F0700AA5BE4 /* se_maoudamashii_system20.mp3 in Resources */,
@@ -2110,10 +2334,16 @@
 				0F5B7A0218D949D600A3D9E7 /* anime.png in Resources */,
 				0FF5B4A819A9D9DA00602A2C /* card137_D.jpg in Resources */,
 				0F169C30199A555F00221D19 /* card78_M.JPG in Resources */,
+				0FFDEF2619D7F34600DDA32F /* deepForest.png in Resources */,
 				0F169C19199A555F00221D19 /* card56_M.JPG in Resources */,
+				0FFD0BB919DBABB4007D9BAD /* gikoAnimation2_2.png in Resources */,
+				0FFD0BCF19DBABB4007D9BAD /* gikoAnimation9_3.png in Resources */,
 				0FF5B4EB19A9D9DB00602A2C /* card61_D.jpg in Resources */,
 				0FF5B4A319A9D9DA00602A2C /* card132_D.jpg in Resources */,
+				0FE0C28719DAD0E20061057D /* glyphicons_021_snowflake.png in Resources */,
 				0FF5B4AA19A9D9DA00602A2C /* card139_D.jpg in Resources */,
+				0FFD0BB819DBABB4007D9BAD /* gikoAnimation2_1.png in Resources */,
+				0FE0C27319D9A5610061057D /* buttonBack.png in Resources */,
 				0FF5B4D119A9D9DA00602A2C /* card35_D.jpg in Resources */,
 				0F169BE8199A555F00221D19 /* card149_M.JPG in Resources */,
 				0FF5B4FC19A9D9DB00602A2C /* card77_D.jpg in Resources */,
@@ -2129,9 +2359,11 @@
 				0F1699E0199902F000221D19 /* e_circle_240.png in Resources */,
 				0FF5B3DF19A8EECB00602A2C /* noColor5.png in Resources */,
 				0FF5B4FA19A9D9DB00602A2C /* card75_D.jpg in Resources */,
+				0FE0C28919DAD0E20061057D /* glyphicons_231_sun.png in Resources */,
 				0FF5B4B419A9D9DA00602A2C /* card148_D.jpg in Resources */,
 				0FF5B48319A9D9DA00602A2C /* card103_D.jpg in Resources */,
 				0FF5B50B19A9D9DB00602A2C /* card90_D.jpg in Resources */,
+				0FFD0BCE19DBABB4007D9BAD /* gikoAnimation9_2.png in Resources */,
 				0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */,
 				0F169BD4199A555F00221D19 /* card130_M.JPG in Resources */,
 				0F169BB6199A555F00221D19 /* card103_M.JPG in Resources */,
@@ -2145,10 +2377,12 @@
 				0F169BE4199A555F00221D19 /* card145_M.JPG in Resources */,
 				0F9E64F6196E8F0700AA5BE4 /* se_maoudamashii_explosion03.mp3 in Resources */,
 				0F169C05199A555F00221D19 /* card36_M.JPG in Resources */,
+				0FFD0BB719DBABB4007D9BAD /* gikoAnimation1_4.png in Resources */,
 				0FA2537A19A253A300A3F795 /* littleBlackBack.png in Resources */,
 				0F169C00199A555F00221D19 /* card31_M.JPG in Resources */,
 				0F169BBB199A555F00221D19 /* card108_M.JPG in Resources */,
 				0F9E64F9196E8F0700AA5BE4 /* se_maoudamashii_magical10.mp3 in Resources */,
+				0FFD0BC819DBABB4007D9BAD /* gikoAnimation7_1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2193,6 +2427,7 @@
 				0FC9687319C14C8F001C4793 /* CourseSelectViewController.m in Sources */,
 				0F6EB4791916B2E400BD0E41 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				0FDB980918CB599F00C7566E /* DeckScreenViewController.m in Sources */,
+				0FE0C28019DABA080061057D /* AAButton.m in Sources */,
 				0F6EB47C1916B2E400BD0E41 /* SBJsonUTF8Stream.m in Sources */,
 				0F6EB47B1916B2E400BD0E41 /* SBJsonTokeniser.m in Sources */,
 				0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */,
@@ -2201,6 +2436,7 @@
 				0F6EB4531915EB1700BD0E41 /* SVProgressHUD.m in Sources */,
 				0F6EB4731916B2E400BD0E41 /* SBJsonParser.m in Sources */,
 				0F29BD0F191DEF2200E9D59C /* SendDataToServer.m in Sources */,
+				0F53DB0319D6A2D900236502 /* PBImageView.m in Sources */,
 				0FF2EFA319C72B8200C36C72 /* FirstViewController.m in Sources */,
 				0F6EB4761916B2E400BD0E41 /* SBJsonStreamParserAdapter.m in Sources */,
 				0FDCA49B18CACFC2003459F8 /* AppDelegate.m in Sources */,

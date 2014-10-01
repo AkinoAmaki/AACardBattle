@@ -473,8 +473,8 @@
 #pragma mark- インタースティシャル広告の設置
     // NADInterstitialはシングルトンパターンで実装されています。
     // 以下のように、sharedInstanceメッセージでインスタンスを取得できます。
-    [[NADInterstitial sharedInstance] loadAdWithApiKey:@"4f50c7eba45461939ee8c776be36a1e69e2380b7"
-                                                spotId:@"237834"];
+    [[NADInterstitial sharedInstance] loadAdWithApiKey:@"32a285a60095a6dcdff78eda42669a585804c707"
+                                                spotId:@"240078"];
     
     return YES;
 }
@@ -572,7 +572,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString *url = @"http://utakatanet.dip.jp:58080/activate.php";
     
     NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -613,7 +613,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         [notFoundForInternetBattle show];
     }else{
         NSLog(@"アクティベート or ディアクティベート完了");
-        [SVProgressHUD popActivity];
+        [SVProgressHUD dismiss];
     }
 }
 

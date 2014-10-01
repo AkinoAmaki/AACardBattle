@@ -11,14 +11,20 @@
 #import "SVProgressHUD.h"
 #import "SummonViewController.h"
 #import "MBAnimationView.h"
+#import "NADView.h"
+#import "AAButton.h"
 #define FINISHED1 syncFinished = YES;
 
-@interface ViewController : UIViewController<UITextFieldDelegate>{
+@interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *userDefault;
     AppDelegate *appdelegate;
 }
+
+@property (nonatomic, retain) NADView * nadView; //広告枠の設置
+@property (nonatomic, assign) id<NADInterstitialDelegate> delegate;
+@property (nonatomic) BOOL isOutputLog;
 
 
 @end

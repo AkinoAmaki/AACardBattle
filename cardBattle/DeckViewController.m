@@ -29,37 +29,36 @@
     
     allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 160 + NUMBEROFCARDS / 2 * (IMGHEIGHT + 5))];
     
-    
     //スクロールビューの設定
     scrollView = [[UIScrollView alloc] init];
     scrollView.frame = self.view.bounds;
     scrollView.contentSize = allImage.bounds.size;
     
+    NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"backOfACard_skelton" ofType:@"png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:backGroundImagePath]];
+    imageView.frame = CGRectMake(0, 0, 320, 480);
+    [self.view addSubview:imageView];
     
     //決定ボタンを実装
-    UIImage *decideButton = [UIImage imageNamed:@"cardselectdecidebutton.png"];
-    UIImageView *cardSelectDecideButton = [[UIImageView alloc] initWithFrame:CGRectMake(200, 50, 50, 20)];
-    cardSelectDecideButton.image = decideButton;
-    [allImage addSubview:cardSelectDecideButton];
-    cardSelectDecideButton.userInteractionEnabled = YES;
-    [cardSelectDecideButton addGestureRecognizer:
+    AAButton *decideButton = [[AAButton alloc] initWithImageAndText:nil imagePath:nil textString:@"決定" tag:1 CGRect:CGRectMake(140, 80, 50, 20)];
+    [decideButton addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(cardSelectDecideButtonPushed)]];
+    [allImage addSubview:decideButton];
+
     
     //キャンセルボタンを実装
-    UIImage *cancelButton = [UIImage imageNamed:@"cardselectcancelbutton.png"];
-    UIImageView *cardSelectCancelButton = [[UIImageView alloc] initWithFrame:CGRectMake(140, 50, 50, 20)];
-    cardSelectCancelButton.image = cancelButton;
-    [allImage addSubview:cardSelectCancelButton];
-    cardSelectCancelButton.userInteractionEnabled = YES;
-    [cardSelectCancelButton addGestureRecognizer:
+    AAButton *cancelButton = [[AAButton alloc] initWithImageAndText:nil imagePath:nil textString:@"キャンセル" tag:1 CGRect:CGRectMake(200, 80, 100, 20)];
+    [cancelButton addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
+      initWithTarget:self action:@selector(cardSelectDecideButtonPushed)]];
+    [allImage addSubview:cancelButton];
     
+    //メインビューに戻るボタンを実装
     _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_returnToMainViewButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [allImage addSubview:_returnToMainViewButton];
-    _returnToMainViewButton.frame = CGRectMake(20,35, 50, 50);
+    _returnToMainViewButton.frame = CGRectMake(20,65, 50, 50);
     [_returnToMainViewButton addTarget:self action:@selector(returnToMainView:)
                       forControlEvents:UIControlEventTouchUpInside];
     
@@ -69,17 +68,15 @@
     
     
     //デッキ名入れるテキスト画面入れる
-    UILabel *deckNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 50, 30)];
+    UILabel *deckNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 50, 30)];
     deckNameLabel.text = @"デッキ名";
     deckNameLabel.adjustsFontSizeToFitWidth = YES;
     [allImage addSubview:deckNameLabel];
-    deckName = [[UITextField alloc] initWithFrame:CGRectMake(60, 10, [[UIScreen mainScreen] bounds].size.width - 80, 30)];
+    deckName = [[UITextField alloc] initWithFrame:CGRectMake(80, 25, [[UIScreen mainScreen] bounds].size.width - 100, 30)];
     deckName.textAlignment = NSTextAlignmentCenter;
     deckName.clearButtonMode = UITextFieldViewModeAlways;
     deckName.borderStyle = UITextBorderStyleBezel;
     [allImage addSubview:deckName];
-    
-    
     
     
     //カードタップ音
@@ -229,7 +226,7 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(touchAction:)]];
     [imgView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchAcrion:)]];
-    imgView.frame = CGRectMake(10 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 100 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
+    imgView.frame = CGRectMake(10 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 130 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
     imgView.tag = i;
     [allImage addSubview:imgView];
 }

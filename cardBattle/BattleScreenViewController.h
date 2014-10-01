@@ -23,6 +23,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "MBAnimationView.h"
 #import "CourseSelectViewController.h"
+#import "PBImageView.h"
+#import "AAButton.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -234,6 +236,17 @@
 //キャラクターを選択するビュー
 @property UIImageView *characterField;
 
+//メインビューに戻るボタン
+@property UIButton *returnToMainViewButton;
+
+//ローカル対戦用開始ボタン
+@property AAButton *localBattleButton;
+
+//インターネット対戦開始ボタン
+@property AAButton *internetBattleButton;
+
+//対戦開始前の黒半透明の背景ビュー
+@property UIImageView *blackBack;
 
 //各種アラートビューを実装(ボタン押下時にアクションを起こす必要のあるものに限る)
 @property UIAlertView *battleStartView;

@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AAButton.h"
 #import "NADView.h"
 #define IMGWIDTH  150
 #define IMGHEIGHT 225

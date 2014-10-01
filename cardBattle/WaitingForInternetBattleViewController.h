@@ -14,6 +14,7 @@
 #import "GetEnemyDataFromServer.h"
 #import "MBAnimationView.h"
 #import "CALayer+nnCALayer.h"
+#import "PenetrateFilter.h"
 #define FINISHED3 syncFinished = YES;
 
 

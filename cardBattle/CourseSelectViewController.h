@@ -9,16 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "GikoGikoWaintngViewController.h"
+#import "NADView.h"
+#import "AAButton.h"
 
-
-@interface CourseSelectViewController : UIViewController{
+@interface CourseSelectViewController : UIViewController<NADViewDelegate>{
     AppDelegate *app;
     UIImageView *backGroundView; //背景画像
-    UIButton *course1Button;//コース1を選ぶボタン
-    UIButton *course2Button;//コース2を選ぶボタン
-    UIButton *course3Button;//コース3を選ぶボタン
-    UIButton *course4Button;//コース4を選ぶボタン
-    UIButton *course5Button;//コース5を選ぶボタン
+    AAButton *course1Button;//コース1を選ぶボタン
+    AAButton *course2Button;//コース2を選ぶボタン
+    AAButton *course3Button;//コース3を選ぶボタン
+    AAButton *course4Button;//コース4を選ぶボタン
+    AAButton *course5Button;//コース5を選ぶボタン
 }
+//メインビューに戻るボタン
+@property UIButton *returnToMainViewButton;
+
+@property (nonatomic, retain) NADView * nadView; //広告枠の設置
+@property (nonatomic, assign) id<NADInterstitialDelegate> delegate;
+@property (nonatomic) BOOL isOutputLog;
 
 @end

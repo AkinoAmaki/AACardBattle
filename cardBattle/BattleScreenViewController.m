@@ -121,7 +121,7 @@
     [resultFadeinScrollView addSubview:_backGroundView];
     resultFadeinScrollView.bounces = NO;
     
-    _colorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"anime"]];
+    _colorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fadeinImage"]];
     
     _colorView.userInteractionEnabled = YES;
     
@@ -133,21 +133,23 @@
         forControlEvents:UIControlEventTouchUpInside];
     
     myLifeImageView = [[UIImageView alloc] init];
-    myLifeImageView.image = [UIImage imageNamed:@"anime"];
+    myLifeImageView.image = [UIImage imageNamed:@"1ha-to.png"];
     myLifeTextView = [[UITextView alloc] init];
     myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
     myLifeTextView.editable = NO;
     myLifeTextView.textAlignment = NSTextAlignmentCenter;
+    myLifeTextView.textColor = [UIColor whiteColor];
     [PenetrateFilter penetrate:myLifeTextView];
     [myLifeImageView addSubview: myLifeTextView];
     [_allImageView addSubview:myLifeImageView];
     
     enemyLifeImageView = [[UIImageView alloc] init];
-    enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
+    enemyLifeImageView.image = [UIImage imageNamed:@"1ha-to.png"];
     enemyLifeTextView = [[UITextView alloc] init];
     enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
     enemyLifeTextView.editable = NO;
     enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
+    enemyLifeTextView.textColor = [UIColor whiteColor];
     
     [PenetrateFilter penetrate:enemyLifeTextView];
     [enemyLifeImageView addSubview: enemyLifeTextView];
@@ -247,15 +249,12 @@
     [_allImageView addSubview:_enemyField];
     
     //投了ボタンを表示するビューを作成
-    _goodGame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"success"]];
+    _goodGame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
     _goodGame.userInteractionEnabled = YES;
     [_goodGame addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(goodGameButtonTouched)]];
     [_allImageView addSubview:_goodGame];
-    
-//    goodgameボタンのフレームを実装する。
-    
     
     //エネルギーの数を表示するビューを作成
     //自分側
@@ -420,6 +419,8 @@
         _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
         _enemyField.frame = CGRectMake(10, 190, 50, 50);
         
+        _goodGame.frame = CGRectMake(10, 250, 50, 50);
+        
         _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
         _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
         _myBlackEnergyImage.frame = CGRectMake(100,  15, 20, 20);
@@ -484,10 +485,12 @@
         chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
         
         _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
-        _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
+        _enemyTomb.frame = CGRectMake(10, 130, 50, 50);
         
         _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
-        _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
+        _enemyField.frame = CGRectMake(10, 190, 50, 50);
+        
+        _goodGame.frame = CGRectMake(10, 250, 50, 50);
         
         _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
         _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
@@ -522,343 +525,6 @@
         _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
         
         _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
-        //        _myCardImageViewArray = [[NSMutableArray alloc] init];
-        //
-        //        _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-        //        _allImageView.userInteractionEnabled = YES;
-        //
-        //        _myCardImageView = [[UIImageView alloc] init];
-        //        _myCardImageView.userInteractionEnabled = YES;
-        //        [_allImageView addSubview:_myCardImageView];
-        //        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width, CARDHEIGHT);
-        //
-        //        _enemyCardImageView = [[UIImageView alloc] init];
-        //        _enemyCardImageView.userInteractionEnabled = YES;
-        //        [_allImageView addSubview:_enemyCardImageView];
-        //        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
-        //
-        //        _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
-        //
-        //        _backGroundView = [[UIImageView alloc] init];
-        //        _backGroundView.userInteractionEnabled = YES;
-        //        regionViewArray =[[NSMutableArray alloc] init];
-        //
-        //
-        //        resultFadeinScrollView = [[UIScrollView alloc] init];
-        //        resultFadeinScrollView.delegate = self;
-        //        resultFadeinScrollView.userInteractionEnabled = YES;
-        //        resultFadeinScrollView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 430, 240 , 350);
-        //        [resultFadeinScrollView addSubview:_backGroundView];
-        //        resultFadeinScrollView.bounces = NO;
-        //
-        //        _colorView = [[UIImageView alloc] initWithFrame:CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440)];
-        //        _colorView.image = [UIImage imageNamed:@"anime"];
-        //        _colorView.userInteractionEnabled = YES;
-        //
-        //
-        //        _okButton = [[UIButton alloc] init];
-        //        [_okButton setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
-        //        [_allImageView addSubview:_okButton];
-        //        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
-        //        [_okButton addTarget:self action:@selector(okButtonPushed)
-        //            forControlEvents:UIControlEventTouchUpInside];
-        //
-        //        myLifeImageView = [[UIImageView alloc] init];
-        //        myLifeImageView.image = [UIImage imageNamed:@"anime"];
-        //        myLifeTextView = [[UITextView alloc] init];
-        //        myLifeTextView.text = [NSString stringWithFormat:@"%d",app.myLifeGage];
-        //        myLifeTextView.editable = NO;
-        //        myLifeTextView.textAlignment = NSTextAlignmentCenter;
-        //        [PenetrateFilter penetrate:myLifeTextView];
-        //        [myLifeImageView addSubview: myLifeTextView];
-        //        [_allImageView addSubview:myLifeImageView];
-        //        myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
-        //        myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
-        //
-        //
-        //        enemyLifeImageView = [[UIImageView alloc] init];
-        //        enemyLifeImageView.image = [UIImage imageNamed:@"anime"];
-        //        enemyLifeTextView = [[UITextView alloc] init];
-        //        enemyLifeTextView.text = [NSString stringWithFormat:@"%d",app.enemyLifeGage];
-        //        enemyLifeTextView.editable = NO;
-        //        enemyLifeTextView.textAlignment = NSTextAlignmentCenter;
-        //
-        //        [PenetrateFilter penetrate:enemyLifeTextView];
-        //        [enemyLifeImageView addSubview: enemyLifeTextView];
-        //        [_allImageView addSubview:enemyLifeImageView];
-        //        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
-        //        enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
-        //
-        //
-        //        _myCharacterView = [[UIImageView alloc] init];
-        //        _enemyCharacterView = [[UIImageView alloc] init];
-        //        [_allImageView addSubview:_myCharacterView];
-        //        [_allImageView addSubview:_enemyCharacterView];
-        //        _myCharacterView.userInteractionEnabled = YES;
-        //        _enemyCharacterView.userInteractionEnabled = YES;
-        //        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
-        //        _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
-        //
-        //        UIImageView *chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-        //        UIImageView *chara_myMonar       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-        //        UIImageView *chara_mySyobon           = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-        //        UIImageView *chara_myYaruo       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
-        //        UIImageView *chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-        //        UIImageView *chara_enemyMonar    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-        //        UIImageView *chara_enemySyobon        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-        //        UIImageView *chara_enemyYaruo    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
-        //
-        //        chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
-        //        chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
-        //        chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
-        //        chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
-        //        chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
-        //        chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
-        //        chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
-        //        chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
-        //
-        //
-        //        chara_myGiko.userInteractionEnabled         = YES;
-        //        chara_myMonar.userInteractionEnabled        = YES;
-        //        chara_mySyobon.userInteractionEnabled       = YES;
-        //        chara_myYaruo.userInteractionEnabled        = YES;
-        //        chara_enemyGiko.userInteractionEnabled      = YES;
-        //        chara_enemyMonar.userInteractionEnabled     = YES;
-        //        chara_enemySyobon.userInteractionEnabled    = YES;
-        //        chara_enemyYaruo.userInteractionEnabled     = YES;
-        //
-        //
-        //        chara_myGiko.tag    = GIKO;
-        //        chara_myMonar.tag   = MONAR;
-        //        chara_mySyobon.tag  = SYOBON;
-        //        chara_myYaruo.tag   = YARUO;
-        //        /*
-        //         chara_enemyGiko.tag = ;
-        //         chara_enemyMonar.tag = ;
-        //         chara_enemySYOBON.tag     = ;
-        //         chara_enemyYaruo.tag = ;
-        //         */
-        //
-        //        [chara_myGiko addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(touchesBegan:)]];
-        //        [chara_myMonar addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(touchesBegan:)]];
-        //        [chara_mySyobon addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(touchesBegan:)]];
-        //        [chara_myYaruo addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(touchesBegan:)]];
-        //
-        //        [_myCharacterView addSubview:chara_myGiko];
-        //        [_myCharacterView addSubview:chara_myMonar];
-        //        [_myCharacterView addSubview:chara_mySyobon];
-        //        [_myCharacterView addSubview:chara_myYaruo];
-        //        [_enemyCharacterView addSubview:chara_enemyGiko];
-        //        [_enemyCharacterView addSubview:chara_enemyMonar];
-        //        [_enemyCharacterView addSubview:chara_enemySyobon];
-        //        [_enemyCharacterView addSubview:chara_enemyYaruo];
-        //
-        //
-        //
-        //        //墓地を表示するビューを作成
-        //        _myTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
-        //        _myTomb.userInteractionEnabled = YES;
-        //        [_myTomb addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(myTombTouched:)]];
-        //        [_allImageView addSubview:_myTomb];
-        //        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
-        //
-        //        _enemyTomb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tomb"]];
-        //        _enemyTomb.userInteractionEnabled = YES;
-        //        [_enemyTomb addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(enemyTombTouched:)]];
-        //        [_allImageView addSubview:_enemyTomb];
-        //        _enemyTomb.frame = CGRectMake(_enemyTomb.superview.bounds.size.width - 310, _enemyTomb.superview.bounds.size.height - 350, 50, 50);
-        //
-        //
-        //        //フィールドカード置き場を表示するビューを作成
-        //        _myField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
-        //        _myField.userInteractionEnabled = YES;
-        //        [_myField addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(myFieldTouched:)]];
-        //        [_allImageView addSubview:_myField];
-        //        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
-        //
-        //        _enemyField = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"field"]];
-        //        _enemyField.userInteractionEnabled = YES;
-        //        [_enemyField addGestureRecognizer:
-        //         [[UITapGestureRecognizer alloc]
-        //          initWithTarget:self action:@selector(enemyFieldTouched:)]];
-        //        [_allImageView addSubview:_enemyField];
-        //        _enemyField.frame = CGRectMake(_enemyField.superview.bounds.size.width - 310, _enemyField.superview.bounds.size.height - 290, 50, 50);
-        //
-        //        //エネルギーの数を表示するビューを作成
-        //        //自分側
-        //        _myWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-        //        _myBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-        //        _myBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-        //        _myRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-        //        _myGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
-        //
-        //        _myAllEnergy = [[UIImageView alloc] init];
-        //        [_myAllEnergy addSubview:_myWhiteEnergyImage];
-        //        [_myAllEnergy addSubview:_myBlueEnergyImage];
-        //        [_myAllEnergy addSubview:_myBlackEnergyImage];
-        //        [_myAllEnergy addSubview:_myRedEnergyImage];
-        //        [_myAllEnergy addSubview:_myGreenEnergyImage];
-        //
-        //        _myWhiteEnergyImage.frame = CGRectMake(  0,  15, 20, 20);
-        //        _myBlueEnergyImage.frame  = CGRectMake( 50,  15, 20, 20);
-        //        _myBlackEnergyImage.frame = CGRectMake(100,  15, 20, 20);
-        //        _myRedEnergyImage.frame   = CGRectMake(150,  15, 20, 20);
-        //        _myGreenEnergyImage.frame = CGRectMake(200,  15, 20, 20);
-        //
-        //
-        //        _myWhiteEnergyText = [[UITextView alloc] init];
-        //        _myBlueEnergyText = [[UITextView alloc] init];
-        //        _myBlackEnergyText = [[UITextView alloc] init];
-        //        _myRedEnergyText = [[UITextView alloc] init];
-        //        _myGreenEnergyText = [[UITextView alloc] init];
-        //
-        //        _myWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:0] intValue]];
-        //        _myBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:1] intValue]];
-        //        _myBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:2] intValue]];
-        //        _myRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:3] intValue]];
-        //        _myGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.myEnergyCard objectAtIndex:4] intValue]];
-        //
-        //        [PenetrateFilter penetrate:_myWhiteEnergyText];
-        //        [PenetrateFilter penetrate:_myBlueEnergyText];
-        //        [PenetrateFilter penetrate:_myBlackEnergyText];
-        //        [PenetrateFilter penetrate:_myRedEnergyText];
-        //        [PenetrateFilter penetrate:_myGreenEnergyText];
-        //
-        //        [_myAllEnergy addSubview:_myWhiteEnergyText];
-        //        [_myAllEnergy addSubview:_myBlueEnergyText];
-        //        [_myAllEnergy addSubview:_myBlackEnergyText];
-        //        [_myAllEnergy addSubview:_myRedEnergyText];
-        //        [_myAllEnergy addSubview:_myGreenEnergyText];
-        //
-        //        _myWhiteEnergyText.frame = CGRectMake( 20, 20, 30, 20);
-        //        _myBlueEnergyText.frame  = CGRectMake( 70, 20, 30, 20);
-        //        _myBlackEnergyText.frame = CGRectMake(120, 20, 30, 20);
-        //        _myRedEnergyText.frame   = CGRectMake(170, 20, 30, 20);
-        //        _myGreenEnergyText.frame = CGRectMake(220, 20, 30, 20);
-        //
-        //        _myWhiteEnergyText.textColor = [UIColor blueColor];
-        //        _myBlueEnergyText.textColor = [UIColor blueColor];
-        //        _myBlackEnergyText.textColor = [UIColor blueColor];
-        //        _myRedEnergyText.textColor = [UIColor blueColor];
-        //        _myGreenEnergyText.textColor = [UIColor blueColor];
-        //
-        //        _myUsingWhiteEnergyText = [[UITextView alloc] init];
-        //        _myUsingBlueEnergyText = [[UITextView alloc] init];
-        //        _myUsingBlackEnergyText = [[UITextView alloc] init];
-        //        _myUsingRedEnergyText = [[UITextView alloc] init];
-        //        _myUsingGreenEnergyText = [[UITextView alloc] init];
-        //
-        //        _myUsingWhiteEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:0] intValue]];
-        //        _myUsingBlueEnergyText.text     = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:1] intValue]];
-        //        _myUsingBlackEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:2] intValue]];
-        //        _myUsingRedEnergyText.text      = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:3] intValue]];
-        //        _myUsingGreenEnergyText.text    = [NSString stringWithFormat:@"%d",[[app.myUsingEnergy objectAtIndex:4] intValue]];
-        //
-        //        [PenetrateFilter penetrate:_myUsingWhiteEnergyText];
-        //        [PenetrateFilter penetrate:_myUsingBlueEnergyText];
-        //        [PenetrateFilter penetrate:_myUsingBlackEnergyText];
-        //        [PenetrateFilter penetrate:_myUsingRedEnergyText];
-        //        [PenetrateFilter penetrate:_myUsingGreenEnergyText];
-        //
-        //        [_myAllEnergy addSubview:_myUsingWhiteEnergyText];
-        //        [_myAllEnergy addSubview:_myUsingBlueEnergyText];
-        //        [_myAllEnergy addSubview:_myUsingBlackEnergyText];
-        //        [_myAllEnergy addSubview:_myUsingRedEnergyText];
-        //        [_myAllEnergy addSubview:_myUsingGreenEnergyText];
-        //
-        //        _myUsingWhiteEnergyText.frame   = CGRectMake(  20, 5, 30, 20);
-        //        _myUsingBlueEnergyText.frame    = CGRectMake(  70, 5, 30, 20);
-        //        _myUsingBlackEnergyText.frame   = CGRectMake( 120, 5, 30, 20);
-        //        _myUsingRedEnergyText.frame     = CGRectMake( 170, 5, 30, 20);
-        //        _myUsingGreenEnergyText.frame   = CGRectMake( 220, 5, 30, 20);
-        //
-        //        _myUsingWhiteEnergyText.textColor = [UIColor redColor];
-        //        _myUsingBlueEnergyText.textColor  = [UIColor redColor];
-        //        _myUsingBlackEnergyText.textColor = [UIColor redColor];
-        //        _myUsingRedEnergyText.textColor   = [UIColor redColor];
-        //        _myUsingGreenEnergyText.textColor = [UIColor redColor];
-        //
-        //
-        //        [_allImageView addSubview: _myAllEnergy];
-        //        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 50, 250, 40);
-        //
-        //        //相手側
-        //        _enemyWhiteEnergyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whiteEnergyImage"]];
-        //        _enemyBlueEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueEnergyImage"]];
-        //        _enemyBlackEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackEnergyImage"]];
-        //        _enemyRedEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redEnergyImage"]];
-        //        _enemyGreenEnergyImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenEnergyImage"]];
-        //
-        //        _enemyAllEnergy = [[UIImageView alloc] init];
-        //        [_enemyAllEnergy addSubview:_enemyWhiteEnergyImage];
-        //        [_enemyAllEnergy addSubview:_enemyBlueEnergyImage];
-        //        [_enemyAllEnergy addSubview:_enemyBlackEnergyImage];
-        //        [_enemyAllEnergy addSubview:_enemyRedEnergyImage];
-        //        [_enemyAllEnergy addSubview:_enemyGreenEnergyImage];
-        //
-        //        _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
-        //        _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
-        //        _enemyBlackEnergyImage.frame = CGRectMake(100,  0, 20, 20);
-        //        _enemyRedEnergyImage.frame   = CGRectMake(150,  0, 20, 20);
-        //        _enemyGreenEnergyImage.frame = CGRectMake(200,  0, 20, 20);
-        //
-        //
-        //        _enemyWhiteEnergyText = [[UITextView alloc] init];
-        //        _enemyBlueEnergyText = [[UITextView alloc] init];
-        //        _enemyBlackEnergyText = [[UITextView alloc] init];
-        //        _enemyRedEnergyText = [[UITextView alloc] init];
-        //        _enemyGreenEnergyText = [[UITextView alloc] init];
-        //
-        //        _enemyWhiteEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:0] intValue]];
-        //        _enemyBlueEnergyText.text  = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:1] intValue]];
-        //        _enemyBlackEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:2] intValue]];
-        //        _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
-        //        _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
-        //
-        //        [_enemyAllEnergy addSubview:_enemyWhiteEnergyText];
-        //        [_enemyAllEnergy addSubview:_enemyBlueEnergyText];
-        //        [_enemyAllEnergy addSubview:_enemyBlackEnergyText];
-        //        [_enemyAllEnergy addSubview:_enemyRedEnergyText];
-        //        [_enemyAllEnergy addSubview:_enemyGreenEnergyText];
-        //
-        //        _enemyWhiteEnergyText.frame = CGRectMake( 20, 0, 30, 20);
-        //        _enemyBlueEnergyText.frame  = CGRectMake( 70, 0, 30, 20);
-        //        _enemyBlackEnergyText.frame = CGRectMake(120, 0, 30, 20);
-        //        _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
-        //        _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
-        //
-        //        [_allImageView addSubview: _enemyAllEnergy];
-        //        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
-        //
-        //
-        //
-        //        _myGiko = [[UILabel alloc] init];
-        //        _myMonar = [[UILabel alloc] init];
-        //        _mySyobon = [[UILabel alloc] init];
-        //        _myYaruo = [[UILabel alloc] init];
-        //        _myDamage = [[UILabel alloc] init];
-        //        _enemyGiko = [[UILabel alloc] init];
-        //        _enemyMonar = [[UILabel alloc] init];
-        //        _enemySyobon = [[UILabel alloc] init];
-        //        _enemyYaruo = [[UILabel alloc] init];
-        //        _enemyDamage = [[UILabel alloc] init];
-        //
-        //
-        //        [self.view addSubview:_allImageView];
     }
     
     //BGMの実装
@@ -885,36 +551,64 @@
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
     
+    //当初はボタンのタッチを禁止する
+    [self forbidTouchAction];
+    
+    
+    _blackBack = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    _blackBack.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blackBack" ofType:@"png"]];
+    _blackBack.alpha = 0.6f;
+    [_allImageView addSubview:_blackBack];
+    
+    //メインビューに戻るボタンを実装
+    _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_returnToMainViewButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [_allImageView addSubview:_returnToMainViewButton];
+    _returnToMainViewButton.frame = CGRectMake(10,65, 50, 50);
+    [_returnToMainViewButton addTarget:self action:@selector(returnToMainView)
+                      forControlEvents:UIControlEventTouchUpInside];
+    
+    //ローカル対戦開始のボタンを実装
+    _localBattleButton = [[AAButton alloc] initWithImageAndText:@"triggering-50" imagePath:@"png" textString:@"ローカル対戦" tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 125 , 160, 250, 40)];
+    [_localBattleButton addTarget:self action:@selector(battleStartForLocalBattle)
+                      forControlEvents:UIControlEventTouchUpInside];
+    [_allImageView addSubview:_localBattleButton];
+    
+    //インターネット対戦開始のボタンを実装
+    _internetBattleButton = [[AAButton alloc] initWithImageAndText:@"triggering-50" imagePath:@"png" textString:@"インターネット対戦" tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 125 , 240, 250, 40)];
+    [_internetBattleButton addTarget:self action:@selector(startInternetBattle:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    [_allImageView addSubview:_internetBattleButton];
     
     //--------------------------デバッグ用ボタン-----------------------------------
     
-    UIButton *startButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    startButton.frame = CGRectMake(160, 240, 80, 20);
-    [startButton setTitle:@"開始" forState:UIControlStateNormal];
-    [_allImageView addSubview:startButton];
-    [startButton addTarget:self action:@selector(battleStartForLocalBattle)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug1Button.frame = CGRectMake(160, 300, 80, 20);
-    [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug1Button];
-    [debug1Button addTarget:self action:@selector(debug1:)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug2Button.frame = CGRectMake(160, 360, 80, 20);
-    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug2Button];
-    [debug2Button addTarget:self action:@selector(debug2:)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug3Button.frame = CGRectMake(160, 420, 80, 20);
-    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug3Button];
-    [debug3Button addTarget:self action:@selector(debug3:)
-           forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *startButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    startButton.frame = CGRectMake(160, 240, 80, 20);
+//    [startButton setTitle:@"開始" forState:UIControlStateNormal];
+//    [_allImageView addSubview:startButton];
+//    [startButton addTarget:self action:@selector(battleStartForLocalBattle)
+//          forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug1Button.frame = CGRectMake(160, 300, 80, 20);
+//    [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
+//    [_allImageView addSubview:debug1Button];
+//    [debug1Button addTarget:self action:@selector(debug1:)
+//           forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug2Button.frame = CGRectMake(160, 360, 80, 20);
+//    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
+//    [_allImageView addSubview:debug2Button];
+//    [debug2Button addTarget:self action:@selector(debug2:)
+//           forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug3Button.frame = CGRectMake(160, 420, 80, 20);
+//    [debug3Button setTitle:@"デバッグ3" forState:UIControlStateNormal];
+//    [_allImageView addSubview:debug3Button];
+//    [debug3Button addTarget:self action:@selector(debug3:)
+//           forControlEvents:UIControlEventTouchUpInside];
     
     
     //--------------------------デバッグ用ボタンここまで-----------------------------
@@ -945,12 +639,12 @@
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    [self battleStart];
-    
+    PBImageView *pbtest = [[PBImageView alloc] initWithImageNameAndText:@"glayBack.png" textString:@"てすと"];
+    [_allImageView addSubview:pbtest];
 }
 
 
-- (void)debug3 :(UITapGestureRecognizer *)sender{
+- (void)startInternetBattle :(UITapGestureRecognizer *)sender{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     _usingDeckCardListForInternetBattle = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
     [_usingDeckCardListForInternetBattle show];
@@ -1062,14 +756,14 @@
     [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"fadeinImage"]];
     [self sync];
     if([self isGameOver]){
-        return;
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
     
     
     //カード使用後
     NSLog(@"カード使用・AA選択フェーズ");
     NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
-    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。使用するカード及びAAを選択してください。"];
+    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。\n使用するカード及びAAを選択してください。"];
     [self sync];
     //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
     [self permitTouchAction];
@@ -1119,7 +813,7 @@
         app.myAdditionalGettingCards = 0;
     //カード効果でカードを捨てたら処理する
         for (int i = 0; i < app.myAdditionalDiscardingCards; i++) {
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:@"捨てるカードを一枚選んでください"];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) longtapSelector:@selector(detailOfACard:) string:@"捨てるカードを一枚選んでください"];
             [self sync];
         }
     app.enemyDamageFromAA = [_bc damageCaliculate];
@@ -1136,7 +830,7 @@
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
     [self sync];
     if([self isGameOver]){
-        return;
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
     //ターン終了時
     NSLog(@"ターン終了フェイズ");
@@ -1155,7 +849,7 @@
     [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
     [self sync];
     if([self isGameOver]){
-        return;
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
     
     NSLog(@"-----------------------------------");
@@ -1190,7 +884,7 @@
     }
     
     while([app.myHand count] > 5){
-        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) string:@"手札の所持枚数が5枚を超えました。捨てるカードを一枚選んでください"];
+        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) longtapSelector:@selector(detailOfACard:) string:@"手札の所持枚数が5枚を超えました。\n捨てるカードを一枚選んでください"];
         [self sync];
     }
     [self initializeVariables];
@@ -1414,7 +1108,7 @@
             break;
         case 30:
             //対象の場カードを破壊する
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 31:
@@ -1514,7 +1208,7 @@
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             break;
         case 46:
             //相手の全ての場カードをオーナーの手札に戻す（U3)
@@ -1527,11 +1221,11 @@
             break;
         case 47:
             //対象の場カードを自分のものにする（UU3)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) string:@"相手から奪うカードを選択してください"];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:@"相手から奪うカードを選択してください"];
             break;
         case 48:
             //対象のフィールドカードをオーナーの手札に戻し、カードを一枚引く（UU2)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(returnEnemyFieldCardToHandSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:[NSString stringWithFormat:@"%@が発動しました。手札に戻すカードを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             app.myAdditionalGettingCards++;
             break;
         case 49:
@@ -1651,15 +1345,15 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"カード使用不可" message:@"自分または相手のフィールドにカードがなかったため、使用できませんでした" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
-                [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) string:@"相手から奪うカードを選択してください"];
+                [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(stealEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:@"相手から奪うカードを選択してください"];
                 [self sync];
-                [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(sendMyFieldCardSelector:) string:@"相手に渡すカードを選択してください"];
+                [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(sendMyFieldCardSelector:) longtapSelector:@selector(detailOfACard_MyField:) string:@"相手に渡すカードを選択してください"];
                 [self sync];
             }
             break;
         case 63:
             //自分が場に出しているカードのフィールドカードのコピーになる(このターン中に使わなければ破壊される)(UU)
-            [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(copyMyFieldCardSelector:) string:@"コピーするカードを選択してください"];
+            [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(copyMyFieldCardSelector:) longtapSelector:@selector(detailOfACard_MyField:) string:@"コピーするカードを選択してください"];
             [self sync];
             break;
         case 64:
@@ -1727,14 +1421,14 @@
             break;
         case 75:
             //対象の場カードを破壊する（R1)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 76:
             //対象の場カードを２枚破壊する（R3)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMultiEnemyFieldCardsSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 77:
@@ -2012,7 +1706,7 @@
             
             //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             if(selectCardIsCanceledInCardInRegion == NO){
                 app.myAdditionalGettingCards++;
@@ -2031,7 +1725,7 @@
         case 108:
             //場のカードを破壊するが、ライフを３点失う（B1)
             app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-3];
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 109:
@@ -2077,25 +1771,25 @@
         case 113:
             //カードを一枚好きにサーチし、ライブラリを切り直す。ライフを４点失う（B1)
             app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-4];
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:str];
             [self sync];
             [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 114:
             //カードを一枚好きにサーチし、ライブラリを切り直す（BB2)
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) string:str];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getACardFromLibrarySelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:str];
             [self sync];
             [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 115:
             //相手プレイヤーのデッキからカードを一枚捨てる（BB2)
-            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardACardFromLibrarySelector:) string:str];
+            [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardACardFromLibrarySelector:) longtapSelector:@selector(detailOfACard_EnemyDeckCardList:) string:str];
             [self sync];
             break;
         case 116:
             //相手プレイヤーのデッキからカードを十枚捨てる(BBB5)
             for (int i = 0; i < 10; i++) {
-                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardMultiCardsFromLibrarySelector:) string:str];
+                [self browseCardsInRegion:app.enemyDeckCardList touchCard:YES tapSelector:@selector(discardMultiCardsFromLibrarySelector:) longtapSelector:@selector(detailOfACard_EnemyDeckCardList:) string:str];
                 [self sync];
             }
             break;
@@ -2117,14 +1811,14 @@
             break;
         case 118:
             //相手プレイヤーの手札の中にある、カードを1枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) longtapSelector:@selector(detailOfACard_EnemyHand:) string:str];
             [self sync];
             break;
         case 119:
             //相手プレイヤーの手札の中にある、カードを2枚選んで捨てる（BB2)
-            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) longtapSelector:@selector(detailOfACard_EnemyHand:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyMultiHandSelector:) longtapSelector:@selector(detailOfACard_EnemyHand:) string:str];
             [self sync];
             break;
         case 120:
@@ -2149,10 +1843,10 @@
             
             //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             if(selectCardIsCanceledInCardInRegion == NO){
-                [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) string:str];
+                [self browseCardsInRegion:app.enemyHand touchCard:YES tapSelector:@selector(discardEnemyHandSelector:) longtapSelector:@selector(detailOfACard_EnemyHand:) string:str];
                 [self sync];
             }else{
                 selectCardIsCanceledInCardInRegion = NO;
@@ -2179,12 +1873,12 @@
             
             //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             BOOL b = selectCardIsCanceledInCardInRegion;
             
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             if(selectCardIsCanceledInCardInRegion == NO && b == NO){
                 [self myAttackPowerOperate:GIKO point:2 temporary:0];
@@ -2269,14 +1963,14 @@
             break;
         case 133:
             //墓地からカードを一枚手札に戻す（G2)
-            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getACardFromMyTombSelector:) string:str];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getACardFromMyTombSelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:str];
             [self sync];
             break;
         case 134:
             //墓地からカードを二枚手札に戻す（G3)
-            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) string:str];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) string:str];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getMultiCardFromMyTombSelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:str];
             [self sync];
             break;
         case 135:
@@ -2295,26 +1989,26 @@
             break;
         case 137:
             //エネルギーカードを１枚サーチ（G１)
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getAEnergyCardFromLibrarySelector:) string:str];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getAEnergyCardFromLibrarySelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:str];
             [self sync];
             [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 138:
             //エネルギーカードを２枚サーチ（GG2)
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getMultiEnergyCardFromLibraryHandSelector:) string:str];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getMultiEnergyCardFromLibraryHandSelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getMultiEnergyCardFromLibraryHandSelector:) string:str];
+            [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getMultiEnergyCardFromLibraryHandSelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:str];
             [self sync];
             [AppDelegate shuffledArray:app.myDeckCardList];
             break;
         case 139:
             //墓地のカードをライブラリーの一番下に戻す（G)
-            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(returnMyTombCardToLibrarySelector:) string:str];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(returnMyTombCardToLibrarySelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:str];
             [self sync];
             break;
         case 140:
             //対象の場カードを破壊する（G1)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 141:
@@ -2347,7 +2041,7 @@
             //自分の場カードを破壊し、そのカードのコスト分このターン攻撃力をプラスする（G1)
         {
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             if(selectCardIsCanceledInCardInRegion == NO){
                 NSArray *costLength = [self caliculateEnergyCost:[[[app.myFieldCardByMyself_minus lastObject] objectAtIndex:0] intValue]];
@@ -2396,7 +2090,7 @@
         case 148:
             //カードを一枚捨てることで、このターン攻撃力そのままをダメージにする（G)
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             if(selectCardIsCanceledInCardInRegion == NO){
                 app.enemyGikoDeffencePermittedByMyself = NO;
@@ -2438,17 +2132,17 @@
             //selectCardIsCanceledInCardInRegionを初期化し、ターンのそれまでにキャンセルボタンが押されていても正しくカード効果が発動するようにする
         {
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             BOOL a = selectCardIsCanceledInCardInRegion;
             
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             BOOL b = selectCardIsCanceledInCardInRegion;
             
             selectCardIsCanceledInCardInRegion = NO;
-            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) string:str];
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyMultiHandSelector:) longtapSelector:@selector(detailOfACard:) string:str];
             [self sync];
             
             if(selectCardIsCanceledInCardInRegion == NO && a == NO && b == NO){
@@ -2472,20 +2166,20 @@
             break;
         case 152:
             //互いに場カードを１枚破壊する(G1)
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyMyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
         case 153:
             //墓地にあるエネルギーカードを一枚手札に戻す（G1)
-            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getAEnergyCardFromTombSelector:) string:str];
+            [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(getAEnergyCardFromTombSelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:str];
             [self sync];
             break;
         case 154:
             //場カードと土地を１枚ずつ破壊する（GG2)
         {
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             [self colorSelect];
             [self sync];
@@ -2496,9 +2190,9 @@
         case 155:
             //場カードと土地を2枚ずつ破壊する（GGG3)
         {
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
-            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) string:str];
+            [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             [self colorSelect];
             [self sync];
@@ -2534,7 +2228,7 @@
     [view addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(resultFadeOut:)]];
-    [self insertLabelToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(60,25,180,30) Touch:NO];
+    [self insertLabelToParentView:view Text:@"ターン開始時に発動したカード"  Rectangle:CGRectMake(50,25,180,30) Touch:NO];
     
     NSMutableArray *my1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する自分のフィールドカード
     NSMutableArray *enemy1 = [[NSMutableArray alloc] init]; //ターン開始時に発動する相手のフィールドカード
@@ -2724,7 +2418,7 @@
     _enemyDamage.font = font;
     
     
-    [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(80,25,180,30) Touch:NO];
+    [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(50,25,180,30) Touch:NO];
     
     switch (app.mySelectCharacter) {
         case GIKO:
@@ -2923,7 +2617,7 @@
     
     int my1Count = (int)[my1 count];
     int enemy1Count = (int)[enemy1 count];
-    [self insertLabelToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(80,25,180,30) Touch:NO];
+    [self insertLabelToParentView:view Text:@"ターン終了時に発動したカード" Rectangle:CGRectMake(50,25,180,30) Touch:NO];
     [self insertLabelToParentView:resultFadeinScrollView Text:@"自分が使用したカード"  Rectangle:CGRectMake(10,0,150,30) Touch:NO];
     if (90 + my1Count * 20 <= 200) {
         [self insertLabelToParentView:resultFadeinScrollView Text:@"相手が使用したカード"  Rectangle:CGRectMake(10,170,150,30) Touch:NO];
@@ -2984,23 +2678,23 @@
     
     _phaseNameView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phaseName"]];
     _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height /2);
-    [self insertLabelToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,200,80) Touch:NO];
+    [self insertLabelToParentView:_phaseNameView Text:phaseName  Rectangle:CGRectMake(0,0,250,100) Touch:NO];
     [_allImageView addSubview:_phaseNameView];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
+    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 - 40,  [[UIScreen mainScreen] bounds].size.height /2);
     [UIView setAnimationDidStopSelector:@selector(resultFadeOutToTextField)];
     [UIView commitAnimations];
 }
 
 - (void)resultFadeOutToTextField{
-    [NSThread sleepForTimeInterval:1];
+    [NSThread sleepForTimeInterval:2];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelegate:self];
-    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 ,  [[UIScreen mainScreen] bounds].size.height /2);
+    _phaseNameView.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width / 2 - 40,  [[UIScreen mainScreen] bounds].size.height /2);
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -3069,6 +2763,7 @@
     label.tag = [app.cardList_cardName indexOfObject:text];
     label.font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12.0f];
     label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
     [parentView addSubview:label];
     if(touch){
         label.userInteractionEnabled = YES;
@@ -3078,6 +2773,48 @@
 
 - (void)detailOfACard:(UILongPressGestureRecognizer *)sender{
     detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.myHand objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_MyField:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.myFieldCard objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_EnemyField:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.enemyFieldCard objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_MyTomb:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.myTomb objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_EnemyTomb:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.enemyTomb objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_MyDeckCardList:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.myDeckCardList objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_EnemyDeckCardList:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.enemyDeckCardList objectAtIndex:(sender.view.tag - 1)] intValue]]];
+    [self.view addSubview:detailOfACard];
+    _allImageView.userInteractionEnabled = NO;
+}
+
+- (void)detailOfACard_EnemyHand:(UILongPressGestureRecognizer *)sender{
+    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG", [[app.enemyHand objectAtIndex:(sender.view.tag - 1)] intValue]]];
     [self.view addSubview:detailOfACard];
     _allImageView.userInteractionEnabled = NO;
 }
@@ -3127,13 +2864,20 @@
     //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
     
     
+    //メインビューに戻るボタン・ローカル対戦ボタン・インターネット対戦ボタン・対戦開始時の黒半透明背景を外す
+    
+    [_returnToMainViewButton removeFromSuperview];
+    [_localBattleButton removeFromSuperview];
+    [_internetBattleButton removeFromSuperview];
+    [_blackBack removeFromSuperview];
+    
     
     if([YSDeviceHelper is568h]){
         //自分
         
         while (myDrawCount < 5) {
             //手札のカード画像を用意する
-            UIImage *myCard = [UIImage imageNamed:@"outicon"];
+            UIImage *myCard = [UIImage imageNamed:@"backOfACard_small.png"];
             _myCard = [[UIImageView alloc] initWithImage:myCard];
             [_myCardImageViewArray addObject:_myCard];
             [_myCardImageView addSubview:_myCard];
@@ -3168,7 +2912,7 @@
         }
         
         //デッキのカード画像を用意する
-        UIImage *deck = [UIImage imageNamed:@"library.png"];
+        UIImage *deck = [UIImage imageNamed:@"backOfACard_small.png"];
         _myLibrary = [[UIImageView alloc] initWithImage:deck];
         [_allImageView addSubview:_myLibrary];
         //山札を用意するアニメーション
@@ -3181,7 +2925,7 @@
         
         //デッキの残枚数を表示
         _myLibraryCount = [[UITextView alloc] init];
-        _myLibraryCount.frame = CGRectMake(5, 10, 30, 40);
+        _myLibraryCount.frame = CGRectMake(0, 12, 34, 30);
         _myLibraryCount.textAlignment = NSTextAlignmentCenter;
         _myLibraryCount.editable = NO;
         [PenetrateFilter penetrate:_myLibraryCount];
@@ -3192,7 +2936,7 @@
         //相手
         while (enemyDrawCount < 5) {
             //手札のカード画像を用意する
-            UIImage *enemyCard = [UIImage imageNamed:@"outicon"];
+            UIImage *enemyCard = [UIImage imageNamed:@"backOfACard_small.png"];
             _enemyCard = [[UIImageView alloc] initWithImage:enemyCard];
             [_enemyCardImageViewArray addObject:_enemyCard];
             [_enemyCardImageView addSubview:_enemyCard];
@@ -3224,7 +2968,7 @@
         }
         
         //デッキのカード画像を用意する
-        UIImage *enemydeck = [UIImage imageNamed:@"library.png"];
+        UIImage *enemydeck = [UIImage imageNamed:@"backOfACard_small.png"];
         _enemyLibrary = [[UIImageView alloc] initWithImage:enemydeck];
         [_allImageView addSubview:_enemyLibrary];
         //山札を用意するアニメーション
@@ -3237,7 +2981,7 @@
         
         //デッキの残枚数を表示
         _enemyLibraryCount = [[UITextView alloc] init];
-        _enemyLibraryCount.frame = CGRectMake(5, 10, 30, 40);
+        _enemyLibraryCount.frame = CGRectMake(0, 12, 34, 30);
         _enemyLibraryCount.textAlignment = NSTextAlignmentCenter;
         _enemyLibraryCount.editable = NO;
         [PenetrateFilter penetrate:_enemyLibraryCount];
@@ -3250,7 +2994,7 @@
         
         while (myDrawCount < 5) {
             //手札のカード画像を用意する
-            UIImage *myCard = [UIImage imageNamed:@"outicon"];
+            UIImage *myCard = [UIImage imageNamed:@"backOfACard_small.png"];
             _myCard = [[UIImageView alloc] initWithImage:myCard];
             [_myCardImageViewArray addObject:_myCard];
             [_myCardImageView addSubview:_myCard];
@@ -3309,7 +3053,7 @@
         //相手
         while (enemyDrawCount < 5) {
             //手札のカード画像を用意する
-            UIImage *enemyCard = [UIImage imageNamed:@"outicon"];
+            UIImage *enemyCard = [UIImage imageNamed:@"backOfACard_small.png"];
             _enemyCard = [[UIImageView alloc] initWithImage:enemyCard];
             [_enemyCardImageViewArray addObject:_enemyCard];
             [_enemyCardImageView addSubview:_enemyCard];
@@ -3382,7 +3126,7 @@
 
 - (void)touchAction :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(handTouched:) string:nil];
+    [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(handTouched:) longtapSelector:@selector(detailOfACard:) string:nil];
 }
 
 - (void)handTouched :(UITapGestureRecognizer *)sender{
@@ -3497,22 +3241,22 @@
 
 - (void)myTombTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.myTomb touchCard:YES tapSelector:@selector(nullSelector:) longtapSelector:@selector(detailOfACard_MyTomb:) string:nil];
 }
 
 - (void)enemyTombTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.enemyTomb touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.enemyTomb touchCard:YES tapSelector:@selector(nullSelector:) longtapSelector:@selector(detailOfACard_EnemyTomb:) string:nil];
 }
 
 - (void)myFieldTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.myFieldCard touchCard:YES tapSelector:@selector(nullSelector:) longtapSelector:@selector(detailOfACard_MyField:) string:nil];
 }
 
 - (void)enemyFieldTouched :(UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (tapSoundID);
-    [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(nullSelector:) string:nil];
+    [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(nullSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:nil];
 }
 
 - (void)goodGameButtonTouched{
@@ -3531,7 +3275,7 @@
         }
         
         for (int i = 0; i < [app.myHand count]; i++){
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard_small.png"]];
             [_myCardImageView addSubview:imgView];
             imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
             imgView.userInteractionEnabled = YES;
@@ -3548,7 +3292,7 @@
         }
         
         for (int i = 0; i < 5; i++){
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard_small.png"]];
             [_myCardImageView addSubview:imgView];
             imgView.frame = CGRectMake(10 + i * (CARDWIDTH + 5), 0, CARDWIDTH, CARDHEIGHT);
             imgView.userInteractionEnabled = YES;
@@ -3579,7 +3323,7 @@
         }
         
         for (int i = 0; i < [app.enemyHand count]; i++){
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard_small.png"]];
             [_enemyCardImageView addSubview:imgView];
             imgView.frame = CGRectMake(imgView.superview.bounds.size.width - 50 - ((CARDWIDTH +8) * i), 0, CARDWIDTH, CARDHEIGHT);
         }
@@ -3592,7 +3336,7 @@
         }
         
         for (int i = 0; i < 5; i++){
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outicon"]];
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard_small.png"]];
             [_enemyCardImageView addSubview:imgView];
             imgView.frame = CGRectMake(imgView.superview.bounds.size.width - 50 - ((CARDWIDTH +8) * i), 0, CARDWIDTH, CARDHEIGHT);
         }
@@ -3615,7 +3359,7 @@
 
 
 //対象プレイヤーのXという領域のカードを見る（場・エネルギー置き場・手札）
--(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard tapSelector:(SEL)selector string:(NSString *)string{
+-(int)browseCardsInRegion :(NSMutableArray *)cards touchCard:(BOOL)touchCard tapSelector:(SEL)selector longtapSelector:(SEL)longTapSelector string:(NSString *)string{
     NSLog(@"%@",cards);
     [self forbidTouchAction];
     _cardInRegion = [[UIScrollView alloc] init];
@@ -3646,11 +3390,11 @@
             cardImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",[[cards objectAtIndex:i] intValue]]];
             [_regionView addSubview:cardImage];
             [regionViewArray addObject:cardImage];
-            cardImage.frame = CGRectMake(10, 10 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
+            cardImage.frame = CGRectMake(10, 60 + (BIGCARDHEIGHT) * i + (i  * 5), BIGCARDWIDTH, BIGCARDHEIGHT);
             cardImage.userInteractionEnabled = YES;
             cardImage.tag = i + 1;
             [cardImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:selector]];
-            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(detailOfACard:)]];
+            [cardImage addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:longTapSelector]];
         }
         
         
@@ -3666,7 +3410,7 @@
         [_cardInRegion addSubview: title];
         title.text = string;
         title.editable = NO;
-        title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 30);
+        title.frame = CGRectMake(0, 10, title.superview.bounds.size.width, 50);
         title.textAlignment = NSTextAlignmentCenter;
         
         [self createCancelButton:CGRectMake(_regionView.bounds.size.width / 2 - 35, _regionView.bounds.size.height - 60, 50, 50) parentView:_cardInRegion tag:4];
@@ -4364,7 +4108,7 @@
                 break;
             case 1:
                 [searchEnergyCardOrGetACard dismissWithClickedButtonIndex:1 animated:NO];
-                [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getAEnergyCardFromLibrarySelector:) string:@""];
+                [self browseCardsInRegion:app.myDeckCardList touchCard:YES tapSelector:@selector(getAEnergyCardFromLibrarySelector:) longtapSelector:@selector(detailOfACard_MyDeckCardList:) string:@""];
                 searchACardInsteadOfGetACardFromLibraryTop = YES;
                 break;
             default:
@@ -4372,10 +4116,13 @@
         }
     }else if (alertView == _winAlert){
         FINISHED1
-        [self dismissViewControllerAnimated:YES completion:nil];
+        int i = arc4random() % [app.cardList_cardName count];
+        [self cardGettingAnimation:i];
+        [self sync];
+        [[NADInterstitial sharedInstance] showAd];
     }else if (alertView == _loseAlert){
         FINISHED1
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [[NADInterstitial sharedInstance] showAd];
     }else if (alertView == _usingDeckCardListForLocalBattle){
         [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient]; //デッキ選択後に表示させると、SVProgressHUDの仕様により一瞬しか表示されないため、やむなくここで実装
         app.myDeckCardList = [[NSMutableArray alloc] init];
@@ -4454,7 +4201,7 @@
     }else if (alertView == _goodGameAlert){
         switch (buttonIndex) {
             case 0:
-                app.myLifeGage = 0;
+                app.myLifeGage = -999;
                 break;
             case 1:
                 break;
@@ -4560,8 +4307,8 @@
         for (int i = 0; i < [app.cardsIUsedInThisTurn count]; i++) {
             int k = [[app.cardsIUsedInThisTurn objectAtIndex:i] intValue];
             if(k == 96){
-                int blackColor = [[app.myEnergyCard objectAtIndex:2] intValue];
-                [app.myEnergyCard replaceObjectAtIndex:2 withObject:[NSNumber numberWithInt:(blackColor - 3)]];
+                int redColor = [[app.myEnergyCard objectAtIndex:3] intValue];
+                [app.myEnergyCard replaceObjectAtIndex:3 withObject:[NSNumber numberWithInt:(redColor - 3)]];
             }else if (k == 63){
                 [self manipulateCard:[NSNumber numberWithInt:63] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
             }
@@ -5208,9 +4955,7 @@
 }
 
 -(void)nullSelector: (UITapGestureRecognizer *)sender{
-    [self permitTouchAction];
-    [_imgView removeFromSuperview];
-    //何もしないセレクタ
+
 }
 
 -(void)manipulateCard:(NSNumber *)cardNum plusArray:(NSMutableArray *)plusArray minusArray:(NSMutableArray *)minusArray{
@@ -5248,13 +4993,14 @@
 }
 
 -(void)forbidTouchAction{
-    _okButton.userInteractionEnabled = NO;
+    _okButton.userInteractionEnabled        = NO;
     _myCardImageView.userInteractionEnabled = NO;
     _myCharacterView.userInteractionEnabled = NO;
-    _myTomb.userInteractionEnabled = NO;
-    _enemyTomb.userInteractionEnabled = NO;
-    _myField.userInteractionEnabled = NO;
-    _enemyField.userInteractionEnabled = NO;
+    _myTomb.userInteractionEnabled          = NO;
+    _enemyTomb.userInteractionEnabled       = NO;
+    _myField.userInteractionEnabled         = NO;
+    _enemyField.userInteractionEnabled      = NO;
+    _goodGame.userInteractionEnabled        = NO;
 }
 
 -(void)permitTouchAction{
@@ -5265,6 +5011,7 @@
     _enemyTomb.userInteractionEnabled       = YES;
     _myField.userInteractionEnabled         = YES;
     _enemyField.userInteractionEnabled      = YES;
+    _goodGame.userInteractionEnabled        = YES;
 }
 
 //各色毎にいくつのエネルギーを使用するか選択する
@@ -5627,7 +5374,6 @@
     NSLog(@"OK");
     _allImageView.userInteractionEnabled = YES;
     [BattleScreenViewController releaseUIImageView:backGround];
-    [backGround removeFromSuperview];
     for (UIView *view in _cardUsingAnimationView.subviews) {
         [view removeFromSuperview];
     }
@@ -5780,6 +5526,11 @@
     [self performSelectorOnMainThread:@selector(battleStart)
                            withObject:nil
                         waitUntilDone:NO];
+}
+
+- (void)returnToMainView
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

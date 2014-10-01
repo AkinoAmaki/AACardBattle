@@ -43,15 +43,6 @@
     //探索開始時にstopWalkingをNOにしておく
     stopWalking = NO;
     
-    //探索中止ボタンの実装
-    stopExplorationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    stopExplorationButton.frame = CGRectMake(10, 10, 100, 30);
-    [stopExplorationButton setTitle:@"探索中止" forState:UIControlStateNormal];
-    [stopExplorationButton setTitle:@"探索中止" forState:UIControlStateHighlighted];
-    // ボタンがタッチされた時にstopExplorationメソッドを呼び出す
-    [stopExplorationButton addTarget:self action:@selector(stopExploration)
-                    forControlEvents:UIControlEventTouchUpInside];
-    
     //インターネット対戦時の待機時間（＝ギコの総歩行時間）を読み込む
     ud = [NSUserDefaults standardUserDefaults];
     allWalkingTime = [ud integerForKey:@"allWalkingTime"];
@@ -70,34 +61,65 @@
     gikoAnimationView.animationDuration = 2;
     gikoAnimationView.animationRepeatCount = 0;
     
+    walkingMeter = [[UITextView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 100, 40, 80, 40)];
+    [PenetrateFilter penetrate:walkingMeter];
+    walkingMeter.editable = NO;
+    walkingMeter.text = [NSString stringWithFormat:@"残り：%dｍ",(int)((remainedWalkingTime - 8) * 1.6)];
+    
     //選択したコースごとに背景画像を用意する
     switch (course) {
         case 1:
-            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
-            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+        {
+            NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"grass" ofType:@"png"];
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+        }
             break;
         case 2:
-            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"glayBack"]];
-            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blackBack"]];
+        {
+            NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"snow" ofType:@"png"];
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+        }
             break;
         case 3:
-            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
-            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+        {
+            NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"deepForest" ofType:@"png"];
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            walkingMeter.textColor = [UIColor whiteColor];
+        }
             break;
         case 4:
-            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
-            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+        {
+            NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"desert" ofType:@"png"];
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+        }
             break;
         case 5:
-            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
-            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backOfACard"]];
+        {
+            NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"amazon" ofType:@"png"];
+            backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+        }
             break;
         default:
             break;
     }
     
-    backgroundImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    backgroundImageView2.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    //探索中止ボタンの実装
+    stopExplorationButton = [[UIButton alloc] init];
+    [stopExplorationButton setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
+    [stopExplorationButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    stopExplorationButton.frame = CGRectMake(10, 10, 50, 50);
+    [self.view addSubview:stopExplorationButton];
+    // ボタンがタッチされた時にstopExplorationメソッドを呼び出す
+    [stopExplorationButton addTarget:self action:@selector(stopExploration)
+                    forControlEvents:UIControlEventTouchUpInside];
+    
+    backgroundImageView1.frame = CGRectMake(0,   0, 320, 960);
+    backgroundImageView2.frame = CGRectMake(0, 960, 320, 960);
     
     cardBox_closed = [[UIImageView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 8, [[UIScreen mainScreen] bounds].size.height * 2 + 80 , 17, 32)];
     cardBox_closed.image = [UIImage imageNamed:@"cardBox_closed"];
@@ -107,10 +129,6 @@
     NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"card%d_M",gettingCardNumber] ofType:@"JPG"];
     cardImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
     cardImageView.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 16, 60, 32, 48);
-
-    walkingMeter = [[UITextView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 100, 40, 80, 40)];
-    walkingMeter.editable = NO;
-    walkingMeter.text = [NSString stringWithFormat:@"残り：%dｍ",(int)((remainedWalkingTime - 8) * 1.6)];
     
     getACardAlertView = [[UIAlertView alloc] initWithTitle:@"カード発見！" message:@"カードを発見しました！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"探索を再開する", nil];
     
@@ -169,38 +187,37 @@
     [gikoAnimationView startAnimating];
     
     //2枚の背景を次々にアニメーションさせて背景の動きを実現する
-    [UIView animateWithDuration:4.0f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
+    [UIView animateWithDuration:10.0f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
         // アニメーションをする処理
-        backgroundImageView1.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height * -1, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        backgroundImageView1.frame = CGRectMake(0, -960, 320, 960);
     }completion:^(BOOL finished){
-        backgroundImageView1.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-        [UIView animateWithDuration:8.0f delay:0.0f options:UIViewAnimationOptionRepeat|UIViewAnimationOptionCurveLinear                     animations:^{
+        backgroundImageView1.frame = CGRectMake(0, 960, 320, 960);
+        [UIView animateWithDuration:20.0f delay:0.0f options:UIViewAnimationOptionRepeat|UIViewAnimationOptionCurveLinear                     animations:^{
             // アニメーションをする処理
-            backgroundImageView1.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height * -1, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+            backgroundImageView1.frame = CGRectMake(0, -960, 320, 960);
         }completion:^(BOOL finished){
-            backgroundImageView1.frame = CGRectMake(0,[[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+            backgroundImageView1.frame = CGRectMake(0,  960, 320, 960);
         }
          ];
     }
      ];
     
-    [UIView animateWithDuration:8.0f delay:0.0f options:UIViewAnimationOptionRepeat|UIViewAnimationOptionCurveLinear
+    [UIView animateWithDuration:20.0f delay:0.0f options:UIViewAnimationOptionRepeat|UIViewAnimationOptionCurveLinear
                      animations:^{
         // アニメーションをする処理
-        backgroundImageView2.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height * -1, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        backgroundImageView2.frame = CGRectMake(0, -960, 320, 960);
     }completion:^(BOOL finished){
-        backgroundImageView2.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        backgroundImageView2.frame = CGRectMake(0, 960, 320, 960);
     }
      ];
     
     //カードゲット時間に到達したあとの処理
-    [UIView animateWithDuration:8.0f delay:remainedWalkingTime - 16
+    [UIView animateWithDuration:10.0f delay:remainedWalkingTime - 16
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          // アニメーションをする処理
                          cardBox_closed.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 17, 80, 34, 64);
                      }completion:^(BOOL finished){
-                         NSLog(@"bbb");
                          cardBox_closed.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 8, [[UIScreen mainScreen] bounds].size.height * 2 + 80 , 17, 32);
                          [cardBox_closed removeFromSuperview];
                          [gikoAnimationView.layer pauseAnimation:YES];
@@ -282,9 +299,11 @@
     getACardAlertView = nil;
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
-    [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissGikoGikoViewController"
+                                                        object:self
+                                                      userInfo:nil];
 }
 
 - (void)setWalkingMeter{
