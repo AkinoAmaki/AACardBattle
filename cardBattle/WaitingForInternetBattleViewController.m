@@ -300,7 +300,6 @@
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
     [self dismissViewControllerAnimated:YES completion:nil];
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissGikoGikoViewController"
                                                         object:self
                                                       userInfo:nil];
@@ -314,7 +313,6 @@
 //deviceMotionDelegateのdelegateを実装
 - (void)stopExploringAnimation{
     [self stopExploration];
-    [dev.isAEnemyNameForInternetBattle show];
 }
 
 - (void)stopExploringForExcemption{

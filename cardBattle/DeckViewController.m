@@ -51,7 +51,7 @@
     AAButton *cancelButton = [[AAButton alloc] initWithImageAndText:nil imagePath:nil textString:@"キャンセル" tag:1 CGRect:CGRectMake(200, 80, 100, 20)];
     [cancelButton addGestureRecognizer:
      [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(cardSelectDecideButtonPushed)]];
+      initWithTarget:self action:@selector(cardSelectCancelButtonPushed)]];
     [allImage addSubview:cancelButton];
     
     //メインビューに戻るボタンを実装
@@ -116,13 +116,24 @@
 
 - (void) touchAction: (UITapGestureRecognizer *)sender{
     NSLog(@"タッチ感知 from %d",sender.view.tag);
-    
-    if ([[isSelectedCards objectAtIndex:sender.view.tag] intValue] == 4 || [[isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
-        [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
+    if (sender.view.tag <= 5) {
+        //エネルギーカードは1枚ごとに4枚の制限はないため、実装を変える。
+        if ([[isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
+            [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
+        }else{
+            int i = [[isSelectedCards objectAtIndex:sender.view.tag] intValue];
+            i++;
+            [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
+        }
     }else{
-        int i = [[isSelectedCards objectAtIndex:sender.view.tag] intValue];
-        i++;
-        [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
+        //エネルギーカードは1枚ごとに4枚の制限があるため、実装を変える。
+        if ([[isSelectedCards objectAtIndex:sender.view.tag] intValue] == 4 || [[isSelectedCards objectAtIndex:sender.view.tag] intValue] == [[app.myCards objectAtIndex:sender.view.tag] intValue]) {
+            [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:0]];
+        }else{
+            int i = [[isSelectedCards objectAtIndex:sender.view.tag] intValue];
+            i++;
+            [isSelectedCards replaceObjectAtIndex:sender.view.tag withObject:[NSNumber numberWithInt:i]];
+        }
     }
     
     UITextView *tmpTextView = (UITextView *)[allTxtView viewWithTag:sender.view.tag];
@@ -148,11 +159,11 @@
         [view removeFromSuperview];
     }
     
-    for(int i = 0; i < [app.cardList_pngName count]; i++){
+    for(int i = 1; i < [app.cardList_pngName count]; i++){
         
         [self openSmallCard:i];
         
-        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 128 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
+        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)((i - 1) % NUMBEROFIMAGEINRAW) + (((i - 1) % NUMBEROFIMAGEINRAW) * 5), 158 + (IMGHEIGHT) * (int)((i - 1) / NUMBEROFIMAGEINRAW) + ((i - 1) / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
         [txtView setFont:[UIFont systemFontOfSize:8]];
         
         UIColor *black = [UIColor blackColor]; //ボタンの背景を透明にするため、とりあえず黒を設定（下で透明化する）
@@ -165,6 +176,9 @@
         [allTxtView addSubview:txtView];
     }
     [allImage addSubview:allTxtView];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"デッキ編成取消" message:@"デッキの編成を取り消しました" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender
@@ -209,7 +223,6 @@
     [detailOfACard removeFromSuperview];
     [self touchesPermittion:YES];
     detailOfACardCount = 0;
-    
 }
 
 - (void)openSmallCard:(int)i{
@@ -226,7 +239,7 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(touchAction:)]];
     [imgView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchAcrion:)]];
-    imgView.frame = CGRectMake(10 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 130 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
+    imgView.frame = CGRectMake(10 + (IMGWIDTH) * (int)((i - 1) % NUMBEROFIMAGEINRAW) + (((i - 1) % NUMBEROFIMAGEINRAW) * 5), 130 + (IMGHEIGHT) * (int)((i - 1) / NUMBEROFIMAGEINRAW) + ((i - 1) / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT);
     imgView.tag = i;
     [allImage addSubview:imgView];
 }

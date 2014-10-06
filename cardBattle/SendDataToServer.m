@@ -19,6 +19,13 @@
     [NSThread sleepForTimeInterval:0.5];
     [get doEnemyDecideActionRoopVersion:NO];
     [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み）を受け取る
+
+    app.myDamageInBattlePhase = app.myDamageFromAA;
+    app.enemyDamageInBattlePhase = app.enemyDamageFromAA;
+    app.myDamageFromAA = 0;
+    app.myDamageFromCard = 0;
+    app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+    app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
     
     [self sendData]; //相手のカード効果等が反映済みの状態のデータ（自分の効果は反映済み）を送信する
     while (!app.decideAction) {
@@ -27,6 +34,10 @@
     [NSThread sleepForTimeInterval:0.5];
     [get doEnemyDecideActionRoopVersion:NO];
     [get get]; //自分のカード効果等が反映済みの状態のデータ（相手の効果は反映済み）を受け取る
+    app.myDamageFromAA = 0;
+    app.myDamageFromCard = 0;
+    app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+    app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
     
     return resultString;
 }

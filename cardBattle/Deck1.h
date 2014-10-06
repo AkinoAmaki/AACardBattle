@@ -22,7 +22,8 @@
 @end
 
 @interface Deck1 : DeckViewController<UITextFieldDelegate>{
-
+    BOOL deckEditHasFinished;
+    UIAlertView *deckEditHasFinishedAlert;
 }
 
 // デリゲート先で参照できるようにするためプロパティを定義しておく

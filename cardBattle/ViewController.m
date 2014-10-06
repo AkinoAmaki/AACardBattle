@@ -417,6 +417,7 @@
     appdelegate.myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
     appdelegate.myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
     appdelegate.doIUseCard = NO; //自分がこのターンカードを使用したか
+    appdelegate.myDamageInBattlePhase = 0;
     appdelegate.myDamageFromAA = 0;
     appdelegate.myDamageFromCard = 0;
     appdelegate.mySelectColor = -1; //自分が選んだ色
@@ -504,6 +505,7 @@
     appdelegate.canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
     appdelegate.canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
     appdelegate.denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
+    appdelegate.enemyDamageInBattlePhase = 0;
     appdelegate.enemyDamageFromAA = 0;
     appdelegate.enemyDamageFromCard = 0;
     appdelegate.enemySelectColor = -1; //相手が選んだ色

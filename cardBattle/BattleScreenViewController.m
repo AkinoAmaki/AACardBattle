@@ -108,6 +108,7 @@
     [_allImageView addSubview:_enemyCardImageView];
     
     _border_middleCard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
+    _border_character = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"border_middleCard.png"]];
     
     _backGroundView = [[UIImageView alloc] init];
     _backGroundView.userInteractionEnabled = YES;
@@ -568,11 +569,14 @@
     [_returnToMainViewButton addTarget:self action:@selector(returnToMainView)
                       forControlEvents:UIControlEventTouchUpInside];
     
-    //ローカル対戦開始のボタンを実装
-    _localBattleButton = [[AAButton alloc] initWithImageAndText:@"triggering-50" imagePath:@"png" textString:@"ローカル対戦" tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 125 , 160, 250, 40)];
-    [_localBattleButton addTarget:self action:@selector(battleStartForLocalBattle)
-                      forControlEvents:UIControlEventTouchUpInside];
-    [_allImageView addSubview:_localBattleButton];
+    NSLog(@"%d",app.battleStart);
+    if(!app.battleStart){
+        //ローカル対戦開始のボタンを実装
+        _localBattleButton = [[AAButton alloc] initWithImageAndText:@"triggering-50" imagePath:@"png" textString:@"ローカル対戦" tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 125 , 160, 250, 40)];
+        [_localBattleButton addTarget:self action:@selector(battleStartForLocalBattle)
+                     forControlEvents:UIControlEventTouchUpInside];
+        [_allImageView addSubview:_localBattleButton];
+    }
     
     //インターネット対戦開始のボタンを実装
     _internetBattleButton = [[AAButton alloc] initWithImageAndText:@"triggering-50" imagePath:@"png" textString:@"インターネット対戦" tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 125 , 240, 250, 40)];
@@ -645,6 +649,11 @@
 
 
 - (void)startInternetBattle :(UITapGestureRecognizer *)sender{
+    [_returnToMainViewButton removeFromSuperview];
+    [_localBattleButton removeFromSuperview];
+    [_internetBattleButton removeFromSuperview];
+    [_blackBack removeFromSuperview];
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     _usingDeckCardListForInternetBattle = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
     [_usingDeckCardListForInternetBattle show];
@@ -678,9 +687,9 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ギコの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
-                [_border_middleCard removeFromSuperview];
-                [_myCharacterView addSubview: _border_middleCard];
-                _border_middleCard.frame = sender.view.frame;
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
                 app.mySelectCharacter = GIKO;
                 NSLog(@"選択キャラ：ギコ");
             }
@@ -690,9 +699,9 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"モナーの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
-                [_border_middleCard removeFromSuperview];
-                [_myCharacterView addSubview: _border_middleCard];
-                _border_middleCard.frame = sender.view.frame;
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
                 app.mySelectCharacter = MONAR;
                 NSLog(@"選択キャラ：モナー");
             }
@@ -702,9 +711,9 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ショボンの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
-                [_border_middleCard removeFromSuperview];
-                [_myCharacterView addSubview: _border_middleCard];
-                _border_middleCard.frame = sender.view.frame;
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
                 app.mySelectCharacter = SYOBON;
                 NSLog(@"選択キャラ：ショボン");
             }
@@ -714,9 +723,9 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"やる夫の選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
             }else{
-                [_border_middleCard removeFromSuperview];
-                [_myCharacterView addSubview: _border_middleCard];
-                _border_middleCard.frame = sender.view.frame;
+                [_border_character removeFromSuperview];
+                [_myCharacterView addSubview: _border_character];
+                _border_character.frame = sender.view.frame;
                 app.mySelectCharacter = YARUO;
                 NSLog(@"選択キャラ：やる夫");
             }
@@ -824,7 +833,6 @@
     [NSThread sleepForTimeInterval:0.5];
     [getEnemyData doEnemyDecideActionRoopVersion:NO];
     [sendMyData send];
-    NSLog(@"被ダメージ:%d",app.myDamageFromAA + app.myDamageFromCard);
     NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
     [self refleshView];
     [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
@@ -2557,12 +2565,12 @@
     _myMonar.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
     _mySyobon.text  = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
     _myYaruo.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
-    _myDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",(app.myDamageFromAA + app.myDamageFromCard)];
+    _myDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",app.myDamageInBattlePhase];
     _enemyGiko.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
     _enemyMonar.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
     _enemySyobon.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
     _enemyYaruo.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
-    _enemyDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",(app.enemyDamageFromAA + app.enemyDamageFromCard)];
+    _enemyDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",app.enemyDamageInBattlePhase];
     
     
     [_allImageView addSubview:view];
@@ -2867,10 +2875,6 @@
     //メインビューに戻るボタン・ローカル対戦ボタン・インターネット対戦ボタン・対戦開始時の黒半透明背景を外す
     
     [_returnToMainViewButton removeFromSuperview];
-    [_localBattleButton removeFromSuperview];
-    [_internetBattleButton removeFromSuperview];
-    [_blackBack removeFromSuperview];
-    
     
     if([YSDeviceHelper is568h]){
         //自分
@@ -3112,6 +3116,13 @@
 
 - (void)battleStartForLocalBattle{
     //どのデッキを使用するかを選択する
+    NSLog(@"ok");
+    [_returnToMainViewButton removeFromSuperview];
+    [_localBattleButton removeFromSuperview];
+    [_internetBattleButton removeFromSuperview];
+    [_blackBack removeFromSuperview];
+    
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     _usingDeckCardListForLocalBattle = [[UIAlertView alloc] initWithTitle:@"デッキ選択" message:@"使用するデッキを選んでください" delegate:self cancelButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName1"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName2"]], [NSString stringWithFormat:@"%@", [ud stringForKey:@"deckName3"]], nil];
     [_usingDeckCardListForLocalBattle show];
@@ -3313,7 +3324,7 @@
     _myLibraryCount.text = [NSString stringWithFormat:@"%d",(int)[app.myDeckCardList count]];
     
     
-    //相手の山札の更新
+    //相手の手札の更新
     int enemyHandCount = (int)[app.enemyHand count];
     NSLog(@"enemyHandCount:%d",enemyHandCount);
     if(enemyHandCount <= 5){
@@ -3349,6 +3360,9 @@
         txtView.text = [NSString stringWithFormat:@" × %d",enemyHandCount];
         [PenetrateFilter penetrate:txtView];
     }
+    
+    //相手の山札の更新
+    _enemyLibraryCount.text = [NSString stringWithFormat:@"%d",(int)[app.enemyDeckCardList count]];
 }
 
 
@@ -3572,30 +3586,36 @@
 //対象プレイヤーは1枚カードを引く（対象プレイヤー（０なら自分、１なら相手）
 - (void)getACard :(int)man{
     if(man == 0){
-        
-//        //手札の画像を用意する
-//        UIImage *card = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:0] intValue]]];
-//        _myGetCard = [[UIImageView alloc] initWithImage:card];
-//        [_myCardImageViewArray addObject:_myGetCard];
-//        [_myCardImageView addSubview:_myGetCard];
-//        _myGetCard.userInteractionEnabled = YES;
-//        [_myGetCard addGestureRecognizer:
-//         [[UITapGestureRecognizer alloc]
-//          initWithTarget:self action:@selector(touchAction:)]];
-//        //移動前
-//        _myGetCard.frame = CGRectMake(_myGetCard.superview.bounds.size.width - CARDWIDTH - 20, 0, CARDWIDTH, CARDHEIGHT);
-//        [UIView setAnimationDelegate:self];
-//        [UIView setAnimationDelay:0.2];
-//        [UIView setAnimationDuration:0.5];
-//        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-//        //移動後
-//        _myGetCard.frame = CGRectMake(10 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 0, CARDWIDTH, CARDHEIGHT);
-        
-        //デッキのカード枚数を減らし、手札に入れる
-        [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
+        if([app.myDeckCardList count] > 0){
+                //        //手札の画像を用意する
+                //        UIImage *card = [UIImage imageNamed:[app.cardList_pngName objectAtIndex:[[app.myDeckCardList objectAtIndex:0] intValue]]];
+                //        _myGetCard = [[UIImageView alloc] initWithImage:card];
+                //        [_myCardImageViewArray addObject:_myGetCard];
+                //        [_myCardImageView addSubview:_myGetCard];
+                //        _myGetCard.userInteractionEnabled = YES;
+                //        [_myGetCard addGestureRecognizer:
+                //         [[UITapGestureRecognizer alloc]
+                //          initWithTarget:self action:@selector(touchAction:)]];
+                //        //移動前
+                //        _myGetCard.frame = CGRectMake(_myGetCard.superview.bounds.size.width - CARDWIDTH - 20, 0, CARDWIDTH, CARDHEIGHT);
+                //        [UIView setAnimationDelegate:self];
+                //        [UIView setAnimationDelay:0.2];
+                //        [UIView setAnimationDuration:0.5];
+                //        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+                //        //移動後
+                //        _myGetCard.frame = CGRectMake(10 + (CARDWIDTH + 8) * ([_myCardImageViewArray count] - 1), 0, CARDWIDTH, CARDHEIGHT);
+                
+                //デッキのカード枚数を減らし、手札に入れる
+                [self setCardFromXTOY:app.myDeckCardList cardNumber:0 toField:app.myHand];
+            }else{
+                [self manipulateCard:[app.enemyDeckCardList objectAtIndex:0] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+            }
     }else{
-        [self manipulateCard:[app.enemyDeckCardList objectAtIndex:0] plusArray:app.enemyHandByMyself_plus minusArray:app.enemyDeckCardListByMyself_minus];
+        if([self isGameOver]){
+            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
     }
+
 }
 
 
@@ -4320,6 +4340,7 @@
     app.myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
     app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
     [_border_middleCard removeFromSuperview];
+    [_border_character removeFromSuperview];
     selectedCardOrder = -1;
     selectCardTag = -1;
     costLife = NO;
@@ -4327,6 +4348,7 @@
     app.mySelectCharacterFromEnemy = -1;
     app.doIUseCard = NO;//自分がこのターンカードを使用したか
     app.myUsingCardNumber = -1; //自分が使用したカードの番号
+    app.myDamageInBattlePhase = 0;
     app.myDamageFromAA = 0;
     app.myDamageFromCard = 0;
     app.mySelectColor = -1; //自分が選んだ色
@@ -4374,6 +4396,7 @@
     app.enemySelectCharacterByMyself = -1;
     app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
     app.enemyUsingCardNumber = -1; //相手が使用したカードの番号
+    app.enemyDamageInBattlePhase = 0;
     app.enemyDamageFromAA = 0;
     app.enemyDamageFromCard = 0;
     app.enemySelectColor = -1; //相手が選んだ色
@@ -5061,29 +5084,29 @@
     [_colorView addSubview:redNumberOfText];
     [_colorView addSubview:greenNumberOfText];
     
-    whiteImage.frame    = CGRectMake(10, 10, 50, 50);
-    blueImage.frame     = CGRectMake(10, 90, 50, 50);
-    blackImage.frame    = CGRectMake(10, 170, 50, 50);
-    redImage.frame      = CGRectMake(10, 250, 50, 50);
-    greenImage.frame    = CGRectMake(10, 330, 50, 50);
+    whiteImage.frame    = CGRectMake(40, 25, 50, 50);
+    blueImage.frame     = CGRectMake(40, 105, 50, 50);
+    blackImage.frame    = CGRectMake(40, 185, 50, 50);
+    redImage.frame      = CGRectMake(40, 265, 50, 50);
+    greenImage.frame    = CGRectMake(40, 345, 50, 50);
     
-    whiteDown.frame     = CGRectMake(80, 10, 50, 50);
-    blueDown.frame      = CGRectMake(80, 90, 50, 50);
-    blackDown.frame     = CGRectMake(80, 170, 50, 50);
-    redDown.frame       = CGRectMake(80, 250, 50, 50);
-    greenDown.frame     = CGRectMake(80, 330, 50, 50);
+    whiteDown.frame     = CGRectMake(90, 25, 50, 50);
+    blueDown.frame      = CGRectMake(90, 105, 50, 50);
+    blackDown.frame     = CGRectMake(90, 185, 50, 50);
+    redDown.frame       = CGRectMake(90, 265, 50, 50);
+    greenDown.frame     = CGRectMake(90, 345, 50, 50);
     
-    whiteNumberOfText.frame   = CGRectMake(140, 10, 50, 50);
-    blueNumberOfText.frame    = CGRectMake(140, 90, 50, 50);
-    blackNumberOfText.frame   = CGRectMake(140, 170, 50, 50);
-    redNumberOfText.frame     = CGRectMake(140, 250, 50, 50);
-    greenNumberOfText.frame   = CGRectMake(140, 330, 50, 50);
+    whiteNumberOfText.frame   = CGRectMake(135, 33, 50, 50);
+    blueNumberOfText.frame    = CGRectMake(135, 113, 50, 50);
+    blackNumberOfText.frame   = CGRectMake(135, 193, 50, 50);
+    redNumberOfText.frame     = CGRectMake(135, 273, 50, 50);
+    greenNumberOfText.frame   = CGRectMake(135, 353, 50, 50);
     
-    whiteUp.frame       = CGRectMake(200, 10, 50, 50);
-    blueUp.frame        = CGRectMake(200, 90, 50, 50);
-    blackUp.frame       = CGRectMake(200, 170, 50, 50);
-    redUp.frame         = CGRectMake(200, 250, 50, 50);
-    greenUp.frame       = CGRectMake(200, 330, 50, 50);
+    whiteUp.frame       = CGRectMake(180, 25, 50, 50);
+    blueUp.frame        = CGRectMake(180, 105, 50, 50);
+    blackUp.frame       = CGRectMake(180, 185, 50, 50);
+    redUp.frame         = CGRectMake(180, 265, 50, 50);
+    greenUp.frame       = CGRectMake(180, 345, 50, 50);
     
     whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage_M"];
     blueImage.image = [UIImage imageNamed:@"blueEnergyImage_M"];
@@ -5151,11 +5174,24 @@
     blackNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingBlackEnergy];
     redNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingRedEnergy];
     greenNumberOfText.text = [NSString stringWithFormat:@"%d",numberOfUsingGreenEnergy];
+    
     whiteNumberOfText.editable = NO;
     blueNumberOfText.editable = NO;
     blackNumberOfText.editable = NO;
     redNumberOfText.editable = NO;
     greenNumberOfText.editable = NO;
+    
+    whiteNumberOfText.textAlignment = NSTextAlignmentCenter;
+    blueNumberOfText.textAlignment = NSTextAlignmentCenter;
+    blackNumberOfText.textAlignment = NSTextAlignmentCenter;
+    redNumberOfText.textAlignment = NSTextAlignmentCenter;
+    greenNumberOfText.textAlignment = NSTextAlignmentCenter;
+    
+    [PenetrateFilter penetrate:whiteNumberOfText];
+    [PenetrateFilter penetrate:blueNumberOfText];
+    [PenetrateFilter penetrate:blackNumberOfText];
+    [PenetrateFilter penetrate:redNumberOfText];
+    [PenetrateFilter penetrate:greenNumberOfText];
     
     [self createOkButton:CGRectMake(125, (_colorView.bounds.size.height - 60), 50, 50) parentView:_colorView tag:10];
     [_allImageView addSubview:_colorView];
@@ -5267,12 +5303,12 @@
 }
 
 -(BOOL)isGameOver{
-    if(app.myLifeGage <= 0){
+    if(app.myLifeGage <= 0 || [app.myDeckCardList count] <= 0){
         _loseAlert = [[UIAlertView alloc] initWithTitle:@"敗北..." message:[NSString stringWithFormat:@"%@に敗北しました...",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"タイトル画面に戻る", nil];
         [_loseAlert show];
         [self sync];
         return YES;
-    }else if(app.enemyLifeGage <= 0){
+    }else if(app.enemyLifeGage <= 0 || [app.enemyDeckCardList count] <= 0){
         _winAlert = [[UIAlertView alloc] initWithTitle:@"勝利！" message:[NSString stringWithFormat:@"%@に勝利しました！",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを取得する", nil];
         [_winAlert show];
         [self sync];
@@ -5508,6 +5544,7 @@
 }
 
 - (void)battleStartForInternetBattle{
+    
     app.battleStart = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     GetEnemyDataFromServer *get = [[GetEnemyDataFromServer alloc] init];

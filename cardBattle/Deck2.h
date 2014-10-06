@@ -23,7 +23,8 @@
 
 
 @interface Deck2 : DeckViewController<UITextFieldDelegate>{
-
+    BOOL deckEditHasFinished;
+    UIAlertView *deckEditHasFinishedAlert;
 }
 
 

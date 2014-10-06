@@ -258,10 +258,6 @@
     
     //相手プレイヤーによって操作された攻撃力・防御力・カード等の操作を反映する
     app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
-    app.myDamageFromAA = 0;
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
-    app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
     app.myGikoFundamentalAttackPower    += app.myGikoFundamentalAttackPowerFromEnemy;
     app.myGikoFundamentalDeffencePower  += app.myGikoFundamentalDeffencePowerFromEnemy;
     app.myMonarFundamentalAttackPower   += app.myMonarFundamentalAttackPowerFromEnemy;

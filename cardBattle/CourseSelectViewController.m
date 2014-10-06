@@ -36,6 +36,13 @@
     imageView.frame = CGRectMake(0, 0, 320, 480);
     [self.view addSubview:imageView];
     
+    //説明文を実装
+    UITextView *explainTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, [UIScreen mainScreen].bounds.size.width, 60)];
+    explainTextView.textAlignment = NSTextAlignmentCenter;
+    explainTextView.text = @"対戦相手を探している間に\nカードを探索するフィールドを選んでください";
+    [PenetrateFilter penetrate:explainTextView];
+    [self.view addSubview: explainTextView];
+    
     //メインビューに戻るボタンを実装
     _returnToMainViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_returnToMainViewButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -48,7 +55,7 @@
     int width = 180;
     int height = 30;
     int w = ([[UIScreen mainScreen] bounds].size.width - width) / 2;
-    int h = 100;
+    int h = 120;
     
     course1Button = [[AAButton alloc] initWithImageAndText:@"glyphicons_310_flower" imagePath:@"png" textString:@"草原フィールド" tag:1 CGRect:CGRectMake(w,h,width,height)];
     [course1Button addTarget:self action:@selector(startExploration:)

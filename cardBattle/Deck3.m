@@ -40,10 +40,10 @@
     //各カード毎の画像及び所持枚数を表示
     allTxtView = [[UIView alloc] init];
     
-    for(int i = 0; i < [app.cardList_pngName count]; i++){
+    for(int i = 1; i < [app.cardList_pngName count]; i++){
         
         [super openSmallCard:i];
-        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)(i % NUMBEROFIMAGEINRAW) + ((i % NUMBEROFIMAGEINRAW) * 5), 158 + (IMGHEIGHT) * (int)(i / NUMBEROFIMAGEINRAW) + (i / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
+        txtView = [[UITextView alloc] initWithFrame:CGRectMake(25 + (IMGWIDTH) * (int)((i - 1) % NUMBEROFIMAGEINRAW) + (((i - 1) % NUMBEROFIMAGEINRAW) * 5), 158 + (IMGHEIGHT) * (int)((i - 1) / NUMBEROFIMAGEINRAW) + ((i - 1) / NUMBEROFIMAGEINRAW * 5), IMGWIDTH, IMGHEIGHT)];
         [txtView setFont:[UIFont systemFontOfSize:8]];
         isSelectedCards = [[NSMutableArray alloc] initWithArray:app.myDeck3];
         txtView.text = [NSString stringWithFormat:@"%@枚/%@枚",[isSelectedCards objectAtIndex:i],[app.myCards objectAtIndex:i]];
@@ -66,6 +66,8 @@
     deckName.delegate = self;
     deckName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"deckName3"];
     
+    deckEditHasFinished = NO; //NOのままならトップ画面に戻るときに警告を出す。（デッキ編成確定ボタンを押してないってことだから。）
+    
     //　広告の読み込み
     [self.view addSubview:self.nadView];
     [self.nadView load];
@@ -78,7 +80,12 @@
 }
 
 - (IBAction)returnToMainView:(id)sender {
-    [self.delegate returnToMainView];
+    if (!deckEditHasFinished) {
+        deckEditHasFinishedAlert = [[UIAlertView alloc] initWithTitle:@"デッキ編成未完了" message:@"デッキ編成がまだ終わっていません。\n本当にトップ画面に戻ってよろしいですか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"よろしい", @"よろしくない", nil];
+        [deckEditHasFinishedAlert show];
+    }else{
+        [self.delegate returnToMainView];
+    }
 }
 
 - (void)cardSelectDecideButtonPushed{
@@ -100,7 +107,9 @@
         [tmp setObject:app.myDeck3 forKey:@"myDeck_ud3"];
         [tmp synchronize];
         NSLog(@"%@",[tmp arrayForKey:@"myDeck_ud3"]);
-        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"デッキ編成完了" message:[NSString stringWithFormat:@"デッキの編成を確定しました。デッキ総枚数は%d枚です。",numberOfCardsInDeck] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+        deckEditHasFinished = YES;
     }
 }
 - (void)cardSelectCancelButtonPushed{
@@ -114,6 +123,18 @@
     [ud synchronize];
     [deckName resignFirstResponder];
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(alertView == deckEditHasFinishedAlert){
+        switch (buttonIndex) {
+            case 0:
+                [self.delegate returnToMainView];
+                break;
+            case 1:
+                break;
+        }
+    }
 }
 
 /*

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "WaitingForInternetBattleViewController.h"
 #define FINISHED syncFinished = YES;
 

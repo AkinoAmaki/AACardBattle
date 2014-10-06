@@ -17,7 +17,6 @@
 @synthesize enemyNickName;
 @synthesize syncFinish;
 @synthesize delegate;
-@synthesize isAEnemyNameForInternetBattle;
 @synthesize exploringFinished;
 @synthesize syncFinished2;
 @synthesize errorAlert;
@@ -99,12 +98,18 @@
         }else{
             enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
             enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
-            isAEnemyNameForInternetBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"対戦相手が見つかりました！相手プレイヤーは %@ さんです",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [self performSelectorOnMainThread:@selector(stopExploringAnimation)
                                    withObject:nil
                                 waitUntilDone:NO];
-            //isAEnemyNameForInternetBattleのshowはデリゲート先で実装
-            [self sync];
+            
+            app.enemyNickName = enemyNickName;
+            app.enemyPlayerID = enemyPlayerID;
+            app.battleStart = YES;
+            
+            [NSThread sleepForTimeInterval:1.0];
+            [self performSelectorOnMainThread:@selector(BattleStartPost)
+                                   withObject:nil
+                                waitUntilDone:NO];
         }
     }];
 }
@@ -404,22 +409,6 @@
                 break;
                 
             default:
-                break;
-        }
-    }else if (alertView == isAEnemyNameForInternetBattle){
-        switch (buttonIndex) {
-            case 0:
-            {
-                FINISHED2
-                app.enemyNickName = enemyNickName;
-                app.enemyPlayerID = enemyPlayerID;
-                app.battleStart = YES;
-                
-                [self performSelectorOnMainThread:@selector(BattleStartPost)
-                                       withObject:nil
-                                    waitUntilDone:NO];
-                NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-            }
                 break;
         }
     }

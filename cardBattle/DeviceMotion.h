@@ -36,7 +36,6 @@
 @property (nonatomic) CLLocationManager *locationManager;
 - (void)sendLocationDataToServer;
 @property UIAlertView *isAEnemyNameForLocalBattle; //相手プレイヤーのニックネームを確認する際のアラートビュー(ローカル対戦)
-@property UIAlertView *isAEnemyNameForInternetBattle; //相手プレイヤーのニックネームを確認する際のアラートビュー(ネット対戦)
 @property UIAlertView *isAEnemyName_retry; //相手プレイヤーを見つけたが、望んだ相手出なかった場合のアラートビュー
 @property UIAlertView *notFoundForLocalBattle; //相手プレイヤーが見つからなかった際のアラートビュー(ローカル対戦)
 @property UIAlertView *notFoundForInternetBattle; //相手プレイヤーが見つからなかった際のアラートビュー(ネット対戦)
