@@ -13,13 +13,20 @@
 #import "MBAnimationView.h"
 #import "NADView.h"
 #import "AAButton.h"
+#import "PBImageView.h"
+#import "IntroductionTool.h"
 #define FINISHED1 syncFinished = YES;
 
 @interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *userDefault;
-    AppDelegate *appdelegate;
+    AppDelegate *app;
+    int firstPrologueNumber; //全画面プロローグの紙芝居が今何番まで表示されているかを管理する変数
+    UIImageView *animation;  //全画面プロローグのイメージビュー
+    AAButton *battleButton;
+    AAButton *deckButton;
+    IntroductionTool *blackBack; //プロローグ中の黒半透明の背景
 }
 
 @property (nonatomic, retain) NADView * nadView; //広告枠の設置

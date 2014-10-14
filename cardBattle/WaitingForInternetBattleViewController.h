@@ -39,6 +39,7 @@
     NSTimer *timer;//宝箱を開けるアニメーションを待つためのタイマー
     UIButton *stopExplorationButton; //探索を中止するボタン
     BOOL stopWalking; //対戦相手が見つかったか、探索を中止した際にYESとなる
+    NSArray *prizeCardNumber; //フィールドごとに設定される、探索でゲットできるカードのナンバーを設定する。
 }
 
 @property (nonatomic, assign) int course;//コース番号を格納する（CourseSelectViewControllerにて最初にデータ格納）

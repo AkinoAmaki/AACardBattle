@@ -25,19 +25,19 @@
     
     userDefault = [NSUserDefaults standardUserDefaults];
     int first =  [userDefault integerForKey:@"firstLaunch_ud"];
-    appdelegate = [[UIApplication sharedApplication] delegate];
+    app = [[UIApplication sharedApplication] delegate];
     
     NSString *backGroundImagePath = [[NSBundle mainBundle] pathForResource:@"backOfACard_skelton" ofType:@"png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:backGroundImagePath]];
     imageView.frame = CGRectMake(0, 0, 320, 480);
     [self.view addSubview:imageView];
     
-    AAButton *battleButton = [[AAButton alloc] initWithImageAndText:@"sample-302-swords" imagePath:@"png" textString:@" 対 戦 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 120, 200, 40)];
+    battleButton = [[AAButton alloc] initWithImageAndText:@"sample-302-swords" imagePath:@"png" textString:@" 対 戦 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 120, 200, 40)];
     [battleButton addTarget:self action:@selector(battleButtonPushed)
            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:battleButton];
     
-    AAButton *deckButton = [[AAButton alloc] initWithImageAndText:@"glyphicons_330_blog" imagePath:@"png" textString:@" デッキ編成 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 200, 200, 40)];
+    deckButton = [[AAButton alloc] initWithImageAndText:@"glyphicons_330_blog" imagePath:@"png" textString:@" デッキ編成 " tag:1 CGRect:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 100, 200, 200, 40)];
     [deckButton addTarget:self action:@selector(deckButtonPushed)
          forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:deckButton];
@@ -54,24 +54,35 @@
     [self.nadView setDelegate:self];
     //　広告の読み込み
     [self.nadView load]; //(6)
-    [self.view addSubview:self.nadView]; // 最初から表示する場合
+    [self.view addSubview:self.nadView]; // 広告を表示
     
     
     
     if(first == 0){
         firstLaunchView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-        firstLaunchView.image = [UIImage imageNamed:@"anime"];
+        firstLaunchView.image = [UIImage imageNamed:@"backOfACard"];
         firstLaunchView.userInteractionEnabled = YES;
-        tf = [[UITextField alloc] initWithFrame:CGRectMake(20 , 60, [[UIScreen mainScreen] bounds].size.width -20, 30)];
-        tf.placeholder = @"なまえを入力してください";
+        
+        UITextView *explainTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, [[UIScreen mainScreen] bounds].size.width - 0, 60)];
+        explainTextView.text = @"アスキーアートの世界へようこそ！\nまずはあなたのニックネームを教えて下さい！";
+        explainTextView.textAlignment = NSTextAlignmentCenter;
+        [PenetrateFilter penetrate:explainTextView];
+        [firstLaunchView addSubview:explainTextView];
+        
+        tf = [[UITextField alloc] initWithFrame:CGRectMake(40 ,160, [[UIScreen mainScreen] bounds].size.width - 80, 30)];
+        tf.borderStyle = UITextBorderStyleRoundedRect;
+        tf.placeholder = @"ニックネームを入力";
         tf.clearButtonMode = UITextFieldViewModeAlways;
         tf.returnKeyType = UIReturnKeyDone;
         tf.delegate = self;
-        tf.text = @"test";
         [firstLaunchView addSubview:tf];
         [self.view addSubview:firstLaunchView];
-        [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
     }
+    
+//    NSArray *array = [[NSArray alloc] initWithObjects:deckButton, nil];
+//    IntroductionTool *test = [[IntroductionTool alloc] initForHighlightingViewMethod:battleButton.frame forbidTapActionViewArray:array];
+//    [self.view addSubview:test];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -140,12 +151,54 @@
      userDefault = [NSUserDefaults standardUserDefaults];
      [userDefault setObject:tf.text forKey:@"myNickName_ud"];
      [userDefault synchronize];
-     appdelegate.myNickName = [userDefault objectForKey:@"myNickName_ud"];
-     NSLog(@"ニックネーム：%@",appdelegate.myNickName);
+     app.myNickName = [userDefault objectForKey:@"myNickName_ud"];
+     NSLog(@"ニックネーム：%@",app.myNickName);
      [tf resignFirstResponder];
      [firstLaunchView removeFromSuperview];
+     //ニックネームの入力が終わり次第、プロローグを始める
+     [self firstPrologue];
      return YES;
  }
+
+- (void)firstPrologue{
+    
+    animation = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    animation.userInteractionEnabled = YES;
+    
+    UIImageView *blackBack = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    blackBack.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blackBack" ofType:@"png"]];
+    [animation addSubview:blackBack];
+    
+    UIImageView *animationImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 100)];
+    animationImage.contentMode = UIViewContentModeScaleAspectFit;
+    animationImage.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, [UIScreen mainScreen].bounds.size.height / 2);
+    animationImage.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"pro_a1" ofType:@"png"]];
+    animationImage.tag = 1; //タグを付けておき、nextAnimationOfFirstPrologueで拾って画像を変えられるようにする。
+    firstPrologueNumber = 2; //nextButtonを押すと、次に２番目の画像を表示する。
+    [animation addSubview:animationImage];
+    
+    UIImageView *nextButton = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100, 50, 50)];
+    nextButton.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"next" ofType:@"png"]];
+    nextButton.userInteractionEnabled = YES;
+    [nextButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextAnimationOfFirstPrologue)]];
+    [animation addSubview:nextButton];
+    
+    [self.view addSubview:animation];
+}
+
+- (void)nextAnimationOfFirstPrologue{
+    if(firstPrologueNumber < 22){
+        UIImageView *animationImage2 = (UIImageView *)[animation viewWithTag:1];
+        animationImage2.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"pro_a%d",firstPrologueNumber] ofType:@"png"]];
+        firstPrologueNumber++;
+    }else{
+        for (UIView *v in animation.subviews) {
+            [v removeFromSuperview];
+        }
+        [animation removeFromSuperview];
+        [self startAnimation001];
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     //広告の再開
@@ -153,13 +206,13 @@
     [self.nadView resume];
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    appdelegate.myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
-    appdelegate.myDeck1 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud1"]];
-    appdelegate.myDeck2 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud2"]];
-    appdelegate.myDeck3 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud3"]];
+    app.myCards = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myCards_ud"]];
+    app.myDeck1 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud1"]];
+    app.myDeck2 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud2"]];
+    app.myDeck3 = [[NSMutableArray alloc] initWithArray:[ud arrayForKey:@"myDeck_ud3"]];
 
 //    カード効果実装時のデバッグ用
-//    appdelegate.myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
+//    app.myDeck = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0],
 //                          [NSNumber numberWithInt:0],
 //                          [NSNumber numberWithInt:0],
 //                          [NSNumber numberWithInt:0],
@@ -320,198 +373,218 @@
     
 #pragma mark- 対戦に関連する各種数値の初期化
     
-    appdelegate.battleStart = NO;
-    appdelegate.myHand = [[NSMutableArray alloc] init]; //自分の手札
-    appdelegate.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
-    appdelegate.myFieldCard = [[NSMutableArray alloc] initWithObjects:nil]; //自分の場カードのカードナンバー
-    appdelegate.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
-    appdelegate.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
-    appdelegate.myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
-    appdelegate.myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）
-    appdelegate.myFieldCardByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
-    appdelegate.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
-    appdelegate.myDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
-    appdelegate.myHandByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyHand（差分のみ管理）
-    appdelegate.myTombByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyTomb（差分のみ管理）
-    appdelegate.myFieldCardByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
-    appdelegate.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
-    appdelegate.myDeckCardListFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyDeckCardList（差分のみ管理）
-    appdelegate.myHandFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyHand（差分のみ管理）
-    appdelegate.myTombFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyTomb（差分のみ管理）
-    appdelegate.myFieldCardFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyFieldCard（差分のみ管理）
-    appdelegate.myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、増加したmyEnergyCard（差分のみ管理）
-    appdelegate.myDeckCardListFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyDeckCardList（差分のみ管理）
-    appdelegate.myHandFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyHand（差分のみ管理）
-    appdelegate.myTombFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyTomb（差分のみ管理）
-    appdelegate.myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
-    appdelegate.myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
-    appdelegate.myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分がこのターン使用したエネルギーの量
-    appdelegate.myLifeGage = 20;
-    appdelegate.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
-    appdelegate.myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
-    appdelegate.myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
-    appdelegate.myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
-    appdelegate.myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
-    appdelegate.myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
-    appdelegate.myMonarFundamentalDeffencePower = 0; //自分のモナーの基本防御力
-    appdelegate.mySyobonFundamentalAttackPower = 3; //自分のショボンの基本攻撃力
-    appdelegate.mySyobonFundamentalDeffencePower = 0; //自分のショボンの基本防御力
-    appdelegate.myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
-    appdelegate.myYaruoFundamentalDeffencePower = 3; //自分のやる夫の基本防御力
-    appdelegate.myGikoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
-    appdelegate.myGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のギコの基本防御力（差分のみ管理）
-    appdelegate.myMonarFundamentalAttackPowerByMyself = 0; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
-    appdelegate.myMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
-    appdelegate.mySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
-    appdelegate.mySyobonFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
-    appdelegate.myYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
-    appdelegate.myYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
-    appdelegate.myGikoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
-    appdelegate.myGikoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの基本防御力（差分のみ管理）
-    appdelegate.myMonarFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
-    appdelegate.myMonarFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
-    appdelegate.mySyobonFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
-    appdelegate.mySyobonFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
-    appdelegate.myYaruoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
-    appdelegate.myYaruoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
-    appdelegate.mySelectCharacter = -1; //自分の選んだキャラクター
-    appdelegate.mySelectCharacterFromEnemy = -1;
-    appdelegate.myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myMonarModifyingAttackPower = 0; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myMonarModifyingDeffencePower = 0; //自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.mySyobonModifyingAttackPower = 0; //自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.mySyobonModifyingDeffencePower = 0; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myYaruoModifyingAttackPower = 0; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myYaruoModifyingDeffencePower = 0; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.myGikoModifyingAttackPowerByMyself = 0; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myGikoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myMonarModifyingAttackPowerByMyself = 0; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myMonarModifyingDeffencePowerByMyself = 0; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.mySyobonModifyingAttackPowerByMyself = 0; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.mySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myYaruoModifyingAttackPowerByMyself = 0; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myMonarModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.mySyobonModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
-    appdelegate.myGikoAttackPermittedByMyself = YES; //自分のギコの攻撃許可
-    appdelegate.myGikoDeffencePermittedByMyself = YES; //自分のギコの防御許可
-    appdelegate.myMonarAttackPermittedByMyself = YES; //自分のモナーの攻撃許可
-    appdelegate.myMonarDeffencePermittedByMyself = YES; //自分のモナーの防御許可
-    appdelegate.mySyobonAttackPermittedByMyself = YES; //自分のショボンの攻撃許可
-    appdelegate.mySyobonDeffencePermittedByMyself = YES; //自分のショボンの防御許可
-    appdelegate.myYaruoAttackPermittedByMyself = YES; //自分のやる夫の攻撃許可
-    appdelegate.myYaruoDeffencePermittedByMyself = YES; //自分のやる夫の防御許可
-    appdelegate.myGikoAttackPermittedFromEnemy = YES; //相手の妨害による自分のギコの攻撃許可
-    appdelegate.myGikoDeffencePermittedFromEnemy = YES; //相手の制限による自分のギコの防御許可
-    appdelegate.myMonarAttackPermittedFromEnemy = YES; //相手の制限による自分のモナーの攻撃許可
-    appdelegate.myMonarDeffencePermittedFromEnemy = YES; //相手の制限による自分のモナーの防御許可
-    appdelegate.mySyobonAttackPermittedFromEnemy = YES; //相手の制限による自分のショボンの攻撃許可
-    appdelegate.mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
-    appdelegate.myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
-    appdelegate.myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
-    appdelegate.doIUseCard = NO; //自分がこのターンカードを使用したか
-    appdelegate.myDamageInBattlePhase = 0;
-    appdelegate.myDamageFromAA = 0;
-    appdelegate.myDamageFromCard = 0;
-    appdelegate.mySelectColor = -1; //自分が選んだ色
-    appdelegate.cardsIUsedInThisTurn = [[NSMutableArray alloc] init];
+    app.battleStart = NO;
+    app.myHand = [[NSMutableArray alloc] init]; //自分の手札
+    app.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
+    app.myFieldCard = [[NSMutableArray alloc] initWithObjects:nil]; //自分の場カードのカードナンバー
+    app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
+    app.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
+    app.myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
+    app.myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）
+    app.myFieldCardByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyFieldCard（差分のみ管理）
+    app.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、増加したmyEnergyCard（差分のみ管理）
+    app.myDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyDeckCardList（差分のみ管理）
+    app.myHandByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyHand（差分のみ管理）
+    app.myTombByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyTomb（差分のみ管理）
+    app.myFieldCardByMyself_minus = [[NSMutableArray alloc] init]; // 自分が操作し、減少したmyFieldCard（差分のみ管理）
+    app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; // 自分が操作し、減少したmyEnergyCard（差分のみ管理）
+    app.myDeckCardListFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyDeckCardList（差分のみ管理）
+    app.myHandFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyHand（差分のみ管理）
+    app.myTombFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyTomb（差分のみ管理）
+    app.myFieldCardFromEnemy_plus = [[NSMutableArray alloc] init]; //相手が操作し、増加したmyFieldCard（差分のみ管理）
+    app.myEnergyCardFromEnemy_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //相手が操作し、増加したmyEnergyCard（差分のみ管理）
+    app.myDeckCardListFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyDeckCardList（差分のみ管理）
+    app.myHandFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyHand（差分のみ管理）
+    app.myTombFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyTomb（差分のみ管理）
+    app.myFieldCardFromEnemy_minus = [[NSMutableArray alloc] init]; //相手が操作し、減少したmyFieldCard（差分のみ管理）
+    app.myEnergyCardFromEnemy_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手が操作し、減少したmyEnergyCard（差分のみ管理）
+    app.myUsingEnergy = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分がこのターン使用したエネルギーの量
+    app.myLifeGage = 20;
+    app.myLifeGageByMyself = 0; //自分のライフポイントを自分で操作する場合の値(差分のみ管理)
+    app.myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
+    app.myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
+    app.myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
+    app.myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
+    app.myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
+    app.myMonarFundamentalDeffencePower = 0; //自分のモナーの基本防御力
+    app.mySyobonFundamentalAttackPower = 3; //自分のショボンの基本攻撃力
+    app.mySyobonFundamentalDeffencePower = 0; //自分のショボンの基本防御力
+    app.myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
+    app.myYaruoFundamentalDeffencePower = 3; //自分のやる夫の基本防御力
+    app.myGikoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
+    app.myGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のギコの基本防御力（差分のみ管理）
+    app.myMonarFundamentalAttackPowerByMyself = 0; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
+    app.myMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
+    app.mySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
+    app.mySyobonFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
+    app.myYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+    app.myYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
+    app.myGikoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のギコの基本攻撃力（差分のみ管理）
+    app.myGikoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの基本防御力（差分のみ管理）
+    app.myMonarFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの基本攻撃力（差分のみ管理）
+    app.myMonarFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの基本防御力（差分のみ管理）
+    app.mySyobonFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの基本攻撃力（差分のみ管理）
+    app.mySyobonFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの基本防御力（差分のみ管理）
+    app.myYaruoFundamentalAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+    app.myYaruoFundamentalDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の基本防御力（差分のみ管理）
+    app.mySelectCharacter = -1; //自分の選んだキャラクター
+    app.mySelectCharacterFromEnemy = -1;
+    app.myGikoModifyingAttackPower = 0; //自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myGikoModifyingDeffencePower = 0; //自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myMonarModifyingAttackPower = 0; //自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myMonarModifyingDeffencePower = 0; //自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.mySyobonModifyingAttackPower = 0; //自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.mySyobonModifyingDeffencePower = 0; //自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myYaruoModifyingAttackPower = 0; //自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myYaruoModifyingDeffencePower = 0; //自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.myGikoModifyingAttackPowerByMyself = 0; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myGikoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingAttackPowerByMyself = 0; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingDeffencePowerByMyself = 0; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingAttackPowerByMyself = 0; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingAttackPowerByMyself = 0; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myGikoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myGikoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myMonarModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.mySyobonModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingAttackPowerFromEnemy = 0; //相手が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myYaruoModifyingDeffencePowerFromEnemy = 0; //相手が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+    app.myGikoAttackPermittedByMyself = YES; //自分のギコの攻撃許可
+    app.myGikoDeffencePermittedByMyself = YES; //自分のギコの防御許可
+    app.myMonarAttackPermittedByMyself = YES; //自分のモナーの攻撃許可
+    app.myMonarDeffencePermittedByMyself = YES; //自分のモナーの防御許可
+    app.mySyobonAttackPermittedByMyself = YES; //自分のショボンの攻撃許可
+    app.mySyobonDeffencePermittedByMyself = YES; //自分のショボンの防御許可
+    app.myYaruoAttackPermittedByMyself = YES; //自分のやる夫の攻撃許可
+    app.myYaruoDeffencePermittedByMyself = YES; //自分のやる夫の防御許可
+    app.myGikoAttackPermittedFromEnemy = YES; //相手の妨害による自分のギコの攻撃許可
+    app.myGikoDeffencePermittedFromEnemy = YES; //相手の制限による自分のギコの防御許可
+    app.myMonarAttackPermittedFromEnemy = YES; //相手の制限による自分のモナーの攻撃許可
+    app.myMonarDeffencePermittedFromEnemy = YES; //相手の制限による自分のモナーの防御許可
+    app.mySyobonAttackPermittedFromEnemy = YES; //相手の制限による自分のショボンの攻撃許可
+    app.mySyobonDeffencePermittedFromEnemy = YES; //相手の制限による自分のショボンの防御許可
+    app.myYaruoAttackPermittedFromEnemy = YES; //相手の制限による自分のやる夫の攻撃許可
+    app.myYaruoDeffencePermittedFromEnemy = YES; //相手の制限による自分のやる夫の防御許可
+    app.doIUseCard = NO; //自分がこのターンカードを使用したか
+    app.myDamageInBattlePhase = 0;
+    app.myDamageFromAA = 0;
+    app.myDamageFromCard = 0;
+    app.mySelectColor = -1; //自分が選んだ色
+    app.cardsIUsedInThisTurn = [[NSMutableArray alloc] init];
     
     
     
     //相手に関係する変数
-    appdelegate.enemyLifeGage = 20;
-    appdelegate.enemyDeckCardList = [[NSMutableArray alloc] init]; //相手のデッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
-    appdelegate.enemyHand = [[NSMutableArray alloc] init]; //相手の手札
-    appdelegate.enemyDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyDeckCardList（差分のみ管理）
-    appdelegate.enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
-    appdelegate.enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
-    appdelegate.enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
-    appdelegate.enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
-    appdelegate.enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
-    appdelegate.enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
-    appdelegate.enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
-    appdelegate.enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
-    appdelegate.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
-    appdelegate.enemyGikoFundamentalAttackPower = 3; // 相手のギコの基本攻撃力
-    appdelegate.enemyGikoFundamentalDeffencePower = 0; //相手のギコの基本防御力
-    appdelegate.enemyMonarFundamentalAttackPower = 3; //相手のモナーの基本攻撃力
-    appdelegate.enemyMonarFundamentalDeffencePower = 0; //相手のモナーの基本防御力
-    appdelegate.enemySyobonFundamentalAttackPower = 3; //相手のショボンの基本攻撃力
-    appdelegate.enemySyobonFundamentalDeffencePower = 0; //相手のショボンの基本防御力
-    appdelegate.enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
-    appdelegate.enemyYaruoFundamentalDeffencePower = 3; //相手のやる夫の基本防御力
-    appdelegate.enemyGikoFundamentalAttackPowerByMyself = 0; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
-    appdelegate.enemyGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のギコの基本防御力（差分のみ管理）
-    appdelegate.enemyMonarFundamentalAttackPowerByMyself = 0; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
-    appdelegate.enemyMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
-    appdelegate.enemySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
-    appdelegate.enemySyobonFundamentalDeffencePowerByMyself = 0; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
-    appdelegate.enemyYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
-    appdelegate.enemyYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
-    appdelegate.enemySelectCharacter = -1; //相手の選んだキャラクター
-    appdelegate.enemySelectCharacterByMyself = -1;
-    appdelegate.enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyMonarModifyingAttackPower = 0; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyMonarModifyingDeffencePower = 0; //相手のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemySyobonModifyingAttackPower = 0; //相手のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemySyobonModifyingDeffencePower = 0; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyYaruoModifyingAttackPower = 0; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyYaruoModifyingDeffencePower = 0; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
-    appdelegate.enemyGikoModifyingAttackPowerByMyself = 0; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
-    appdelegate.enemyGikoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のギコの修正防御力（差分のみ管理）
-    appdelegate.enemyMonarModifyingAttackPowerByMyself = 0; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
-    appdelegate.enemyMonarModifyingDeffencePowerByMyself = 0; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
-    appdelegate.enemySyobonModifyingAttackPowerByMyself = 0; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
-    appdelegate.enemySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
-    appdelegate.enemyYaruoModifyingAttackPowerByMyself = 0; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
-    appdelegate.enemyYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
+    app.enemyLifeGage = 20;
+    app.enemyDeckCardList = [[NSMutableArray alloc] init]; //相手のデッキについて、カード一枚一枚をばらしてひとつずつ配列(_myDeckCardList)に収めたあと、カード順をランダムに入れ替える
+    app.enemyHand = [[NSMutableArray alloc] init]; //相手の手札
+    app.enemyDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyDeckCardList（差分のみ管理）
+    app.enemyHandByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyHand（差分のみ管理）
+    app.enemyTombByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyTomb（差分のみ管理）
+    app.enemyFieldCardByMyself_plus = [[NSMutableArray alloc] init]; //自分が操作し、増加したenemyFieldCard（差分のみ管理）
+    app.enemyEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //自分が操作し、増加したenemyEnergyCard（差分のみ管理）
+    app.enemyDeckCardListByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyDeckCardList（差分のみ管理）
+    app.enemyHandByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyHand（差分のみ管理）
+    app.enemyTombByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyTomb（差分のみ管理）
+    app.enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
+    app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
+    app.enemyGikoFundamentalAttackPower = 3; // 相手のギコの基本攻撃力
+    app.enemyGikoFundamentalDeffencePower = 0; //相手のギコの基本防御力
+    app.enemyMonarFundamentalAttackPower = 3; //相手のモナーの基本攻撃力
+    app.enemyMonarFundamentalDeffencePower = 0; //相手のモナーの基本防御力
+    app.enemySyobonFundamentalAttackPower = 3; //相手のショボンの基本攻撃力
+    app.enemySyobonFundamentalDeffencePower = 0; //相手のショボンの基本防御力
+    app.enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
+    app.enemyYaruoFundamentalDeffencePower = 3; //相手のやる夫の基本防御力
+    app.enemyGikoFundamentalAttackPowerByMyself = 0; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
+    app.enemyGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のギコの基本防御力（差分のみ管理）
+    app.enemyMonarFundamentalAttackPowerByMyself = 0; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
+    app.enemyMonarFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のモナーの基本防御力（差分のみ管理）
+    app.enemySyobonFundamentalAttackPowerByMyself = 0; //自分が操作した相手のショボンの基本攻撃力（差分のみ管理）
+    app.enemySyobonFundamentalDeffencePowerByMyself = 0; //相自分が操作した手のショボンの基本防御力（差分のみ管理）
+    app.enemyYaruoFundamentalAttackPowerByMyself = 0; //自分が操作した相手のやる夫の基本攻撃力（差分のみ管理）
+    app.enemyYaruoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の基本防御力（差分のみ管理）
+    app.enemySelectCharacter = -1; //相手の選んだキャラクター
+    app.enemySelectCharacterByMyself = -1;
+    app.enemyGikoModifyingAttackPower = 0; // 相手のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyGikoModifyingDeffencePower = 0; //相手のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyMonarModifyingAttackPower = 0; //相手のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyMonarModifyingDeffencePower = 0; //相手のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemySyobonModifyingAttackPower = 0; //相手のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemySyobonModifyingDeffencePower = 0; //相手のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyYaruoModifyingAttackPower = 0; //相手のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyYaruoModifyingDeffencePower = 0; //相手のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)
+    app.enemyGikoModifyingAttackPowerByMyself = 0; // 自分が操作した相手のギコの修正攻撃力（差分のみ管理）
+    app.enemyGikoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のギコの修正防御力（差分のみ管理）
+    app.enemyMonarModifyingAttackPowerByMyself = 0; //自分が操作した相手のモナーの修正攻撃力（差分のみ管理）
+    app.enemyMonarModifyingDeffencePowerByMyself = 0; //自分が操作した相手のモナーの修正防御力（差分のみ管理）
+    app.enemySyobonModifyingAttackPowerByMyself = 0; //自分が操作した相手のショボンの修正攻撃力（差分のみ管理）
+    app.enemySyobonModifyingDeffencePowerByMyself = 0; //自分が操作した相手のショボンの修正防御力（差分のみ管理）
+    app.enemyYaruoModifyingAttackPowerByMyself = 0; //自分が操作した相手のやる夫の修正攻撃力（差分のみ管理）
+    app.enemyYaruoModifyingDeffencePowerByMyself = 0; //自分が操作した相手のやる夫の修正防御力（差分のみ管理）
     
-    appdelegate.enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
-    appdelegate.enemyGikoDeffencePermittedByMyself = YES; //相手のギコの防御許可
-    appdelegate.enemyMonarAttackPermittedByMyself = YES; //相手のモナーの攻撃許可
-    appdelegate.enemyMonarDeffencePermittedByMyself = YES; //相手のモナーの防御許可
-    appdelegate.enemySyobonAttackPermittedByMyself = YES; //相手のショボンの攻撃許可
-    appdelegate.enemySyobonDeffencePermittedByMyself = YES; //相手のショボンの防御許可
-    appdelegate.enemyYaruoAttackPermittedByMyself = YES; //相手のやる夫の攻撃許可
-    appdelegate.enemyYaruoDeffencePermittedByMyself = YES; //相手のやる夫の防御許可
-    appdelegate.enemyGikoAttackPermittedFromEnemy = YES; //相手の制限による相手のギコの攻撃許可
-    appdelegate.enemyGikoDeffencePermittedFromEnemy = YES; //相手の制限による相手のギコの防御許可
-    appdelegate.enemyMonarAttackPermittedFromEnemy = YES; //相手の制限による相手のモナーの攻撃許可
-    appdelegate.enemyMonarDeffencePermittedFromEnemy = YES; //相手の制限による相手のモナーの防御許可
-    appdelegate.enemySyobonAttackPermittedFromEnemy = YES; //相手の制限による相手のショボンの攻撃許可
-    appdelegate.enemySyobonDeffencePermittedFromEnemy = YES; //相手の制限による相手のショボンの防御許可
-    appdelegate.enemyYaruoAttackPermittedFromEnemy = YES; //相手の制限による相手のやる夫の攻撃許可
-    appdelegate.enemyYaruoDeffencePermittedFromEnemy = YES; //相手の制限による手のやる夫の防御許可
-    appdelegate.enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
-    appdelegate.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
-    appdelegate.enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
-    appdelegate.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
-    appdelegate.canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
-    appdelegate.canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
-    appdelegate.canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか
-    appdelegate.canEnemyPlayEnergyCardByMyself = YES; //相手がエネルギーカードを手札からプレイできるか
-    appdelegate.canEnemyActivateEnergyCardByMyself = YES; //相手がエネルギーカードを起動できるか
-    appdelegate.canEnemyPlaySorceryCardFromEnemy = YES; //相手の制限により相手が魔法カードを手札からプレイできるか
-    appdelegate.canEnemyPlayFieldCardFromEnemy = YES; //相手の制限により相手が場カードを手札からプレイできるか
-    appdelegate.canEnemyActivateFieldCardFromEnemy = YES; //相手の制限により相手が場カードの能力を起動できるか
-    appdelegate.canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
-    appdelegate.canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
-    appdelegate.denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
-    appdelegate.enemyDamageInBattlePhase = 0;
-    appdelegate.enemyDamageFromAA = 0;
-    appdelegate.enemyDamageFromCard = 0;
-    appdelegate.enemySelectColor = -1; //相手が選んだ色
-    appdelegate.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
+    app.enemyGikoAttackPermittedByMyself = YES; //相手のギコの攻撃許可
+    app.enemyGikoDeffencePermittedByMyself = YES; //相手のギコの防御許可
+    app.enemyMonarAttackPermittedByMyself = YES; //相手のモナーの攻撃許可
+    app.enemyMonarDeffencePermittedByMyself = YES; //相手のモナーの防御許可
+    app.enemySyobonAttackPermittedByMyself = YES; //相手のショボンの攻撃許可
+    app.enemySyobonDeffencePermittedByMyself = YES; //相手のショボンの防御許可
+    app.enemyYaruoAttackPermittedByMyself = YES; //相手のやる夫の攻撃許可
+    app.enemyYaruoDeffencePermittedByMyself = YES; //相手のやる夫の防御許可
+    app.enemyGikoAttackPermittedFromEnemy = YES; //相手の制限による相手のギコの攻撃許可
+    app.enemyGikoDeffencePermittedFromEnemy = YES; //相手の制限による相手のギコの防御許可
+    app.enemyMonarAttackPermittedFromEnemy = YES; //相手の制限による相手のモナーの攻撃許可
+    app.enemyMonarDeffencePermittedFromEnemy = YES; //相手の制限による相手のモナーの防御許可
+    app.enemySyobonAttackPermittedFromEnemy = YES; //相手の制限による相手のショボンの攻撃許可
+    app.enemySyobonDeffencePermittedFromEnemy = YES; //相手の制限による相手のショボンの防御許可
+    app.enemyYaruoAttackPermittedFromEnemy = YES; //相手の制限による相手のやる夫の攻撃許可
+    app.enemyYaruoDeffencePermittedFromEnemy = YES; //相手の制限による手のやる夫の防御許可
+    app.enemyTomb = [[NSMutableArray alloc] init]; //相手の墓地のカードナンバー
+    app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
+    app.enemyFieldCard = [[NSMutableArray alloc] init]; //相手の場カードのカードナンバー
+    app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil]; //相手のエネルギーカードの数
+    app.canEnemyPlaySorceryCardByMyself = YES; //相手が魔法カードを手札からプレイできるか
+    app.canEnemyPlayFieldCardByMyself = YES; //相手が場カードを手札からプレイできるか
+    app.canEnemyActivateFieldCardByMyself = YES; //相手が場カードの能力を起動できるか
+    app.canEnemyPlayEnergyCardByMyself = YES; //相手がエネルギーカードを手札からプレイできるか
+    app.canEnemyActivateEnergyCardByMyself = YES; //相手がエネルギーカードを起動できるか
+    app.canEnemyPlaySorceryCardFromEnemy = YES; //相手の制限により相手が魔法カードを手札からプレイできるか
+    app.canEnemyPlayFieldCardFromEnemy = YES; //相手の制限により相手が場カードを手札からプレイできるか
+    app.canEnemyActivateFieldCardFromEnemy = YES; //相手の制限により相手が場カードの能力を起動できるか
+    app.canEnemyPlayEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを手札からプレイできるか
+    app.canEnemyActivateEnergyCardFromEnemy = YES; //相手の制限により相手がエネルギーカードを起動できるか
+    app.denyEnemyCardPlaying = NO; //相手がカードのプレイを打ち消されたか
+    app.enemyDamageInBattlePhase = 0;
+    app.enemyDamageFromAA = 0;
+    app.enemyDamageFromCard = 0;
+    app.enemySelectColor = -1; //相手が選んだ色
+    app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] init];
 
     NSLog(@"初期化完了");
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    // 最大入力文字数
+    int maxInputLength = 10;
+    
+    // 入力済みのテキストを取得
+    NSMutableString *str = [textField.text mutableCopy];
+    
+    // 入力済みのテキストと入力が行われたテキストを結合
+    [str replaceCharactersInRange:range withString:string];
+    
+    if ([str length] > maxInputLength) {
+        // ※ここに文字数制限を超えたことを通知する処理を追加
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)battleButtonPushed{
@@ -523,6 +596,98 @@
     [self performSegueWithIdentifier:@"goToDeckView" sender:self];
 }
 
+- (void)startAnimation001{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro1" imagePath:@"png" textString:@"きたおー！" characterIsOnLeft:YES];
+    [self.view addSubview:app.pbImage];
+    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation002)]];
+    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation002)]];
+    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:battleButton, deckButton, nil]];
+    [self.view addSubview:app.blackBack];
+}
+
+- (void)startAnimation002{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro2" imagePath:@"png" textString:@"って、なんだおこの画面は" characterIsOnLeft:YES];
+    [self.view addSubview:app.pbImage];
+    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation003)]];
+    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation003)]];
+}
+- (void)startAnimation003{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"お前がうちに来る間に色々調べてみたんだが、" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation003_2)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation003_2)]];
+}
+
+- (void)startAnimation003_2{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"AAがカード化される現象は世界中に広がっているらしい。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation004)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation004)]];
+}
+
+
+
+- (void)startAnimation004{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro4" imagePath:@"png" textString:@"大変だお！やる夫たちもカード化されてしまうお！" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation005)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation005)]];
+}
+- (void)startAnimation005{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro5" imagePath:@"png" textString:@"だが、良いニュースもある。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation006)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation006)]];
+}
+- (void)startAnimation006{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro6" imagePath:@"png" textString:@"なんだお？" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation007)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation007)]];
+}
+- (void)startAnimation007{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro7" imagePath:@"png" textString:@"どうやらカード化されたAAは特殊な能力を持つようだ。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation007_2)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation007_2)]];
+}
+
+- (void)startAnimation007_2{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro7" imagePath:@"png" textString:@"そのカードを使ってカードバトルをすれば、新しくカードを手に入るらしい。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation008)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation008)]];
+}
+
+- (void)startAnimation008{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro8" imagePath:@"png" textString:@"……………………" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation009)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation009)]];
+}
+- (void)startAnimation009{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro9" imagePath:@"png" textString:@"そうだお！カードバトルをして、みんなのカードを集めるお！" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation010)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation010)]];
+}
+- (void)startAnimation010{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro10" imagePath:@"png" textString:@"ああ。カード化現象の解消方法はまだ分からないが、" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation010_2)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation010_2)]];
+}
+
+- (void)startAnimation010_2{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro10" imagePath:@"png" textString:@"ひとまずカード化されてしまったみんなを集めておいたほうが良いだろう。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation011)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation011)]];
+}
+
+- (void)startAnimation011{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro11" imagePath:@"png" textString:@"それじゃあ早速バトルをしてみよう。まずは対戦ボタンを押してみろ。" characterIsOnLeft:NO];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation012)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation012)]];
+}
+- (void)startAnimation012{
+    [app.pbImage removeFromSuperview];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro12" imagePath:@"png" textString:@"押すお。" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    [app.blackBack changeFrameAndPermittionView:battleButton.frame forbidedArray:[[NSArray alloc] initWithObjects:deckButton, nil]];
+}
+
+- (void)removeViewOnPrologue:(UITapGestureRecognizer *)sender{
+    for (UIView *view in app.pbImage.subviews) {
+        [view removeFromSuperview];
+    }
+    [app.pbImage removeFromSuperview];
+}
+
+- (void)startAnimation160{
+    //プロローグ終了。初回起動フラグをオフにする。
+    [userDefault setInteger:1 forKey:@"firstLaunch_ud"];
+    [userDefault synchronize];
+
+}
 
 
 @end

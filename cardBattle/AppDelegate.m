@@ -21,12 +21,12 @@
 @synthesize myDeck3;
 @synthesize myCards;
 @synthesize myDeckCardList;
-
+@synthesize pbImage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-
+//
 //    // アプリケーションのバンドル識別子を取得します。
 //    NSString* domain = [[NSBundle mainBundle] bundleIdentifier];
 //    

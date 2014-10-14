@@ -87,12 +87,14 @@
             [self performSelectorOnMainThread:@selector(stopExploringForExcemption)
                                    withObject:nil
                                 waitUntilDone:NO];
+            NSLog(@"chec1");
             [app deactivate];
         }
         NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
         if([string hasPrefix:@"timeout"]){
             _notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"再度検索します" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！", nil];
             [_notFoundForInternetBattle show];
+            NSLog(@"chec2");
             [app deactivate];
             [self sync];
         }else{

@@ -73,6 +73,7 @@
             NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"grass" ofType:@"png"];
             backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            prizeCardNumber = [[NSArray alloc] initWithObjects:@"6", @"7", @"8", @"9", @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19", @"20", @"21", @"22", @"23", @"24", @"26", @"29", @"30", @"31", @"32", @"33", @"35", nil];
         }
             break;
         case 2:
@@ -80,6 +81,7 @@
             NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"snow" ofType:@"png"];
             backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            prizeCardNumber = [[NSArray alloc] initWithObjects:@"36", @"37", @"38", @"39", @"40", @"41", @"42", @"43", @"44", @"45", @"47", @"48", @"49", @"50", @"51", @"52", @"53", @"55", @"56", @"58", @"60", @"61", @"63", @"64", @"65", nil];
         }
             break;
         case 3:
@@ -88,6 +90,7 @@
             backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             walkingMeter.textColor = [UIColor whiteColor];
+            prizeCardNumber = [[NSArray alloc] initWithObjects:@"66", @"67", @"68", @"70", @"71", @"72", @"73", @"74", @"75", @"76", @"77", @"78", @"79", @"80", @"81", @"84", @"85", @"88", @"89", @"90", @"91", @"92", @"93", @"94", @"95", nil];
         }
             break;
         case 4:
@@ -95,6 +98,7 @@
             NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"desert" ofType:@"png"];
             backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            prizeCardNumber = [[NSArray alloc] initWithObjects:@"96", @"97", @"98", @"99", @"100", @"102", @"103", @"104", @"106", @"107", @"108", @"109", @"110", @"111", @"113", @"114", @"115", @"117", @"118", @"119", @"120", @"121", @"123", @"124", @"125", nil];
         }
             break;
         case 5:
@@ -102,6 +106,7 @@
             NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:@"amazon" ofType:@"png"];
             backgroundImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
             backgroundImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
+            prizeCardNumber = [[NSArray alloc] initWithObjects:@"126", @"128", @"129", @"130", @"131", @"132", @"133", @"134", @"135", @"136", @"137", @"138", @"139", @"140", @"143", @"144", @"145", @"146", @"147", @"148", @"149", @"151", @"152", @"153", @"154", nil];
         }
             break;
         default:
@@ -125,7 +130,7 @@
     cardBox_closed.image = [UIImage imageNamed:@"cardBox_closed"];
     
     
-    gettingCardNumber = arc4random() % [app.cardList_cardName count];
+    gettingCardNumber = [[prizeCardNumber objectAtIndex:(arc4random() % [prizeCardNumber count])] intValue];
     NSString *cardImagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"card%d_M",gettingCardNumber] ofType:@"JPG"];
     cardImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:cardImagePath]];
     cardImageView.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 16, 60, 32, 48);

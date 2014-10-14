@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "PenetrateFilter.h"
 
-@interface PBImageView : UIImageView<UITextViewDelegate>
+@interface PBImageView : UIImageView<UITextViewDelegate>{
+        UIViewController *rootViewController;
+}
 
-- (id)initWithImageNameAndText:(NSString *)image_name textString:(NSString *)textString;
-
+@property (nonatomic) UITextView *textView;
+- (id)initWithImageNameAndText:(NSString *)image_name imagePath:(NSString *)imagePath textString:(NSString *)textString characterIsOnLeft:(BOOL)characterIsOnLeft;
+- (void)startAnimation21;
+- (void)startAnimation22;
 @end

@@ -10,6 +10,8 @@
 #import "SVProgressHUD.h"
 #import "SBJson.h"
 #import "NADInterstitial.h"
+#import "PBImageView.h"
+#import "IntroductionTool.h"
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3
@@ -34,6 +36,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+//プロローグ用の変数
+@property (nonatomic, retain) PBImageView *pbImage; //プロローグを表示する変数
+@property (nonatomic, retain) IntroductionTool *blackBack; //プロローグ時の黒透明背景
 
 //双方に関係する変数及び基礎的な変数
 @property BOOL battleStart; //対戦相手の検索が完了した場合TRUEとなる。

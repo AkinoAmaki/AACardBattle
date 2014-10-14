@@ -27,7 +27,7 @@
     //AppDelegateの呼び出し
     app = [[UIApplication sharedApplication] delegate];
     
-    allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 160 + NUMBEROFCARDS / 2 * (IMGHEIGHT + 5))];
+    allImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 260 + NUMBEROFCARDS / 2 * (IMGHEIGHT + 5))];
     
     //スクロールビューの設定
     scrollView = [[UIScrollView alloc] init];
