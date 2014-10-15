@@ -223,6 +223,7 @@
 		0F8B4D8A19E8D218005BCFC8 /* pro_a19.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F8B4D7719E8D218005BCFC8 /* pro_a19.png */; };
 		0F8B4D8D19E8DB96005BCFC8 /* pro_a20.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F8B4D8B19E8DB96005BCFC8 /* pro_a20.png */; };
 		0F8B4D8E19E8DB96005BCFC8 /* pro_a21.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F8B4D8C19E8DB96005BCFC8 /* pro_a21.png */; };
+		0F9931E819EE25210055D950 /* pro32_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9931E719EE25210055D950 /* pro32_4.png */; };
 		0F9E6494196303B200AA5BE4 /* blackBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6492196303B200AA5BE4 /* blackBack.png */; };
 		0F9E6495196303B200AA5BE4 /* whiteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9E6493196303B200AA5BE4 /* whiteBack.png */; };
 		0F9E64A81965067A00AA5BE4 /* CustomFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E64991965067A00AA5BE4 /* CustomFontLabel.m */; };
@@ -645,6 +646,8 @@
 		0FF5B51319A9D9DB00602A2C /* card98_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47D19A9D9DA00602A2C /* card98_D.jpg */; };
 		0FF5B51419A9D9DB00602A2C /* card99_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47E19A9D9DA00602A2C /* card99_D.jpg */; };
 		0FF5B51519A9D9DB00602A2C /* card9_D.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FF5B47F19A9D9DA00602A2C /* card9_D.jpg */; };
+		0FF8849119ED8B6A00DD5081 /* aishou1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF8848F19ED8B6A00DD5081 /* aishou1.png */; };
+		0FF8849219ED8B6A00DD5081 /* aishou2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF8849019ED8B6A00DD5081 /* aishou2.png */; };
 		0FFD0B8919DAE9B3007D9BAD /* border_color-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8619DAE9B3007D9BAD /* border_color-26.png */; };
 		0FFD0B8A19DAE9B3007D9BAD /* chisel_tip_marker-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8719DAE9B3007D9BAD /* chisel_tip_marker-26.png */; };
 		0FFD0B8B19DAE9B3007D9BAD /* pen-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD0B8819DAE9B3007D9BAD /* pen-26.png */; };
@@ -940,6 +943,7 @@
 		0F8B4D7719E8D218005BCFC8 /* pro_a19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro_a19.png; sourceTree = "<group>"; };
 		0F8B4D8B19E8DB96005BCFC8 /* pro_a20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro_a20.png; sourceTree = "<group>"; };
 		0F8B4D8C19E8DB96005BCFC8 /* pro_a21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro_a21.png; sourceTree = "<group>"; };
+		0F9931E719EE25210055D950 /* pro32_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro32_4.png; sourceTree = "<group>"; };
 		0F9E6492196303B200AA5BE4 /* blackBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackBack.png; sourceTree = "<group>"; };
 		0F9E6493196303B200AA5BE4 /* whiteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteBack.png; sourceTree = "<group>"; };
 		0F9E64981965067A00AA5BE4 /* CustomFontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFontLabel.h; sourceTree = "<group>"; };
@@ -1393,6 +1397,8 @@
 		0FF5B47D19A9D9DA00602A2C /* card98_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card98_D.jpg; sourceTree = "<group>"; };
 		0FF5B47E19A9D9DA00602A2C /* card99_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card99_D.jpg; sourceTree = "<group>"; };
 		0FF5B47F19A9D9DA00602A2C /* card9_D.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = card9_D.jpg; sourceTree = "<group>"; };
+		0FF8848F19ED8B6A00DD5081 /* aishou1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aishou1.png; sourceTree = "<group>"; };
+		0FF8849019ED8B6A00DD5081 /* aishou2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aishou2.png; sourceTree = "<group>"; };
 		0FFD0B8619DAE9B3007D9BAD /* border_color-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border_color-26.png"; sourceTree = "<group>"; };
 		0FFD0B8719DAE9B3007D9BAD /* chisel_tip_marker-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chisel_tip_marker-26.png"; sourceTree = "<group>"; };
 		0FFD0B8819DAE9B3007D9BAD /* pen-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pen-26.png"; sourceTree = "<group>"; };
@@ -1665,6 +1671,8 @@
 		0F8B4D0F19E4EA04005BCFC8 /* prologue */ = {
 			isa = PBXGroup;
 			children = (
+				0FF8848F19ED8B6A00DD5081 /* aishou1.png */,
+				0FF8849019ED8B6A00DD5081 /* aishou2.png */,
 				0F8B4D6519E8D218005BCFC8 /* pro_a1.png */,
 				0F8B4D6619E8D218005BCFC8 /* pro_a2.png */,
 				0F8B4D6719E8D218005BCFC8 /* pro_a3.png */,
@@ -1718,6 +1726,7 @@
 				0FF0B09419EBBFCF00467217 /* pro30.png */,
 				0FF0B09519EBBFCF00467217 /* pro31.png */,
 				0FF0B09619EBBFCF00467217 /* pro32.png */,
+				0F9931E719EE25210055D950 /* pro32_4.png */,
 				0FF0B09719EBBFCF00467217 /* pro33.png */,
 				0FF0B09819EBBFCF00467217 /* pro34.png */,
 				0FF0B09919EBBFCF00467217 /* pro35.png */,
@@ -2707,6 +2716,7 @@
 				0FFD0BC619DBABB4007D9BAD /* gikoAnimation6_2.png in Resources */,
 				0FFD0BC119DBABB4007D9BAD /* gikoAnimation4_5.png in Resources */,
 				0F169BC8199A555F00221D19 /* card11_M.JPG in Resources */,
+				0FF8849119ED8B6A00DD5081 /* aishou1.png in Resources */,
 				0F169C01199A555F00221D19 /* card32_M.JPG in Resources */,
 				0FF5B4C619A9D9DA00602A2C /* card24_D.jpg in Resources */,
 				0FF5B4B619A9D9DA00602A2C /* card14_D.jpg in Resources */,
@@ -2821,6 +2831,7 @@
 				0FF5B4DA19A9D9DA00602A2C /* card44_D.jpg in Resources */,
 				0F9F17A518F19BA8004E58BF /* monar.png in Resources */,
 				0FF5B4BF19A9D9DA00602A2C /* card17_D.jpg in Resources */,
+				0FF8849219ED8B6A00DD5081 /* aishou2.png in Resources */,
 				0F9E6511196ED6CA00AA5BE4 /* game_maoudamashii_5_village05.mp3 in Resources */,
 				0F169C2E199A555F00221D19 /* card76_M.JPG in Resources */,
 				0FF0B15719EBBFD000467217 /* pro65.png in Resources */,
@@ -3108,6 +3119,7 @@
 				0FF0B16519EBBFD000467217 /* pro79.png in Resources */,
 				0F169BE4199A555F00221D19 /* card145_M.JPG in Resources */,
 				0F9E64F6196E8F0700AA5BE4 /* se_maoudamashii_explosion03.mp3 in Resources */,
+				0F9931E819EE25210055D950 /* pro32_4.png in Resources */,
 				0F169C05199A555F00221D19 /* card36_M.JPG in Resources */,
 				0FFD0BB719DBABB4007D9BAD /* gikoAnimation1_4.png in Resources */,
 				0FF0B12D19EBBFD000467217 /* pro23.png in Resources */,

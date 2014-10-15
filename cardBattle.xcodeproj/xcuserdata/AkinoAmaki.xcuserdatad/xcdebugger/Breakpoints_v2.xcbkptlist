@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "434979561.58914"
+            timestampString = "435073652.55853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4941"
-            endingLineNumber = "4941"
+            startingLineNumber = "5019"
+            endingLineNumber = "5019"
             landmarkName = "-discardACardFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
@@ -190,11 +190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "434979561.58914"
+            timestampString = "435073652.55853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5158"
-            endingLineNumber = "5158"
+            startingLineNumber = "5236"
+            endingLineNumber = "5236"
             landmarkName = "-selectUsingEnergy:"
             landmarkType = "5">
          </BreakpointContent>
@@ -244,6 +244,22 @@
             startingLineNumber = "602"
             endingLineNumber = "602"
             landmarkName = "-startAnimation001"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cardBattle/BattleScreenViewController.m"
+            timestampString = "435073652.55853"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5800"
+            endingLineNumber = "5800"
+            landmarkName = "-startAnimation053"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
