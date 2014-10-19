@@ -166,6 +166,7 @@
 		0F29BD151921CCD000E9D59C /* YSDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD141921CCCF00E9D59C /* YSDeviceHelper.m */; };
 		0F29BD181923B42C00E9D59C /* PenetrateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29BD171923B42C00E9D59C /* PenetrateFilter.m */; };
 		0F29BD1C1924E2FF00E9D59C /* border_usedCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */; };
+		0F33B41F19F39C6F0029FBD9 /* attackForbidedImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F33B41E19F39C6F0029FBD9 /* attackForbidedImage.png */; };
 		0F3FED921928D41400ACA1BC /* outicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3FED911928D41400ACA1BC /* outicon.png */; };
 		0F53DB0319D6A2D900236502 /* PBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F53DB0219D6A2D900236502 /* PBImageView.m */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
@@ -869,6 +870,7 @@
 		0F29BD161923B42C00E9D59C /* PenetrateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PenetrateFilter.h; sourceTree = "<group>"; };
 		0F29BD171923B42C00E9D59C /* PenetrateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenetrateFilter.m; sourceTree = "<group>"; };
 		0F29BD1B1924E2FF00E9D59C /* border_usedCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_usedCard.png; sourceTree = "<group>"; };
+		0F33B41E19F39C6F0029FBD9 /* attackForbidedImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attackForbidedImage.png; sourceTree = "<group>"; };
 		0F3FED911928D41400ACA1BC /* outicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outicon.png; sourceTree = "<group>"; };
 		0F53DB0119D6A2D900236502 /* PBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBImageView.h; sourceTree = "<group>"; };
 		0F53DB0219D6A2D900236502 /* PBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBImageView.m; sourceTree = "<group>"; };
@@ -1671,6 +1673,7 @@
 		0F8B4D0F19E4EA04005BCFC8 /* prologue */ = {
 			isa = PBXGroup;
 			children = (
+				0F33B41E19F39C6F0029FBD9 /* attackForbidedImage.png */,
 				0FF8848F19ED8B6A00DD5081 /* aishou1.png */,
 				0FF8849019ED8B6A00DD5081 /* aishou2.png */,
 				0F8B4D6519E8D218005BCFC8 /* pro_a1.png */,
@@ -2881,6 +2884,7 @@
 				0FF0B14A19EBBFD000467217 /* pro52.png in Resources */,
 				0FF5B4E819A9D9DB00602A2C /* card58_D.jpg in Resources */,
 				0F169BEA199A555F00221D19 /* card150_M.JPG in Resources */,
+				0F33B41F19F39C6F0029FBD9 /* attackForbidedImage.png in Resources */,
 				0FF5B4D719A9D9DA00602A2C /* card41_D.jpg in Resources */,
 				0FF5B48719A9D9DA00602A2C /* card107_D.jpg in Resources */,
 				0F9E650C196EBDCF00AA5BE4 /* fadeinImage.png in Resources */,

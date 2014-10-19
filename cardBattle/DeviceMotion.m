@@ -32,88 +32,98 @@
 
 //ネット対戦のためのbump
 - (void)bumpForInternetBattle{
-    app = [[UIApplication sharedApplication] delegate];
-    [app activate];
-    
-    //バンプ時のタイムスタンプを取得
-    // NSDateFormatter を用意
-    NSDateFormatter* df = [[NSDateFormatter alloc] init];
-    // カレンダーを西暦（グレゴリオ暦）で用意
-    NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    // カレンダーをセット
-    [df setCalendar:cal];
-    // タイムロケールをシステムロケールでセット（24時間表示のため）
-    [df setLocale:[NSLocale systemLocale]];
-    
-    // タイムスタンプ書式をセット
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    // 現在日時から文字列を生成
-    _dateString = [df stringFromDate:[NSDate date]];
-    
-    //一旦配列に直した上でディクショナリ化する（配列１つ分のディクショナリとして格納される）。こうした場合、サーバ側の処理が楽になる。
-    NSArray *arrayParameter = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:app.playerID],app.myNickName, _dateString,  nil];
-    
-    NSArray *arrayKey = [[NSArray alloc] initWithObjects:@"playerID", @"myNickName",@"dateString", nil];
-    
-    NSLog(@"%d",app.playerID);
-    NSLog(@"%@",app.myNickName);
-    NSLog(@"%@",_dateString);
-    
-    //送るデータをキーとともにディクショナリ化する
-    NSDictionary *dic = [NSDictionary dictionaryWithObjects:arrayParameter forKeys:arrayKey];
-    //JSONに変換
-    NSString *jsonRequest = [dic JSONRepresentation];
-    //JSONに変換)
-    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *url = @"http://utakatanet.dip.jp:58080/enemyPlayerIDForInternetBattle.php";
-    
-    NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100.0];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%lu",(unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody: requestData];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *result, NSError *error) {
-        if(exploringFinished){
-            return;
-        }
+    //初回起動判定。初回起動であれば、プロローグを開始する。
+    int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+    if (first == 0) {
+        [NSThread sleepForTimeInterval:5.0];
+        app.enemyNickName = @"モブ";
+        app.enemyPlayerID = 0;
+        app.battleStart = YES;
+        [self performSelectorOnMainThread:@selector(BattleStartPost)
+                               withObject:nil
+                            waitUntilDone:NO];
+    }else{
+        app = [[UIApplication sharedApplication] delegate];
+        [app activate];
         
-        //データがgetできなければ、警告を発する
-        if(error != nil) {
-            errorAlert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [self performSelectorOnMainThread:@selector(stopExploringForExcemption)
-                                   withObject:nil
-                                waitUntilDone:NO];
-            NSLog(@"chec1");
-            [app deactivate];
-        }
-        NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
-        if([string hasPrefix:@"timeout"]){
-            _notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"再度検索します" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！", nil];
-            [_notFoundForInternetBattle show];
-            NSLog(@"chec2");
-            [app deactivate];
-            [self sync];
-        }else{
-            enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
-            enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
-            [self performSelectorOnMainThread:@selector(stopExploringAnimation)
-                                   withObject:nil
-                                waitUntilDone:NO];
+        //バンプ時のタイムスタンプを取得
+        // NSDateFormatter を用意
+        NSDateFormatter* df = [[NSDateFormatter alloc] init];
+        // カレンダーを西暦（グレゴリオ暦）で用意
+        NSCalendar* cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        // カレンダーをセット
+        [df setCalendar:cal];
+        // タイムロケールをシステムロケールでセット（24時間表示のため）
+        [df setLocale:[NSLocale systemLocale]];
+        
+        // タイムスタンプ書式をセット
+        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        // 現在日時から文字列を生成
+        _dateString = [df stringFromDate:[NSDate date]];
+        
+        //一旦配列に直した上でディクショナリ化する（配列１つ分のディクショナリとして格納される）。こうした場合、サーバ側の処理が楽になる。
+        NSArray *arrayParameter = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:app.playerID],app.myNickName, _dateString,  nil];
+        
+        NSArray *arrayKey = [[NSArray alloc] initWithObjects:@"playerID", @"myNickName",@"dateString", nil];
+        
+        NSLog(@"%d",app.playerID);
+        NSLog(@"%@",app.myNickName);
+        NSLog(@"%@",_dateString);
+        
+        //送るデータをキーとともにディクショナリ化する
+        NSDictionary *dic = [NSDictionary dictionaryWithObjects:arrayParameter forKeys:arrayKey];
+        //JSONに変換
+        NSString *jsonRequest = [dic JSONRepresentation];
+        //JSONに変換)
+        NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSString *url = @"http://utakatanet.dip.jp:58080/enemyPlayerIDForInternetBattle.php";
+        
+        NSMutableURLRequest *request;
+        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100.0];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%lu",(unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody: requestData];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *result, NSError *error) {
+            if(exploringFinished){
+                return;
+            }
             
-            app.enemyNickName = enemyNickName;
-            app.enemyPlayerID = enemyPlayerID;
-            app.battleStart = YES;
-            
-            [NSThread sleepForTimeInterval:1.0];
-            [self performSelectorOnMainThread:@selector(BattleStartPost)
-                                   withObject:nil
-                                waitUntilDone:NO];
-        }
-    }];
+            //データがgetできなければ、警告を発する
+            if(error != nil) {
+                errorAlert = [[UIAlertView alloc] initWithTitle:@"データ取得不能" message:@"データ取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [self performSelectorOnMainThread:@selector(stopExploringForExcemption)
+                                       withObject:nil
+                                    waitUntilDone:NO];
+                [app deactivate];
+            }
+            NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+            if([string hasPrefix:@"timeout"]){
+                _notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"再度検索します" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！", nil];
+                [_notFoundForInternetBattle show];
+                [app deactivate];
+                [self sync];
+            }else{
+                enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
+                enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
+                [self performSelectorOnMainThread:@selector(stopExploringAnimation)
+                                       withObject:nil
+                                    waitUntilDone:NO];
+                
+                app.enemyNickName = enemyNickName;
+                app.enemyPlayerID = enemyPlayerID;
+                app.battleStart = YES;
+                
+                [NSThread sleepForTimeInterval:1.0];
+                [self performSelectorOnMainThread:@selector(BattleStartPost)
+                                       withObject:nil
+                                    waitUntilDone:NO];
+            }
+        }];
+    }
 }
 
 - (void)stopExploringAnimation{
