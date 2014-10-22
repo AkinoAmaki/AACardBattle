@@ -750,180 +750,323 @@
 
 #pragma mark- ターン処理
 - (IBAction)nextTurn{
+    
+    
     //ターン開始時
     NSLog(@"ターン開始フェイズ");
     //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
     [self forbidTouchAction];
     [self activateCardInTiming:0];
-    while (!app.decideAction) {
-        [getEnemyData doEnemyDecideActionRoopVersion:YES];
-    }
-    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。(ターンのレスポンスは悪化するが。)
-    [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideActionRoopVersion:NO];
-    [self activateCardInTiming:99];
-    [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
-    [self sync];
-     if(!searchACardInsteadOfGetACardFromLibraryTop){
-    [self getACard:MYSELF];
-    }
-    for (int i = 0; i < app.myAdditionalGettingCards; i++) {
-        [self getACard:MYSELF];
-    }
-    [sendMyData send];
-    [self refleshView];
-    app.myAdditionalGettingCards = 0;
-    [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"fadeinImage"]];
-    [self sync];
-    if([self isGameOver]){
-        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    }
     
-    
-    //カード使用後
-    NSLog(@"カード使用・AA選択フェーズ");
-    NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
-    [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。\n使用するカード及びAAを選択してください。"];
-    [self sync];
-    //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
-    [self permitTouchAction];
-    
-    //初回起動ならプロローグを表示
+    //初回起動の判定
     int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
-    if (first == 0) {
-        [self startAnimation033];
-    }
-    
-    //touchActionの入力を待つための同期処理
-    while (cardIsCompletlyUsed == NO) {
+
+    //初回起動（プロローグ）でない場合
+    if(first != 0){
+        while (!app.decideAction) {
+            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+        }
+        //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。(ターンのレスポンスは悪化するが。)
+        [NSThread sleepForTimeInterval:0.5];
+        [getEnemyData doEnemyDecideActionRoopVersion:NO];
+        [self activateCardInTiming:99];
+        [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
         [self sync];
-    }
-    [self activateCardInTiming:1];
-    
-    //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
-    [self forbidTouchAction];
-    
-    //相手の入力待ち(app.decideAction = YESとなれば先に進む)
-    while (!app.decideAction) {
-        [getEnemyData doEnemyDecideActionRoopVersion:YES];
-    }
-    [getEnemyData doEnemyDecideActionRoopVersion:NO];
-    [sendMyData send];
-    [SVProgressHUD dismiss];
-    [self activateCardInTiming:99];
-    [self refleshView];
-    [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
-    [self sync];
-    [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
-    [self sync];
-    //ダメージ計算
-    NSLog(@"ダメージ計算フェーズ");
-    [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
-    [self sync];
-    
-    //初回起動ならプロローグを表示
-    if (first == 0) {
-        [self startAnimation099];
-    }
-    
-    NSLog(@"-----------------------------------");
-    NSLog(@"%s",__func__);
-    [self activateCardInTiming:2];
-    while (!app.decideAction) {
-        [getEnemyData doEnemyDecideActionRoopVersion:YES];
-    }
-    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
-    [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideActionRoopVersion:NO];
-    [sendMyData send];
-    [self activateCardInTiming:99];
-    //カード効果でカードを引いたら処理する
+        if(!searchACardInsteadOfGetACardFromLibraryTop){
+            [self getACard:MYSELF];
+        }
+        for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+            [self getACard:MYSELF];
+        }
+        [sendMyData send];
+        [self refleshView];
+        app.myAdditionalGettingCards = 0;
+        [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+        [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        
+        //カード使用後
+        NSLog(@"カード使用・AA選択フェーズ");
+        NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
+        [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。\n使用するカード及びAAを選択してください。"];
+        [self sync];
+        //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
+        [self permitTouchAction];
+        
+        //touchActionの入力を待つための同期処理
+        while (cardIsCompletlyUsed == NO) {
+            [self sync];
+        }
+        [self activateCardInTiming:1];
+        
+        //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
+        [self forbidTouchAction];
+        
+        //相手の入力待ち(app.decideAction = YESとなれば先に進む)
+        while (!app.decideAction) {
+            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+        }
+        [getEnemyData doEnemyDecideActionRoopVersion:NO];
+        [sendMyData send];
+        [SVProgressHUD dismiss];
+        [self activateCardInTiming:99];
+        [self refleshView];
+        [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
+        [self sync];
+        [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
+        [self sync];
+        //ダメージ計算
+        NSLog(@"ダメージ計算フェーズ");
+        [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
+        [self sync];
+        
+        NSLog(@"-----------------------------------");
+        NSLog(@"%s",__func__);
+        [self activateCardInTiming:2];
+        while (!app.decideAction) {
+            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+        }
+        //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+        [NSThread sleepForTimeInterval:0.5];
+        [getEnemyData doEnemyDecideActionRoopVersion:NO];
+        [sendMyData send];
+        [self activateCardInTiming:99];
+        //カード効果でカードを引いたら処理する
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
             [self getACard:MYSELF];
         }
         app.myAdditionalGettingCards = 0;
-    //カード効果でカードを捨てたら処理する
+        //カード効果でカードを捨てたら処理する
         for (int i = 0; i < app.myAdditionalDiscardingCards; i++) {
             [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) longtapSelector:@selector(detailOfACard:) string:@"捨てるカードを一枚選んでください"];
             [self sync];
         }
-    app.enemyDamageFromAA = [_bc damageCaliculate];
-    while (!app.decideAction) {
-        [getEnemyData doEnemyDecideActionRoopVersion:YES];
-    }
-    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
-    [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideActionRoopVersion:NO];
-    [sendMyData send];
-    NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
-    [self refleshView];
-    [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
-    [self sync];
-    if([self isGameOver]){
-        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    }
-    //ターン終了時
-    NSLog(@"ターン終了フェイズ");
-    [self phaseNameFadeIn:@"ターン終了フェイズ"];
-    [self sync];
-    [self activateCardInTiming:3];
-    [self activateCardInTiming:99];
-    while (!app.decideAction) {
-        [getEnemyData doEnemyDecideActionRoopVersion:YES];
-    }
-    //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
-    [NSThread sleepForTimeInterval:0.5];
-    [getEnemyData doEnemyDecideActionRoopVersion:NO];
-    [sendMyData send];
-    [self refleshView];
-    [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
-    [self sync];
-    if([self isGameOver]){
-        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    }
-    
-    NSLog(@"-----------------------------------");
-    NSLog(@"%s",__func__);
-    NSLog(@"自分のHP：%d",app.myLifeGage);
-    NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
-    NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
-    NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
-    NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
-    NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
-    NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
-    NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
-    NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
-    NSLog(@"相手のHP：%d",app.enemyLifeGage);
-    NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
-    NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
-    NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
-    NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
-    NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
-    NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
-    NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
-    NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
-    
-    NSLog(@"自分の手札：%@",app.myHand);
-    NSLog(@"自分のフィールドカード置き場：%@",app.myFieldCard);
-    NSLog(@"自分の墓地：%@",app.myTomb);
-    NSLog(@"-----------------------------------");
-    
-    
-    if(app.mySelectCharacter == YARUO){
-        [self getACard:MYSELF];
-    }
-    
-    while([app.myHand count] > 5){
-        [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) longtapSelector:@selector(detailOfACard:) string:@"手札の所持枚数が5枚を超えました。\n捨てるカードを一枚選んでください"];
+        app.enemyDamageFromAA = [_bc damageCaliculate];
+        while (!app.decideAction) {
+            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+        }
+        //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+        [NSThread sleepForTimeInterval:0.5];
+        [getEnemyData doEnemyDecideActionRoopVersion:NO];
+        [sendMyData send];
+        NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
+        [self refleshView];
+        [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
         [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        //ターン終了時
+        NSLog(@"ターン終了フェイズ");
+        [self phaseNameFadeIn:@"ターン終了フェイズ"];
+        [self sync];
+        [self activateCardInTiming:3];
+        [self activateCardInTiming:99];
+        while (!app.decideAction) {
+            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+        }
+        //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
+        [NSThread sleepForTimeInterval:0.5];
+        [getEnemyData doEnemyDecideActionRoopVersion:NO];
+        [sendMyData send];
+        [self refleshView];
+        [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+        [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        NSLog(@"-----------------------------------");
+        NSLog(@"%s",__func__);
+        NSLog(@"自分のHP：%d",app.myLifeGage);
+        NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
+        NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
+        NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
+        NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
+        NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
+        NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
+        NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
+        NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
+        NSLog(@"相手のHP：%d",app.enemyLifeGage);
+        NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
+        NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
+        NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
+        NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
+        NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
+        NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
+        NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
+        NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
+        
+        NSLog(@"自分の手札：%@",app.myHand);
+        NSLog(@"自分のフィールドカード置き場：%@",app.myFieldCard);
+        NSLog(@"自分の墓地：%@",app.myTomb);
+        NSLog(@"-----------------------------------");
+        
+        
+        if(app.mySelectCharacter == YARUO){
+            [self getACard:MYSELF];
+        }
+        
+        while([app.myHand count] > 5){
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) longtapSelector:@selector(detailOfACard:) string:@"手札の所持枚数が5枚を超えました。\n捨てるカードを一枚選んでください"];
+            [self sync];
+        }
+        [self initializeVariables];
+        [self nextTurn];
+        
+        
+        NSLog(@"-----------------------------------");
+    }else{
+     //初回起動（プロローグ）の場合
+        [self activateCardInTiming:99];
+        [self phaseNameFadeIn:[NSString stringWithFormat:@"%dターン目　ターン開始フェイズ", turnCount++]];
+        [self sync];
+        if(!searchACardInsteadOfGetACardFromLibraryTop){
+            [self getACard:MYSELF];
+        }
+        for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+            [self getACard:MYSELF];
+        }
+        [sendMyData send];
+        [self refleshView];
+        app.myAdditionalGettingCards = 0;
+        [self turnStartFadeIn:_turnStartView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+        [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        
+        //カード使用後
+        NSLog(@"カード使用・AA選択フェーズ");
+        NSLog(@"でっきのなかみ：%@",app.myDeckCardList);
+        [self phaseNameFadeIn:@"カード使用・AAで選択フェイズです。\n使用するカード及びAAを選択してください。"];
+        [self sync];
+        //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
+        [self permitTouchAction];
+        
+        //初回起動ならプロローグを表示
+        if (first == 0) {
+            [self startAnimation033];
+        }
+        
+        //touchActionの入力を待つための同期処理
+        while (cardIsCompletlyUsed == NO) {
+            [self sync];
+        }
+        [self activateCardInTiming:1];
+        
+        //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
+        [self forbidTouchAction];
+
+        [sendMyData send];
+        [SVProgressHUD dismiss];
+        [self activateCardInTiming:99];
+        [self refleshView];
+        [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
+        [self sync];
+        [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
+        [self sync];
+        //ダメージ計算
+        NSLog(@"ダメージ計算フェーズ");
+        [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
+        [self sync];
+        
+        //初回起動ならプロローグを表示
+        if (first == 0) {
+            [self startAnimation099];
+        }
+        
+        NSLog(@"-----------------------------------");
+        NSLog(@"%s",__func__);
+        [self activateCardInTiming:2];
+
+        [sendMyData send];
+        [self activateCardInTiming:99];
+        //カード効果でカードを引いたら処理する
+        for (int i = 0; i < app.myAdditionalGettingCards; i++) {
+            [self getACard:MYSELF];
+        }
+        app.myAdditionalGettingCards = 0;
+        //カード効果でカードを捨てたら処理する
+        for (int i = 0; i < app.myAdditionalDiscardingCards; i++) {
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandSelector:) longtapSelector:@selector(detailOfACard:) string:@"捨てるカードを一枚選んでください"];
+            [self sync];
+        }
+        app.enemyDamageFromAA = [_bc damageCaliculate];
+        [sendMyData send];
+        NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
+        [self refleshView];
+        [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+        [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        //ターン終了時
+        NSLog(@"ターン終了フェイズ");
+        [self phaseNameFadeIn:@"ターン終了フェイズ"];
+        [self sync];
+        [self activateCardInTiming:3];
+        [self activateCardInTiming:99];
+
+        [sendMyData send];
+        [self refleshView];
+        [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
+        [self sync];
+        if([self isGameOver]){
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        NSLog(@"-----------------------------------");
+        NSLog(@"%s",__func__);
+        NSLog(@"自分のHP：%d",app.myLifeGage);
+        NSLog(@"自分のギコの基本攻撃力　　：%d　＋　自分のギコの修正攻撃力　　：%d",app.myGikoFundamentalAttackPower,app.myGikoModifyingAttackPower);
+        NSLog(@"自分のモナーの基本攻撃力　：%d　＋　自分のモナーの修正攻撃力　：%d",app.myMonarFundamentalAttackPower,app.myMonarModifyingAttackPower);
+        NSLog(@"自分のショボンの基本攻撃力：%d　＋　自分のショボンの修正攻撃力：%d",app.mySyobonFundamentalAttackPower,app.mySyobonModifyingAttackPower);
+        NSLog(@"自分のやる夫の基本攻撃力　：%d　＋　自分のやる夫の修正攻撃力　：%d",app.myYaruoFundamentalAttackPower,app.myYaruoModifyingAttackPower);
+        NSLog(@"自分のギコの基本防御力　　：%d　＋　自分のギコの修正防御力　　：%d",app.myGikoFundamentalDeffencePower,app.myGikoModifyingDeffencePower);
+        NSLog(@"自分のモナーの基本防御力　：%d　＋　自分のモナーの修正防御力　：%d",app.myMonarFundamentalDeffencePower,app.myMonarModifyingDeffencePower);
+        NSLog(@"自分のショボンの基本防御力：%d　＋　自分のショボンの修正防御力：%d",app.mySyobonFundamentalDeffencePower,app.mySyobonModifyingDeffencePower);
+        NSLog(@"自分のやる夫の基本防御力　：%d　＋　自分のやる夫の修正防御力　：%d",app.myYaruoFundamentalDeffencePower,app.myYaruoModifyingDeffencePower);
+        NSLog(@"相手のHP：%d",app.enemyLifeGage);
+        NSLog(@"相手のギコの基本攻撃力：　　%d　＋　相手のギコの修正攻撃力　　：%d",app.enemyGikoFundamentalAttackPower,app.enemyGikoModifyingAttackPower);
+        NSLog(@"相手のモナーの基本攻撃力　：%d　＋　相手のモナーの修正攻撃力　：%d",app.enemyMonarFundamentalAttackPower,app.enemyMonarModifyingAttackPower);
+        NSLog(@"相手のショボンの基本攻撃力：%d　＋　相手のショボンの修正攻撃力：%d",app.enemySyobonFundamentalAttackPower,app.enemySyobonModifyingAttackPower);
+        NSLog(@"相手のやる夫の基本攻撃力　：%d　＋　相手のやる夫の修正攻撃力　：%d",app.enemyYaruoFundamentalAttackPower,app.enemyYaruoModifyingAttackPower);
+        NSLog(@"相手のギコの基本防御力　　：%d　＋　相手のギコの修正防御力　　：%d",app.enemyGikoFundamentalDeffencePower,app.enemyGikoModifyingDeffencePower);
+        NSLog(@"相手のモナーの基本防御力　：%d　＋　相手のモナーの修正防御力　：%d",app.enemyMonarFundamentalDeffencePower,app.enemyMonarModifyingDeffencePower);
+        NSLog(@"相手のショボンの基本防御力：%d　＋　相手のショボンの修正防御力：%d",app.enemySyobonFundamentalDeffencePower,app.enemySyobonModifyingDeffencePower);
+        NSLog(@"相手のやる夫の基本防御力　：%d　＋　相手のやる夫の修正防御力　：%d",app.enemyYaruoFundamentalDeffencePower,app.enemyYaruoModifyingDeffencePower);
+        
+        NSLog(@"自分の手札：%@",app.myHand);
+        NSLog(@"自分のフィールドカード置き場：%@",app.myFieldCard);
+        NSLog(@"自分の墓地：%@",app.myTomb);
+        NSLog(@"-----------------------------------");
+        
+        
+        if(app.mySelectCharacter == YARUO){
+            [self getACard:MYSELF];
+        }
+        
+        while([app.myHand count] > 5){
+            [self browseCardsInRegion:app.myHand touchCard:YES tapSelector:@selector(discardMyHandInTurnEndPhaseSelector:) longtapSelector:@selector(detailOfACard:) string:@"手札の所持枚数が5枚を超えました。\n捨てるカードを一枚選んでください"];
+            [self sync];
+        }
+        [self initializeVariables];
+        [self nextTurn];
+        
+        
+        NSLog(@"-----------------------------------");
     }
-    [self initializeVariables];
-    [self nextTurn];
-    
-    
-    NSLog(@"-----------------------------------");
-    
-    
 }
 #pragma mark- カード効果実装
 
@@ -2973,6 +3116,7 @@
         
         
         //相手
+        
         while (enemyDrawCount < 5) {
             //手札のカード画像を用意する
             UIImage *enemyCard = [UIImage imageNamed:@"backOfACard_small.png"];
@@ -3002,6 +3146,13 @@
         }
         
         for (int i = 0; i < 5; i++) {
+            
+            //初回起動なら相手のデッキを適当に仮で作成する（実際には使用しない）
+            int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+            if (first == 0) {
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], nil];
+            }
+            
             //手札に入れたカードを、山札の配列から手札の配列に入れておく
             [self setCardFromXTOY:app.enemyDeckCardList cardNumber:0 toField:app.enemyHand];
         }
@@ -3116,6 +3267,18 @@
             _enemyCard.tag = enemyDrawCount; // タグ番号=enemyDrawCountとなっていることに注意する！
             //手札が5枚になるまで繰り返す
             
+        }
+        
+        for (int i = 0; i < 5; i++) {
+            
+            //初回起動なら相手のデッキを適当に仮で作成する（実際には使用しない）
+            int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+            if (first == 0) {
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], [NSNumber numberWithInt:99], nil];
+            }
+            
+            //手札に入れたカードを、山札の配列から手札の配列に入れておく
+            [self setCardFromXTOY:app.enemyDeckCardList cardNumber:0 toField:app.enemyHand];
         }
         
         for (int i = 0; i < 5; i++) {
@@ -3708,7 +3871,8 @@
             }
     }else{
         if([self isGameOver]){
-            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+            return;
+//            [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
         }
     }
 
@@ -4238,13 +4402,11 @@
                 break;
         }
     }else if (alertView == _winAlert){
-        FINISHED1
         int i = arc4random() % [app.cardList_cardName count];
         [self cardGettingAnimation:i];
-        [self sync];
-        [[NADInterstitial sharedInstance] showAd];
+        
     }else if (alertView == _loseAlert){
-        FINISHED1
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
         [[NADInterstitial sharedInstance] showAd];
     }else if (alertView == _usingDeckCardListForLocalBattle){
         [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient]; //デッキ選択後に表示させると、SVProgressHUDの仕様により一瞬しか表示されないため、やむなくここで実装
@@ -4288,7 +4450,7 @@
         //初回起動時のみ、デッキをシャッフルしない。（プロローグの展開に合わせるため）
         int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
         if (first == 0) {
-            app.myDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:8], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], nil];
+            app.myDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:8], [NSNumber numberWithInt:72], [NSNumber numberWithInt:46], [NSNumber numberWithInt:155], [NSNumber numberWithInt:151], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], [NSNumber numberWithInt:10], nil];
             FINISHED1
         }else{
             app.myDeckCardList = [[NSMutableArray alloc] init];
@@ -5416,19 +5578,19 @@
     if(app.myLifeGage <= 0 || [app.myDeckCardList count] <= 0){
         _loseAlert = [[UIAlertView alloc] initWithTitle:@"敗北..." message:[NSString stringWithFormat:@"%@に敗北しました...",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"タイトル画面に戻る", nil];
         [_loseAlert show];
-        [self sync];
+//        [self sync];
         return YES;
     }else if(app.enemyLifeGage <= 0 || [app.enemyDeckCardList count] <= 0){
-        _winAlert = [[UIAlertView alloc] initWithTitle:@"勝利！" message:[NSString stringWithFormat:@"%@に勝利しました！",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを取得する", nil];
-        [_winAlert show];
-        
         //初回起動ならプロローグを表示する
         int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
         if (first == 0) {
             [self startAnimation131];
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"firstLaunch_ud"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        
-        [self sync];
+        _winAlert = [[UIAlertView alloc] initWithTitle:@"勝利！" message:[NSString stringWithFormat:@"%@に勝利しました！",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを取得する", nil];
+        [_winAlert show];
+//        [self sync];
         return YES;
     }
     return NO;
@@ -5651,6 +5813,7 @@
     _allImageView.userInteractionEnabled = YES;
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[NADInterstitial sharedInstance] showAd];
 }
 
 + (void)releaseUIImageView:(UIImageView*)uiimgv {
@@ -5685,8 +5848,8 @@
     //初回起動ならプロローグを表示する
     int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
     if (first == 0) {
-        app.myLifeGage = 1;
-        app.enemyLifeGage = 1;
+        app.myLifeGage = 20;
+        app.enemyLifeGage = 4;
         [self startAnimation031];
         
         [SVProgressHUD popActivity];
@@ -6040,11 +6203,7 @@
 - (void)startAnimation130{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro130" imagePath:@"png" textString:@"あ、消えたお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation130_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation130_2)]];}
 - (void)startAnimation130_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro129" imagePath:@"png" textString:@"よし。それじゃあ画面をタップして、ターンを進めてくれ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
 }
-- (void)startAnimation131{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro131" imagePath:@"png" textString:@"よし、これでバトルの解説は終わりだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation132)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation132)]];}
-- (void)startAnimation132{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro132" imagePath:@"png" textString:@"ちょうどいま、相手のライフを０点にすることができた。俺達の勝ちだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation133)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation133)]];}
-- (void)startAnimation133{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro133" imagePath:@"png" textString:@"やったお！" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];}
-- (void)startAnimation134{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro134" imagePath:@"png" textString:@"バトルに勝てば、カードを手に入れることができる。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];}
-- (void)startAnimation134_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro134" imagePath:@"png" textString:@"「カードを取得する」ボタンを押してみろ" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation136)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation136)]];}
+- (void)startAnimation131{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro131" imagePath:@"png" textString:@"ちょうどいま、相手のライフを０点にすることができた。俺達の勝ちだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];}
 
 
 

@@ -183,11 +183,6 @@
     
     [self walkingTimeCaliculate];
     
-    //対戦相手の検索
-    dev = [[DeviceMotion alloc] init];
-    dev.delegate = self;
-    [dev bumpForInternetBattle];
-    
     //ギコの歩行アニメーション
     [gikoAnimationView startAnimating];
     
@@ -235,6 +230,14 @@
                                                                 selector:@selector(onTimer:) userInfo:nil repeats:NO];
                      }
      ];
+    
+    
+    
+    //対戦相手の検索
+    dev = [[DeviceMotion alloc] init];
+    dev.delegate = self;
+    [dev bumpForInternetBattle];
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -298,6 +301,7 @@
 }
 
 - (void)stopExploration{
+    NSLog(@"ちぇっく２");
     NSLog(@"notification:off");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     stopWalking = YES;

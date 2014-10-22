@@ -34,6 +34,11 @@
 //    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
     
     
+    //!!!: debug用
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"firstLaunch_ud"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
     //iPhoneのステータスバーを非表示にする
     [UIApplication sharedApplication].statusBarHidden = YES;
     
@@ -404,6 +409,9 @@
         NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
         [ud setObject:[NSNumber numberWithInt:[string intValue]] forKey:@"playerID_ud"];
         [ud synchronize];
+        
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"firstLaunchSendPhase_ud"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         [SVProgressHUD popActivity];
         

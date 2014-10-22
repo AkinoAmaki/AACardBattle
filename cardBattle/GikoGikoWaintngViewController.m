@@ -75,6 +75,7 @@
 }
 
 - (void)dismissGikoGikoViewController{
+    NSLog(@"ちぇっく３");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 //    [self dismissViewControllerAnimated:YES completion:nil];

@@ -61,6 +61,7 @@
     BOOL syncFinished; //同期処理において、対象の被待機処理が完了したかを管理する
     BOOL doIUseCardInThisTurn; //このターン、自分がソーサリーカードかフィールドカードを使用したかを管理する
     BOOL cardIsCompletlyUsed; //このターン使用したいカードを全て使用しきったかを管理する
+    BOOL gameOverPhaseIsSkipped; //ゲームオーバーステップが終了したか否かの判定を行う
     BOOL searchACardInsteadOfGetACardFromLibraryTop; //ターンの最初のドローの代わりにその他の領域からカードを引いたかを管理する（引いた場合、ターン最初のドローは無し）
     int numberOfUsingWhiteEnergy;//使用しようとしているカードに費やす白エネルギーの数
     int numberOfUsingBlueEnergy;//使用しようとしているカードに費やす青エネルギーの数

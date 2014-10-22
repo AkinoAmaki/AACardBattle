@@ -11,35 +11,316 @@
 @implementation SendDataToServer
 
 -(NSString *)send{
-    get = [[GetEnemyDataFromServer alloc] init];
-    [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
-    while (!app.decideAction) {
-        [get doEnemyDecideActionRoopVersion:YES];
+    //初回起動判定。初回起動であれば、プロローグを開始する。
+        app = [[UIApplication sharedApplication] delegate];
+    int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+    if (first == 0) {
+        //プロローグに合わせて入力する内容が変わるため、状況に応じて格納するデータを変える。
+        int sendPhase =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunchSendPhase_ud"];
+        sendPhase++;
+        [[NSUserDefaults standardUserDefaults] setInteger:sendPhase forKey:@"firstLaunchSendPhase_ud"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        switch (sendPhase) {
+            case 1:
+                NSLog(@"SendData:ターン開始直後");
+                //ターン開始直後
+                app.enemyLifeGage                                   = 4;
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.enemySelectColor                                = -1;
+                
+//                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 2:
+                NSLog(@"SendData:カード・AAを決定した直後");
+                //カード・AAを決定した直後
+                app.enemyLifeGage                                   = 4;
+                app.enemySelectCharacter                            = 1; //1 = ギコ
+                app.doEnemyUseCard                                  = YES;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.enemySelectColor                                = -1;
+                
+                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 3:
+                NSLog(@"SendData:ダメージ計算フェーズに入った直後");
+                //ダメージ計算フェーズに入った直後
+                app.enemyLifeGage                                   = 4;
+                app.enemySelectCharacter                            = 1;
+                app.doEnemyUseCard                                  = YES;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.enemySelectColor                                = -1;
+                
+                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 4:
+                NSLog(@"SendData:ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //ダメージ計算フェーズで相手へのダメージを計算した直後
+                
+                app.myLifeGage                                      = 23;
+                app.enemyLifeGage                                   = 1;
+                app.enemySelectCharacter                            = 1;
+                app.doEnemyUseCard                                  = YES;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 3;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 3;
+                app.enemyDamageInBattlePhase                        = 3;
+                app.enemySelectColor                                = -1;
+                
+                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 5:
+                NSLog(@"SendData:ターン終了フェーズに入った直後");
+                //ターン終了フェーズに入った直後
+                app.enemyLifeGage                                   = 0;
+                app.enemySelectCharacter                            = 1;
+                app.doEnemyUseCard                                  = YES;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.enemySelectColor                                = -1;
+                
+                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            default:
+                break;
+        }
+        
+        //相手プレイヤーによって操作された攻撃力・防御力・カード等の操作を反映する
+        app.myLifeGage = app.myLifeGage - (app.myDamageFromAA + app.myDamageFromCard);
+        app.myGikoFundamentalAttackPower    += app.myGikoFundamentalAttackPowerFromEnemy;
+        app.myGikoFundamentalDeffencePower  += app.myGikoFundamentalDeffencePowerFromEnemy;
+        app.myMonarFundamentalAttackPower   += app.myMonarFundamentalAttackPowerFromEnemy;
+        app.myMonarFundamentalDeffencePower += app.myMonarFundamentalDeffencePowerFromEnemy;
+        app.mySyobonFundamentalAttackPower  += app.mySyobonFundamentalAttackPowerFromEnemy;
+        app.mySyobonFundamentalDeffencePower+= app.mySyobonFundamentalDeffencePowerFromEnemy;
+        app.myYaruoFundamentalAttackPower   += app.myYaruoFundamentalAttackPowerFromEnemy;
+        app.myYaruoFundamentalDeffencePower += app.myYaruoFundamentalDeffencePowerFromEnemy;
+        app.myGikoModifyingAttackPower      += app.myGikoModifyingAttackPowerFromEnemy;
+        app.myGikoModifyingDeffencePower    += app.myGikoModifyingDeffencePowerFromEnemy;
+        app.myMonarModifyingAttackPower     += app.myMonarModifyingAttackPowerFromEnemy;
+        app.myMonarModifyingDeffencePower   += app.myMonarModifyingDeffencePowerFromEnemy;
+        app.mySyobonModifyingAttackPower    += app.mySyobonModifyingAttackPowerFromEnemy;
+        app.mySyobonModifyingDeffencePower  += app.mySyobonModifyingDeffencePowerFromEnemy;
+        app.myYaruoModifyingAttackPower     += app.myYaruoModifyingAttackPowerFromEnemy;
+        app.myYaruoModifyingDeffencePower   += app.myYaruoModifyingDeffencePowerFromEnemy;
+        if(app.mySelectCharacterFromEnemy != -1) app.mySelectCharacter = app.mySelectCharacterFromEnemy;
+        
+        for (int i = 0; i < [app.myEnergyCardByMyself_plus count]; i++) {
+            int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+            x += [[app.myEnergyCardByMyself_plus objectAtIndex:i] intValue];
+            [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+        }
+        
+        for (int i = 0; i < [app.myDeckCardListByMyself_minus count]; i++) {
+            int j = [GetEnemyDataFromServer indexOfObjectForNSNumber:app.myDeckCardList number:[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+            if(j != -1){
+                [app.myDeckCardList removeObjectAtIndex:j];
+                
+                switch ([[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                    case 0:
+                        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 1:
+                        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 2:
+                        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 3:
+                        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myDeckCardListByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        for (int i = 0; i < [app.myHandByMyself_minus count]; i++) {
+            int j = [GetEnemyDataFromServer indexOfObjectForNSNumber:app.myHand number:[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+            if(j != -1){
+                [app.myHand removeObjectAtIndex:j];
+                
+                switch ([[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                    case 0:
+                        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 1:
+                        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 2:
+                        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 3:
+                        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myHandByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        for (int i = 0; i < [app.myTombByMyself_minus count]; i++) {
+            int j =[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myTomb number:[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+            if(j != -1){
+                [app.myTomb removeObjectAtIndex:j];
+                switch ([[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                    case 0:
+                        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 1:
+                        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 2:
+                        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 3:
+                        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myTombByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        
+        for (int i = 0; i < [app.myFieldCardByMyself_minus count]; i++) {
+            int j =[GetEnemyDataFromServer indexOfObjectForNSNumber:app.myFieldCard number:[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:0]];
+            if( j != -1){
+                [app.myFieldCard removeObjectAtIndex:j];
+                switch ([[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:1] intValue]) {
+                    case 0:
+                        [app.myHand addObject:[app.myHandByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 1:
+                        [app.myTomb addObject:[app.myTombByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 2:
+                        [app.myFieldCard addObject:[app.myFieldCardByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    case 3:
+                        [app.myDeckCardList addObject:[app.myDeckCardListByMyself_plus objectAtIndex:[[[app.myFieldCardByMyself_minus objectAtIndex:i] objectAtIndex:2] intValue]]];
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+        }
+        
+        for (int i = 0; i < [app.myEnergyCardByMyself_minus count]; i++) {
+            int x = [[app.myEnergyCard objectAtIndex:i] intValue];
+            x -= [[app.myEnergyCardByMyself_minus objectAtIndex:i] intValue];
+            if(x < 0){
+                x = 0;
+            }
+            [app.myEnergyCard replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:x]];
+        }
+        
+        
+        app.myLifeGage += app.myLifeGageByMyself;
+        app.myGikoFundamentalAttackPower += app.myGikoFundamentalAttackPowerByMyself; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
+        app.myGikoFundamentalDeffencePower += app.myGikoFundamentalDeffencePowerByMyself; //自分が操作した自分のギコの基本防御力（差分のみ管理）
+        app.myMonarFundamentalAttackPower += app.myMonarFundamentalAttackPowerByMyself; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
+        app.myMonarFundamentalDeffencePower += app.myMonarFundamentalDeffencePowerByMyself; //自分が操作した自分のモナーの基本防御力（差分のみ管理）
+        app.mySyobonFundamentalAttackPower += app.mySyobonFundamentalAttackPowerByMyself; //自分が操作した自分のショボンの基本攻撃力（差分のみ管理）
+        app.mySyobonFundamentalDeffencePower += app.mySyobonFundamentalDeffencePowerByMyself; //自分が操作した自分のショボンの基本防御力（差分のみ管理）
+        app.myYaruoFundamentalAttackPower += app.myYaruoFundamentalAttackPowerByMyself; //自分が操作した自分のやる夫の基本攻撃力（差分のみ管理）
+        app.myYaruoFundamentalDeffencePower += app.myYaruoFundamentalDeffencePowerByMyself; //自分が操作した自分のやる夫の基本防御力（差分のみ管理）
+        app.myGikoModifyingAttackPower += app.myGikoModifyingAttackPowerByMyself; //自分が操作した自分のギコの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myGikoModifyingDeffencePower += app.myGikoModifyingDeffencePowerByMyself; //自分が操作した自分のギコの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingAttackPower += app.myMonarModifyingAttackPowerByMyself; //自分が操作した自分のモナーの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myMonarModifyingDeffencePower += app.myMonarModifyingDeffencePowerByMyself; //自分が操作した自分のモナーの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingAttackPower += app.mySyobonModifyingAttackPowerByMyself; //自分が操作した自分のショボンの修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.mySyobonModifyingDeffencePower += app.mySyobonModifyingDeffencePowerByMyself; //自分が操作した自分のショボンの修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingAttackPower += app.myYaruoModifyingAttackPowerByMyself; //自分が操作した自分のやる夫の修正攻撃力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myYaruoModifyingDeffencePower += app.myYaruoModifyingDeffencePowerByMyself; //自分が操作した自分のやる夫の修正防御力(1ターンだけ効果が及ぶカード効果を管理する)（差分のみ管理）
+        app.myLifeGageByMyself = 0;
+        app.myGikoFundamentalAttackPowerByMyself = 0;
+        app.myGikoFundamentalDeffencePowerByMyself = 0;
+        app.myMonarFundamentalAttackPowerByMyself = 0;
+        app.myMonarFundamentalDeffencePowerByMyself = 0;
+        app.mySyobonFundamentalAttackPowerByMyself = 0;
+        app.mySyobonFundamentalDeffencePowerByMyself = 0;
+        app.myYaruoFundamentalAttackPowerByMyself = 0;
+        app.myYaruoFundamentalDeffencePowerByMyself = 0;
+        app.myGikoModifyingAttackPowerByMyself = 0;
+        app.myGikoModifyingDeffencePowerByMyself = 0;
+        app.myMonarModifyingAttackPowerByMyself = 0;
+        app.myMonarModifyingDeffencePowerByMyself = 0;
+        app.mySyobonModifyingAttackPowerByMyself = 0;
+        app.mySyobonModifyingDeffencePowerByMyself = 0;
+        app.myYaruoModifyingAttackPowerByMyself = 0;
+        app.myYaruoModifyingDeffencePowerByMyself = 0;
+        
+        app.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init];
+        app.myHandByMyself_plus = [[NSMutableArray alloc] init];
+        app.myTombByMyself_plus = [[NSMutableArray alloc] init];
+        app.myFieldCardByMyself_plus = [[NSMutableArray alloc] init];
+        app.myEnergyCardByMyself_plus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil];
+        app.myDeckCardListByMyself_minus = [[NSMutableArray alloc] init];
+        app.myHandByMyself_minus = [[NSMutableArray alloc] init];
+        app.myTombByMyself_minus = [[NSMutableArray alloc] init];
+        app.myFieldCardByMyself_minus = [[NSMutableArray alloc] init];
+        app.myEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],  [NSNumber numberWithInt:0],nil];
+        
+        [SVProgressHUD popActivity];
+        
+        return resultString;
+    }else{
+        //初回起動でなければ、通常のデータ転送を行う。
+        
+        get = [[GetEnemyDataFromServer alloc] init];
+        [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
+        while (!app.decideAction) {
+            [get doEnemyDecideActionRoopVersion:YES];
+        }
+        [NSThread sleepForTimeInterval:0.5];
+        [get doEnemyDecideActionRoopVersion:NO];
+        [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み）を受け取る
+        
+        app.myDamageInBattlePhase = app.myDamageFromAA;
+        app.enemyDamageInBattlePhase = app.enemyDamageFromAA;
+        app.myDamageFromAA = 0;
+        app.myDamageFromCard = 0;
+        app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+        app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+        
+        [self sendData]; //相手のカード効果等が反映済みの状態のデータ（自分の効果は反映済み）を送信する
+        while (!app.decideAction) {
+            [get doEnemyDecideActionRoopVersion:YES];
+        }
+        [NSThread sleepForTimeInterval:0.5];
+        [get doEnemyDecideActionRoopVersion:NO];
+        [get get]; //自分のカード効果等が反映済みの状態のデータ（相手の効果は反映済み）を受け取る
+        app.myDamageFromAA = 0;
+        app.myDamageFromCard = 0;
+        app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+        app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
+        
+        return resultString;
     }
-    [NSThread sleepForTimeInterval:0.5];
-    [get doEnemyDecideActionRoopVersion:NO];
-    [get get]; //自分のカード効果等が未反映の状態のデータ（相手の効果は反映済み）を受け取る
-
-    app.myDamageInBattlePhase = app.myDamageFromAA;
-    app.enemyDamageInBattlePhase = app.enemyDamageFromAA;
-    app.myDamageFromAA = 0;
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
-    app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
-    
-    [self sendData]; //相手のカード効果等が反映済みの状態のデータ（自分の効果は反映済み）を送信する
-    while (!app.decideAction) {
-        [get doEnemyDecideActionRoopVersion:YES];
-    }
-    [NSThread sleepForTimeInterval:0.5];
-    [get doEnemyDecideActionRoopVersion:NO];
-    [get get]; //自分のカード効果等が反映済みの状態のデータ（相手の効果は反映済み）を受け取る
-    app.myDamageFromAA = 0;
-    app.myDamageFromCard = 0;
-    app.enemyDamageFromAA = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
-    app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
-    
-    return resultString;
 }
 
 
