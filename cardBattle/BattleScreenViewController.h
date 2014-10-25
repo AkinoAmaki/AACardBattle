@@ -73,6 +73,7 @@
     UITextView *blackNumberOfText;//使用しようとしているカードに費やす黒エネルギーの数を表示するビュー
     UITextView *redNumberOfText;//使用しようとしているカードに費やす赤エネルギーの数を表示するビュー
     UITextView *greenNumberOfText;//使用しようとしているカードに費やす緑エネルギーの数を表示するビュー
+    BOOL endPhaseStartedInPrologue; //プロローグにおいてエンドフェーズに入ったかどうかを管理する変数
     
     NSMutableArray *targetedMyFieldCardInThisTurn_destroy; //このターン、自分がカードを使用し、破壊対象としたフィールドカードの一覧
     NSMutableArray *targetedMyFieldCardInThisTurn_send; //このターン、自分がカードを使用し、渡す対象としたフィールドカードの一覧

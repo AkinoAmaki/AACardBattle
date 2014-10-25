@@ -60,7 +60,14 @@
     {
         case SUCCESS:
             NSLog(@"広告のロードに成功しました。");
-            [[NADInterstitial sharedInstance] showAd];
+            //初回起動判定。初回起動であれば、広告は表示しない
+            int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+            if (first != 0) {
+                [[NADInterstitial sharedInstance] showAd];
+            }else{
+                NSLog(@"初回起動なので広告は表示しない");
+            }
+            
             break;
         case INVALID_RESPONSE_TYPE:
             NSLog(@"不正な広告タイプです。");

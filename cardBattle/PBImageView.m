@@ -40,10 +40,10 @@
         characterAnimation.contentMode = UIViewContentModeScaleAspectFit;
         [super addSubview:characterAnimation];
         if (characterIsOnLeft) {
-            textView.frame = CGRectMake(110 , 10, [UIScreen mainScreen].bounds.size.width - 120, 80);
+            textView.frame = CGRectMake(105 , 5, [UIScreen mainScreen].bounds.size.width - 110, 90);
             characterAnimation.frame = CGRectMake(0, 0, 100, 100);
         }else{
-            textView.frame = CGRectMake(10 , 10, [UIScreen mainScreen].bounds.size.width - 110, 80);
+            textView.frame = CGRectMake(5 , 5, [UIScreen mainScreen].bounds.size.width - 110, 90);
             characterAnimation.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 100, 0, 100, 100);
         }
     }

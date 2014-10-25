@@ -301,7 +301,6 @@
 }
 
 - (void)stopExploration{
-    NSLog(@"ちぇっく２");
     NSLog(@"notification:off");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     stopWalking = YES;

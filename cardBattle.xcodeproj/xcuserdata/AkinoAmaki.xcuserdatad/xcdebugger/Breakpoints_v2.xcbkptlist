@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "435675028.018116"
+            timestampString = "435915657.408551"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5211"
-            endingLineNumber = "5211"
+            startingLineNumber = "5227"
+            endingLineNumber = "5227"
             landmarkName = "-discardACardFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
@@ -50,11 +50,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "435674734.436213"
+            timestampString = "435772911.618249"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -174,11 +174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "435675028.018116"
+            timestampString = "435915657.408551"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5428"
-            endingLineNumber = "5428"
+            startingLineNumber = "5444"
+            endingLineNumber = "5444"
             landmarkName = "-selectUsingEnergy:"
             landmarkType = "5">
          </BreakpointContent>
@@ -222,11 +222,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/ViewController.m"
-            timestampString = "435676473.737568"
+            timestampString = "435918526.498737"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
+            startingLineNumber = "612"
+            endingLineNumber = "612"
             landmarkName = "-startAnimation001"
             landmarkType = "5">
          </BreakpointContent>
@@ -238,11 +238,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "435677488.064208"
+            timestampString = "435917885.701649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6023"
-            endingLineNumber = "6023"
+            startingLineNumber = "6063"
+            endingLineNumber = "6063"
             landmarkName = "-startAnimation053"
             landmarkType = "5">
          </BreakpointContent>

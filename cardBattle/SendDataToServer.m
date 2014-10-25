@@ -47,8 +47,9 @@
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
                 app.enemySelectColor                                = -1;
+                app.enemyGikoModifyingAttackPower                   = 3;
                 
-                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
+                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:66], nil];
                 app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
                 app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
                 app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
@@ -72,15 +73,13 @@
             case 4:
                 NSLog(@"SendData:ダメージ計算フェーズで相手へのダメージを計算した直後");
                 //ダメージ計算フェーズで相手へのダメージを計算した直後
-                
-                app.myLifeGage                                      = 23;
                 app.enemyLifeGage                                   = 1;
                 app.enemySelectCharacter                            = 1;
                 app.doEnemyUseCard                                  = YES;
                 app.enemyUsingCardNumber                            = 1;
-                app.myDamageFromAA                                  = 3;
+                app.myDamageFromAA                                  = 6;
                 app.myDamageFromCard                                = 0;
-                app.myDamageInBattlePhase                           = 3;
+                app.myDamageInBattlePhase                           = 6;
                 app.enemyDamageInBattlePhase                        = 3;
                 app.enemySelectColor                                = -1;
                 
