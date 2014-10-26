@@ -305,8 +305,8 @@
 - (void)startAnimation155{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro154" imagePath:@"png" textString:@"だが、これだけじゃデッキの編集は終わらない。最後に一番上にあった「決定」ボタンを押してみろ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation156)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation156)]];
     app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
     [app.blackBack removeFromSuperview];
-    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:decideButton.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:cancelButton, nil] coveredView:scrollView];
-    [scrollView addSubview:app.blackBack];
+    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:decideButton.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:cancelButton, nil] coveredView:allImage];
+    [allImage addSubview:app.blackBack];
     
 }
 - (void)startAnimation156{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro155" imagePath:@"png" textString:@"押してみるお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];

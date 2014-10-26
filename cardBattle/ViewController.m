@@ -90,6 +90,8 @@
     int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
     if (first == 1) {
         [self startAnimation132];
+    }else if (first == 2){
+        [self startAnimation159];
     }
 }
 
@@ -710,7 +712,7 @@
     [app.blackBack changeFrameAndPermittionView:deckButton.frame forbidedArray:[[NSArray alloc] initWithObjects:battleButton, nil] coveredView:self.view];
 }
 
-- (void)startAnimation159{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro158" imagePath:@"png" textString:@"これでひと通りの説明は終わりだ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation160)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation160)]];
+- (void)startAnimation159{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro158" imagePath:@"png" textString:@"これでひと通りの説明は終わりだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation160)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation160)]];
     [app.blackBack removeFromSuperview];
     app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:battleButton, deckButton, nil] coveredView:self.view];
     [self.view addSubview:app.blackBack];
@@ -721,7 +723,7 @@
     //プロローグ終了。初回起動フラグをオフにする。
     [userDefault setInteger:3 forKey:@"firstLaunch_ud"];
     [userDefault synchronize];
-
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: nil] coveredView:self.view];
 }
 
 - (void)removeViewOnPrologue:(UITapGestureRecognizer *)sender{

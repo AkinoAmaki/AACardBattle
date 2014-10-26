@@ -3041,13 +3041,13 @@
 
 - (void)battleStart{
     //メインBGMの開始
-    //BEFORERELEASE:リリース前に元に戻す NSString* path = [[NSBundle mainBundle]
-    //BEFORERELEASE:リリース前に元に戻す                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
-    //BEFORERELEASE:リリース前に元に戻す     NSURL* url = [NSURL fileURLWithPath:path];
-    //BEFORERELEASE:リリース前に元に戻す     _audio = [[AVAudioPlayer alloc]
-    //BEFORERELEASE:リリース前に元に戻す               initWithContentsOfURL:url error:nil];
-    //BEFORERELEASE:リリース前に元に戻す     _audio.numberOfLoops = -1;
-    //BEFORERELEASE:リリース前に元に戻す     [_audio play];
+ NSString* path = [[NSBundle mainBundle]
+                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
+     NSURL* url = [NSURL fileURLWithPath:path];
+     _audio = [[AVAudioPlayer alloc]
+               initWithContentsOfURL:url error:nil];
+     _audio.numberOfLoops = -1;
+     [_audio play];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
 //    app.enemyNickName = @"秋乃のiPhone4S";
@@ -5597,6 +5597,7 @@
     if(app.myLifeGage <= 0 || [app.myDeckCardList count] <= 0){
         _loseAlert = [[UIAlertView alloc] initWithTitle:@"敗北..." message:[NSString stringWithFormat:@"%@に敗北しました...",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"タイトル画面に戻る", nil];
         [_loseAlert show];
+        [_audio stop];
         return YES;
     }else if(app.enemyLifeGage <= 0 || [app.enemyDeckCardList count] <= 0){
         //初回起動ならプロローグを表示する
@@ -5608,6 +5609,7 @@
         }
         _winAlert = [[UIAlertView alloc] initWithTitle:@"勝利！" message:[NSString stringWithFormat:@"%@に勝利しました！",app.enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"カードを取得する", nil];
         [_winAlert show];
+        [_audio stop];
         return YES;
     }
     return NO;
@@ -5831,7 +5833,6 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
-    NSLog(@"first = %d",first);
     if (first != 1) {
         [[NADInterstitial sharedInstance] showAd];
     }else{
@@ -5989,7 +5990,7 @@
 
 - (void)startAnimation031{
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro31" imagePath:@"png" textString:@"おっと、早速相手プレイヤーが見つかったようだ。" characterIsOnLeft:YES];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro31" imagePath:@"png" textString:@"おっと、早速相手プレイヤーが見つかったようだ。" characterIsOnLeft:NO];
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032)]];

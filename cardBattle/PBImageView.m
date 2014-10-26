@@ -37,6 +37,7 @@
         textView.text = textString;
         
         UIImageView *characterAnimation = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:image_name ofType:imagePath]]];
+        [PenetrateFilter penetrate:characterAnimation];
         characterAnimation.contentMode = UIViewContentModeScaleAspectFit;
         [super addSubview:characterAnimation];
         if (characterIsOnLeft) {
