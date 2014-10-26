@@ -199,7 +199,7 @@
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
     [app.blackBack removeFromSuperview];
-    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:course1Button,course2Button,course3Button,course4Button,course5Button,_returnToMainViewButton, nil]];
+    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:course1Button,course2Button,course3Button,course4Button,course5Button,_returnToMainViewButton, nil] coveredView:self.view];
     [self.view addSubview:app.blackBack];
 }
 
@@ -257,7 +257,7 @@
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
-    [app.blackBack changeFrame:course1Button.frame];
+    [app.blackBack changeFrame:course1Button.frame coveredView:self.view];
 }
 
 - (void)startAnimation030{
@@ -266,7 +266,7 @@
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:course2Button,course3Button,course4Button,course5Button, _returnToMainViewButton, nil]];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:course2Button,course3Button,course4Button,course5Button, _returnToMainViewButton, nil] coveredView:self.view];
 }
 
 - (void)removeViewOnPrologue:(UITapGestureRecognizer *)sender{

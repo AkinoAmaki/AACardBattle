@@ -19,8 +19,8 @@
 @property (nonatomic) UIImageView *blackBack6;
 @property (nonatomic) UIImageView *blackBack7;
 @property (nonatomic) UIImageView *blackBack8;
-- (id)initForHighlightingViewMethod:(CGRect)frame forbidTapActionViewArray:(NSArray *)array;
+- (id)initForHighlightingViewMethod:(CGRect)frame forbidTapActionViewArray:(NSArray *)array coveredView:(UIView *)imageView;
 - (void)permitTapAction:(NSArray *)array;
-- (void)changeFrame:(CGRect)frame;
-- (void)changeFrameAndPermittionView:(CGRect)frame forbidedArray:(NSArray *)array;
+- (void)changeFrame:(CGRect)frame coveredView:(UIView *)imageView;
+- (void)changeFrameAndPermittionView:(CGRect)frame forbidedArray:(NSArray *)array coveredView:(UIView *)imageView;
 @end

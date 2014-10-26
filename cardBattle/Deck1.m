@@ -70,6 +70,13 @@
     [self.view addSubview:self.nadView];
     [self.nadView load];
     
+    
+    //初回起動ならプロローグを表示
+    int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+    NSLog(@"%d",first);
+    if (first == 1) {
+        [self startAnimation142];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,6 +116,12 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"デッキ編成完了" message:[NSString stringWithFormat:@"デッキの編成を確定しました。デッキ総枚数は%d枚です。",numberOfCardsInDeck] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
         deckEditHasFinished = YES;
+        
+        //初回起動ならプロローグを表示
+        int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
+        if (first == 1) {
+            [self startAnimation157];
+        }
     }
 }
 - (void)cardSelectCancelButtonPushed{
@@ -135,6 +148,64 @@
         }
     }
 }
+
+- (void)startAnimation142{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro141" imagePath:@"png" textString:@"それじゃあこれからデッキ編成の説明を始めるぞ" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation143)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation143)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+    [app.blackBack removeFromSuperview];
+    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:nil] coveredView:scrollView];
+    [scrollView addSubview:app.blackBack];
+}
+- (void)startAnimation143{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro142" imagePath:@"png" textString:@"この説明が終われば、ひとまず全体的な説明はおしまいだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation144)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation144)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation144{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro143" imagePath:@"png" textString:@"分かったお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation145)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation145)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation145{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro144" imagePath:@"png" textString:@"さて、この画面では、合計で３つまでデッキを持て、編成ができる。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation146)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation146)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation146{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro143" imagePath:@"png" textString:@"「？」が表示されているのはなんだお？" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation147)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation147)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation147{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro144" imagePath:@"png" textString:@"「？」が表示されているカードはまだ未発見のカードだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation148)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation148)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation148{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro147" imagePath:@"png" textString:@"デッキは最低４０枚以上で、エネルギーカード以外は１種類につき最大４枚までしかデッキに入れられない。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation149)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation149)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation149{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro148" imagePath:@"png" textString:@"さて、試しにさっき手に入れたカードをデッキに入れてみよう。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation150)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation150)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation150{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro150" imagePath:@"png" textString:@"デッキに新しいカードを入れるには、カードの画像をタップすればいい。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation151)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation151)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation151{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro151" imagePath:@"png" textString:@"ちなみにロングタップすれば、カードを拡大して表示することが出来るぞ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation152)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation152)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation152{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro152" imagePath:@"png" textString:@"やってみるお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation153)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation153)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation153{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro152" imagePath:@"png" textString:[NSString stringWithFormat:@"確かやる夫が手に入れたのは、「%@」ってカードだったお。", [app.cardList_cardName objectAtIndex:app.firstRareCardNumber]] characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    UIImageView *cardImageView = (UIImageView *)[allImage viewWithTag:app.firstRareCardNumber];
+    [app.blackBack changeFrame:cardImageView.frame coveredView:scrollView];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+
+
+- (void)startAnimation157{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro156" imagePath:@"png" textString:@"あ、終わったみたいだお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation158)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation158)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+- (void)startAnimation158{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro157" imagePath:@"png" textString:@"それじゃあ戻るボタンを押して、メイン画面に戻ってくれ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    app.pbImage.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150, [UIScreen mainScreen].bounds.size.width, 100);
+}
+
+- (void)removeViewOnPrologue:(UITapGestureRecognizer *)sender{
+    for (UIView *view in app.pbImage.subviews) {
+        [view removeFromSuperview];
+    }
+    [app.pbImage removeFromSuperview];
+}
+
 /*
 #pragma mark - Navigation
 

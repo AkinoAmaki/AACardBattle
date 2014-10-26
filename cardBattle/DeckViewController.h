@@ -34,6 +34,10 @@
     int detailOfACardCount; //1のときはカード詳細画像が表示されており、0のときは表示されていない。
     int changeOfACardCount; //1のときはカード入れ替え画面が表示されており、0のときは表示されていない。
     
+    //決定・キャンセルボタン
+    AAButton *decideButton;
+    AAButton *cancelButton;
+    
     //ボタンタップ時の効果音
     CFBundleRef mainBundle;
     CFURLRef tapSoundURL;

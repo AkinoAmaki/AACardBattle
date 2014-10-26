@@ -29,7 +29,7 @@
 
 //イントロダクション時に、画面のうち特定の部分を強調する際に使用するメソッド（特定したフレーム以外の画面を黒半透明のビューで覆う）
 
-- (id)initForHighlightingViewMethod:(CGRect)frame forbidTapActionViewArray:(NSArray *)array{
+- (id)initForHighlightingViewMethod:(CGRect)frame forbidTapActionViewArray:(NSArray *)array coveredView:(UIView *)imageView{
     self = [super init];
     if (self) {
         // Initialization code
@@ -40,17 +40,17 @@
         //2枚目（真上）
         blackBack2 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, 0, frame.size.width, frame.origin.y)];
         //3枚目（右上）
-        blackBack3 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, 0, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y)];
+        blackBack3 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, 0, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y)];
         //4枚目（真ん中左）
         blackBack4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, frame.origin.y, frame.origin.x, frame.size.height)];
         //5枚目（真ん中右）
-        blackBack5 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height)];
+        blackBack5 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height)];
         //6枚目（左下）
-        blackBack6 = [[UIImageView alloc] initWithFrame:CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height))];
+        blackBack6 = [[UIImageView alloc] initWithFrame:CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, imageView.bounds.size.height - (frame.origin.y + frame.size.height))];
         //7枚目（真下）
-        blackBack7 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height))];
+        blackBack7 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, imageView.bounds.size.height - (frame.origin.y + frame.size.height))];
         //8枚目（右下）
-        blackBack8 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height))];
+        blackBack8 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, imageView.bounds.size.width - (frame.origin.x + frame.size.width), imageView.bounds.size.height - (frame.origin.y + frame.size.height))];
         
         UIImage *backImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blackBack" ofType:@"png"]];
         blackBack1.image = backImage;
@@ -105,27 +105,27 @@
     }
 }
 
-- (void)changeFrame:(CGRect)frame{
+- (void)changeFrame:(CGRect)frame coveredView:(UIView *)imageView{
     
     //1枚目（左上）
     blackBack1.frame = CGRectMake(0, 0, frame.origin.x, frame.origin.y);
     //2枚目（真上）
     blackBack2.frame = CGRectMake(frame.origin.x, 0, frame.size.width, frame.origin.y);
     //3枚目（右上）
-    blackBack3.frame = CGRectMake(frame.origin.x + frame.size.width, 0, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y);
+    blackBack3.frame = CGRectMake(frame.origin.x + frame.size.width, 0, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y);
     //4枚目（真ん中左）
     blackBack4.frame = CGRectMake(0, frame.origin.y, frame.origin.x, frame.size.height);
     //5枚目（真ん中右）
-    blackBack5.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height);
+    blackBack5.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height);
     //6枚目（左下）
-    blackBack6.frame = CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack6.frame = CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, imageView.bounds.size.height - (frame.origin.y + frame.size.height));
     //7枚目（真下）
-    blackBack7.frame = CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack7.frame = CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, imageView.bounds.size.height - (frame.origin.y + frame.size.height));
     //8枚目（右下）
-    blackBack8.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack8.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, imageView.bounds.size.width - (frame.origin.x + frame.size.width), imageView.bounds.size.height - (frame.origin.y + frame.size.height));
 }
 
-- (void)changeFrameAndPermittionView:(CGRect)frame forbidedArray:(NSArray *)array{
+- (void)changeFrameAndPermittionView:(CGRect)frame forbidedArray:(NSArray *)array coveredView:(UIView *)imageView{
     for (UIView *view in forbidTapActionArray) {
         view.userInteractionEnabled = YES;
     }
@@ -139,17 +139,17 @@
     //2枚目（真上）
     blackBack2.frame = CGRectMake(frame.origin.x, 0, frame.size.width, frame.origin.y);
     //3枚目（右上）
-    blackBack3.frame = CGRectMake(frame.origin.x + frame.size.width, 0, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y);
+    blackBack3.frame = CGRectMake(frame.origin.x + frame.size.width, 0, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.origin.y);
     //4枚目（真ん中左）
     blackBack4.frame = CGRectMake(0, frame.origin.y, frame.origin.x, frame.size.height);
     //5枚目（真ん中右）
-    blackBack5.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height);
+    blackBack5.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y, imageView.bounds.size.width - (frame.origin.x + frame.size.width), frame.size.height);
     //6枚目（左下）
-    blackBack6.frame = CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack6.frame = CGRectMake(0, frame.origin.y + frame.size.height, frame.origin.x, imageView.bounds.size.height - (frame.origin.y + frame.size.height));
     //7枚目（真下）
-    blackBack7.frame = CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack7.frame = CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, imageView.bounds.size.height - (frame.origin.y + frame.size.height));
     //8枚目（右下）
-    blackBack8.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, [UIScreen mainScreen].bounds.size.width - (frame.origin.x + frame.size.width), [UIScreen mainScreen].bounds.size.height - (frame.origin.y + frame.size.height));
+    blackBack8.frame = CGRectMake(frame.origin.x + frame.size.width, frame.origin.y + frame.size.height, imageView.bounds.size.width - (frame.origin.x + frame.size.width), imageView.bounds.size.height - (frame.origin.y + frame.size.height));
 }
 
 
