@@ -92,6 +92,11 @@
         [self startAnimation132];
     }else if (first == 2){
         [self startAnimation159];
+    }else{
+        if (app.cardIGotInTheLastMatch != 0) {
+            SocialMediaViewController *twitter = [[SocialMediaViewController alloc] init];
+            [twitter postTwitter:[NSString stringWithFormat:@"%@ はNo.%d スーパーレアカード「%@」を手に入れた！  #アスキーアート大戦記",app.myNickName,app.cardIGotInTheLastMatch,[app.cardList_cardName objectAtIndex:app.cardIGotInTheLastMatch]] viewController:self];
+        }
     }
 }
 
@@ -382,7 +387,7 @@
 
     
 #pragma mark- 対戦に関連する各種数値の初期化
-    
+
     app.battleStart = NO;
     app.myHand = [[NSMutableArray alloc] init]; //自分の手札
     app.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
@@ -597,9 +602,9 @@
     return YES;
 }
 
+
 - (void)battleButtonPushed{
     [self performSegueWithIdentifier:@"goToBattleView" sender:self];
-    
 }
 
 - (void)deckButtonPushed{

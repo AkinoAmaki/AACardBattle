@@ -137,7 +137,7 @@
         
         //初回起動ならプロローグを表示
         int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
-        if (first == 1 && sender.view.tag == app.firstRareCardNumber) {
+        if (first == 1 && sender.view.tag == app.cardIGotInTheLastMatch) {
                 [self startAnimation154];
         }
     }

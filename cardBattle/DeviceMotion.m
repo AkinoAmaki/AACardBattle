@@ -190,6 +190,7 @@
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
                 app.battleStart = YES;
+                NSLog(@"ID:%d",app.enemyPlayerID);
                 NSLog(@"name:%@",app.enemyNickName);
                 
                 

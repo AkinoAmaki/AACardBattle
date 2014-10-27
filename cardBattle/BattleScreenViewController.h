@@ -25,6 +25,7 @@
 #import "CourseSelectViewController.h"
 #import "PBImageView.h"
 #import "AAButton.h"
+#import "SocialMediaViewController.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3

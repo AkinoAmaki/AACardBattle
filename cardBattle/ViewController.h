@@ -15,6 +15,7 @@
 #import "AAButton.h"
 #import "PBImageView.h"
 #import "IntroductionTool.h"
+#import "SocialMediaViewController.h"
 #define FINISHED1 syncFinished = YES;
 
 @interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{

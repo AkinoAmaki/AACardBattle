@@ -43,6 +43,7 @@
     UITextView *explainTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, [UIScreen mainScreen].bounds.size.width, 60)];
     explainTextView.textAlignment = NSTextAlignmentCenter;
     explainTextView.text = @"対戦相手を探している間に\nカードを探索するフィールドを選んでください";
+    explainTextView.editable = NO;
     [PenetrateFilter penetrate:explainTextView];
     [self.view addSubview: explainTextView];
     

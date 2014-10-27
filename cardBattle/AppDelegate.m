@@ -35,7 +35,7 @@
     
     
 //    //!!!: debug用
-    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"firstLaunch_ud"];
+    [[NSUserDefaults standardUserDefaults] setInteger:3  forKey:@"firstLaunch_ud"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     
@@ -474,6 +474,9 @@
     _fieldCardList_turnEnd = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:10],[NSNumber numberWithInt:11],[NSNumber numberWithInt:12],[NSNumber numberWithInt:13],[NSNumber numberWithInt:14],[NSNumber numberWithInt:15],[NSNumber numberWithInt:72],[NSNumber numberWithInt:109],[NSNumber numberWithInt:111],[NSNumber numberWithInt:147], nil];
     _fieldCardList_other = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:27], nil];
     _decideAction = NO;
+    
+    //前回の対戦結果を初期化
+    _cardIGotInTheLastMatch = 0;
     
     //エラーで落ちた際に非アクティブとなったことをサーバに知らせるため、エラーが起きた際にそれを完治するハンドラを登録
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);

@@ -39,7 +39,6 @@
 //プロローグ用の変数
 @property (nonatomic, retain) PBImageView *pbImage; //プロローグを表示する変数
 @property (nonatomic, retain) IntroductionTool *blackBack; //プロローグ時の黒透明背景
-@property int firstRareCardNumber; //プロローグの途中で手に入れたスーパーレアカードの番号
 
 //双方に関係する変数及び基礎的な変数
 @property BOOL battleStart; //対戦相手の検索が完了した場合TRUEとなる。
@@ -70,6 +69,7 @@
 @property NSString *deckName1; //自分のデッキ１の名前
 @property NSString *deckName2; //自分のデッキ２の名前
 @property NSString *deckName3; //自分のデッキ３の名前
+@property int cardIGotInTheLastMatch; //直近の対戦で手に入れたカードの番号を管理する
 
 //自分に関係する変数
 @property NSMutableArray *myUsingEnergy; //自分がこのターン使用したエネルギーの量

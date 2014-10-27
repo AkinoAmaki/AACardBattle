@@ -479,9 +479,6 @@
         detailOfACard.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
         detailOfACard.contentMode = UIViewContentModeCenter;
         
-        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, 50, 20);
-        _enemyNickNameLabel.frame = CGRectMake(_myNickNameLabel.superview.bounds.size.width - 70, 160, 50, 20);
-        
         _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
         _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
         
@@ -3087,7 +3084,16 @@
     //相手と自分の名前を表示する
     _myNickNameLabel.text = [NSString stringWithFormat:@"%@",app.myNickName];
     _enemyNickNameLabel.text = [NSString stringWithFormat:@"%@",app.enemyNickName];
+    [_myNickNameLabel sizeToFit];
+    [_enemyNickNameLabel sizeToFit];
     
+    if([YSDeviceHelper is568h]){
+        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, _myNickNameLabel.bounds.size.width, 20);
+        _enemyNickNameLabel.frame = CGRectMake(_enemyNickNameLabel.superview.bounds.size.width - _enemyNickNameLabel.bounds.size.width - 20, 160, _enemyNickNameLabel.bounds.size.width, 20);
+    }else{
+        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, _myNickNameLabel.bounds.size.width, 20);
+        _enemyNickNameLabel.frame = CGRectMake(_enemyNickNameLabel.superview.bounds.size.width - _enemyNickNameLabel.bounds.size.width - 20, 160, _enemyNickNameLabel.bounds.size.width, 20);
+    }
     
     //メインビューに戻るボタン・ローカル対戦ボタン・インターネット対戦ボタン・対戦開始時の黒半透明背景を外す
     
@@ -3353,7 +3359,6 @@
 
 - (void)battleStartForLocalBattle{
     //どのデッキを使用するかを選択する
-    NSLog(@"ok");
     
     [_returnToMainViewButton removeFromSuperview];
     [_localBattleButton removeFromSuperview];
@@ -4445,16 +4450,10 @@
                 break;
         }
     }else if (alertView == _winAlert){
-        int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
-        if (first == 1) {
             NSArray *firstRareCardArray = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:25], [NSNumber numberWithInt:27], [NSNumber numberWithInt:28], [NSNumber numberWithInt:34], [NSNumber numberWithInt:46], [NSNumber numberWithInt:54], [NSNumber numberWithInt:57], [NSNumber numberWithInt:59], [NSNumber numberWithInt:62], [NSNumber numberWithInt:69], [NSNumber numberWithInt:82], [NSNumber numberWithInt:83], [NSNumber numberWithInt:86], [NSNumber numberWithInt:87], [NSNumber numberWithInt:101], [NSNumber numberWithInt:105], [NSNumber numberWithInt:112], [NSNumber numberWithInt:116], [NSNumber numberWithInt:122], [NSNumber numberWithInt:127], [NSNumber numberWithInt:141], [NSNumber numberWithInt:142], [NSNumber numberWithInt:150], [NSNumber numberWithInt:155], nil];
             int i = arc4random() % [firstRareCardArray count];
-            app.firstRareCardNumber = [[firstRareCardArray objectAtIndex:i] intValue];
-            [self cardGettingAnimation:app.firstRareCardNumber];
-        }else{
-            int i = arc4random() % [app.cardList_cardName count];
-            [self cardGettingAnimation:i];
-        }
+            app.cardIGotInTheLastMatch = [[firstRareCardArray objectAtIndex:i] intValue];
+            [self cardGettingAnimation:app.cardIGotInTheLastMatch];
     }else if (alertView == _loseAlert){
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
         [[NADInterstitial sharedInstance] showAd];
