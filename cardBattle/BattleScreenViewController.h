@@ -158,6 +158,10 @@
 @property UIImageView *colorView;
 
 
+//互いの名前を出すビュー
+@property UILabel *myNickNameLabel;
+@property UILabel *enemyNickNameLabel;
+
 //ライフゲージ画像
 @property UIImageView *myLifeImageView;
 @property UIImageView *enemyLifeImageView;

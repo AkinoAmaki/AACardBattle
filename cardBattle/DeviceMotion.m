@@ -187,10 +187,11 @@
                 [self performSelectorOnMainThread:@selector(stopExploringAnimation)
                                        withObject:nil
                                     waitUntilDone:NO];
-                
                 app.enemyNickName = enemyNickName;
                 app.enemyPlayerID = enemyPlayerID;
                 app.battleStart = YES;
+                NSLog(@"name:%@",app.enemyNickName);
+                
                 
                 [NSThread sleepForTimeInterval:1.0];
                 [self performSelectorOnMainThread:@selector(BattleStartPost)

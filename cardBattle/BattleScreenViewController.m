@@ -391,12 +391,21 @@
     _turnResultView.userInteractionEnabled = YES;
 
     
+    
+    _myNickNameLabel = [[UILabel alloc] init];
+    [_allImageView addSubview:_myNickNameLabel];
+    _enemyNickNameLabel = [[UILabel alloc] init];
+    [_allImageView addSubview:_enemyNickNameLabel];
+    
     [self.view addSubview:_allImageView];
     
     //iPhone5ならYES,それ以外ならNOに行く
     if([YSDeviceHelper is568h]){
         detailOfACard.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
         detailOfACard.contentMode = UIViewContentModeCenter;
+        
+        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, 50, 20);
+        _enemyNickNameLabel.frame = CGRectMake(_myNickNameLabel.superview.bounds.size.width - 70, 160, 50, 20);
         
         _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
         _enemyCardImageView.frame = CGRectMake(10, 40, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
@@ -469,6 +478,9 @@
     }else{
         detailOfACard.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
         detailOfACard.contentMode = UIViewContentModeCenter;
+        
+        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, 50, 20);
+        _enemyNickNameLabel.frame = CGRectMake(_myNickNameLabel.superview.bounds.size.width - 70, 160, 50, 20);
         
         _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
         _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
@@ -2569,16 +2581,31 @@
     [resultFadeinScrollView addSubview:_enemyYaruo];
     [resultFadeinScrollView addSubview:_enemyDamage];
     
-    _myGiko.frame      = CGRectMake(20,  10, view.bounds.size.width - 20, 20);
-    _myMonar.frame     = CGRectMake(20,  30, view.bounds.size.width - 20, 20);
-    _mySyobon.frame    = CGRectMake(20,  50, view.bounds.size.width - 20, 20);
-    _myYaruo.frame     = CGRectMake(20,  70, view.bounds.size.width - 20, 20);
-    _myDamage.frame    = CGRectMake(20,  90, view.bounds.size.width - 20, 40);
-    _enemyGiko.frame   = CGRectMake(20, 190, view.bounds.size.width - 20, 20);
-    _enemyMonar.frame  = CGRectMake(20, 210, view.bounds.size.width - 20, 20);
-    _enemySyobon.frame = CGRectMake(20, 230, view.bounds.size.width - 20, 20);
-    _enemyYaruo.frame  = CGRectMake(20, 250, view.bounds.size.width - 20, 20);
-    _enemyDamage.frame = CGRectMake(20, 270, view.bounds.size.width - 20, 40);
+    
+    UILabel *myName = [[UILabel alloc] init];
+    [resultFadeinScrollView addSubview:myName];
+    myName.text = [NSString stringWithFormat:@"%@の計算結果",app.myNickName];
+    myName.frame = CGRectMake(20, 20, view.bounds.size.width -20, 20);
+    
+    UILabel *enemyName = [[UILabel alloc] init];
+    [resultFadeinScrollView addSubview:enemyName];
+    enemyName.text = [NSString stringWithFormat:@"%@の計算結果",app.enemyNickName];
+    enemyName.frame = CGRectMake(20, 180, view.bounds.size.width -20, 20);
+    
+    UIFont *nameFont = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:14];
+    myName.font = nameFont;
+    enemyName.font = nameFont;
+    
+    _myGiko.frame      = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
+    _myMonar.frame     = CGRectMake(20,  60, view.bounds.size.width - 20, 20);
+    _mySyobon.frame    = CGRectMake(20,  80, view.bounds.size.width - 20, 20);
+    _myYaruo.frame     = CGRectMake(20, 100, view.bounds.size.width - 20, 20);
+    _myDamage.frame    = CGRectMake(20, 120, view.bounds.size.width - 20, 40);
+    _enemyGiko.frame   = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
+    _enemyMonar.frame  = CGRectMake(20, 220, view.bounds.size.width - 20, 20);
+    _enemySyobon.frame = CGRectMake(20, 240, view.bounds.size.width - 20, 20);
+    _enemyYaruo.frame  = CGRectMake(20, 260, view.bounds.size.width - 20, 20);
+    _enemyDamage.frame = CGRectMake(20, 280, view.bounds.size.width - 20, 40);
     
     UIFont *font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:11];
     _myGiko.font = font;
@@ -2728,16 +2755,16 @@
         enemyYaruoDeffencePermitted = @"×";
     }
     
-    _myGiko.text    = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower,myGikoAttackPermitted,myGikoDeffencePermitted];
-    _myMonar.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
-    _mySyobon.text  = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
-    _myYaruo.text   = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
-    _myDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",app.myDamageInBattlePhase];
-    _enemyGiko.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
-    _enemyMonar.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
-    _enemySyobon.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
-    _enemyYaruo.text = [NSString stringWithFormat:@"攻撃力:%d + %d  防御力:%d + %d  攻:%@  防:%@" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
-    _enemyDamage.text  = [NSString stringWithFormat:@"受けたダメージ:%d",app.enemyDamageInBattlePhase];
+    _myGiko.text    = [NSString stringWithFormat:@"ギコ　:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower,myGikoAttackPermitted,myGikoDeffencePermitted];
+    _myMonar.text   = [NSString stringWithFormat:@"モナー:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
+    _mySyobon.text  = [NSString stringWithFormat:@"ｼｮﾎﾞﾝ :攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
+    _myYaruo.text   = [NSString stringWithFormat:@"やる夫:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
+    _myDamage.text  = [NSString stringWithFormat:@"自分が受けたダメージ:%d",app.myDamageInBattlePhase];
+    _enemyGiko.text = [NSString stringWithFormat:@"ギコ　:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
+    _enemyMonar.text = [NSString stringWithFormat:@"モナー:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
+    _enemySyobon.text = [NSString stringWithFormat:@"ｼｮﾎﾞﾝ :攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
+    _enemyYaruo.text = [NSString stringWithFormat:@"やる夫:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
+    _enemyDamage.text  = [NSString stringWithFormat:@"相手が受けたダメージ:%d",app.enemyDamageInBattlePhase];
     
     
     [_allImageView addSubview:view];
@@ -3041,13 +3068,13 @@
 
 - (void)battleStart{
     //メインBGMの開始
- NSString* path = [[NSBundle mainBundle]
-                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
-     NSURL* url = [NSURL fileURLWithPath:path];
-     _audio = [[AVAudioPlayer alloc]
-               initWithContentsOfURL:url error:nil];
-     _audio.numberOfLoops = -1;
-     [_audio play];
+// NSString* path = [[NSBundle mainBundle]
+//                       pathForResource:@"game_maoudamashii_5_village05" ofType:@"mp3"];
+//     NSURL* url = [NSURL fileURLWithPath:path];
+//     _audio = [[AVAudioPlayer alloc]
+//               initWithContentsOfURL:url error:nil];
+//     _audio.numberOfLoops = -1;
+//     [_audio play];
     
     //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
 //    app.enemyNickName = @"秋乃のiPhone4S";
@@ -3056,6 +3083,10 @@
 //    SendDataToServer *sendData = [[SendDataToServer alloc] init];
 //    [sendData send];
     //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
+    
+    //相手と自分の名前を表示する
+    _myNickNameLabel.text = [NSString stringWithFormat:@"%@",app.myNickName];
+    _enemyNickNameLabel.text = [NSString stringWithFormat:@"%@",app.enemyNickName];
     
     
     //メインビューに戻るボタン・ローカル対戦ボタン・インターネット対戦ボタン・対戦開始時の黒半透明背景を外す
@@ -3227,7 +3258,7 @@
         }
         
         //デッキのカード画像を用意する
-        UIImage *deck = [UIImage imageNamed:@"library.png"];
+        UIImage *deck = [UIImage imageNamed:@"backOfACard_small.png"];
         _myLibrary = [[UIImageView alloc] initWithImage:deck];
         [_allImageView addSubview:_myLibrary];
         //山札を用意するアニメーション
@@ -3295,7 +3326,7 @@
         }
         
         //デッキのカード画像を用意する
-        UIImage *enemydeck = [UIImage imageNamed:@"library.png"];
+        UIImage *enemydeck = [UIImage imageNamed:@"backOfACard_small.png"];
         _enemyLibrary = [[UIImageView alloc] initWithImage:enemydeck];
         [_allImageView addSubview:_enemyLibrary];
         //山札を用意するアニメーション
@@ -5338,6 +5369,65 @@
         [view removeFromSuperview];
     }
 
+    //「コストを選択する画面」であることを示すラベル
+    UIFont *font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12];
+    UILabel *explainLabel = [[UILabel alloc] init];
+    [_colorView addSubview:explainLabel];
+    explainLabel.font = font;
+    explainLabel.text = @"カード使用のために消費する\nエネルギーを選択してください";
+    explainLabel.numberOfLines = 2;
+    explainLabel.frame  = CGRectMake(30, 20, _colorView.bounds.size.width - 60, 60);
+    explainLabel.textAlignment = NSTextAlignmentCenter;
+    
+    //カード使用に必要なエネルギーを表示するビュー
+    UILabel *usingEnergyExplainLabel = [[UILabel alloc] init];
+    [_colorView addSubview:usingEnergyExplainLabel];
+    usingEnergyExplainLabel.frame = CGRectMake(40, 80, usingEnergyExplainLabel.superview.bounds.size.width - 40, 20);
+    usingEnergyExplainLabel.text = @"必要エネルギー：";
+    usingEnergyExplainLabel.font = font;
+    
+    NSArray *tempArray = [[NSArray alloc] initWithArray:[self caliculateEnergyCost:app.myUsingCardNumber]];
+    int costImageWidth = 0; //コスト画像を描画する際のwidthを規定する
+    
+    //有色のコストの画像を描画する
+    for (int i = 0; i < [tempArray count] - 1; i++) {
+        for (int k = 0; k < [[tempArray objectAtIndex:i] intValue]; k++) {
+            UIImageView *costImageView = [[UIImageView alloc] init];
+            switch (i) {
+                case 0:
+                    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"whiteEnergyImage" ofType:@"png"]];
+                    break;
+                case 1:
+                    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blueEnergyImage" ofType:@"png"]];
+                    break;
+                case 2:
+                    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blackEnergyImage" ofType:@"png"]];
+                    break;
+                case 3:
+                    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"redEnergyImage" ofType:@"png"]];
+                    break;
+                case 4:
+                    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"greenEnergyImage" ofType:@"png"]];
+                    break;
+                default:
+                    break;
+            }
+            [_colorView addSubview:costImageView];
+            costImageView.frame = CGRectMake(140 + costImageWidth, 80, 20, 20);
+            costImageWidth += 22;
+        }
+    }
+    
+    //無色のコストの画像を描画する
+    UIImageView *costImageView = [[UIImageView alloc] initWithFrame:CGRectMake(140 + costImageWidth, 80, 20, 20)];
+    costImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"noColor%d",[[tempArray objectAtIndex:5] intValue]] ofType:@"png"]];
+    [_colorView addSubview:costImageView];
+    
+//    UIImageView *usingEnergyView = [[UIImageView alloc] init];
+//    [_colorView addSubview:usingEnergyView];
+//    usingEnergyView.frame = CGRectMake(10, 10, 20, usingEnergyView.superview.bounds.size.width - 10);
+    
+    //増減させる使用エネルギー・矢印のビュー
     UIImageView *whiteImage = [[UIImageView alloc] init];
     UIImageView *blueImage = [[UIImageView alloc] init];
     UIImageView *blackImage = [[UIImageView alloc] init];
@@ -5375,28 +5465,28 @@
     [_colorView addSubview:redNumberOfText];
     [_colorView addSubview:greenNumberOfText];
     
-    whiteImage.frame    = CGRectMake(40, 25, 50, 50);
-    blueImage.frame     = CGRectMake(40, 105, 50, 50);
-    blackImage.frame    = CGRectMake(40, 185, 50, 50);
-    redImage.frame      = CGRectMake(40, 265, 50, 50);
+    whiteImage.frame    = CGRectMake(40, 105, 50, 50);
+    blueImage.frame     = CGRectMake(40, 165, 50, 50);
+    blackImage.frame    = CGRectMake(40, 225, 50, 50);
+    redImage.frame      = CGRectMake(40, 285, 50, 50);
     greenImage.frame    = CGRectMake(40, 345, 50, 50);
     
-    whiteDown.frame     = CGRectMake(90, 25, 50, 50);
-    blueDown.frame      = CGRectMake(90, 105, 50, 50);
-    blackDown.frame     = CGRectMake(90, 185, 50, 50);
-    redDown.frame       = CGRectMake(90, 265, 50, 50);
+    whiteDown.frame     = CGRectMake(90, 105, 50, 50);
+    blueDown.frame      = CGRectMake(90, 165, 50, 50);
+    blackDown.frame     = CGRectMake(90, 225, 50, 50);
+    redDown.frame       = CGRectMake(90, 285, 50, 50);
     greenDown.frame     = CGRectMake(90, 345, 50, 50);
     
-    whiteNumberOfText.frame   = CGRectMake(135, 33, 50, 50);
-    blueNumberOfText.frame    = CGRectMake(135, 113, 50, 50);
-    blackNumberOfText.frame   = CGRectMake(135, 193, 50, 50);
-    redNumberOfText.frame     = CGRectMake(135, 273, 50, 50);
+    whiteNumberOfText.frame   = CGRectMake(135, 113, 50, 50);
+    blueNumberOfText.frame    = CGRectMake(135, 173, 50, 50);
+    blackNumberOfText.frame   = CGRectMake(135, 233, 50, 50);
+    redNumberOfText.frame     = CGRectMake(135, 293, 50, 50);
     greenNumberOfText.frame   = CGRectMake(135, 353, 50, 50);
     
-    whiteUp.frame       = CGRectMake(180, 25, 50, 50);
-    blueUp.frame        = CGRectMake(180, 105, 50, 50);
-    blackUp.frame       = CGRectMake(180, 185, 50, 50);
-    redUp.frame         = CGRectMake(180, 265, 50, 50);
+    whiteUp.frame       = CGRectMake(180, 105, 50, 50);
+    blueUp.frame        = CGRectMake(180, 165, 50, 50);
+    blackUp.frame       = CGRectMake(180, 225, 50, 50);
+    redUp.frame         = CGRectMake(180, 285, 50, 50);
     greenUp.frame       = CGRectMake(180, 345, 50, 50);
     
     whiteImage.image = [UIImage imageNamed:@"whiteEnergyImage_M"];

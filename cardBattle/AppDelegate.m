@@ -35,7 +35,7 @@
     
     
 //    //!!!: debug用
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"firstLaunch_ud"];
+    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"firstLaunch_ud"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     
