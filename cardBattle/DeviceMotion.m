@@ -182,6 +182,7 @@
                 [app deactivate];
                 [self sync];
             }else{
+                NSLog(@"string:%@",string);
                 enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
                 enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
                 [self performSelectorOnMainThread:@selector(stopExploringAnimation)

@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
 #import <Twitter/Twitter.h>
+#import "AppDelegate.h"
 
-@interface SocialMediaViewController : UIViewController
+@interface SocialMediaViewController : UIViewController{
+    AppDelegate *app;
+}
 
 - (void)postTwitter :(NSString *)postString viewController:(UIViewController *)viewcontroller;
 

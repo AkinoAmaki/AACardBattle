@@ -30,6 +30,8 @@
         NSString *serviceType = SLServiceTypeTwitter;
         SLComposeViewController *composeCtl = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         [composeCtl setInitialText:postString];
+        app = [[UIApplication sharedApplication] delegate];
+        [composeCtl addImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"card%d_M",app.cardIGotInTheLastMatch] ofType:@"JPG"]]];
         [composeCtl setCompletionHandler:^(SLComposeViewControllerResult result) {
             if (result == SLComposeViewControllerResultDone) {
                 //投稿成功時の処理
