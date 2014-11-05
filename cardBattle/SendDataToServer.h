@@ -11,6 +11,10 @@
 #import "SVProgressHUD.h"
 #import "AppDelegate.h"
 #import "SBJson.h"
+#define GIKO 1
+#define MONAR 2
+#define SYOBON 3
+#define YARUO 4
 
 @interface SendDataToServer : NSObject{
     AppDelegate *app;

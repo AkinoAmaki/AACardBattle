@@ -163,7 +163,17 @@
 @property UILabel *myNickNameLabel;
 @property UILabel *enemyNickNameLabel;
 
-//ライフゲージ画像
+//キャラクタービュー
+@property UIImageView *chara_myGiko;
+@property UIImageView *chara_myMonar;
+@property UIImageView *chara_mySyobon;
+@property UIImageView *chara_myYaruo;
+@property UIImageView *chara_enemyGiko;
+@property UIImageView *chara_enemyMonar;
+@property UIImageView *chara_enemySyobon;
+@property UIImageView *chara_enemyYaruo;
+
+//ライフゲージ画像ビュー
 @property UIImageView *myLifeImageView;
 @property UIImageView *enemyLifeImageView;
 @property UITextView *myLifeTextView;

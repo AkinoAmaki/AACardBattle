@@ -14,7 +14,7 @@
 		<string>https://github.com/AkinoAmaki/AACardBattle.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>cardBattle.xcodeproj/project.xcworkspace</string>
+	<string>cardBattle.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AA1DB5B7A3656C0E6E5FE703799E71A9DB1A75CC</key>

@@ -22,9 +22,8 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         switch (sendPhase) {
             case 1:
-                NSLog(@"SendData:ターン開始直後");
-                //ターン開始直後
-                app.enemyLifeGage                                   = 4;
+                NSLog(@"SendData:1ターン目_ターン開始直後");
+                //１ターン目ターン開始直後
                 app.enemySelectCharacter                            = -1;
                 app.doEnemyUseCard                                  = NO;
                 app.enemyUsingCardNumber                            = 0;
@@ -32,77 +31,270 @@
                 app.myDamageFromCard                                = 0;
                 app.enemySelectColor                                = -1;
                 
-//                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:10], nil];
-                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1],  nil];
+                break;
+            case 2:
+                NSLog(@"SendData:1ターン目_カード・AAを決定した直後");
+                //１ターン目カード・AAを決定した直後
+                app.enemySelectCharacter                            = 1; //1 = ギコ
+                break;
+            case 3:
+                NSLog(@"SendData:1ターン目_ダメージ計算フェーズに入った直後");
+                //１ターン目ダメージ計算フェーズに入った直後
+                app.enemySelectCharacter                            = 1; //1 = ギコ
+                break;
+            case 4:
+                NSLog(@"SendData:1ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //１ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
+                app.enemyLifeGage                                   = 18;
+                app.enemySelectCharacter                            = 1; //1 = ギコ
+                app.myDamageFromAA                                  = 2;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 2;
+                app.enemyDamageInBattlePhase                        = 2;
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                break;
+            case 5:
+                NSLog(@"SendData:1ターン目_ターン終了フェーズに入った直後");
+                //１ターン目ターン終了フェーズに入った直後
+                app.enemySelectCharacter                            = 1; //1 = ギコ
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 6:
+                NSLog(@"SendData:2ターン目_ターン開始直後");
+                //２ターン目ターン開始直後
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.enemySelectColor                                = -1;
+                
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1], nil];
                 app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
                 app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
                 break;
-            case 2:
-                NSLog(@"SendData:カード・AAを決定した直後");
-                //カード・AAを決定した直後
-                app.enemyLifeGage                                   = 4;
-                app.enemySelectCharacter                            = 1; //1 = ギコ
+            case 7:
+                NSLog(@"SendData:2ターン目_カード・AAを決定した直後");
+                //２ターン目カード・AAを決定した直後
+                
+                    //相性が良くなるように相手のキャラクターを操作
+                switch (app.mySelectCharacter) {
+                    case GIKO:
+                        app.enemySelectCharacter = MONAR;
+                        break;
+                    case MONAR:
+                        app.enemySelectCharacter = SYOBON;
+                        break;
+                    case SYOBON:
+                        app.enemySelectCharacter = GIKO;
+                        break;
+                    default:
+                        break;
+                }
+                app.doEnemyUseCard                                  = YES;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 8:
+                NSLog(@"SendData:2ターン目_ダメージ計算フェーズに入った直後");
+                //２ターン目ダメージ計算フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 9:
+                NSLog(@"SendData:2ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //２ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
+                app.enemyLifeGage                                   = 15;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 0;
+                app.enemyDamageInBattlePhase                        = 3;
+                break;
+            case 10:
+                NSLog(@"SendData:2ターン目_ターン終了フェーズに入った直後");
+                //２ターン目ターン終了フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 11:
+                NSLog(@"SendData:3ターン目_ターン開始直後");
+                //３ターン目ターン開始直後
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil];
+
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 12:
+                NSLog(@"SendData:3ターン目_カード・AAを決定した直後");
+                //３ターン目カード・AAを決定した直後
+                
+                    //相性が悪くなるように相手のキャラクターを操作
+                switch (app.mySelectCharacter) {
+                    case GIKO:
+                        app.enemySelectCharacter = SYOBON;
+                        break;
+                    case MONAR:
+                        app.enemySelectCharacter = GIKO;
+                        break;
+                    case SYOBON:
+                        app.enemySelectCharacter = MONAR;
+                        break;
+                    default:
+                        break;
+                }
+                app.doEnemyUseCard                                  = YES;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 13:
+                NSLog(@"SendData:3ターン目_ダメージ計算フェーズに入った直後");
+                //３ターン目ダメージ計算フェーズに入った直後
+                app.myDamageFromAA                                  = 3;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 14:
+                NSLog(@"SendData:3ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //３ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 3;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 3;
+                app.enemyDamageInBattlePhase                        = 3;
+                break;
+            case 15:
+                NSLog(@"SendData:3ターン目_ターン終了フェーズに入った直後");
+                //３ターン目ターン終了フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+        
+                break;
+            case 16:
+                NSLog(@"SendData:4ターン目_ターン開始直後");
+                //４ターン目ターン開始直後
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 17:
+                NSLog(@"SendData:4ターン目_カード・AAを決定した直後");
+                //４ターン目カード・AAを決定した直後
+                
+                    //相性がよくなるよう相手のキャラクターを操作する
+                switch (app.mySelectCharacter) {
+                    case GIKO:
+                        app.enemySelectCharacter = MONAR;
+                        break;
+                    case MONAR:
+                        app.enemySelectCharacter = SYOBON;
+                        break;
+                    case SYOBON:
+                        app.enemySelectCharacter = GIKO;
+                        break;
+                    default:
+                        break;
+                }
                 app.doEnemyUseCard                                  = YES;
                 app.enemyUsingCardNumber                            = 1;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
-                app.enemySelectColor                                = -1;
-                app.enemyGikoModifyingAttackPower                   = 3;
                 
-                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:66], nil];
-                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+            
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
                 app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
                 break;
-            case 3:
-                NSLog(@"SendData:ダメージ計算フェーズに入った直後");
-                //ダメージ計算フェーズに入った直後
-                app.enemyLifeGage                                   = 4;
-                app.enemySelectCharacter                            = 1;
-                app.doEnemyUseCard                                  = YES;
+            case 18:
+                NSLog(@"SendData:4ターン目_ダメージ計算フェーズに入った直後");
+                //４ターン目ダメージ計算フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 19:
+                NSLog(@"SendData:4ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //４ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
+                app.enemyLifeGage                                   = 12;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 0;
+                app.enemyDamageInBattlePhase                        = 3;
+                break;
+            case 20:
+                NSLog(@"SendData:4ターン目_ターン終了フェーズに入った直後");
+                //４ターン目ターン終了フェーズに入った直後
+                app.enemyLifeGage                                   = 11;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 21:
+                NSLog(@"SendData:5ターン目_ターン開始直後");
+                //５ターン目ターン開始直後
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 22:
+                NSLog(@"SendData:5ターン目_カード・AAを決定した直後");
+                //５ターン目カード・AAを決定した直後
+                app.enemySelectCharacter                            = 1; //1 = ギコ。自分はやる夫。
+                app.doEnemyUseCard                                  = NO;
                 app.enemyUsingCardNumber                            = 1;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
-                app.enemySelectColor                                = -1;
                 
-                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
                 app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
                 app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
                 break;
-            case 4:
-                NSLog(@"SendData:ダメージ計算フェーズで相手へのダメージを計算した直後");
-                //ダメージ計算フェーズで相手へのダメージを計算した直後
+            case 23:
+                NSLog(@"SendData:5ターン目_ダメージ計算フェーズに入った直後");
+                //５ターン目ダメージ計算フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 24:
+                NSLog(@"SendData:5ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //５ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
                 app.enemyLifeGage                                   = 1;
                 app.enemySelectCharacter                            = 1;
-                app.doEnemyUseCard                                  = YES;
-                app.enemyUsingCardNumber                            = 1;
-                app.myDamageFromAA                                  = 6;
-                app.myDamageFromCard                                = 0;
-                app.myDamageInBattlePhase                           = 6;
-                app.enemyDamageInBattlePhase                        = 3;
-                app.enemySelectColor                                = -1;
-                
-                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
-                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
-                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-                break;
-            case 5:
-                NSLog(@"SendData:ターン終了フェーズに入った直後");
-                //ターン終了フェーズに入った直後
-                app.enemyLifeGage                                   = 0;
-                app.enemySelectCharacter                            = 1;
-                app.doEnemyUseCard                                  = YES;
-                app.enemyUsingCardNumber                            = 1;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
-                app.enemySelectColor                                = -1;
-                
-                app.cardsEnemyUsedInThisTurn = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], nil];
-                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
-                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                app.myDamageInBattlePhase                           = 0;
+                app.enemyDamageInBattlePhase                        = 10;
+                break;
+            case 25:
+                NSLog(@"SendData:5ターン目_ターン終了フェーズに入った直後");
+                //５ターン目ターン終了フェーズに入った直後
+                app.enemyLifeGage                                   = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
                 break;
             default:
                 break;

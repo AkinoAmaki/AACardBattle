@@ -35,7 +35,7 @@ int manageCount;
 	// Do any additional setup after loading the view.
 }
 
-//相手のダメージ計算を行う
+//相手のダメージ計算を行う。通常、ギコ→モナー→ショボン→ギコ……のじゃんけんの関係になっている。（やる夫は相性関係なし）
 -(int)damageCaliculate{
     app = [[UIApplication sharedApplication] delegate];
     int result = 999;

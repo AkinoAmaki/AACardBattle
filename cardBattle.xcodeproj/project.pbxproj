@@ -170,6 +170,8 @@
 		0F3FED921928D41400ACA1BC /* outicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3FED911928D41400ACA1BC /* outicon.png */; };
 		0F3FF2DB19FE7F8F00A184B0 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3FF2DA19FE7F8F00A184B0 /* Social.framework */; };
 		0F3FF2E419FE816E00A184B0 /* SocialMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FF2E319FE816E00A184B0 /* SocialMediaViewController.m */; };
+		0F3FF2E61A0309FF00A184B0 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3FF2E51A0309FF00A184B0 /* arrow.png */; };
+		0F3FF2E91A03AFAA00A184B0 /* UIView+Origin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FF2E81A03AFAA00A184B0 /* UIView+Origin.m */; };
 		0F53DB0319D6A2D900236502 /* PBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F53DB0219D6A2D900236502 /* PBImageView.m */; };
 		0F5B79F718D6A2D600A3D9E7 /* cardselectcancelbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */; };
 		0F5B79F818D6A2D600A3D9E7 /* cardselectdecidebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F5B79F618D6A2D600A3D9E7 /* cardselectdecidebutton.png */; };
@@ -877,6 +879,9 @@
 		0F3FF2DA19FE7F8F00A184B0 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		0F3FF2E219FE816E00A184B0 /* SocialMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialMediaViewController.h; sourceTree = "<group>"; };
 		0F3FF2E319FE816E00A184B0 /* SocialMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialMediaViewController.m; sourceTree = "<group>"; };
+		0F3FF2E51A0309FF00A184B0 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		0F3FF2E71A03AFAA00A184B0 /* UIView+Origin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origin.h"; sourceTree = "<group>"; };
+		0F3FF2E81A03AFAA00A184B0 /* UIView+Origin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origin.m"; sourceTree = "<group>"; };
 		0F53DB0119D6A2D900236502 /* PBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBImageView.h; sourceTree = "<group>"; };
 		0F53DB0219D6A2D900236502 /* PBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBImageView.m; sourceTree = "<group>"; };
 		0F5B79F518D6A2D600A3D9E7 /* cardselectcancelbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardselectcancelbutton.png; sourceTree = "<group>"; };
@@ -1679,6 +1684,7 @@
 		0F8B4D0F19E4EA04005BCFC8 /* prologue */ = {
 			isa = PBXGroup;
 			children = (
+				0F3FF2E51A0309FF00A184B0 /* arrow.png */,
 				0F33B41E19F39C6F0029FBD9 /* attackForbidedImage.png */,
 				0FF8848F19ED8B6A00DD5081 /* aishou1.png */,
 				0FF8849019ED8B6A00DD5081 /* aishou2.png */,
@@ -2154,6 +2160,8 @@
 				0F8B4D3F19E789DF005BCFC8 /* IntroductionTool.m */,
 				0F3FF2E219FE816E00A184B0 /* SocialMediaViewController.h */,
 				0F3FF2E319FE816E00A184B0 /* SocialMediaViewController.m */,
+				0F3FF2E71A03AFAA00A184B0 /* UIView+Origin.h */,
+				0F3FF2E81A03AFAA00A184B0 /* UIView+Origin.m */,
 				0FF2EFA419D11E7700C36C72 /* NendAd */,
 				0F9E64961965067A00AA5BE4 /* UIKitForGame */,
 				0F6EB4541916B2E400BD0E41 /* SBJson_3.1.1 */,
@@ -2599,6 +2607,7 @@
 				0FF0B1A419EBBFD000467217 /* pro142.png in Resources */,
 				0FF0B15C19EBBFD000467217 /* pro70.png in Resources */,
 				0F169BEF199A555F00221D19 /* card155_M.JPG in Resources */,
+				0F3FF2E61A0309FF00A184B0 /* arrow.png in Resources */,
 				0FF5B4CD19A9D9DA00602A2C /* card31_D.jpg in Resources */,
 				0F169C42199A555F00221D19 /* card94_M.JPG in Resources */,
 				0F169BD2199A555F00221D19 /* card129_M.JPG in Resources */,
@@ -3165,6 +3174,7 @@
 			files = (
 				0F9E64A81965067A00AA5BE4 /* CustomFontLabel.m in Sources */,
 				0F6EB47A1916B2E400BD0E41 /* SBJsonStreamWriterState.m in Sources */,
+				0F3FF2E91A03AFAA00A184B0 /* UIView+Origin.m in Sources */,
 				0FF5B3B219A86BEA00602A2C /* Deck1.m in Sources */,
 				0F6EB4741916B2E400BD0E41 /* SBJsonStreamParser.m in Sources */,
 				0FDB980318CADB0700C7566E /* BattleCaliculate.m in Sources */,

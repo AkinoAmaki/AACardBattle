@@ -192,10 +192,15 @@
 //    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark- プロローグアニメーション処理
+
+
+//-------------------------プロローグ改定案ここから-------------------------//
+
 - (void)startAnimation022{
     NSLog(@"%s",__func__);
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro22" imagePath:@"png" textString:@"おや？フィールドを選べと言われたお。" characterIsOnLeft:YES];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"インターネットで対戦相手を探している間には、" characterIsOnLeft:YES];
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
@@ -206,7 +211,7 @@
 
 - (void)startAnimation023{
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro23" imagePath:@"png" textString:@"インターネット対戦で対戦相手を探すには、少し時間がかかる場合があるんだ。" characterIsOnLeft:NO];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"俺がダンジョンを探索して、新しいカードを見つけてくるぞ。" characterIsOnLeft:YES];
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation024)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation024)]];
@@ -214,61 +219,92 @@
 
 - (void)startAnimation024{
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro24" imagePath:@"png" textString:@"その間にフィールドを探索することで、新しいカードを手に入れることができる。" characterIsOnLeft:NO];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation025)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation025)]];
-}
-
-- (void)startAnimation025{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro25" imagePath:@"png" textString:@"それはいいお！" characterIsOnLeft:YES];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation026)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation026)]];
-}
-
-- (void)startAnimation026{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro26" imagePath:@"png" textString:@"だが、フィールド探索だけでは手に入れられないレアカードもあるようだから注意は必要だ。" characterIsOnLeft:NO];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation027)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation027)]];
-}
-
-- (void)startAnimation027{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro27" imagePath:@"png" textString:@"みんなを救うにはバトルも必要ってことかお……" characterIsOnLeft:YES];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation028)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation028)]];
-}
-
-- (void)startAnimation028{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro28" imagePath:@"png" textString:@"そういうことだな。" characterIsOnLeft:NO];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation029)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation029)]];
-}
-
-- (void)startAnimation029{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro29" imagePath:@"png" textString:@"とりあえず今回は草原フィールドを選んでみよう。" characterIsOnLeft:NO];
-    [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
-    [app.blackBack changeFrame:course1Button.frame coveredView:self.view];
-}
-
-- (void)startAnimation030{
-    [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro30" imagePath:@"png" textString:@"分かったお。" characterIsOnLeft:YES];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ早速ダンジョンに向かおう！好きなダンジョンを選んでくれ。" characterIsOnLeft:YES];
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:course2Button,course3Button,course4Button,course5Button, _returnToMainViewButton, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: nil] coveredView:self.view];
 }
+
+//-------------------------プロローグ改定案ここまで-------------------------//
+
+//- (void)startAnimation022{
+//    NSLog(@"%s",__func__);
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro22" imagePath:@"png" textString:@"おや？フィールドを選べと言われたお。" characterIsOnLeft:YES];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation023)]];
+//    [app.blackBack removeFromSuperview];
+//    app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:course1Button,course2Button,course3Button,course4Button,course5Button,_returnToMainViewButton, nil] coveredView:self.view];
+//    [self.view addSubview:app.blackBack];
+//}
+//
+//- (void)startAnimation023{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro23" imagePath:@"png" textString:@"インターネット対戦で対戦相手を探すには、少し時間がかかる場合があるんだ。" characterIsOnLeft:NO];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation024)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation024)]];
+//}
+//
+//- (void)startAnimation024{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro24" imagePath:@"png" textString:@"その間にフィールドを探索することで、新しいカードを手に入れることができる。" characterIsOnLeft:NO];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation025)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation025)]];
+//}
+//
+//- (void)startAnimation025{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro25" imagePath:@"png" textString:@"それはいいお！" characterIsOnLeft:YES];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation026)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation026)]];
+//}
+//
+//- (void)startAnimation026{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro26" imagePath:@"png" textString:@"だが、フィールド探索だけでは手に入れられないレアカードもあるようだから注意は必要だ。" characterIsOnLeft:NO];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation027)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation027)]];
+//}
+//
+//- (void)startAnimation027{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro27" imagePath:@"png" textString:@"みんなを救うにはバトルも必要ってことかお……" characterIsOnLeft:YES];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation028)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation028)]];
+//}
+//
+//- (void)startAnimation028{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro28" imagePath:@"png" textString:@"そういうことだな。" characterIsOnLeft:NO];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation029)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation029)]];
+//}
+//
+//- (void)startAnimation029{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro29" imagePath:@"png" textString:@"とりあえず今回は草原フィールドを選んでみよう。" characterIsOnLeft:NO];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation030)]];
+//    [app.blackBack changeFrame:course1Button.frame coveredView:self.view];
+//}
+//
+//- (void)startAnimation030{
+//    [app.pbImage removeFromSuperview];
+//    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro30" imagePath:@"png" textString:@"分かったお。" characterIsOnLeft:YES];
+//    [self.view addSubview:app.pbImage];
+//    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+//    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+//    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:course2Button,course3Button,course4Button,course5Button, _returnToMainViewButton, nil] coveredView:self.view];
+//}
 
 - (void)removeViewOnPrologue:(UITapGestureRecognizer *)sender{
     for (UIView *view in app.pbImage.subviews) {

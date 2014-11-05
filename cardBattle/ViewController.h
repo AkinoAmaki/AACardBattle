@@ -16,6 +16,7 @@
 #import "PBImageView.h"
 #import "IntroductionTool.h"
 #import "SocialMediaViewController.h"
+#import "UIView+Origin.h"
 #define FINISHED1 syncFinished = YES;
 
 @interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{
