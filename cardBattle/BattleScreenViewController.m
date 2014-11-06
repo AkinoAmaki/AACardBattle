@@ -6268,7 +6268,7 @@
 - (void)startAnimation065_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のライフポイントは残り１点だが、ターン終了時に前のターンに使った場カードの効果が発動するから、その時点で０点になるな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
 }
-- (void)startAnimation066{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro131" imagePath:@"png" textString:@"ちょうどいま、相手のライフを０点にすることができた。俺達の勝ちだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];
+- (void)startAnimation066{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ちょうどいま、相手のライフを０点にすることができた。俺達の勝ちだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];
     app.pbImage.userInteractionEnabled = NO;
 }
 

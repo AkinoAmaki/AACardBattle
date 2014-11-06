@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5352"
             endingLineNumber = "5352"
-            landmarkName = "-discardACardFromLibrarySelector:"
+            landmarkName = "-discardMultiCardsFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
