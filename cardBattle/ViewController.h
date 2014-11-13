@@ -17,6 +17,7 @@
 #import "IntroductionTool.h"
 #import "SocialMediaViewController.h"
 #import "UIView+Origin.h"
+#import "costAddition.h"
 #define FINISHED1 syncFinished = YES;
 
 @interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{

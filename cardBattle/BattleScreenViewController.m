@@ -1145,25 +1145,25 @@
 -(void)cardActivate :(int)cardnumber string:(NSString *)str{
     switch (cardnumber) {
         case 6:
-            //対象キャラの防御力１ターンだけ＋３（W)
+            //対象キャラの防御力１ターンだけ＋２（W)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             
             break;
         case 7:
-            //毎ターンの対象のキャラの防御力を＋３する（W2)
+            //毎ターンの対象のキャラの防御力を＋２する（W2)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             break;
         case 8:
-            //自分のライフ＋３（W)
-            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:3];
+            //自分のライフ＋２（W)
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:2];
             break;
         case 9:
-            //自分のライフ＋３、カードを一枚引く（W２）
-            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:3];
+            //自分のライフ＋２、カードを一枚引く（W２）
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:2];
             app.myAdditionalGettingCards++;
             break;
         case 10:
@@ -1446,10 +1446,10 @@
             [app.enemyEnergyCardByMyself_plus replaceObjectAtIndex:4 withObject:[NSNumber numberWithInt:(greenColor2 + 1)]];
             break;
         case 44:
-            //対象キャラの攻撃力 −３（U1)
+            //対象キャラの攻撃力 −１（U1)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
+            [self enemyAttackPowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             break;
         case 45:
             //対象の場カードを手札に戻す（UU)
@@ -1602,21 +1602,21 @@
             [self sync];
             break;
         case 64:
-            //このカードが場に出ている限り、相手の攻撃力を３さげる(UU3)
-            [self enemyAttackPowerOperate:GIKO point:-3 temporary:YES];
-            [self enemyAttackPowerOperate:MONAR point:-3 temporary:YES];
-            [self enemyAttackPowerOperate:SYOBON point:-3 temporary:YES];
-            [self enemyAttackPowerOperate:YARUO point:-3 temporary:YES];
+            //このカードが場に出ている限り、相手の攻撃力を１さげる(UU3)
+            [self enemyAttackPowerOperate:GIKO point:-1 temporary:YES];
+            [self enemyAttackPowerOperate:MONAR point:-1 temporary:YES];
+            [self enemyAttackPowerOperate:SYOBON point:-1 temporary:YES];
+            [self enemyAttackPowerOperate:YARUO point:-1 temporary:YES];
             break;
         case 65:
             //カードを一枚引く（U1)
             app.myAdditionalGettingCards++;
             break;
         case 66:
-            //対象キャラの攻撃力＋３（R)
+            //対象キャラの攻撃力＋１（R)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:1 temporary:1];
             break;
         case 67:
             //相手のエネルギーカードを１つ破壊する(RR2)
@@ -1642,8 +1642,8 @@
             }
             break;
         case 70:
-            //相手のライフに2点のダメージ（R)
-            app.enemyDamageFromCard += 2;
+            //相手のライフに1点のダメージ（R)
+            app.enemyDamageFromCard += 1;
             
             break;
         case 71:
@@ -1655,9 +1655,9 @@
             app.enemyDamageFromCard += 1;
             break;
         case 73:
-            //自分のライフを１点削り、相手に3点ダメージ（R)
+            //自分のライフを１点削り、相手に2点ダメージ（R)
             app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-1];
-            app.enemyDamageFromCard += 3;
+            app.enemyDamageFromCard += 2;
             break;
         case 74:
             //自分のライフを２点削り、相手に4点ダメージ（RR)
@@ -1709,10 +1709,10 @@
             }
             break;
         case 81:
-            //攻撃力が＋５される代わりに防御力が０になる（R１)
+            //攻撃力が＋３される代わりに防御力が０になる（R１)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:5 temporary:1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoFundamentalDeffencePowerByMyself + app.myGikoFundamentalDeffencePowerFromEnemy + app.myGikoModifyingDeffencePower + app.myGikoModifyingDeffencePowerByMyself + app.myGikoModifyingDeffencePowerFromEnemy) * -1 temporary:1];
             }else if (mySelectCharacterInCharacterField == MONAR){
@@ -1834,14 +1834,13 @@
             app.enemyDamageFromCard += 2;
             break;
         case 94:
-            //対象のエネルギーカードを破壊する（R2)
-            [self colorSelect];
-            [self sync];
-        {
-            int destroyedEnergyCard = [[app.enemyEnergyCardByMyself_minus objectAtIndex:(app.mySelectColor - 1)] intValue];
-            [app.enemyEnergyCardByMyself_minus replaceObjectAtIndex:(app.mySelectColor - 1) withObject:[NSNumber numberWithInt:destroyedEnergyCard + 1]];
-        }
-           
+            //全ての場カードを破壊する（BB3)
+            for (int i = 0; i < [app.myFieldCard count]; i++) {
+                [self manipulateCard:[app.myFieldCard objectAtIndex:i] plusArray:app.myTombByMyself_plus minusArray:app.myFieldCardByMyself_minus];
+            }
+            for (int i = 0; i < [app.enemyFieldCard count]; i++) {
+                [self manipulateCard:[app.enemyFieldCard objectAtIndex:i] plusArray:app.enemyTombByMyself_plus minusArray:app.enemyFieldCardByMyself_minus];
+            }
             break;
 
         case 95:
@@ -1916,10 +1915,10 @@
         }
             break;
         case 102:
-            //このターン相手の対象キャラの防御力を-3する（B1)
+            //このターン相手の対象キャラの防御力を-1する（B1)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self enemyDeffencePowerOperate:mySelectCharacterInCharacterField point:-3 temporary:1];
+            [self enemyDeffencePowerOperate:mySelectCharacterInCharacterField point:-1 temporary:1];
             break;
         case 103:
             //攻撃力と防御力が−１される代わりにブロックされない（B１)
@@ -1968,8 +1967,8 @@
             [self enemyDeffencePowerOperate:app.enemySelectCharacter point:[self distinguishTheNumberOfEnergyCardColor:MYSELF] * -1 temporary:1];
             break;
         case 108:
-            //場のカードを破壊するが、ライフを３点失う（B1)
-            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-3];
+            //場のカードを破壊するが、ライフを２点失う（B1)
+            app.myLifeGageByMyself = [self HPOperate:app.myLifeGageByMyself point:-2];
             [self browseCardsInRegion:app.enemyFieldCard touchCard:YES tapSelector:@selector(destroyEnemyFieldCardSelector:) longtapSelector:@selector(detailOfACard_EnemyField:) string:str];
             [self sync];
             break;
@@ -2039,10 +2038,10 @@
             }
             break;
         case 117:
-            //攻撃力が＋３されるが、防御力が半分になる（B)
+            //攻撃力が＋２されるが、防御力が半分になる（B)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力をアップさせ、防御力をダウンさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             if(mySelectCharacterInCharacterField == GIKO){
                 [self myDeffencePowerOperate:GIKO point:(app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower) * -1 / 2 temporary:1];
             }else if (mySelectCharacterInCharacterField == MONAR){
@@ -2143,11 +2142,11 @@
             app.enemyDamageFromCard += 3;
             break;
         case 126:
-            //対象キャラの攻撃力・防御力を１ターン＋３（G)
+            //対象キャラの攻撃力・防御力を１ターン＋２（G)
             [self createCharacterField:_allImageView cancelButton:NO explain:[NSString stringWithFormat:@"%@が発動しました。攻撃力と防御力をアップさせるAAを選んでください",[app.cardList_cardName objectAtIndex:cardnumber]]];
             [self sync];
-            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
-            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:3 temporary:1];
+            [self myAttackPowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
+            [self myDeffencePowerOperate:mySelectCharacterInCharacterField point:2 temporary:1];
             break;
         case 127:
             //対象キャラの攻撃力・防御力を１ターン＋７（G3)
@@ -5831,62 +5830,79 @@
         [effect2 startAnimating];
 
         
-        UITextView *explain = [[UITextView alloc] init];
-        if(man == MYSELF){
-            explain.text = @"自分がこのターン使用したカード";
+        
+        int k = (int)[cardNum count]; //使用したカードの枚数を格納する
+        if (k == 0) {
+            //カードを使用しなかった場合は、その旨表示する。
+            UITextView *explain = [[UITextView alloc] init];
+            explain.text = @"このターン、カードは使用されませんでした";
+            explain.textColor = [UIColor whiteColor];
+            explain.frame = CGRectMake(0, 0, 200, 40);
+            explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, [[UIScreen mainScreen] bounds].size.height / 2);
+            explain.textAlignment = NSTextAlignmentCenter;
+            [PenetrateFilter penetrate:explain];
+            [_cardUsingAnimationView addSubview:explain];
         }else{
-            explain.text = @"相手がこのターン使用したカード";
+            //カードを使用した場合は、使用したカードを表示する。
+            
+            UITextView *explain = [[UITextView alloc] init];
+            if(man == MYSELF){
+                explain.text = @"自分がこのターン使用したカード";
+            }else{
+                explain.text = @"相手がこのターン使用したカード";
+            }
+            
+            explain.textColor = [UIColor whiteColor];
+            explain.frame = CGRectMake(0, 0, 200, 40);
+            explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, 50);
+            explain.textAlignment = NSTextAlignmentCenter;
+            [PenetrateFilter penetrate:explain];
+            [_cardUsingAnimationView addSubview:explain];
+            
+            //カード画像の表示
+            int cardWidth;
+            int cardHeight;
+            if([YSDeviceHelper is568h]){
+                cardWidth = 300;
+                cardHeight = 400;
+            }else{
+                cardWidth = 200;
+                cardHeight = 300;
+            }
+
+            
+            UIScrollView *cardImageScroll = [[UIScrollView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width * -2, 80, [[UIScreen mainScreen] bounds].size.width, cardHeight)];
+            UIImageView *cardImages = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (cardWidth + 10) * k + ([UIScreen mainScreen].bounds.size.width - cardWidth) / 2, cardHeight)];
+            [cardImageScroll addSubview:cardImages];
+            cardImageScroll.contentSize = CGSizeMake(cardImages.bounds.size.width + 100 + (10 * k), cardImages.bounds.size.height);
+            for (int i = 0; i < k; i++) {
+                UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",[[cardNum objectAtIndex:i] intValue]]]];
+                [cardImages addSubview:cardImage];
+                cardImage.frame = CGRectMake((cardWidth + 10) * i + ([UIScreen mainScreen].bounds.size.width - cardWidth) / 2, 0, cardWidth, cardHeight);
+            }
+            [_cardUsingAnimationView addSubview:cardImageScroll];
+            
+            
+            UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back.png"]];
+            skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 70, [[UIScreen mainScreen] bounds].size.height - 70, 50, 50);
+            skipButton.userInteractionEnabled = YES;
+            [skipButton addGestureRecognizer:
+             [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(removeCardUsingAnimation)]];
+            [_cardUsingAnimationView addSubview:skipButton];
+            
+            [self.view addSubview:_cardUsingAnimationView];
+            
+            [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
+                // アニメーションをする処理
+                cardImageScroll.frame = CGRectMake(0, 80, [[UIScreen mainScreen] bounds].size.width, cardHeight);
+            }
+                             completion:^(BOOL finished){
+                                 
+                             }
+             ];
         }
         
-        explain.textColor = [UIColor whiteColor];
-        explain.frame = CGRectMake(0, 0, 200, 40);
-        explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, 50);
-        explain.textAlignment = NSTextAlignmentCenter;
-        [PenetrateFilter penetrate:explain];
-        [_cardUsingAnimationView addSubview:explain];
-        
-        //カード画像の表示
-        int cardWidth;
-        int cardHeight;
-        if([YSDeviceHelper is568h]){
-            cardWidth = 300;
-            cardHeight = 400;
-        }else{
-            cardWidth = 200;
-            cardHeight = 300;
-        }
-        
-        UIScrollView *cardImageScroll = [[UIScrollView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width * -2, 80, [[UIScreen mainScreen] bounds].size.width, cardHeight)];
-        int k = [cardNum count];
-        UIImageView *cardImages = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (cardWidth + 10) * k + ([UIScreen mainScreen].bounds.size.width - cardWidth) / 2, cardHeight)];
-        [cardImageScroll addSubview:cardImages];
-        cardImageScroll.contentSize = CGSizeMake(cardImages.bounds.size.width + 100 + (10 * k), cardImages.bounds.size.height);
-        for (int i = 0; i < k; i++) {
-            UIImageView *cardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"card%d_M.JPG",[[cardNum objectAtIndex:i] intValue]]]];
-            [cardImages addSubview:cardImage];
-            cardImage.frame = CGRectMake((cardWidth + 10) * i + ([UIScreen mainScreen].bounds.size.width - cardWidth) / 2, 0, cardWidth, cardHeight);
-        }
-        [_cardUsingAnimationView addSubview:cardImageScroll];
-        
-        
-        UIImageView *skipButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back.png"]];
-        skipButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 70, [[UIScreen mainScreen] bounds].size.height - 70, 50, 50);
-        skipButton.userInteractionEnabled = YES;
-        [skipButton addGestureRecognizer:
-         [[UITapGestureRecognizer alloc]
-          initWithTarget:self action:@selector(removeCardUsingAnimation)]];
-        [_cardUsingAnimationView addSubview:skipButton];
-        
-        [self.view addSubview:_cardUsingAnimationView];
-        
-        [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear                     animations:^{
-            // アニメーションをする処理
-            cardImageScroll.frame = CGRectMake(0, 80, [[UIScreen mainScreen] bounds].size.width, cardHeight);
-        }
-                         completion:^(BOOL finished){
-                             
-                         }
-         ];
     }];
     
 
