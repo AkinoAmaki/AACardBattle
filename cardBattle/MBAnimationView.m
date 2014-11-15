@@ -20,8 +20,6 @@
 }
 
 - (void)setAnimationImage:(NSString *)imageName :(int)w :(int)h :(int)fnum{
-    NSLog(@"MBAnimationView setAnimationImage");
-    
     UIImage *e = [UIImage imageNamed:imageName];
     arr = [[NSMutableArray alloc] init];
     // イメージのトリミング
@@ -37,8 +35,6 @@
 }
 
 - (void)setAnimationImageVertical:(NSString *)imageName :(int)w :(int)h :(int)fnum{
-    NSLog(@"MBAnimationView setAnimationImage");
-    
     UIImage *e = [UIImage imageNamed:imageName];
     arr = [[NSMutableArray alloc] init];
     // イメージのトリミング
@@ -54,8 +50,6 @@
 }
 
 - (void)setAnimationImageDividedVertical:(NSString *)imageName :(int)x :(int)w :(int)h :(int)fnum{
-    NSLog(@"MBAnimationView setAnimationImage");
-    
     UIImage *e = [UIImage imageNamed:imageName];
     arr = [[NSMutableArray alloc] init];
     // イメージのトリミング

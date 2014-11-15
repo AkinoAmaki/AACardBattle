@@ -704,9 +704,9 @@
     NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
     
     //     //外部から接続する場合
-    NSString *url = @"http://utakatanet.dip.jp:58080/test.php";
+    NSString *url = @"http://utakatanet.dip.jp:50022/test.php";
     //     //内部から接続する場合
-    //NSString *url = @"http://192.168.10.176:58080/test.php";
+    //NSString *url = @"http://192.168.10.176:50022/test.php";
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];

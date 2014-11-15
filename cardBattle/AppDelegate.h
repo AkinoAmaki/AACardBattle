@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SVProgressHUD.h"
 #import "SBJson.h"
-#import "NADInterstitial.h"
 #import "PBImageView.h"
 #import "IntroductionTool.h"
 #define ENERGYCARD 1

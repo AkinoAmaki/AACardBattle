@@ -129,7 +129,7 @@
 }
 
 -(void)get{
-    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:58080/enemyData.php" selectCardAndAAPhase:NO];
+    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:50022/enemyData.php" selectCardAndAAPhase:NO];
     //相手プレイヤーの各種データを変数に格納する
     NSArray *battleDataWithoutArray = [[NSArray alloc] initWithArray:[statuses objectAtIndex:0]];
         app.enemyPlayerID                                   = [[battleDataWithoutArray objectAtIndex:0]  intValue];
@@ -537,12 +537,12 @@
 }
 
 -(void)doEnemyDecideActionRoopVersion :(BOOL)select{
-    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
+    [self initWithGetEnemyDataFromServerRoopVersion:@"http://utakatanet.dip.jp:50022/doEnemyDecideAction.php" selectCardAndAAPhase:select];
     app.decideAction = [[statuses objectAtIndex:0] boolValue];
 }
 
 -(void)doEnemyDecideActionNonRoopVersion :(BOOL)select{
-    [self initWithGetEnemyDataFromServerNonRoopVersion:@"http://utakatanet.dip.jp:58080/doEnemyDecideAction.php" selectCardAndAAPhase:select];
+    [self initWithGetEnemyDataFromServerNonRoopVersion:@"http://utakatanet.dip.jp:50022/doEnemyDecideAction.php" selectCardAndAAPhase:select];
     //app.decideActionはinitWithGetEnemyDataFromServerNonRoopVersionの中でデータ格納を行っている。
 }
 
