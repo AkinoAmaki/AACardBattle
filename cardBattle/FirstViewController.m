@@ -147,7 +147,7 @@
     //JSONに変換)
     NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *url = @"http://utakatanet.dip.jp:50022/activate.php";
+    NSString *url = @"http://utakatanet.dip.jp:58080/activate.php";
     
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];

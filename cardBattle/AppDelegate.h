@@ -11,6 +11,7 @@
 #import "SBJson.h"
 #import "PBImageView.h"
 #import "IntroductionTool.h"
+#import "NADInterstitial.h"
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3
@@ -21,7 +22,7 @@
 #define GREEN 5
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NADInterstitialDelegate>{
     int firstLaunch; //初めての起動なら0、以後は1
     NSArray *cardList_cardName;
     NSArray *cardList_pngName;

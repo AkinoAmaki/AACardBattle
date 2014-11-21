@@ -386,7 +386,7 @@
         //ユニークなプレイヤーIDを発番する
         //サーバ側で取得したIDを受け取り、playerIDとして保持する
         [SVProgressHUD showWithStatus:@"データ通信中..." maskType:SVProgressHUDMaskTypeGradient];
-        NSString *url = @"http://utakatanet.dip.jp:50022/playerID.php";
+        NSString *url = @"http://utakatanet.dip.jp:58080/playerID.php";
         NSMutableURLRequest *request;
         request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
         [request setHTTPMethod:@"POST"];
@@ -581,7 +581,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     //JSONに変換)
     NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *url = @"http://utakatanet.dip.jp:50022/activate.php";
+    NSString *url = @"http://utakatanet.dip.jp:58080/activate.php";
     
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];

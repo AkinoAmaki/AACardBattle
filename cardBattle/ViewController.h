@@ -12,6 +12,7 @@
 #import "SummonViewController.h"
 #import "MBAnimationView.h"
 #import "NADView.h"
+#import "NADInterstitial.h"
 #import "AAButton.h"
 #import "PBImageView.h"
 #import "IntroductionTool.h"
@@ -20,7 +21,7 @@
 #import "costAddition.h"
 #define FINISHED1 syncFinished = YES;
 
-@interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate>{
+@interface ViewController : UIViewController<UITextFieldDelegate,NADViewDelegate,NADInterstitialDelegate>{
     UIImageView *firstLaunchView;
     UITextField *tf;
     NSUserDefaults *userDefault;

@@ -69,7 +69,7 @@
         //JSONに変換)
         NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
         
-        NSString *url = @"http://utakatanet.dip.jp:50022/enemyPlayerIDForPrologue.php";
+        NSString *url = @"http://utakatanet.dip.jp:58080/enemyPlayerIDForPrologue.php";
         
         NSMutableURLRequest *request;
         request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100.0];
@@ -152,7 +152,7 @@
         //JSONに変換)
         NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
         
-        NSString *url = @"http://utakatanet.dip.jp:50022/enemyPlayerIDForInternetBattle.php";
+        NSString *url = @"http://utakatanet.dip.jp:58080/enemyPlayerIDForInternetBattle.php";
         
         NSMutableURLRequest *request;
         request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100.0];
@@ -318,9 +318,9 @@
     NSArray *locationArrayParameter = [[NSArray alloc] initWithObjects:locationArrayParameter_before, nil];
     
     NSArray *locationArrayKey = [[NSArray alloc] initWithObjects:@"locationArrayKey", nil];
-    [self searchAEnemyIDOnServer:@"http://utakatanet.dip.jp:50022/enemyPlayerID.php" dictionaryParameter:locationArrayParameter dictionaryKey:locationArrayKey];//
+    [self searchAEnemyIDOnServer:@"http://utakatanet.dip.jp:58080/enemyPlayerID.php" dictionaryParameter:locationArrayParameter dictionaryKey:locationArrayKey];//
     //内部から接続する場合
-    //NSString *url = @"http://192.168.10.176:50022/enemyPlayerID.php";
+    //NSString *url = @"http://192.168.10.176:58080/enemyPlayerID.php";
     
 }
 
@@ -484,7 +484,7 @@
                 app.enemyPlayerID = [_enemyIDField.text intValue];
                 NSArray *enemyIDParameter = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:app.enemyPlayerID], nil];
                 NSArray *enemyIDKey = [[NSArray alloc] initWithObjects:@"enemyIDKey", nil];
-                [self searchAEnemyIDOnServer:@"http://utakatanet.dip.jp:50022/enemyPlayerIDByHandInput.php" dictionaryParameter:enemyIDParameter dictionaryKey:enemyIDKey];
+                [self searchAEnemyIDOnServer:@"http://utakatanet.dip.jp:58080/enemyPlayerIDByHandInput.php" dictionaryParameter:enemyIDParameter dictionaryKey:enemyIDKey];
             }
                 break;
                 

@@ -10,9 +10,10 @@
 #import "AppDelegate.h"
 #import "GikoGikoWaintngViewController.h"
 #import "NADView.h"
+#import "NADInterstitial.h"
 #import "AAButton.h"
 
-@interface CourseSelectViewController : UIViewController<NADViewDelegate>{
+@interface CourseSelectViewController : UIViewController<NADViewDelegate,NADInterstitialDelegate>{
     AppDelegate *app;
     UIImageView *backGroundView; //背景画像
     AAButton *course1Button;//コース1を選ぶボタン
