@@ -4250,8 +4250,7 @@
             [_imgView removeFromSuperview];
             AudioServicesPlaySystemSound (tapSoundID);
             if (mySelectCharacterInCharacterField == -1) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選択されていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"選びなおす", nil];
-//                [alert show];
+                
             }else{
                 [_characterField removeFromSuperview];
                 FINISHED1
@@ -5881,7 +5880,7 @@
             explain.text = @"このターン、カードは使用されませんでした";
             explain.textColor = [UIColor whiteColor];
             explain.frame = CGRectMake(0, 0, 200, 40);
-            explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width /2, [[UIScreen mainScreen] bounds].size.height / 2);
+            explain.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2, [[UIScreen mainScreen] bounds].size.height / 3);
             explain.textAlignment = NSTextAlignmentCenter;
             [PenetrateFilter penetrate:explain];
             [_cardUsingAnimationView addSubview:explain];

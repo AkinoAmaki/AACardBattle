@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "439054712.463404"
+            timestampString = "439055899.162392"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5395"
-            endingLineNumber = "5395"
+            startingLineNumber = "5394"
+            endingLineNumber = "5394"
             landmarkName = "-discardMultiCardsFromLibrarySelector:"
             landmarkType = "5">
          </BreakpointContent>
@@ -174,11 +174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cardBattle/BattleScreenViewController.m"
-            timestampString = "439054712.463404"
+            timestampString = "439055899.162392"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5673"
-            endingLineNumber = "5673"
+            startingLineNumber = "5672"
+            endingLineNumber = "5672"
             landmarkName = "-selectUsingEnergy:"
             landmarkType = "5">
          </BreakpointContent>
