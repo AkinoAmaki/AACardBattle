@@ -399,7 +399,7 @@
     app.myHand = [[NSMutableArray alloc] init]; //自分の手札
     app.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
     app.myFieldCard = [[NSMutableArray alloc] initWithObjects:nil]; //自分の場カードのカードナンバー
-    app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5], [NSNumber numberWithInt:5],nil]; //自分のエネルギーカードの数
+    app.myEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分のエネルギーカードの数
     app.myDeckCardListByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyDeckCardList（差分のみ管理）
     app.myHandByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyHand（差分のみ管理）
     app.myTombByMyself_plus = [[NSMutableArray alloc] init]; // 自分が操作し、増加したmyTomb（差分のみ管理）

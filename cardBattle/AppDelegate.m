@@ -376,7 +376,7 @@
         [ud setObject:@"デッキ2" forKey:@"deckName2"];
         [ud setObject:@"デッキ3" forKey:@"deckName3"];
         
-        //インターネット対戦時に、待機した時間を格納する変数を初期化（０票を入れる）する
+        //インターネット対戦時に、待機した時間を格納する変数を初期化（０秒を入れる）する
         [ud setInteger:0 forKey:@"allWalkingTime"];
         [ud setInteger:20 forKey:@"remainedWalkingTime"];
         [ud synchronize];

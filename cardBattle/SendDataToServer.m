@@ -166,7 +166,7 @@
             case 13:
                 NSLog(@"SendData:3ターン目_ダメージ計算フェーズに入った直後");
                 //３ターン目ダメージ計算フェーズに入った直後
-                app.myDamageFromAA                                  = 3;
+                app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
                 break;
             case 14:
@@ -175,7 +175,7 @@
                 app.enemyUsingCardNumber                            = 1;
                 app.myDamageFromAA                                  = 3;
                 app.myDamageFromCard                                = 0;
-                app.myDamageInBattlePhase                           = 3;
+                app.myDamageInBattlePhase                           = 0;
                 app.enemyDamageInBattlePhase                        = 3;
                 break;
             case 15:
@@ -276,22 +276,82 @@
             case 23:
                 NSLog(@"SendData:5ターン目_ダメージ計算フェーズに入った直後");
                 //５ターン目ダメージ計算フェーズに入った直後
-                app.myDamageFromAA                                  = 0;
+                app.myDamageFromAA                                  = 1;
                 app.myDamageFromCard                                = 0;
                 break;
             case 24:
                 NSLog(@"SendData:5ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
                 //５ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
-                app.enemyLifeGage                                   = 1;
+                app.enemyLifeGage                                   = 10;
                 app.enemySelectCharacter                            = 1;
+                app.myDamageFromAA                                  = 1;
+                app.myDamageFromCard                                = 0;
+                app.myDamageInBattlePhase                           = 1;
+                app.enemyDamageInBattlePhase                        = 0;
+                break;
+            case 25:
+                NSLog(@"SendData:5ターン目_ターン終了フェーズに入った直後");
+                //５ターン目ターン終了フェーズに入った直後
+                app.enemyLifeGage                                   = 10;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 26:
+                NSLog(@"SendData:6ターン目_ターン開始直後");
+                //６ターン目ターン開始直後
+                app.enemySelectCharacter                            = -1;
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 0;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                
+                app.enemyDeckCardList = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],[NSNumber numberWithInt:1],nil];
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 27:
+                NSLog(@"SendData:6ターン目_カード・AAを決定した直後");
+                //６ターン目カード・AAを決定した直後
+                //相性がよくなるよう相手のキャラクターを操作する
+                switch (app.mySelectCharacter) {
+                    case GIKO:
+                        app.enemySelectCharacter = MONAR;
+                        break;
+                    case MONAR:
+                        app.enemySelectCharacter = SYOBON;
+                        break;
+                    case SYOBON:
+                        app.enemySelectCharacter = GIKO;
+                        break;
+                    default:
+                        break;
+                }
+                app.doEnemyUseCard                                  = NO;
+                app.enemyUsingCardNumber                            = 1;
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+
+                app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
+                app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+                break;
+            case 28:
+                NSLog(@"SendData:6ターン目_ダメージ計算フェーズに入った直後");
+                //６ターン目ダメージ計算フェーズに入った直後
+                app.myDamageFromAA                                  = 0;
+                app.myDamageFromCard                                = 0;
+                break;
+            case 29:
+                NSLog(@"SendData:6ターン目_ダメージ計算フェーズで相手へのダメージを計算した直後");
+                //６ターン目ダメージ計算フェーズで相手へのダメージを計算した直後
+                app.enemyLifeGage                                   = 0;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
                 app.myDamageInBattlePhase                           = 0;
                 app.enemyDamageInBattlePhase                        = 10;
                 break;
-            case 25:
-                NSLog(@"SendData:5ターン目_ターン終了フェーズに入った直後");
-                //５ターン目ターン終了フェーズに入った直後
+            case 30:
+                NSLog(@"SendData:6ターン目_ターン終了フェーズに入った直後");
+                //６ターン目ターン終了フェーズに入った直後
                 app.enemyLifeGage                                   = 0;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
