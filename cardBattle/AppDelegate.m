@@ -403,7 +403,7 @@
             result= [NSURLConnection sendSynchronousRequest:request
                                           returningResponse:&response
                                                       error:&error];
-            NSLog(@"とおりました");
+            NSLog(@"通信不可");
         }
         
         NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
