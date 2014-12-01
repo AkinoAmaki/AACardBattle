@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F07A17C1A2C646C004FAFCE /* arrowR.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F07A17B1A2C646C004FAFCE /* arrowR.png */; };
 		0F1699DA1999001D00221D19 /* MBAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1699D51999001D00221D19 /* MBAnimationView.m */; };
 		0F1699DF199902F000221D19 /* e_appear_240.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1699DD199902F000221D19 /* e_appear_240.png */; };
 		0F1699E0199902F000221D19 /* e_circle_240.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1699DE199902F000221D19 /* e_circle_240.png */; };
@@ -1150,6 +1151,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F07A17B1A2C646C004FAFCE /* arrowR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowR.png; sourceTree = "<group>"; };
 		0F1699D41999001D00221D19 /* MBAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAnimationView.h; sourceTree = "<group>"; };
 		0F1699D51999001D00221D19 /* MBAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAnimationView.m; sourceTree = "<group>"; };
 		0F1699DD199902F000221D19 /* e_appear_240.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e_appear_240.png; sourceTree = "<group>"; };
@@ -2567,6 +2569,7 @@
 		0F8B4D0F19E4EA04005BCFC8 /* prologue */ = {
 			isa = PBXGroup;
 			children = (
+				0F07A17B1A2C646C004FAFCE /* arrowR.png */,
 				0F3FF2E51A0309FF00A184B0 /* arrow.png */,
 				0F33B41E19F39C6F0029FBD9 /* attackForbidedImage.png */,
 				0FF8848F19ED8B6A00DD5081 /* aishou1.png */,
@@ -4838,6 +4841,7 @@
 				0FF0B12C19EBBFD000467217 /* pro22.png in Resources */,
 				0F169C1A199A555F00221D19 /* card57_M.JPG in Resources */,
 				0F169C08199A555F00221D19 /* card39_M.JPG in Resources */,
+				0F07A17C1A2C646C004FAFCE /* arrowR.png in Resources */,
 				0FF5B49C19A9D9DA00602A2C /* card126_D.jpg in Resources */,
 				0FF5B48C19A9D9DA00602A2C /* card111_D.jpg in Resources */,
 				0FFF2EC31A1461E30017C7B5 /* card111.PNG in Resources */,

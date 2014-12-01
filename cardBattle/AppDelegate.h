@@ -39,7 +39,8 @@
 //プロローグ用の変数
 @property (nonatomic, retain) PBImageView *pbImage; //プロローグを表示する変数
 @property (nonatomic, retain) IntroductionTool *blackBack; //プロローグ時の黒透明背景
-@property (nonatomic, retain) UIImageView *arrow; //タップする場所を指示する矢印
+@property (nonatomic, retain) UIImageView *arrow; //タップする場所を指示する矢印(右向き)
+@property (nonatomic, retain) UIImageView *arrowR; //タップする場所を指示する矢印(左向き)
 
 //双方に関係する変数及び基礎的な変数
 @property BOOL battleStart; //対戦相手の検索が完了した場合TRUEとなる。

@@ -219,7 +219,7 @@
 
 - (void)startAnimation024{
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ早速ダンジョンに向かおう！好きなダンジョンを選んでくれ。" characterIsOnLeft:YES];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあダンジョンに向かおう！好きなダンジョンを選んでくれ。" characterIsOnLeft:YES];
     [self.view addSubview:app.pbImage];
     [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];

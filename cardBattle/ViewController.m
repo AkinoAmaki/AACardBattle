@@ -56,6 +56,14 @@
     [self.nadView load]; //(6)
     [self.view addSubview:self.nadView]; // 広告を表示
     
+    //右矢印のイメージを用意
+    UIImage *arrowImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow" ofType:@"png"]];
+    app.arrow = [[UIImageView alloc] initWithImage:arrowImage];
+    
+    //左矢印のイメージを用意
+    UIImage *rArrowImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrowR" ofType:@"png"]];
+    app.arrowR = [[UIImageView alloc] initWithImage:rArrowImage];
+    
     
     
     if(first == 0){
@@ -426,13 +434,13 @@
     app.myAdditionalGettingCards = 0;//ターンの開始時に引くカード以外で引いた、ターン毎のカードの枚数を管理する
     app.myAdditionalDiscardingCards = 0;//ターンの終了時に捨てるカード以外で捨てた、ターン毎のカードの枚数を管理する
     app.myGikoFundamentalAttackPower = 3; //自分のギコの基本攻撃力
-    app.myGikoFundamentalDeffencePower = 0; //自分のギコの基本防御力
+    app.myGikoFundamentalDeffencePower = 1; //自分のギコの基本防御力
     app.myMonarFundamentalAttackPower = 3; //自分のモナーの基本攻撃力
-    app.myMonarFundamentalDeffencePower = 0; //自分のモナーの基本防御力
+    app.myMonarFundamentalDeffencePower = 1; //自分のモナーの基本防御力
     app.mySyobonFundamentalAttackPower = 3; //自分のショボンの基本攻撃力
-    app.mySyobonFundamentalDeffencePower = 0; //自分のショボンの基本防御力
+    app.mySyobonFundamentalDeffencePower = 1; //自分のショボンの基本防御力
     app.myYaruoFundamentalAttackPower = 0; //自分のやる夫の基本攻撃力
-    app.myYaruoFundamentalDeffencePower = 1; //自分のやる夫の基本防御力
+    app.myYaruoFundamentalDeffencePower = 2; //自分のやる夫の基本防御力
     app.myGikoFundamentalAttackPowerByMyself = 0; //自分が操作した自分のギコの基本攻撃力（差分のみ管理）
     app.myGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した自分のギコの基本防御力（差分のみ管理）
     app.myMonarFundamentalAttackPowerByMyself = 0; //自分が操作した自分のモナーの基本攻撃力（差分のみ管理）
@@ -515,13 +523,13 @@
     app.enemyFieldCardByMyself_minus = [[NSMutableArray alloc] init]; //自分が操作し、減少したenemyFieldCard（差分のみ管理）
     app.enemyEnergyCardByMyself_minus = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0],nil]; //自分が操作し、減少したenemyEnergyCard（差分のみ管理）
     app.enemyGikoFundamentalAttackPower = 3; // 相手のギコの基本攻撃力
-    app.enemyGikoFundamentalDeffencePower = 0; //相手のギコの基本防御力
+    app.enemyGikoFundamentalDeffencePower = 1; //相手のギコの基本防御力
     app.enemyMonarFundamentalAttackPower = 3; //相手のモナーの基本攻撃力
-    app.enemyMonarFundamentalDeffencePower = 0; //相手のモナーの基本防御力
+    app.enemyMonarFundamentalDeffencePower = 1; //相手のモナーの基本防御力
     app.enemySyobonFundamentalAttackPower = 3; //相手のショボンの基本攻撃力
-    app.enemySyobonFundamentalDeffencePower = 0; //相手のショボンの基本防御力
+    app.enemySyobonFundamentalDeffencePower = 1; //相手のショボンの基本防御力
     app.enemyYaruoFundamentalAttackPower = 0; //相手のやる夫の基本攻撃力
-    app.enemyYaruoFundamentalDeffencePower = 1; //相手のやる夫の基本防御力
+    app.enemyYaruoFundamentalDeffencePower = 2; //相手のやる夫の基本防御力
     app.enemyGikoFundamentalAttackPowerByMyself = 0; // 自分が操作した相手のギコの基本攻撃力（差分のみ管理）
     app.enemyGikoFundamentalDeffencePowerByMyself = 0; //自分が操作した相手のギコの基本防御力（差分のみ管理）
     app.enemyMonarFundamentalAttackPowerByMyself = 0; //自分が操作した相手のモナーの基本攻撃力（差分のみ管理）
@@ -650,12 +658,12 @@
 
 - (void)startAnimation004{
     [app.pbImage removeFromSuperview];
-    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ早速対戦しよう。まずは対戦開始ボタンを押してくれ。" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    UIImage *arrowImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow" ofType:@"png"]];
-    app.arrow = [[UIImageView alloc] initWithImage:arrowImage];
+    app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"じゃあ、早速対戦をしてみよう。まずは対戦開始ボタンを押してくれ。" characterIsOnLeft:YES];    [self.view addSubview:app.pbImage];    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    
     app.arrow.right = battleButton.left;
     app.arrow.top = battleButton.top + 5;
     [self.view addSubview:app.arrow];
+    
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:deckButton, nil] coveredView:self.view];
 }
 
@@ -669,7 +677,7 @@
     [self.view addSubview:app.blackBack];
     app.pbImage.userInteractionEnabled = YES;
 }
-- (void)startAnimation133{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"バトルに勝てば、特にレアリティの高いカードを手に入れることができるぞ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];}
+- (void)startAnimation133{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"バトルに勝てば、必ず最もレアな　　部類のカードを手に入れることができるぞ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];}
 - (void)startAnimation134{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"じゃあ早速、このカードをデッキに組み込んでみよう！" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];}
 - (void)startAnimation134_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあデッキ編成ボタンを押してくれ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:deckButton.frame forbidedArray:[[NSArray alloc] initWithObjects:battleButton, nil] coveredView:self.view];
