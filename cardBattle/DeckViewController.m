@@ -102,6 +102,18 @@
     [self.nadView setDelegate:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    //デッキ編成画面のBGMの開始
+    NSString* path = [[NSBundle mainBundle]
+                      pathForResource:@"deckgamen_nc78323" ofType:@"mp3"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    app.audio = [[AVAudioPlayer alloc]
+                 initWithContentsOfURL:url error:nil];
+    app.audio.numberOfLoops = -1;
+    app.audio.volume = 0.5f;
+    [app.audio play];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     //広告の停止
     NSLog(@"広告を停止しました");

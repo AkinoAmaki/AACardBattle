@@ -42,10 +42,53 @@
     explorationIsFinished = NO;
     
     [self startLoadingAnimation];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    //appdelgateの初期化
+    app = [[UIApplication sharedApplication] delegate];
+    
+    NSString *path;
+    switch (self.course) {
+        case 1:{
+            //探索画面のBGMの開始
+            path = [[NSBundle mainBundle]
+                              pathForResource:@"game_maoudamashii_6_dangeon21" ofType:@"mp3"];
+        }
+            break;
+        case 2:{
+            //探索画面のBGMの開始
+            path = [[NSBundle mainBundle]
+                              pathForResource:@"game_maoudamashii_6_dangeon22" ofType:@"mp3"];
+        }
+            break;
+        case 3:{
+            //探索画面のBGMの開始
+            path = [[NSBundle mainBundle]
+                              pathForResource:@"game_maoudamashii_6_dangeon17" ofType:@"mp3"];
+        }
+            break;
+        case 4:{
+            //探索画面のBGMの開始
+            path = [[NSBundle mainBundle]
+                              pathForResource:@"game_maoudamashii_6_dangeon18" ofType:@"mp3"];
+        }
+            break;
+        case 5:{
+            //探索画面のBGMの開始
+            path = [[NSBundle mainBundle]
+                              pathForResource:@"game_maoudamashii_6_dangeon23" ofType:@"mp3"];
+        }
+            break;
+    }
+    
+    NSURL* url = [NSURL fileURLWithPath:path];
+    app.audio = [[AVAudioPlayer alloc]
+                 initWithContentsOfURL:url error:nil];
+    app.audio.numberOfLoops = -1;
+    app.audio.volume = 0.2f;
+    [app.audio play];
+    
     
     if (!explorationIsFinished) {
         waiting = [[WaitingForInternetBattleViewController alloc] init];

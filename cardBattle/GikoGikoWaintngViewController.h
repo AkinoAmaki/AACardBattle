@@ -33,6 +33,7 @@
 
 
 @interface GikoGikoWaintngViewController : UIViewController{
+    AppDelegate *app;
     WaitingForInternetBattleViewController *waiting;
     UIAlertView *usingDeckCardList;
     BOOL syncFinished;

@@ -181,6 +181,10 @@
 }
 
 - (void)startExploration:(UIButton *)button{
+    //BGM鳴らす
+    AudioServicesPlaySystemSound (app.tapSoundID);
+    
+    //探索画面へ移行する
     GikoGikoWaintngViewController *giko = [[GikoGikoWaintngViewController alloc] init];
     giko.course = button.tag;
     [self presentViewController:giko animated:YES completion:nil];

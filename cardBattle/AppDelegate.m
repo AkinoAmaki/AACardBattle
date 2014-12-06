@@ -34,8 +34,8 @@
 //    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domain];
     
     
-//    //!!!: debug用
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"firstLaunch_ud"];
+    //!!!: debug用
+    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"firstLaunch_ud"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     
@@ -427,6 +427,19 @@
     
     NSLog(@"ID:%d",_playerID);
     NSLog(@"ニックネーム:%@",_myNickName);
+    
+    
+    //BGMの実装
+    _mainBundle = CFBundleGetMainBundle ();
+    //キャラタップ音
+    _tapSoundURL  = CFBundleCopyResourceURL (_mainBundle,CFSTR ("buttonPushed"),CFSTR ("wav"),NULL);
+    AudioServicesCreateSystemSoundID (_tapSoundURL, &_tapSoundID);
+    CFRelease (_tapSoundURL);
+    //キャンセルボタンタップ音
+    _cancelSoundURL  = CFBundleCopyResourceURL (_mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
+    AudioServicesCreateSystemSoundID (_cancelSoundURL, &_cancelSoundID);
+    CFRelease (_cancelSoundURL);
+
 
 
     

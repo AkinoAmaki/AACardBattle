@@ -37,6 +37,15 @@
     [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moveToMainView)]];
     [self.view addSubview:imageView];
     
+    //トップ画面のBGMの開始
+    NSString* path = [[NSBundle mainBundle]
+                      pathForResource:@"topgamen_nc7400" ofType:@"mp3"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    app.audio = [[AVAudioPlayer alloc]
+                 initWithContentsOfURL:url error:nil];
+    app.audio.numberOfLoops = -1;
+    [app.audio play];
+    
     //  NADViewの作成
     self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 100, 320, 100)];
     //  ログ出力の指定
@@ -97,6 +106,9 @@
     //広告の停止
     NSLog(@"広告を停止しました");
     [self.nadView pause];
+    
+    //BGMの停止
+    [app.audio stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -98,7 +98,7 @@
                 app.doEnemyUseCard                                  = YES;
                 app.myDamageFromAA                                  = 0;
                 app.myDamageFromCard                                = 0;
-                
+                [app.cardsEnemyUsedInThisTurn addObject:[NSNumber numberWithInt:1]];
                 app.enemyEnergyCard = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
                 app.enemyHand = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
                 break;

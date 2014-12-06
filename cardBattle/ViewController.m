@@ -42,7 +42,6 @@
          forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:deckButton];
     
-    
     //  NADViewの作成
     self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 100, 320, 100)];
     //  ログ出力の指定
@@ -95,6 +94,16 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    //メイン画面のBGMの開始(バトルボタンが押された時は、探索開始時点までストップしない。デッキ編集ボタンが押された時はその瞬間にストップする)
+    NSString* path = [[NSBundle mainBundle]
+                      pathForResource:@"maingamen_nc86052" ofType:@"mp3"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    app.audio = [[AVAudioPlayer alloc]
+                 initWithContentsOfURL:url error:nil];
+    app.audio.numberOfLoops = -1;
+    app.audio.volume = 0.05f;
+    [app.audio play];
+    
     //初回起動ならプロローグを表示する
     int first =  [[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch_ud"];
     if (first == 1) {
@@ -619,10 +628,18 @@
 
 
 - (void)battleButtonPushed{
+    //BGM鳴らす
+    AudioServicesPlaySystemSound (app.tapSoundID);
+    
+    //バトル画面へ
     [self performSegueWithIdentifier:@"goToBattleView" sender:self];
 }
 
 - (void)deckButtonPushed{
+    //BGM鳴らす
+    AudioServicesPlaySystemSound (app.tapSoundID);
+    
+    //デッキ編成画面へ
     [self performSegueWithIdentifier:@"goToDeckView" sender:self];
 }
 
@@ -677,7 +694,7 @@
     [self.view addSubview:app.blackBack];
     app.pbImage.userInteractionEnabled = YES;
 }
-- (void)startAnimation133{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"バトルに勝てば、必ず最もレアな　　部類のカードを手に入れることができるぞ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];}
+- (void)startAnimation133{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"バトルに勝てば、必ず最上級のレアカードを手に入れられるぞ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134)]];}
 - (void)startAnimation134{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"じゃあ早速、このカードをデッキに組み込んでみよう！" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation134_2)]];}
 - (void)startAnimation134_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあデッキ編成ボタンを押してくれ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:deckButton.frame forbidedArray:[[NSArray alloc] initWithObjects:battleButton, nil] coveredView:self.view];

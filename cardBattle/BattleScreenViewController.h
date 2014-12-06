@@ -87,13 +87,6 @@
     NSMutableArray *targetedMyTombCardInThisTurn_return; //このターン、自分がカードを使用し、戻す対象とした墓地のカードの一覧
     UIScrollView *resultFadeinScrollView; //結果画面の表示時に使用するスクロールビュー
     
-    //ボタンタップ時の効果音
-    CFURLRef tapSoundURL;
-    SystemSoundID tapSoundID;
-    CFURLRef cancelSoundURL;
-    SystemSoundID cancelSoundID;
-    CFBundleRef mainBundle;
-    
     //カード使用時のアニメーション
     MBAnimationView *effect1;
     MBAnimationView *effect2;
@@ -105,6 +98,7 @@
     int first; //初回起動か否かを判定する。（0なら初回起動）
     BOOL turn5Boti; //5ターン目において、墓地の参照をキャンセルした瞬間にYESになる
     BOOL turn5Ba; //5ターン目において、フィールドの参照をキャンセルした瞬間にYESになる
+    /******初回起動用に用意した変数******/
 }
 
 @property int myDrawCount;
@@ -126,6 +120,11 @@
 
     //ターン開始時の状況を管理するビュー
     @property UIImageView *turnStartView;
+
+    //互いのキャラクターの相性を表示するビュー
+    @property UIImageView *kekkaView;
+    @property UIImageView *myCharacter;
+    @property UIImageView *enemyCharacter;
 
     //カード使用後の状況を管理するビュー
     @property UIImageView *afterCardUsedView;
@@ -288,14 +287,23 @@
 @property(nonatomic) UIImageView *cardUsingAnimationView;
 @property(nonatomic) UIImageView *backGround;
 
-
-//BGM
-@property(readwrite) CFURLRef tapSoundURL;
-@property(readonly) SystemSoundID tapSoundID;
-@property(readwrite) CFURLRef cancelSoundURL;
-@property(readonly) SystemSoundID cancelSoundID;
-@property(nonatomic,retain)AVAudioPlayer *audio;
-
+//各種SE
+@property(readwrite) CFURLRef aisyouSyakinURL;      //相性判定画面のシャキーン
+@property(readonly) SystemSoundID aisyouSyakinID;   //相性判定画面のシャキーン
+@property(readwrite) CFURLRef aisyouDonURL;         //相性判定画面のドン
+@property(readonly) SystemSoundID aisyouDonID;      //相性判定画面のドン
+@property(readwrite) CFURLRef aisyouKatiURL;        //相性判定画面の勝ち時のSE
+@property(readonly) SystemSoundID aisyouKatiID;     //相性判定画面の勝ち時のSE
+@property(readwrite) CFURLRef aisyouMakeURL;        //相性判定画面の負け時のSE
+@property(readonly) SystemSoundID aisyouMakeID;     //相性判定画面の負け時のSE
+@property(readwrite) CFURLRef aisyouHikiwakeURL;    //相性判定画面の引き分け時のSE
+@property(readonly) SystemSoundID aisyouHikiwakeID; //相性判定画面の引き分け時のSE
+@property(readwrite) CFURLRef kekkaKatiURL;         //対戦結果が勝ちの時のSE
+@property(readonly) SystemSoundID kekkaKatiID;      //対戦結果が勝ちの時のSE
+@property(readwrite) CFURLRef kekkaMakeURL;         //対戦結果が負けの時のSE
+@property(readonly) SystemSoundID kekkaMakeID;      //対戦結果が負けの時のSE
+@property(readwrite) CFURLRef cardGetURL;           //カードゲット時のSE
+@property(readonly) SystemSoundID cardGetID;        //カードゲット時のSE
 
 //対戦開始メソッド
 - (void)battleStart;
