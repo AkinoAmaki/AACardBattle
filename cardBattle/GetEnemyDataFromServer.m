@@ -47,14 +47,14 @@
     int errorNum = 0;
     while (!result) {
         errorNum++;
-        if (errorNum < 10) {
+        if (errorNum < 30) {
             [NSThread sleepForTimeInterval:0.5];
             result= [NSURLConnection sendSynchronousRequest:request
                                           returningResponse:&response
                                                       error:&error];
             NSLog(@"データのget処理中...");
         }else{
-            NSLog(@"60秒経過しても接続しませんでした");
+            NSLog(@"15秒経過しても接続しませんでした");
             break;
         }
         

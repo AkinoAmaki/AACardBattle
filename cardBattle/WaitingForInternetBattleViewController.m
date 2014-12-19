@@ -34,7 +34,7 @@
                                                  name:@"stopExploringAnimation"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stopExploringAnimation)
+                                             selector:@selector(stopExploringForExcemption)
                                                  name:@"stopExploringForExcemption"
                                                object:nil];
 
@@ -313,6 +313,22 @@
                                                       userInfo:nil];
 }
 
+- (void)stopExplorationInError{
+    NSLog(@"ここきた");
+    NSLog(@"notification:off");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    stopWalking = YES;
+    getACardAlertView = nil;
+    [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
+    [ud synchronize];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissGikoGikoViewControllerInError"
+                                                        object:self
+                                                      userInfo:nil];
+//    [dev.errorAlert show];
+}
+
+
 - (void)setWalkingMeter{
     walkingMeter.text = [NSString stringWithFormat:@"残り：%dｍ",(int)((remainedWalkingTime - 8) * 1.6)];
     NSLog(@"残り：%d秒",remainedWalkingTime - 8);
@@ -324,8 +340,7 @@
 }
 
 - (void)stopExploringForExcemption{
-    [self stopExploration];
-    [dev.errorAlert show];
+    [self stopExplorationInError];
 }
 
 - (void)dismissGetACardAlertView:(NSTimer *)theTimer{

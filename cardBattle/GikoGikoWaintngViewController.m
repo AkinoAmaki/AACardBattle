@@ -39,6 +39,10 @@
                                              selector:@selector(dismissGikoGikoViewController)
                                                  name:@"dismissGikoGikoViewController"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissGikoGikoViewControllerInError)
+                                                 name:@"dismissGikoGikoViewControllerInError"
+                                               object:nil];
     explorationIsFinished = NO;
     
     [self startLoadingAnimation];
@@ -120,8 +124,12 @@
 - (void)dismissGikoGikoViewController{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    explorationIsFinished = YES;
+}
+
+- (void)dismissGikoGikoViewControllerInError{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.presentingViewController.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
     explorationIsFinished = YES;
 }
 

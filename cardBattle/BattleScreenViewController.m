@@ -574,6 +574,7 @@
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
     
+    
     //当初はボタンのタッチを禁止する
     [self forbidTouchAction];
     
@@ -6778,12 +6779,14 @@
         FINISHED1
         [timer invalidate];
         [nokoriTime removeFromSuperview];
+        [SVProgressHUD showWithStatus:@"相手の選択を待機中..." maskType:SVProgressHUDMaskTypeGradient];
         
         //カードを参照している場合及びエネルギーを参照している場合があるため、ビューをリムーブする
         [_cardInRegion removeFromSuperview];
         [_imgView removeFromSuperview];
         [_colorView removeFromSuperview];
         selectCardIsCanceledInCardInRegion = YES;
+        
     }
 }
 
