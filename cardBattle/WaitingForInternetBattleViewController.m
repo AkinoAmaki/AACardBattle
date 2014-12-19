@@ -307,7 +307,7 @@
     getACardAlertView = nil;
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissGikoGikoViewController"
                                                         object:self
                                                       userInfo:nil];
@@ -330,7 +330,7 @@
 
 - (void)dismissGetACardAlertView:(NSTimer *)theTimer{
     UIAlertView *alertView = [theTimer userInfo];
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    [alertView dismissWithClickedButtonIndex:0 animated:NO];
     [self setNewExploration];
 }
 
@@ -340,7 +340,7 @@
     [ud setInteger:remainedWalkingTime forKey:@"remainedWalkingTime"];
     [ud synchronize];
     NSLog(@"設定された探索秒数：%d秒",remainedWalkingTime - 8 );
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 

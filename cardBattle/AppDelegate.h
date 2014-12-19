@@ -14,6 +14,7 @@
 #import "NADInterstitial.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "UIImage+H568.h"
 #define ENERGYCARD 1
 #define FIELDCARD 2
 #define SORCERYCARD 3
@@ -45,11 +46,10 @@
 @property (nonatomic, retain) UIImageView *arrowR; //タップする場所を指示する矢印(左向き)
 
 //双方に関係する変数及び基礎的な変数
+@property UIFont *tanukiFont;
 @property BOOL battleStart; //対戦相手の検索が完了した場合TRUEとなる。
 @property(readwrite) CFBundleRef mainBundle;  //SE再生用のバンドル
-@property(readwrite) CFURLRef tapSoundURL;    //カード等タップ用のサウンドのURL
 @property(readonly) SystemSoundID tapSoundID; //カード等タップ用のサウンドのID
-@property(readwrite) CFURLRef cancelSoundURL; //キャンセルボタンタップ用のサウンドのURL
 @property(readonly) SystemSoundID cancelSoundID; //キャンセルボタンタップ用のサウンドのID
 @property(nonatomic,retain)AVAudioPlayer *audio; //BGMのプレイヤー
 @property int playerID; //プレイヤー固有のID

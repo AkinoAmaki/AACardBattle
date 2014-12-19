@@ -91,6 +91,8 @@
                                        withObject:nil
                                     waitUntilDone:NO];
                 [app deactivate];
+                [SVProgressHUD dismiss];
+                return; //ここでメソッド強制終了
             }
             NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
             if([string hasPrefix:@"timeout"]){
@@ -174,6 +176,8 @@
                                        withObject:nil
                                     waitUntilDone:NO];
                 [app deactivate];
+                [SVProgressHUD dismiss];
+                return;
             }
             NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
             if([string hasPrefix:@"timeout"]){
@@ -205,6 +209,7 @@
 }
 
 - (void)stopExploringAnimation{
+    [SVProgressHUD showWithStatus:@"対戦相手と同期中..." maskType:SVProgressHUDMaskTypeGradient];
     // 通知する
     [[NSNotificationCenter defaultCenter] postNotificationName:@"stopExploringAnimation"
                                                         object:self
@@ -284,6 +289,7 @@
                                    delegate:nil
                           cancelButtonTitle:nil
                           otherButtonTitles:@"OK", nil] show];
+        [SVProgressHUD dismiss];
         return;
     }
     
@@ -357,11 +363,11 @@
         result= [NSURLConnection sendSynchronousRequest:request
                                       returningResponse:&response
                                                   error:&error];
-        NSLog(@"再度get処理実行中...");
+        NSLog(@"通信できませんでした。データのget処理を再度実行中...");
         if(loop == 20){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報取得不能" message:@"位置情報を取得できませんでした。電波が弱いか、通信できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
-            [SVProgressHUD popActivity];
+            [SVProgressHUD dismiss];
             return;
         }
         loop++;
@@ -369,14 +375,14 @@
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
     if([string hasPrefix:@"timeout"]){
-        [SVProgressHUD popActivity];
+        [SVProgressHUD dismiss];
         _notFoundForLocalBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"対戦相手が見つかりませんでした。IDが間違っているか、存在しないプレイヤーです" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！",@"IDを入力して指定する", nil];
         [_notFoundForLocalBattle show];
     }else{
-        [SVProgressHUD popActivity];
+        [SVProgressHUD dismiss];
         enemyPlayerID = [[string substringWithRange:NSMakeRange(9,9)] intValue];
         enemyNickName = [string substringWithRange:NSMakeRange(27, [string length] - 27)];
-        [SVProgressHUD popActivity];
+        [SVProgressHUD dismiss];
         _isAEnemyNameForLocalBattle = [[UIAlertView alloc] initWithTitle:@"相手プレイヤー確認" message:[NSString stringWithFormat:@"相手プレイヤーの名前は %@ で間違いないですか？",enemyNickName] delegate:self cancelButtonTitle:nil otherButtonTitles:@"そうだよ",@"ちがうよ", nil];
         [_isAEnemyNameForLocalBattle show];
     }
@@ -387,7 +393,7 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"エラー" message:@"位置情報が取得できませんでした。" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
-    [SVProgressHUD popActivity];
+    [SVProgressHUD dismiss];
 }
 
 
@@ -409,12 +415,12 @@
                 [get doEnemyDecideActionRoopVersion:NO];
                 //相手プレイヤーとの接続確立に失敗し、データを受け取れなかった場合は再度相手プレイヤーの検索を行わせる。()
                 if(app.doEnemyActivate){
-                    [SVProgressHUD popActivity];
+                    [SVProgressHUD dismiss];
                     SendDataToServer *sendData = [[SendDataToServer alloc] init];
                     [sendData send];
                     [self.delegate syncFinished];
                 }else{
-                    [SVProgressHUD popActivity];
+                    [SVProgressHUD dismiss];
                     _notFoundForLocalBattle = [[UIAlertView alloc] initWithTitle:@"検索できませんでした" message:@"対戦相手が応答しませんでした。戦闘開始ボタンを押した後に再度ぶつけるか、相手プレイヤーのIDを直接入力してください" delegate:self cancelButtonTitle:nil otherButtonTitles:@"戦闘開始！",@"IDを入力して指定する", nil];
                     [_notFoundForLocalBattle show];
                 }

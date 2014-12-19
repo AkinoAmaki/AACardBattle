@@ -175,8 +175,8 @@
                 app.enemyUsingCardNumber                            = 1;
                 app.myDamageFromAA                                  = 3;
                 app.myDamageFromCard                                = 0;
-                app.myDamageInBattlePhase                           = 0;
-                app.enemyDamageInBattlePhase                        = 3;
+                app.myDamageInBattlePhase                           = 3;
+                app.enemyDamageInBattlePhase                        = 0;
                 break;
             case 15:
                 NSLog(@"SendData:3ターン目_ターン終了フェーズに入った直後");
@@ -543,7 +543,11 @@
         //初回起動でなければ、通常のデータ転送を行う。
         
         get = [[GetEnemyDataFromServer alloc] init];
-        [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
+        resultString = [self sendData]; //相手のカード効果等が未反映の状態のデータ（自分の効果は反映済み）を送信する
+        if ([resultString isEqualToString:@"Error occurred"]) {
+            //エラーが発生していたらそこで終了
+            return resultString;
+        }
         while (!app.decideAction) {
             [get doEnemyDecideActionRoopVersion:YES];
         }
@@ -559,6 +563,10 @@
         app.enemyDamageFromCard = 0; //app.enemyDamageFromAAとapp.enemyDamageFromCardだけ自分が操作している変数。例外。
         
         [self sendData]; //相手のカード効果等が反映済みの状態のデータ（自分の効果は反映済み）を送信する
+        if ([resultString isEqualToString:@"Error occurred"]) {
+            //エラーが発生していたらそこで終了
+            return resultString;
+        }
         while (!app.decideAction) {
             [get doEnemyDecideActionRoopVersion:YES];
         }
@@ -783,13 +791,22 @@
                                               error:&error];
     
     //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    //10秒経ってもデータがgetできなければ、対戦を強制終了する
     
+    int errorNum = 0;
     while (!result) {
         [NSThread sleepForTimeInterval:0.5];
-        result= [NSURLConnection sendSynchronousRequest:request
-                                      returningResponse:&response
-                                                  error:&error];
-        NSLog(@"データのget処理中...");
+        errorNum++;
+        if (errorNum < 10) {
+            result= [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+            NSLog(@"データのget処理中...");
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続切断" message:@"接続が切れました。対戦を終了します。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+            return @"Error occurred";
+        }
     }
     
     NSString *string = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];

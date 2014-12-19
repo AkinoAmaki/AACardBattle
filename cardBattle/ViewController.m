@@ -101,7 +101,7 @@
     app.audio = [[AVAudioPlayer alloc]
                  initWithContentsOfURL:url error:nil];
     app.audio.numberOfLoops = -1;
-    app.audio.volume = 0.05f;
+    app.audio.volume = 0.2f;
     [app.audio play];
     
     //初回起動ならプロローグを表示する
@@ -412,6 +412,7 @@
     
 #pragma mark- 対戦に関連する各種数値の初期化
 
+    app.tanukiFont = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12];
     app.battleStart = NO;
     app.myHand = [[NSMutableArray alloc] init]; //自分の手札
     app.myTomb = [[NSMutableArray alloc] init]; //自分の墓地のカードナンバー
@@ -625,7 +626,6 @@
     
     return YES;
 }
-
 
 - (void)battleButtonPushed{
     //BGM鳴らす

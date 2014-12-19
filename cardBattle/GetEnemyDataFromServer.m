@@ -43,12 +43,21 @@
                                   returningResponse:&response
                                               error:&error];
     //データがgetできなければ、0.5秒待ったあとに再度get処理する
+    //10秒経っても接続できなければ強制終了
+    int errorNum = 0;
     while (!result) {
-        [NSThread sleepForTimeInterval:0.5];
-        result= [NSURLConnection sendSynchronousRequest:request
-                                      returningResponse:&response
-                                                  error:&error];
-        NSLog(@"データのget処理中...");
+        errorNum++;
+        if (errorNum < 10) {
+            [NSThread sleepForTimeInterval:0.5];
+            result= [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+            NSLog(@"データのget処理中...");
+        }else{
+            NSLog(@"60秒経過しても接続しませんでした");
+            break;
+        }
+        
     }
     
     

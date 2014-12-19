@@ -99,6 +99,8 @@
     _myCardImageViewArray = [[NSMutableArray alloc] init];
     
     _allImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    _allImageView.image = //[UIImage imageNamed:@"battleBackGround.png"];
+                          [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"battleBackGround" ofType:@"png"]];
     _allImageView.userInteractionEnabled = YES;
     
     _myCardImageView = [[UIImageView alloc] init];
@@ -166,58 +168,47 @@
     _myCharacterView.userInteractionEnabled = YES;
     _enemyCharacterView.userInteractionEnabled = YES;
     
-    _chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-    _chara_myMonar       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-    _chara_mySyobon           = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-    _chara_myYaruo       = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
-    _chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-    _chara_enemyMonar    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-    _chara_enemySyobon        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-    _chara_enemyYaruo    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
+    _chara_myGiko       = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"giko" ofType:@"png"]]];
+    _chara_myMonar      = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"monar" ofType:@"png"]]];
+    _chara_mySyobon     = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"syobon" ofType:@"png"]]];
+    _chara_myYaruo      = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"yaruo" ofType:@"png"]]];
+    _chara_enemyGiko    = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"giko" ofType:@"png"]]];
+    _chara_enemyMonar   = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"monar" ofType:@"png"]]];
+    _chara_enemySyobon  = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"syobon" ofType:@"png"]]];
+    _chara_enemyYaruo   = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"yaruo" ofType:@"png"]]];
+    _migiYajirushi      = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"rightArrow" ofType:@"png"]]];
+//    _hidariYajirushi    = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"leftArrow" ofType:@"png"]]];
+    _chara_hatena       = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"hatena" ofType:@"png"]]];
     
-    
-    _chara_myGiko.userInteractionEnabled         = YES;
-    _chara_myMonar.userInteractionEnabled        = YES;
-    _chara_mySyobon.userInteractionEnabled       = YES;
-    _chara_myYaruo.userInteractionEnabled        = YES;
-    _chara_enemyGiko.userInteractionEnabled      = YES;
-    _chara_enemyMonar.userInteractionEnabled     = YES;
-    _chara_enemySyobon.userInteractionEnabled    = YES;
-    _chara_enemyYaruo.userInteractionEnabled     = YES;
+    _migiYajirushi.userInteractionEnabled        = YES;
+//    _hidariYajirushi.userInteractionEnabled      = YES;
     
     
     _chara_myGiko.tag    = GIKO;
     _chara_myMonar.tag   = MONAR;
     _chara_mySyobon.tag  = SYOBON;
     _chara_myYaruo.tag   = YARUO;
-    /*
-     chara_enemyGiko.tag = ;
-     chara_enemyMonar.tag = ;
-     chara_enemySYOBON.tag     = ;
-     chara_enemyYaruo.tag = ;
-     */
     
-    [_chara_myGiko addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [_chara_myMonar addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [_chara_mySyobon addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
-    [_chara_myYaruo addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(touchesBegan:)]];
+    app.mySelectCharacter = GIKO; //とりあえず最初はギコを選択させてる
+
+//    [_allImageView addSubview:_hidariYajirushi];
+    [_allImageView addSubview:_migiYajirushi];
+    [_myCharacterView addSubview:_chara_myGiko]; //とりあえず最初はギコを表示（矢印をタップしたら別キャラに変更）
+    [_enemyCharacterView addSubview:_chara_hatena]; //相手の選択に合わせて後々変更される
     
-    [_myCharacterView addSubview:_chara_myGiko];
-    [_myCharacterView addSubview:_chara_myMonar];
-    [_myCharacterView addSubview:_chara_mySyobon];
-    [_myCharacterView addSubview:_chara_myYaruo];
-    [_enemyCharacterView addSubview:_chara_enemyGiko];
-    [_enemyCharacterView addSubview:_chara_enemyMonar];
-    [_enemyCharacterView addSubview:_chara_enemySyobon];
-    [_enemyCharacterView addSubview:_chara_enemyYaruo];
+    [_migiYajirushi addGestureRecognizer:
+     [[UITapGestureRecognizer alloc]
+      initWithTarget:self action:@selector(migiYajirushiTouched:)]];
+//    [_hidariYajirushi addGestureRecognizer:
+//     [[UITapGestureRecognizer alloc]
+//      initWithTarget:self action:@selector(hidariYajirushiTouched:)]];
+    
+    //背景の「VS」の文字を表示
+    UIImageView *vs = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"vs" ofType:@"png"]]];
+    vs.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [_allImageView addSubview:vs];
+
+    
     
     
     
@@ -259,6 +250,10 @@
      [[UITapGestureRecognizer alloc]
       initWithTarget:self action:@selector(goodGameButtonTouched)]];
     [_allImageView addSubview:_goodGame];
+    
+    //残りタイムを表示するビューを作成
+    nokoriTime = [[UILabel alloc] init];
+    nokoriTime.font = app.tanukiFont;
     
     //エネルギーの数を表示するビューを作成
     //自分側
@@ -363,6 +358,12 @@
     _enemyRedEnergyText.text   = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:3] intValue]];
     _enemyGreenEnergyText.text = [NSString stringWithFormat:@"%d",[[app.enemyEnergyCard objectAtIndex:4] intValue]];
     
+    [PenetrateFilter penetrate:_enemyWhiteEnergyText];
+    [PenetrateFilter penetrate:_enemyBlueEnergyText];
+    [PenetrateFilter penetrate:_enemyBlackEnergyText];
+    [PenetrateFilter penetrate:_enemyRedEnergyText];
+    [PenetrateFilter penetrate:_enemyGreenEnergyText];
+    
     [_enemyAllEnergy addSubview:_enemyWhiteEnergyText];
     [_enemyAllEnergy addSubview:_enemyBlueEnergyText];
     [_enemyAllEnergy addSubview:_enemyBlackEnergyText];
@@ -406,40 +407,47 @@
         detailOfACard.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
         detailOfACard.contentMode = UIViewContentModeCenter;
         
-        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
-        _enemyCardImageView.frame = CGRectMake(10, 40, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
+        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 110, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
+        _enemyCardImageView.frame = CGRectMake(10, 55, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
         
         
         resultFadeinScrollView.frame = CGRectMake(20, 50, 240 , 350);
         
         _colorView.frame = CGRectMake(20, 20, 280 , 440);
         
-        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
+        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 68, _okButton.superview.bounds.size.height - 369, 50, 50);
+        
+        nokoriTime.frame = CGRectMake(255, 380, 100, 100);
         
         myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
         myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
-        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
+        enemyLifeImageView.frame = CGRectMake(10, 3, 50, 50);
         enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
         
-        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
-        _enemyCharacterView.frame = CGRectMake(100, 100, 200, 50);
+        _myCharacterView.frame = CGRectMake(7, _myCharacterView.superview.bounds.size.height - 291, 132, 132);
+        _enemyCharacterView.frame = CGRectMake(110, _enemyCharacterView.superview.bounds.size.height - 415, 132, 132);
         
-        _chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
-        _chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
-        _chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
-        _chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
-        _chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
-        _chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
-        _chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
-        _chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
+//        _hidariYajirushi.frame = CGRectMake(0, _myCharacterView.superview.bounds.size.height - 150, 50, 50);
+        _migiYajirushi.right = _myCharacterView.right;
+        _migiYajirushi.bottom = _myCharacterView.bottom;
         
-        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
-        _enemyTomb.frame = CGRectMake(10, 130, 50, 50);
+        _chara_myGiko.frame          = CGRectMake(  0, 0, 132, 132);
+        _chara_myMonar.frame         = CGRectMake(  0, 0, 132, 132);
+        _chara_mySyobon.frame        = CGRectMake(  0, 0, 132, 132);
+        _chara_myYaruo.frame         = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyGiko.frame       = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyMonar.frame      = CGRectMake(  0, 0, 132, 132);
+        _chara_enemySyobon.frame     = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyYaruo.frame      = CGRectMake(  0, 0, 132, 132);
+        _chara_hatena.frame          = CGRectMake(  0, 0, 132, 132);
         
-        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
-        _enemyField.frame = CGRectMake(10, 190, 50, 50);
+        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 123, _myTomb.superview.bounds.size.height - 220, 50, 50);
+        _enemyTomb.frame = CGRectMake(55, 158, 50, 50);
         
-        _goodGame.frame = CGRectMake(10, 250, 50, 50);
+        _myField.frame = CGRectMake(_myTomb.superview.bounds.size.width - 176, _myTomb.superview.bounds.size.height - 220, 50, 50);
+        _enemyField.frame = CGRectMake(2, 158, 50, 50);
+        
+        _goodGame.frame = CGRectMake(251, 295, 50, 50);
         
         _myWhiteEnergyImage.frame = CGRectMake(  0,  10, 20, 20);
         _myBlueEnergyImage.frame  = CGRectMake( 50,  10, 20, 20);
@@ -459,7 +467,7 @@
         _myUsingRedEnergyText.frame     = CGRectMake( 170, 0, 30, 20);
         _myUsingGreenEnergyText.frame   = CGRectMake( 220, 0, 30, 20);
         
-        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 40, 250, 40);
+        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 65, 250, 40);
         
         _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
         _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
@@ -473,44 +481,50 @@
         _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
         _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
         
-        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, 10, 250, 20);
+        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, 3, 250, 20);
     }else{
         detailOfACard.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
         detailOfACard.contentMode = UIViewContentModeCenter;
         
-        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 90, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
-        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 440, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
+        _myCardImageView.frame = CGRectMake(0, _myCardImageView.superview.bounds.size.height - 110, _myCardImageView.superview.bounds.size.width - 60, CARDHEIGHT);
+        _enemyCardImageView.frame = CGRectMake(10, _enemyCardImageView.superview.bounds.size.height - 438, _enemyCardImageView.superview.bounds.size.width, CARDHEIGHT);
         
         resultFadeinScrollView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 430, 240 , 350);
         
         _colorView.frame = CGRectMake(20, [[UIScreen mainScreen] bounds].size.height - 460, 280 , 440);
         
-        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 60, _okButton.superview.bounds.size.height - 300, 50, 50);
+        _okButton.frame = CGRectMake(_okButton.superview.bounds.size.width - 68, _okButton.superview.bounds.size.height - 326, 50, 50);
+        
+        nokoriTime.frame = CGRectMake(255, 330, 100, 100);
         
         myLifeImageView.frame = CGRectMake(myLifeImageView.superview.bounds.size.width - 60, myLifeImageView.superview.bounds.size.height - 60, 50, 50);
         myLifeTextView.frame = CGRectMake(0, 10, myLifeTextView.superview.bounds.size.width, myLifeTextView.superview.bounds.size.height - 10);
-        enemyLifeImageView.frame = CGRectMake(10, 10, 50, 50);
+        enemyLifeImageView.frame = CGRectMake(10, 3, 50, 50);
         enemyLifeTextView.frame = CGRectMake(0, 10, enemyLifeTextView.superview.bounds.size.width, enemyLifeTextView.superview.bounds.size.height - 10);
         
-        _myCharacterView.frame = CGRectMake(20, _myCharacterView.superview.bounds.size.height - 150, 200, 50);
-        _enemyCharacterView.frame = CGRectMake(100, _enemyCharacterView.superview.bounds.size.height - 380, 200, 50);
+        _myCharacterView.frame = CGRectMake(7, _myCharacterView.superview.bounds.size.height - 251, 132, 132);
+        _enemyCharacterView.frame = CGRectMake(110, _enemyCharacterView.superview.bounds.size.height - 375, 132, 132);
         
-        _chara_myGiko.frame          = CGRectMake(  0, 0, 50, 50);
-        _chara_myMonar.frame         = CGRectMake( 50, 0, 50, 50);
-        _chara_mySyobon.frame        = CGRectMake(100, 0, 50, 50);
-        _chara_myYaruo.frame         = CGRectMake(150, 0, 50, 50);
-        _chara_enemyGiko.frame       = CGRectMake(  0, 0, 50, 50);
-        _chara_enemyMonar.frame      = CGRectMake( 50, 0, 50, 50);
-        _chara_enemySyobon.frame     = CGRectMake(100, 0, 50, 50);
-        _chara_enemyYaruo.frame      = CGRectMake(150, 0, 50, 50);
+//        _hidariYajirushi.frame = CGRectMake(0, _myCharacterView.superview.bounds.size.height - 150, 50, 50);
+        _migiYajirushi.frame = CGRectMake(70, _myCharacterView.superview.bounds.size.height - 150, 50, 50);
         
-        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 60, _myTomb.superview.bounds.size.height - 180, 50, 50);
-        _enemyTomb.frame = CGRectMake(10, 130, 50, 50);
+        _chara_myGiko.frame          = CGRectMake(  0, 0, 132, 132);
+        _chara_myMonar.frame         = CGRectMake(  0, 0, 132, 132);
+        _chara_mySyobon.frame        = CGRectMake(  0, 0, 132, 132);
+        _chara_myYaruo.frame         = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyGiko.frame       = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyMonar.frame      = CGRectMake(  0, 0, 132, 132);
+        _chara_enemySyobon.frame     = CGRectMake(  0, 0, 132, 132);
+        _chara_enemyYaruo.frame      = CGRectMake(  0, 0, 132, 132);
+        _chara_hatena.frame          = CGRectMake(  0, 0, 132, 132);
         
-        _myField.frame = CGRectMake(_myField.superview.bounds.size.width - 60, _myField.superview.bounds.size.height - 240, 50, 50);
-        _enemyField.frame = CGRectMake(10, 190, 50, 50);
+        _myTomb.frame = CGRectMake(_myTomb.superview.bounds.size.width - 123, _myTomb.superview.bounds.size.height - 177, 50, 50);
+        _enemyTomb.frame = CGRectMake(2, 113, 50, 50);
         
-        _goodGame.frame = CGRectMake(10, 250, 50, 50);
+        _myField.frame = CGRectMake(_myTomb.superview.bounds.size.width - 176, _myTomb.superview.bounds.size.height - 177, 50, 50);
+        _enemyField.frame = CGRectMake(55, 113, 50, 50);
+        
+        _goodGame.frame = CGRectMake(251, 250, 50, 50);
         
         _myWhiteEnergyImage.frame = CGRectMake(  0,  10, 20, 20);
         _myBlueEnergyImage.frame  = CGRectMake( 50,  10, 20, 20);
@@ -530,7 +544,7 @@
         _myUsingRedEnergyText.frame     = CGRectMake( 170, 0, 30, 20);
         _myUsingGreenEnergyText.frame   = CGRectMake( 220, 0, 30, 20);
         
-        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 40, 250, 40);
+        _myAllEnergy.frame = CGRectMake(10, _myAllEnergy.superview.bounds.size.height - 65, 250, 40);
         
         _enemyWhiteEnergyImage.frame = CGRectMake(  0,  0, 20, 20);
         _enemyBlueEnergyImage.frame  = CGRectMake( 50,  0, 20, 20);
@@ -544,7 +558,7 @@
         _enemyRedEnergyText.frame   = CGRectMake(170, 0, 30, 20);
         _enemyGreenEnergyText.frame = CGRectMake(220, 0, 30, 20);
         
-        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 470, 250, 20);
+        _enemyAllEnergy.frame = CGRectMake(_enemyAllEnergy.superview.bounds.size.width - 250, _enemyAllEnergy.superview.bounds.size.height - 477, 250, 20);
     }
     
     //アプリがアクティブ・非アクティブになった際の挙動を規定する
@@ -608,19 +622,19 @@
 //    [startButton addTarget:self action:@selector(battleStartForLocalBattle)
 //          forControlEvents:UIControlEventTouchUpInside];
 //    
-    UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug1Button.frame = CGRectMake(160, 300, 80, 20);
-    [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug1Button];
-    [debug1Button addTarget:self action:@selector(debug1:)
-           forControlEvents:UIControlEventTouchUpInside];
-
-    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    debug2Button.frame = CGRectMake(160, 360, 80, 20);
-    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
-    [_allImageView addSubview:debug2Button];
-    [debug2Button addTarget:self action:@selector(debug2:)
-           forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *debug1Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug1Button.frame = CGRectMake(160, 300, 80, 20);
+//    [debug1Button setTitle:@"デバッグ1" forState:UIControlStateNormal];
+//    [_allImageView addSubview:debug1Button];
+//    [debug1Button addTarget:self action:@selector(debug1:)
+//           forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *debug2Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    debug2Button.frame = CGRectMake(160, 360, 80, 20);
+//    [debug2Button setTitle:@"デバッグ2" forState:UIControlStateNormal];
+//    [_allImageView addSubview:debug2Button];
+//    [debug2Button addTarget:self action:@selector(debug2:)
+//           forControlEvents:UIControlEventTouchUpInside];
 //
 //    UIButton *debug3Button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 //    debug3Button.frame = CGRectMake(160, 420, 80, 20);
@@ -657,20 +671,30 @@
 }
 
 - (void)debug1 :(UITapGestureRecognizer *)sender{
-    app.mySelectCharacter = GIKO;
-    app.enemySelectCharacter = GIKO;
-    [self jankenHantei];
+    while (true) {
+        for (UIImageView *view in [self.view subviews]) {
+            [view removeFromSuperview];
+        }
+        UIImageView *test = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"battleBackGround.png"]];
+//        UIImageView *test = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"battleBackGround" ofType:@"png"]]];
+        test.frame = CGRectMake(0, 0, 320, 568);
+        [self.view addSubview:test];
+    }
 }
 
 - (void)debug2 :(UITapGestureRecognizer *)sender{
-    app.myLifeGage = 0;
-    [self isGameOver];
+    [self performSelectorInBackground:@selector(seigenTimer)
+                           withObject:nil];
 }
 
 
 - (void)startInternetBattle :(UITapGestureRecognizer *)sender{
     //BGM鳴らす
     AudioServicesPlaySystemSound (app.tapSoundID);
+    [_returnToMainViewButton removeFromSuperview];
+    [_localBattleButton removeFromSuperview];
+    [_internetBattleButton removeFromSuperview];
+    [_blackBack removeFromSuperview];
     
     //デッキを選択させる
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -681,8 +705,7 @@
     course = [[CourseSelectViewController alloc] init];
     
     // 通知センターにオブザーバ（通知を受け取るオブジェクト）を追加
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(battleStartForInternetBattle) name:@"BattleStartPost" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(battleStartForInternetBattle) name:@"BattleStartPost" object:nil]; //対戦開始の通知
     [self presentViewController:course animated:YES completion:nil];
 }
 
@@ -695,7 +718,78 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)hidariYajirushiTouched: (UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (app.tapSoundID);
+    UIImageView *temp = [[UIImageView alloc] init];
+    temp = [_myCharacterView.subviews objectAtIndex:0];
+    NSLog(@"temp:%@",temp);
+    NSLog(@"temp.tag:%d",temp.tag);
+    switch (temp.tag) {
+        case  GIKO:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myMonar];
+            app.mySelectCharacter = MONAR;
+            break;
+        case  MONAR:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_mySyobon];
+            app.mySelectCharacter = SYOBON;
+            break;
+        case  SYOBON:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myYaruo];
+            app.mySelectCharacter = YARUO;
+            break;
+        case  YARUO:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myGiko];
+            app.mySelectCharacter = GIKO;
+            break;
+        default:
+            break;
+    }
+    
+    UIImageView *temp2 = [[UIImageView alloc] init];
+    temp2 = [_myCharacterView.subviews objectAtIndex:0];
+    NSLog(@"temp2:%@",temp2);
+    NSLog(@"temp2.tag:%d",temp2.tag);
+}
 
+- (void)migiYajirushiTouched: (UITapGestureRecognizer *)sender{
+    AudioServicesPlaySystemSound (app.tapSoundID);
+    UIImageView *temp = [[UIImageView alloc] init];
+    temp = [_myCharacterView.subviews objectAtIndex:0];
+    
+    switch (temp.tag) {
+        case  GIKO:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myMonar];
+            app.mySelectCharacter = MONAR;
+            break;
+        case  MONAR:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_mySyobon];
+            app.mySelectCharacter = SYOBON;
+            break;
+        case  SYOBON:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myYaruo];
+            app.mySelectCharacter = YARUO;
+            break;
+        case  YARUO:
+            [temp removeFromSuperview];
+            [_myCharacterView addSubview:_chara_myGiko];
+            app.mySelectCharacter = GIKO;
+            break;
+        default:
+            break;
+    }
+    
+    UIImageView *temp2 = [[UIImageView alloc] init];
+    temp2 = [_myCharacterView.subviews objectAtIndex:0];
+    NSLog(@"temp2:%@",temp2);
+    NSLog(@"temp2.tag:%d",temp2.tag);
+}
 
 - (void)touchesBegan: (UITapGestureRecognizer *)sender{
     AudioServicesPlaySystemSound (app.tapSoundID);
@@ -798,7 +892,10 @@
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
             [self getACard:MYSELF];
         }
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self refleshView];
         app.myAdditionalGettingCards = 0;
         if (turnCount != 1) {
@@ -818,29 +915,49 @@
         [self sync];
         //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
         [self permitTouchAction];
-        
+        [self seigenTimer];
         //touchActionの入力を待つための同期処理
         while (cardIsCompletlyUsed == NO) {
             [self sync];
         }
+        
+        //タイマーを止めてリムーブする
+        [timer invalidate];
+        [nokoriTime removeFromSuperview];
+        
         [self activateCardInTiming:1];
         
         //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
         [self forbidTouchAction];
         
         //相手の入力待ち(app.decideAction = YESとなれば先に進む)
+        int decide2 = 0;
         while (!app.decideAction) {
-            [getEnemyData doEnemyDecideActionRoopVersion:YES];
+            decide2++;
+            if (decide2 < 2) {
+                [getEnemyData doEnemyDecideActionRoopVersion:YES];
+            }else{
+                [self errorOccurredPost];
+                break;
+            }
         }
         [getEnemyData doEnemyDecideActionRoopVersion:NO];
-        [sendMyData send];
+        
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [SVProgressHUD dismiss];
         [self activateCardInTiming:99];
         [self refleshView];
+        [self enemyCharacterViewChange];
+        [self jankenHantei];
+        [self sync];
         [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
         [self sync];
         [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
         [self sync];
+        
         //ダメージ計算
         NSLog(@"ダメージ計算フェーズ");
         [self phaseNameFadeIn:@"ダメージ計算フェイズ"];
@@ -855,7 +972,10 @@
         //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
         [NSThread sleepForTimeInterval:0.5];
         [getEnemyData doEnemyDecideActionRoopVersion:NO];
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self activateCardInTiming:99];
         //カード効果でカードを引いたら処理する
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
@@ -874,7 +994,10 @@
         //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
         [NSThread sleepForTimeInterval:0.5];
         [getEnemyData doEnemyDecideActionRoopVersion:NO];
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
         [self refleshView];
         [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
@@ -895,7 +1018,10 @@
         //!!! :相手のdecideActionを受け取ってから自分のdecideActionをNOにするまでの時間を短くした。片方の端末ではフェーズが進み、もう片方の端末では進まない場合、スリープ時間が短すぎる可能性があるため、1秒程度まで伸ばせば良い。
         [NSThread sleepForTimeInterval:0.5];
         [getEnemyData doEnemyDecideActionRoopVersion:NO];
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self refleshView];
         [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
         [self sync];
@@ -961,7 +1087,10 @@
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
             [self getACard:MYSELF];
         }
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self refleshView];
         app.myAdditionalGettingCards = 0;
         if (turnCount != 1) {
@@ -980,7 +1109,6 @@
         [self sync];
         //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを許可する
         [self permitTouchAction];
-        
         //ターン毎に説明を入れる
         switch (turnCount) {
             case 1:
@@ -1013,10 +1141,16 @@
         //手札・キャラクター・ネクストボタン・フィールドカードボタン・墓地カードボタンのタッチを禁止する
         [self forbidTouchAction];
 
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [SVProgressHUD dismiss];
         [self activateCardInTiming:99];
         [self refleshView];
+        [self enemyCharacterViewChange];
+        [self jankenHantei];
+        [self sync];
         [self cardUsingAnimation:app.cardsIUsedInThisTurn man:MYSELF];
         [self sync];
         [self cardUsingAnimation:app.cardsEnemyUsedInThisTurn man:ENEMY];
@@ -1031,7 +1165,10 @@
         NSLog(@"%s",__func__);
         [self activateCardInTiming:2];
 
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self activateCardInTiming:99];
         //カード効果でカードを引いたら処理する
         for (int i = 0; i < app.myAdditionalGettingCards; i++) {
@@ -1044,7 +1181,10 @@
             [self sync];
         }
         app.enemyDamageFromAA = [_bc damageCaliculate];
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         NSLog(@"app.enemyLifeGage:%d",app.enemyLifeGage);
         [self refleshView];
         [self damageCaliculateFadeIn:_damageCaliculateView animaImage:[UIImage imageNamed:@"fadeinImage"]];
@@ -1079,7 +1219,10 @@
         [self activateCardInTiming:3];
         [self activateCardInTiming:99];
 
-        [sendMyData send];
+        if([[sendMyData send] isEqualToString:@"Error occurred"]){
+            [self errorOccurredPost];
+            return;
+        }
         [self refleshView];
         [self resultFadeIn:_turnResultView animaImage:[UIImage imageNamed:@"fadeinImage"]];
         switch (turnCount) {
@@ -2609,6 +2752,8 @@
 
 
 - (void)damageCaliculateFadeIn:(UIImageView *)view animaImage:(UIImage *)img{
+    //使用するフォントを定義
+    UIFont *font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12];
     view.frame = CGRectMake(0, 0, 280, 420);
 
     view.center = CGPointMake( [[UIScreen mainScreen] bounds].size.width *2,  [[UIScreen mainScreen] bounds].size.height / 2 - 20);
@@ -2626,18 +2771,64 @@
     resultFadeinScrollView.contentSize = CGSizeMake(240, 350);
     
     [resultFadeinScrollView addSubview:_myDamage];
-    [resultFadeinScrollView addSubview:_myGiko];
-    [resultFadeinScrollView addSubview:_myMonar];
-    [resultFadeinScrollView addSubview:_mySyobon];
-    [resultFadeinScrollView addSubview:_myYaruo];
-    [resultFadeinScrollView addSubview:_myDamage];
-    [resultFadeinScrollView addSubview:_enemyDamage];
-    [resultFadeinScrollView addSubview:_enemyGiko];
-    [resultFadeinScrollView addSubview:_enemyMonar];
-    [resultFadeinScrollView addSubview:_enemySyobon];
-    [resultFadeinScrollView addSubview:_enemyYaruo];
-    [resultFadeinScrollView addSubview:_enemyDamage];
+    _myDamage.frame    = CGRectMake(20, 120, view.bounds.size.width - 20, 40);
+    _myDamage.font = font;
     
+    [resultFadeinScrollView addSubview:_enemyDamage];
+    _enemyDamage.frame = CGRectMake(20, 280, view.bounds.size.width - 20, 40);
+    _enemyDamage.font = font;
+    
+    
+    //選択したキャラクター毎に処理を分岐
+    switch (app.mySelectCharacter) {
+        case GIKO:
+            [resultFadeinScrollView addSubview:_myGiko];
+            _myGiko.frame      = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
+            _myGiko.font = font;
+            break;
+        case MONAR:
+            [resultFadeinScrollView addSubview:_myMonar];
+            _myMonar.frame     = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
+            _myMonar.font = font;
+            break;
+        case SYOBON:
+            [resultFadeinScrollView addSubview:_mySyobon];
+            _mySyobon.frame    = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
+            _mySyobon.font = font;
+            break;
+        case YARUO:
+            [resultFadeinScrollView addSubview:_myYaruo];
+            _myYaruo.frame     = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
+            _myYaruo.font = font;
+            break;
+        default:
+            break;
+    }
+    
+    switch (app.enemySelectCharacter) {
+        case GIKO:
+            [resultFadeinScrollView addSubview:_enemyGiko];
+            _enemyGiko.frame   = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
+            _enemyGiko.font = font;
+            break;
+        case MONAR:
+            [resultFadeinScrollView addSubview:_enemyMonar];
+            _enemyMonar.frame  = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
+            _enemyMonar.font = font;
+            break;
+        case SYOBON:
+            [resultFadeinScrollView addSubview:_enemySyobon];
+            _enemySyobon.frame = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
+            _enemySyobon.font = font;
+            break;
+        case YARUO:
+            [resultFadeinScrollView addSubview:_enemyYaruo];
+            _enemyYaruo.frame  = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
+            _enemyYaruo.font = font;
+            break;
+        default:
+            break;
+    }
     
     UILabel *myName = [[UILabel alloc] init];
     [resultFadeinScrollView addSubview:myName];
@@ -2653,64 +2844,7 @@
     myName.font = nameFont;
     enemyName.font = nameFont;
     
-    _myGiko.frame      = CGRectMake(20,  40, view.bounds.size.width - 20, 20);
-    _myMonar.frame     = CGRectMake(20,  60, view.bounds.size.width - 20, 20);
-    _mySyobon.frame    = CGRectMake(20,  80, view.bounds.size.width - 20, 20);
-    _myYaruo.frame     = CGRectMake(20, 100, view.bounds.size.width - 20, 20);
-    _myDamage.frame    = CGRectMake(20, 120, view.bounds.size.width - 20, 40);
-    _enemyGiko.frame   = CGRectMake(20, 200, view.bounds.size.width - 20, 20);
-    _enemyMonar.frame  = CGRectMake(20, 220, view.bounds.size.width - 20, 20);
-    _enemySyobon.frame = CGRectMake(20, 240, view.bounds.size.width - 20, 20);
-    _enemyYaruo.frame  = CGRectMake(20, 260, view.bounds.size.width - 20, 20);
-    _enemyDamage.frame = CGRectMake(20, 280, view.bounds.size.width - 20, 40);
-    
-    UIFont *font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:11];
-    _myGiko.font = font;
-    _myMonar.font = font;
-    _mySyobon.font = font;
-    _myYaruo.font = font;
-    _myDamage.font = font;
-    _enemyGiko.font = font;
-    _enemyMonar.font = font;
-    _enemySyobon.font = font;
-    _enemyYaruo.font = font;
-    _enemyDamage.font = font;
-    
-    
     [self insertLabelToParentView:view Text:@"ダメージ計算結果"  Rectangle:CGRectMake(50,25,180,30) Touch:NO];
-    
-    switch (app.mySelectCharacter) {
-        case GIKO:
-            _myGiko.textColor = [UIColor redColor];
-            break;
-        case MONAR:
-            _myMonar.textColor = [UIColor redColor];
-            break;
-        case SYOBON:
-            _mySyobon.textColor = [UIColor redColor];
-            break;
-        case YARUO:
-            _myYaruo.textColor = [UIColor redColor];
-            break;
-        default:
-            break;
-    }
-    switch (app.enemySelectCharacter) {
-        case GIKO:
-            _enemyGiko.textColor = [UIColor redColor];
-            break;
-        case MONAR:
-            _enemyMonar.textColor = [UIColor redColor];
-            break;
-        case SYOBON:
-            _enemySyobon.textColor = [UIColor redColor];
-            break;
-        case YARUO:
-            _enemyYaruo.textColor = [UIColor redColor];
-            break;
-        default:
-            break;
-    }
     
     NSString *myGikoAttackPermitted;
     NSString *myMonarAttackPermitted;
@@ -2730,98 +2864,117 @@
     NSString *enemyYaruoDeffencePermitted;
     
     if (app.myGikoAttackPermittedByMyself && app.myGikoAttackPermittedFromEnemy) {
-        myGikoAttackPermitted = @"○";
+        myGikoAttackPermitted = @"なし";
     }else{
-        myGikoAttackPermitted = @"×";
+        myGikoAttackPermitted = @"あり";
     }
     if (app.myMonarAttackPermittedByMyself && app.myMonarAttackPermittedFromEnemy) {
-        myMonarAttackPermitted = @"○";
+        myMonarAttackPermitted = @"なし";
     }else{
-        myMonarAttackPermitted = @"×";
+        myMonarAttackPermitted = @"あり";
     }
     if (app.mySyobonAttackPermittedByMyself && app.mySyobonAttackPermittedFromEnemy) {
-        mySyobonAttackPermitted = @"○";
+        mySyobonAttackPermitted = @"なし";
     }else{
-        mySyobonAttackPermitted = @"×";
+        mySyobonAttackPermitted = @"あり";
     }
     if (app.myYaruoAttackPermittedByMyself && app.myYaruoAttackPermittedFromEnemy) {
-        myYaruoAttackPermitted = @"○";
+        myYaruoAttackPermitted = @"なし";
     }else{
-        myYaruoAttackPermitted = @"×";
+        myYaruoAttackPermitted = @"あり";
     }
     if (app.enemyGikoAttackPermittedByMyself && app.enemyGikoAttackPermittedFromEnemy) {
-        enemyGikoAttackPermitted = @"○";
+        enemyGikoAttackPermitted = @"なし";
     }else{
-        enemyGikoAttackPermitted = @"×";
+        enemyGikoAttackPermitted = @"あり";
     }
     if (app.enemyMonarAttackPermittedByMyself && app.enemyMonarAttackPermittedFromEnemy) {
-        enemyMonarAttackPermitted = @"○";
+        enemyMonarAttackPermitted = @"なし";
     }else{
-        enemyMonarAttackPermitted = @"×";
+        enemyMonarAttackPermitted = @"あり";
     }
     if (app.enemySyobonAttackPermittedByMyself && app.enemySyobonAttackPermittedFromEnemy) {
-        enemySyobonAttackPermitted = @"○";
+        enemySyobonAttackPermitted = @"なし";
     }else{
-        enemySyobonAttackPermitted = @"×";
+        enemySyobonAttackPermitted = @"あり";
     }
     if (app.enemyYaruoAttackPermittedByMyself && app.enemyYaruoAttackPermittedFromEnemy) {
-        enemyYaruoAttackPermitted = @"○";
+        enemyYaruoAttackPermitted = @"なし";
     }else{
-        enemyYaruoAttackPermitted = @"×";
+        enemyYaruoAttackPermitted = @"あり";
     }
     
     
     if (app.myGikoDeffencePermittedByMyself && app.myGikoDeffencePermittedFromEnemy) {
-        myGikoDeffencePermitted = @"○";
+        myGikoDeffencePermitted = @"なし";
     }else{
-        myGikoDeffencePermitted = @"×";
+        myGikoDeffencePermitted = @"あり";
     }
     if (app.myMonarDeffencePermittedByMyself && app.myMonarDeffencePermittedFromEnemy) {
-        myMonarDeffencePermitted = @"○";
+        myMonarDeffencePermitted = @"なし";
     }else{
-        myMonarDeffencePermitted = @"×";
+        myMonarDeffencePermitted = @"あり";
     }
     if (app.mySyobonDeffencePermittedByMyself && app.mySyobonDeffencePermittedFromEnemy) {
-        mySyobonDeffencePermitted = @"○";
+        mySyobonDeffencePermitted = @"なし";
     }else{
-        mySyobonDeffencePermitted = @"×";
+        mySyobonDeffencePermitted = @"あり";
     }
     if (app.myYaruoDeffencePermittedByMyself && app.myYaruoDeffencePermittedFromEnemy) {
-        myYaruoDeffencePermitted = @"○";
+        myYaruoDeffencePermitted = @"なし";
     }else{
-        myYaruoDeffencePermitted = @"×";
+        myYaruoDeffencePermitted = @"あり";
     }
     if (app.enemyGikoDeffencePermittedByMyself && app.enemyGikoDeffencePermittedFromEnemy) {
-        enemyGikoDeffencePermitted = @"○";
+        enemyGikoDeffencePermitted = @"なし";
     }else{
-        enemyGikoDeffencePermitted = @"×";
+        enemyGikoDeffencePermitted = @"あり";
     }
     if (app.enemyMonarDeffencePermittedByMyself && app.enemyMonarDeffencePermittedFromEnemy) {
-        enemyMonarDeffencePermitted = @"○";
+        enemyMonarDeffencePermitted = @"なし";
     }else{
-        enemyMonarDeffencePermitted = @"×";
+        enemyMonarDeffencePermitted = @"あり";
     }
     if (app.enemySyobonDeffencePermittedByMyself && app.enemySyobonDeffencePermittedFromEnemy) {
-        enemySyobonDeffencePermitted = @"○";
+        enemySyobonDeffencePermitted = @"なし";
     }else{
-        enemySyobonDeffencePermitted = @"×";
+        enemySyobonDeffencePermitted = @"あり";
     }
     if (app.enemyYaruoDeffencePermittedByMyself && app.enemyYaruoDeffencePermittedFromEnemy) {
-        enemyYaruoDeffencePermitted = @"○";
+        enemyYaruoDeffencePermitted = @"なし";
     }else{
-        enemyYaruoDeffencePermitted = @"×";
+        enemyYaruoDeffencePermitted = @"あり";
     }
     
-    _myGiko.text    = [NSString stringWithFormat:@"ギコ　:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myGikoFundamentalAttackPower      , app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower     , app.myGikoModifyingDeffencePower,myGikoAttackPermitted,myGikoDeffencePermitted];
-    _myMonar.text   = [NSString stringWithFormat:@"モナー:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myMonarFundamentalAttackPower     , app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower    , app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
-    _mySyobon.text  = [NSString stringWithFormat:@"ｼｮﾎﾞﾝ :攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.mySyobonFundamentalAttackPower    , app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower   , app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
-    _myYaruo.text   = [NSString stringWithFormat:@"やる夫:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.myYaruoFundamentalAttackPower     , app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower    , app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
-    _myDamage.text  = [NSString stringWithFormat:@"自分が受けたダメージ:%d",app.myDamageInBattlePhase];
-    _enemyGiko.text = [NSString stringWithFormat:@"ギコ　:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@"  ,app.enemyGikoFundamentalAttackPower   , app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower  , app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
-    _enemyMonar.text = [NSString stringWithFormat:@"モナー:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@" ,app.enemyMonarFundamentalAttackPower  , app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower , app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
-    _enemySyobon.text = [NSString stringWithFormat:@"ｼｮﾎﾞﾝ :攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@",app.enemySyobonFundamentalAttackPower , app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower, app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
-    _enemyYaruo.text = [NSString stringWithFormat:@"やる夫:攻撃力:%d+%d 防御力:%d+%d 攻:%@ 防:%@" ,app.enemyYaruoFundamentalAttackPower  , app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower , app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
-    _enemyDamage.text  = [NSString stringWithFormat:@"相手が受けたダメージ:%d",app.enemyDamageInBattlePhase];
+    _myGiko.text    = [NSString stringWithFormat:@"キャラクター：ギコ\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@"  ,app.myGikoFundamentalAttackPower + app.myGikoModifyingAttackPower     , app.myGikoFundamentalDeffencePower + app.myGikoModifyingDeffencePower,myGikoAttackPermitted,myGikoDeffencePermitted];
+    _myMonar.text   = [NSString stringWithFormat:@"キャラクター：モナー\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@"  ,app.myMonarFundamentalAttackPower + app.myMonarModifyingAttackPower    , app.myMonarFundamentalDeffencePower + app.myMonarModifyingDeffencePower,myMonarAttackPermitted,myMonarDeffencePermitted];
+    _mySyobon.text  = [NSString stringWithFormat:@"キャラクター：ショボン\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@"  ,app.mySyobonFundamentalAttackPower + app.mySyobonModifyingAttackPower   , app.mySyobonFundamentalDeffencePower + app.mySyobonModifyingDeffencePower,mySyobonAttackPermitted,mySyobonDeffencePermitted];
+    _myYaruo.text   = [NSString stringWithFormat:@"キャラクター：やる夫\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@"  ,app.myYaruoFundamentalAttackPower + app.myYaruoModifyingAttackPower    , app.myYaruoFundamentalDeffencePower + app.myYaruoModifyingDeffencePower,myYaruoAttackPermitted,myYaruoDeffencePermitted];
+    _myDamage.text  = [NSString stringWithFormat:@"あなたがAAから受けたダメージ:%d",app.myDamageInBattlePhase];
+    _enemyGiko.text = [NSString stringWithFormat:@"キャラクター：ギコ\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@"  ,app.enemyGikoFundamentalAttackPower + app.enemyGikoModifyingAttackPower  , app.enemyGikoFundamentalDeffencePower + app.enemyGikoModifyingDeffencePower,enemyGikoAttackPermitted,enemyGikoDeffencePermitted];
+    _enemyMonar.text = [NSString stringWithFormat:@"キャラクター：モナー\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@" ,app.enemyMonarFundamentalAttackPower + app.enemyMonarModifyingAttackPower , app.enemyMonarFundamentalDeffencePower + app.enemyMonarModifyingDeffencePower,enemyMonarAttackPermitted,enemyMonarDeffencePermitted];
+    _enemySyobon.text = [NSString stringWithFormat:@"キャラクター：ショボン\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@",app.enemySyobonFundamentalAttackPower + app.enemySyobonModifyingAttackPower, app.enemySyobonFundamentalDeffencePower + app.enemySyobonModifyingDeffencePower,enemySyobonAttackPermitted,enemySyobonDeffencePermitted];
+    _enemyYaruo.text = [NSString stringWithFormat:@"キャラクター：やる夫\n攻撃力:%d\n防御力:%d\n攻撃制限:%@\n防御制限:%@" ,app.enemyYaruoFundamentalAttackPower + app.enemyYaruoModifyingAttackPower , app.enemyYaruoFundamentalDeffencePower + app.enemyYaruoModifyingDeffencePower,enemyYaruoAttackPermitted,enemyYaruoDeffencePermitted];
+    _enemyDamage.text  = [NSString stringWithFormat:@"自分のAAが与えたダメージ:%d",app.enemyDamageInBattlePhase];
+    
+    _myGiko.numberOfLines = 0;
+    _myMonar.numberOfLines = 0;
+    _mySyobon.numberOfLines = 0;
+    _myYaruo.numberOfLines = 0;
+    _enemyGiko.numberOfLines = 0;
+    _enemyMonar.numberOfLines = 0;
+    _enemySyobon.numberOfLines = 0;
+    _enemyYaruo.numberOfLines = 0;
+    
+    [_myGiko sizeToFit];
+    [_myMonar sizeToFit];
+    [_mySyobon sizeToFit];
+    [_myYaruo sizeToFit];
+    [_enemyGiko sizeToFit];
+    [_enemyMonar sizeToFit];
+    [_enemySyobon sizeToFit];
+    [_enemyYaruo sizeToFit];
+    
     
     
     [_allImageView addSubview:view];
@@ -3103,6 +3256,44 @@
 
 -(void)okButtonPushed{
     AudioServicesPlaySystemSound (app.tapSoundID);
+    //自分の選択キャラが封印されていた場合、アラートを出す
+    if(!app.myGikoAttackPermittedByMyself || !app.myMonarAttackPermittedByMyself || !app.mySyobonAttackPermittedByMyself || !app.myYaruoAttackPermittedByMyself || !app.myGikoAttackPermittedFromEnemy || !app.myMonarAttackPermittedFromEnemy || !app.mySyobonAttackPermittedFromEnemy || !app.myYaruoAttackPermittedFromEnemy){
+        UIImageView *temp = [[UIImageView alloc] init];
+        temp = [_myCharacterView.subviews objectAtIndex:0];
+        
+        NSLog(@"temp.tag:%d",temp.tag);
+        
+        switch (temp.tag) {
+            case 1:
+                if(app.myGikoAttackPermittedByMyself == NO || app.myGikoAttackPermittedFromEnemy == NO){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ギコの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    [alert show];
+                    return;
+                }
+                break;
+            case 2:
+                if(app.myMonarAttackPermittedByMyself == NO || app.myMonarAttackPermittedFromEnemy == NO){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"モナーの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    [alert show];
+                    return;
+                }
+                break;
+            case 3:
+                if(app.mySyobonAttackPermittedByMyself == NO || app.mySyobonAttackPermittedFromEnemy == NO){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"ショボンの選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    [alert show];
+                    return;
+                }
+                break;
+            case 4:
+                if(app.myYaruoAttackPermittedByMyself == NO || app.myYaruoAttackPermittedFromEnemy == NO){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"やる夫の選択は封じられています" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    [alert show];
+                    return;
+                }
+        }
+    }
+    
     if (app.mySelectCharacter == -1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"キャラクター未選択" message:@"キャラクターが選ばれていません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"キャラクターを選択する", nil];
         [alert show];
@@ -3114,11 +3305,12 @@
         [app.arrow removeFromSuperview];
         FINISHED1
     }
-    
-    
 }
 
 - (void)battleStart{
+    //DeviceMotionクラスのstopExploringAnimationメソッドで設定されたSVProgressHUDを解除
+    [SVProgressHUD popActivity];
+    
     //メインBGMの開始
     [app.audio stop];
  NSString* path = [[NSBundle mainBundle]
@@ -3127,16 +3319,8 @@
      app.audio = [[AVAudioPlayer alloc]
                initWithContentsOfURL:url error:nil];
      app.audio.numberOfLoops = -1;
-    app.audio.volume = 0.5f;
+    app.audio.volume = 0.2f;
      [app.audio play];
-    
-    //MARK: ↓↓↓↓↓↓↓↓↓↓デバッグ用。終わったら元に戻す↓↓↓↓↓↓↓↓↓↓
-//    app.enemyNickName = @"秋乃のiPhone4S";
-//    app.enemyPlayerID = 221887815;
-//    NSLog(@"ニックネーム：%@    プレイヤーID：%d",app.enemyNickName,app.enemyPlayerID);
-//    SendDataToServer *sendData = [[SendDataToServer alloc] init];
-//    [sendData send];
-    //MARK: ↑↑↑↑↑↑↑↑↑↑デバッグ用。終わったら元に戻す↑↑↑↑↑↑↑↑↑↑
     
     //相手と自分の名前を表示する
     _myNickNameLabel.text = [NSString stringWithFormat:@"%@",app.myNickName];
@@ -3152,11 +3336,15 @@
     
     
     if([YSDeviceHelper is568h]){
-        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, _myNickNameLabel.bounds.size.width, 20);
-        _enemyNickNameLabel.frame = CGRectMake(_enemyNickNameLabel.superview.bounds.size.width - _enemyNickNameLabel.bounds.size.width - 20, 160, _enemyNickNameLabel.bounds.size.width, 20);
+        _myNickNameLabel.left = _myCharacterView.right + 5;
+        _myNickNameLabel.top  = _myCharacterView.top + 40;
+        _enemyNickNameLabel.right = _enemyCharacterView.left - 5;
+        _enemyNickNameLabel.top = _enemyCharacterView.top + 80;
     }else{
-        _myNickNameLabel.frame = CGRectMake(20, _myNickNameLabel.superview.bounds.size.height - 180, _myNickNameLabel.bounds.size.width, 20);
-        _enemyNickNameLabel.frame = CGRectMake(_enemyNickNameLabel.superview.bounds.size.width - _enemyNickNameLabel.bounds.size.width - 20, 160, _enemyNickNameLabel.bounds.size.width, 20);
+        _myNickNameLabel.left = _myCharacterView.right + 5;
+        _myNickNameLabel.top  = _myCharacterView.top + 40;
+        _enemyNickNameLabel.right = _enemyCharacterView.left - 5;
+        _enemyNickNameLabel.top = _enemyCharacterView.top + 80;
     }
     
     //メインビューに戻るボタン・ローカル対戦ボタン・インターネット対戦ボタン・対戦開始時の黒半透明背景を外す
@@ -3211,7 +3399,7 @@
         //移動前
         _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - deck.size.width - 10, _myLibrary.superview.bounds.size.height + 100, deck.size.width, deck.size.height);
         //移動後
-        _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - CARDWIDTH - 10, _myLibrary.superview.bounds.size.height - CARDHEIGHT - 70, CARDWIDTH, CARDHEIGHT);
+        _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - CARDWIDTH - 10, _myLibrary.superview.bounds.size.height - CARDHEIGHT - 58, CARDWIDTH, CARDHEIGHT);
         [UIView commitAnimations];
         
         //デッキの残枚数を表示
@@ -3272,9 +3460,9 @@
         //山札を用意するアニメーション
         [UIView beginAnimations:nil context:nil];
         //移動前
-        _enemyLibrary.frame = CGRectMake(10, -100, deck.size.width, deck.size.height);
+        _enemyLibrary.frame = CGRectMake(13, -100, deck.size.width, deck.size.height);
         //移動後
-        _enemyLibrary.frame = CGRectMake(10, 70, CARDWIDTH, CARDHEIGHT);
+        _enemyLibrary.frame = CGRectMake(13, 55, CARDWIDTH, CARDHEIGHT);
         [UIView commitAnimations];
         
         //デッキの残枚数を表示
@@ -3335,7 +3523,7 @@
         //移動前
         _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - deck.size.width - 10, _myLibrary.superview.bounds.size.height + 100, deck.size.width, deck.size.height);
         //移動後
-        _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - CARDWIDTH - 10, _myLibrary.superview.bounds.size.height - CARDHEIGHT - 70, CARDWIDTH, CARDHEIGHT);
+        _myLibrary.frame = CGRectMake(_myLibrary.superview.bounds.size.width - CARDWIDTH - 10, _myLibrary.superview.bounds.size.height - CARDHEIGHT - 58, CARDWIDTH, CARDHEIGHT);
         [UIView commitAnimations];
         
         //デッキの残枚数を表示
@@ -3400,9 +3588,9 @@
         //山札を用意するアニメーション
         [UIView beginAnimations:nil context:nil];
         //移動前
-        _enemyLibrary.frame = CGRectMake(10, -100, deck.size.width, deck.size.height);
+        _enemyLibrary.frame = CGRectMake(13, -100, deck.size.width, deck.size.height);
         //移動後
-        _enemyLibrary.frame = CGRectMake(10, _enemyLibrary.superview.bounds.size.height - CARDHEIGHT - 360, CARDWIDTH, CARDHEIGHT);
+        _enemyLibrary.frame = CGRectMake(13, _enemyLibrary.superview.bounds.size.height - CARDHEIGHT - 375, CARDWIDTH, CARDHEIGHT);
         [UIView commitAnimations];
         
         //デッキの残枚数を表示
@@ -3468,7 +3656,7 @@
             NSLog(@"カードタイプ：フィールド");
             break;
         case 3:
-            NSLog(@"カードタイプ：ソーサリー");
+            NSLog(@"カードタイプ：魔法");
             break;
         default:
             break;
@@ -3490,7 +3678,7 @@
             [_regionView addSubview:_border_middleCard];
             _border_middleCard.frame = sender.view.frame;
             
-            _doIUseSorcerycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"ソーサリーカードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
+            _doIUseSorcerycard = [[UIAlertView alloc] initWithTitle:@"確認" message:@"魔法カードを使用しますか？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"はい", @"いいえ", nil];
             [_doIUseSorcerycard show];
             [self sync];
             //このターン、カードを使用していれば、効果を発動する
@@ -4149,10 +4337,10 @@
     _characterField.userInteractionEnabled = YES;
     
     //各キャラクターのイメージビューを生成し、上記フィールドに載せる
-    UIImageView *giko = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"giko.png"]];
-    UIImageView *monar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monar.png"]];
-    UIImageView *syobon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"syobon.png"]];
-    UIImageView *yaruo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yaruo.png"]];
+    UIImageView *giko = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"giko_small" ofType:@"png"]]];
+    UIImageView *monar = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"monar_small" ofType:@"png"]]];
+    UIImageView *syobon = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"syobon_small" ofType:@"png"]]];
+    UIImageView *yaruo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"yaruo_small" ofType:@"png"]]];
     
     [_characterField addSubview:giko];
     [_characterField addSubview:monar];
@@ -4189,11 +4377,15 @@
     [view addSubview:_characterField];
     _characterField.frame = CGRectMake(40, 40, _characterField.superview.bounds.size.width - 80, _characterField.superview.bounds.size.height - 80);
     
-    UITextView *txtView = [[UITextView alloc] initWithFrame :CGRectMake(10, 10, _characterField.bounds.size.width - 20, 40)];
-    txtView.textAlignment = NSTextAlignmentCenter;
-    txtView.editable = NO;
-    txtView.text = string;
-    [_characterField addSubview:txtView];
+    
+    //上部の説明文を表示
+    UILabel *txtLabel = [[UILabel alloc] init];
+    txtLabel.numberOfLines = 2;
+    txtLabel.frame = CGRectMake(10, 10, _characterField.bounds.size.width - 20, 40);
+    txtLabel.textAlignment = NSTextAlignmentCenter;
+    txtLabel.text = string;
+    [txtLabel fitSizeOfFont:txtLabel.font];
+    [_characterField addSubview:txtLabel];
     
     //初回起動ならプロローグを発動
     if (first == 0){
@@ -4536,7 +4728,7 @@
                 
                 
                 
-                //後続でソーサリー・フィールドカードを使用する場合があるため、各種カード関係の変数を初期化しておく
+                //後続で魔法・フィールドカードを使用する場合があるため、各種カード関係の変数を初期化しておく
                 app.myUsingCardNumber = -1;
                 selectedCardOrder = -1;
                 app.doIUseCard = NO;
@@ -4617,12 +4809,12 @@
         }
     }else if (alertView == _winAlert){
             //カードゲットSE音を実装
-            CFURLRef cardGetURL;
-            SystemSoundID cardGetID;
-            cardGetURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_effect04"),CFSTR ("mp3"),NULL);
-            AudioServicesCreateSystemSoundID (cardGetURL, &cardGetID);
-            CFRelease (cardGetURL);
-            AudioServicesPlaySystemSound (cardGetID);
+            if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_effect04" ofType:@"mp3"]]){
+                SystemSoundID cardGetID;
+                NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_effect04" ofType:@"mp3"]];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &cardGetID);
+                AudioServicesPlaySystemSound (cardGetID);
+            }
         
             NSArray *firstRareCardArray = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:25], [NSNumber numberWithInt:27], [NSNumber numberWithInt:28], [NSNumber numberWithInt:34], [NSNumber numberWithInt:46], [NSNumber numberWithInt:54], [NSNumber numberWithInt:57], [NSNumber numberWithInt:59], [NSNumber numberWithInt:62], [NSNumber numberWithInt:69], [NSNumber numberWithInt:82], [NSNumber numberWithInt:83], [NSNumber numberWithInt:86], [NSNumber numberWithInt:87], [NSNumber numberWithInt:101], [NSNumber numberWithInt:105], [NSNumber numberWithInt:112], [NSNumber numberWithInt:116], [NSNumber numberWithInt:122], [NSNumber numberWithInt:127], [NSNumber numberWithInt:141], [NSNumber numberWithInt:142], [NSNumber numberWithInt:150], [NSNumber numberWithInt:155], nil];
             int i = arc4random() % [firstRareCardArray count];
@@ -4839,7 +5031,6 @@
     selectedCardOrder = -1;
     selectCardTag = -1;
     costLife = NO;
-    app.mySelectCharacter = -1;; //自分の選んだキャラクター
     app.mySelectCharacterFromEnemy = -1;
     app.doIUseCard = NO;//自分がこのターンカードを使用したか
     app.myUsingCardNumber = -1; //自分が使用したカードの番号
@@ -4887,6 +5078,12 @@
     
     
     //相手に関係する変数
+    //相手の選んだキャラクターの画像
+    for (UIImageView *view in _enemyCharacterView.subviews) {
+        [view removeFromSuperview];
+    }
+    [_enemyCharacterView addSubview:_chara_hatena];
+    
     app.enemySelectCharacter = -1; //相手の選んだキャラクター
     app.enemySelectCharacterByMyself = -1;
     app.doEnemyUseCard = NO; //相手がこのターンカードを使用したか
@@ -5324,7 +5521,7 @@
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
-    //フィールドカードかソーサリーカードなら弾く
+    //フィールドカードか魔法カードなら弾く
     int num = [[app.myDeckCardList objectAtIndex:selectedCardOrder] intValue];
     if(num <= 0 || num >= 6){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"選択不可" message:@"エネルギーカード以外は選択できません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -5372,7 +5569,7 @@
     NSLog(@"selectedCardOrder:%d",(int)[regionViewArray indexOfObject:sender.view]);
     selectedCardOrder = (int)[regionViewArray indexOfObject:sender.view];
     
-    //フィールドカードかソーサリーカードなら弾く
+    //フィールドカードか魔法カードなら弾く
     int num = [[app.myTomb objectAtIndex:selectedCardOrder] intValue];
     NSLog(@"num:%d",num);
     if(num <= 0 || num >= 6){
@@ -5543,7 +5740,7 @@
     }
 
     //「コストを選択する画面」であることを示すラベル
-    UIFont *font = [UIFont fontWithName:@"Tanuki-Permanent-Marker" size:12];
+    UIFont *font = app.tanukiFont;
     UILabel *explainLabel = [[UILabel alloc] init];
     [_colorView addSubview:explainLabel];
     explainLabel.font = font;
@@ -5761,8 +5958,9 @@
                 [self startAnimation046_3];
                 break;
             case 4:
+                [self startAnimation052_1];
                 [app.arrowR removeFromSuperview];
-                [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myYaruo, nil] coveredView:self.view];
+                [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
                 break;
             case 5:
                 [self startAnimation062];
@@ -5897,12 +6095,12 @@
         [app.audio play];
         
         //負けた時のSE音を実装
-        CFURLRef makeURL;
-        SystemSoundID makeID;
-        makeURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_jingle08"),CFSTR ("mp3"),NULL);
-        AudioServicesCreateSystemSoundID (makeURL, &makeID);
-        CFRelease (makeURL);
-        AudioServicesPlaySystemSound (makeID);
+        if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_jingle08" ofType:@"mp3"]]){
+            SystemSoundID makeID;
+            NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_jingle08" ofType:@"mp3"]];
+            AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &makeID);
+            AudioServicesPlaySystemSound (makeID);
+        }
         return YES;
     }else if(app.enemyLifeGage <= 0 || [app.enemyDeckCardList count] <= 0){
         //初回起動ならプロローグを表示する
@@ -5925,12 +6123,12 @@
         [app.audio play];
         
         //勝った時のSE音を実装
-        CFURLRef katiURL;
-        SystemSoundID katiID;
-        katiURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("game_maoudamashii_9_jingle01"),CFSTR ("mp3"),NULL);
-        AudioServicesCreateSystemSoundID (katiURL, &katiID);
-        CFRelease (katiURL);
-        AudioServicesPlaySystemSound (katiID);
+        if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"game_maoudamashii_9_jingle01" ofType:@"mp3"]]){
+            SystemSoundID katiID;
+            NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"game_maoudamashii_9_jingle01" ofType:@"mp3"]];
+            AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &katiID);
+            AudioServicesPlaySystemSound (katiID);
+        }
         return YES;
     }
     return NO;
@@ -5939,12 +6137,12 @@
 //カード使用時のアニメーション
 -(void)cardUsingAnimation:(NSArray *)cardNum man:(int)man{
     //相性判定画面のシャキーンSE音を実装
-    CFURLRef aisyouSyakinURL;
-    SystemSoundID aisyouSyakinID;
-    aisyouSyakinURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_element_fire11"),CFSTR ("mp3"),NULL);
-    AudioServicesCreateSystemSoundID (aisyouSyakinURL, &aisyouSyakinID);
-    CFRelease (aisyouSyakinURL);
-    AudioServicesPlaySystemSound (aisyouSyakinID);
+    if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_element_fire11" ofType:@"mp3"]]){
+        SystemSoundID aisyouSyakinID;
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_element_fire11" ofType:@"mp3"]];
+        AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouSyakinID);
+        AudioServicesPlaySystemSound (aisyouSyakinID);
+    }
     
     //カード使用時のアニメーションを実装
     _cardUsingAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
@@ -6032,12 +6230,12 @@
             }
                              completion:^(BOOL finished){
                                  //相性判定画面のドンSE音を実装
-                                 CFURLRef aisyouDonURL;
-                                 SystemSoundID aisyouDonID;
-                                 aisyouDonURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_battle12"),CFSTR ("mp3"),NULL);
-                                 AudioServicesCreateSystemSoundID (aisyouDonURL, &aisyouDonID);
-                                 CFRelease (aisyouDonURL);
-                                 AudioServicesPlaySystemSound (aisyouDonID);
+                                 if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle12" ofType:@"mp3"]]){
+                                     SystemSoundID aisyouDonID;
+                                     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle12" ofType:@"mp3"]];
+                                     AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouDonID);
+                                     AudioServicesPlaySystemSound (aisyouDonID);
+                                 }
                              }
              ];
         }
@@ -6195,6 +6393,7 @@
 - (void)jankenHantei{
     _kekkaView = [[UIImageView alloc] init];
     _kekkaView.userInteractionEnabled = YES;
+    _kekkaView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:_kekkaView];
     
     UIImageView *jankenBackGround       = [[UIImageView alloc] init]; //背景
@@ -6264,12 +6463,13 @@
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          //相性判定画面のシャキーンSE音を実装
-                         CFURLRef aisyouSyakinURL;
-                         SystemSoundID aisyouSyakinID;
-                         aisyouSyakinURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_battle10"),CFSTR ("mp3"),NULL);
-                         AudioServicesCreateSystemSoundID (aisyouSyakinURL, &aisyouSyakinID);
-                         CFRelease (aisyouSyakinURL);
-                         AudioServicesPlaySystemSound (aisyouSyakinID);
+                         if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle10" ofType:@"mp3"]]){
+                             SystemSoundID aisyouSyakinID;
+                             NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle10" ofType:@"mp3"]];
+                             AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouSyakinID);
+                             AudioServicesPlaySystemSound (aisyouSyakinID);
+                         }
+                         
 
                         //アニメーション後の位置
                          _myCharacter.frame = CGRectMake(40, [UIScreen mainScreen].bounds.size.height - _myCharacter.image.size.height - 40, _myCharacter.image.size.width, _myCharacter.image.size.height);
@@ -6278,12 +6478,13 @@
                      completion:^(BOOL finished){
                          [self kekkaHyouji];
                          //相性判定画面のドンSE音を実装
-                         CFURLRef aisyouDonURL;
-                         SystemSoundID aisyouDonID;
-                         aisyouDonURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_battle12"),CFSTR ("mp3"),NULL);
-                         AudioServicesCreateSystemSoundID (aisyouDonURL, &aisyouDonID);
-                         CFRelease (aisyouDonURL);
-                         AudioServicesPlaySystemSound (aisyouDonID);
+                         if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle10" ofType:@"mp3"]]){
+                             SystemSoundID aisyouDonID;
+                             NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_battle12" ofType:@"mp3"]];
+                             AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouDonID);
+                             AudioServicesPlaySystemSound (aisyouDonID);
+                             AudioServicesPlaySystemSound (aisyouDonID);
+                         }
                      }];
 }
 
@@ -6415,12 +6616,12 @@
             //TODO: 相手のキャラクターを負けた場合の画像にする
             
             //相性判定の結果、勝ちのSE音を実装
-            CFURLRef aisyouKekkaURL;
-            SystemSoundID aisyouKekkaID;
-            aisyouKekkaURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_onepoint16"),CFSTR ("mp3"),NULL);
-            AudioServicesCreateSystemSoundID (aisyouKekkaURL, &aisyouKekkaID);
-            CFRelease (aisyouKekkaURL);
-            AudioServicesPlaySystemSound (aisyouKekkaID);
+            if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint16" ofType:@"mp3"]]){
+                SystemSoundID aisyouKekkaID;
+                NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint16" ofType:@"mp3"]];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouKekkaID);
+                AudioServicesPlaySystemSound (aisyouKekkaID);
+            }
             
             //アニメーションを開始
             [UIView beginAnimations:nil context:nil];
@@ -6436,12 +6637,12 @@
             //TODO: 自分のキャラクターを負けた場合の画像にする
             
             //相性判定の結果、負けのSE音を実装
-            CFURLRef aisyouKekkaURL;
-            SystemSoundID aisyouKekkaID;
-            aisyouKekkaURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_onepoint06"),CFSTR ("mp3"),NULL);
-            AudioServicesCreateSystemSoundID (aisyouKekkaURL, &aisyouKekkaID);
-            CFRelease (aisyouKekkaURL);
-            AudioServicesPlaySystemSound (aisyouKekkaID);
+            if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint06" ofType:@"mp3"]]){
+                SystemSoundID aisyouKekkaID;
+                NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint06" ofType:@"mp3"]];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouKekkaID);
+                AudioServicesPlaySystemSound (aisyouKekkaID);
+            }
             
             //アニメーション開始
             [UIView beginAnimations:nil context:nil];
@@ -6453,12 +6654,12 @@
             break;
         case 3:{
             //相性判定の結果、引き分けのSE音を実装
-            CFURLRef aisyouKekkaURL;
-            SystemSoundID aisyouKekkaID;
-            aisyouKekkaURL  = CFBundleCopyResourceURL (app.mainBundle,CFSTR ("se_maoudamashii_onepoint09"),CFSTR ("mp3"),NULL);
-            AudioServicesCreateSystemSoundID (aisyouKekkaURL, &aisyouKekkaID);
-            CFRelease (aisyouKekkaURL);
-            AudioServicesPlaySystemSound (aisyouKekkaID);
+            if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint09" ofType:@"mp3"]]){
+                SystemSoundID aisyouKekkaID;
+                NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"se_maoudamashii_onepoint09" ofType:@"mp3"]];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(url), &aisyouKekkaID);
+                AudioServicesPlaySystemSound (aisyouKekkaID);
+            }
         }
             break;
         default:
@@ -6467,8 +6668,8 @@
 }
 
 - (void)removeJankenHanteiView{
-    NSLog(@"aaa");
     [_kekkaView removeFromSuperview];
+    FINISHED1
 }
 
 -(void)syncFinished{
@@ -6484,10 +6685,6 @@
 }
 
 - (void)battleStartForInternetBattle{
-    [_returnToMainViewButton removeFromSuperview];
-    [_localBattleButton removeFromSuperview];
-    [_internetBattleButton removeFromSuperview];
-    [_blackBack removeFromSuperview];
     app.battleStart = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -6524,6 +6721,78 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)enemyCharacterViewChange{
+    for (UIImageView *view in _enemyCharacterView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    switch (app.enemySelectCharacter) {
+        case GIKO:
+            [_enemyCharacterView addSubview:_chara_enemyGiko];
+            break;
+        case MONAR:
+            [_enemyCharacterView addSubview:_chara_enemyMonar];
+            break;
+        case SYOBON:
+            [_enemyCharacterView addSubview:_chara_enemySyobon];
+            break;
+        case YARUO:
+            [_enemyCharacterView addSubview:_chara_enemyYaruo];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)errorOccurredPost{
+    [SVProgressHUD dismiss];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"接続切断" message:@"対戦相手との接続が切れました" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)seigenTimer{
+    [_allImageView addSubview:nokoriTime];
+    seigenTime = 30; //カード・AA選択の制限時間（秒）を設定
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                             target:self
+                                           selector:@selector(sentakuTime)
+                                           userInfo:nil
+                                            repeats:YES];
+    [timer fire];
+}
+
+- (void)sentakuTime{
+    //経過時間を記録
+    if (seigenTime > 0) {
+        seigenTime--;
+        [self updateTime];
+        //押されない限り、残り時間を減らしていく
+    }
+    
+    //残り時間がなくなったら自動選択される
+    if (seigenTime == 0) {
+        app.decideAction = YES;
+        cardIsCompletlyUsed = YES;
+        FINISHED1
+        [timer invalidate];
+        [nokoriTime removeFromSuperview];
+        
+        //カードを参照している場合及びエネルギーを参照している場合があるため、ビューをリムーブする
+        [_cardInRegion removeFromSuperview];
+        [_imgView removeFromSuperview];
+        [_colorView removeFromSuperview];
+        selectCardIsCanceledInCardInRegion = YES;
+    }
+}
+
+-(void)updateTime{
+        int timeMin = seigenTime / 60;
+        int timeSec = seigenTime - timeMin;
+        nokoriTime.text = [NSString stringWithFormat:@"%2d:%02d", timeMin, timeSec];
+        [nokoriTime sizeToFit];
+}
 
 #pragma mark- プロローグアニメーション処理
 
@@ -6545,16 +6814,19 @@
     [app.pbImage removeFromSuperview];
     app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"おっと、相手プレイヤーが見つかったようだ。" characterIsOnLeft:YES];
     [self.view addSubview:app.pbImage];
-    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032)]];
-    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032)]];
+    [app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation031_2)]];
+    [app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation031_2)]];
     [app.blackBack removeFromSuperview];
     app.blackBack = [[IntroductionTool alloc] initForHighlightingViewMethod:self.view.frame forbidTapActionViewArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton,   nil] coveredView:self.view];
     [self.view addSubview:app.blackBack];
 }
 
-- (void)startAnimation032{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro32" imagePath:@"png" textString:@"まずは画面の説明をするぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];
+- (void)startAnimation031_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro32" imagePath:@"png" textString:@"このターンは、対戦画面の簡単な見方と攻撃の仕方を説明するぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];
 }
-- (void)startAnimation032_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"これは自分のAAだ。選んだAAが相手を攻撃するぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_3)]];
+
+- (void)startAnimation032{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro32" imagePath:@"png" textString:@"まずは画面の説明だ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_2)]];
+}
+- (void)startAnimation032_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"これは自分のAA。選んだAAが相手を攻撃するぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_3)]];
     [app.blackBack changeFrame:_myCharacterView.frame coveredView:self.view];
 }
 - (void)startAnimation032_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のAAだ。相手も同じように攻撃してくるぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_4)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation032_4)]];
@@ -6567,18 +6839,18 @@
 - (void)startAnimation033{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のHPだ。これをゼロにしたら勝ちだ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_1_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_1_2)]];
     [app.blackBack changeFrame:enemyLifeImageView.frame coveredView:self.view];
 }
-- (void)startAnimation033_1_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ相手を攻撃してみよう。俺(ギコ)を選んでターン進行ボタンを押してくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.arrowR removeFromSuperview];
-    app.arrowR.left = _chara_myGiko.right;
-    app.arrowR.top  = _chara_myGiko.top;
-    [_myCharacterView addSubview:app.arrowR];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myMonar, _chara_mySyobon, _chara_myYaruo, nil] coveredView:self.view];
+- (void)startAnimation033_1_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ相手を攻撃してみよう。今、攻撃するAAとして俺(ギコ)が選ばれている。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_1_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_1_3)]];
 }
-
+- (void)startAnimation033_1_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このターンはこのまま俺で攻撃しよう。ターン進行ボタンを押してくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
+    app.myMonarAttackPermittedByMyself = NO;
+    app.mySyobonAttackPermittedByMyself = NO;
+    app.myYaruoAttackPermittedByMyself = NO;
+}
 - (void)startAnimation033_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"この画面はダメージ計算結果画面だ。相手と自分が受けたダメージが表示されているぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_3)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _damageCaliculateView, nil] coveredView:self.view];
 }
-- (void)startAnimation033_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ダメージは「AAの攻撃力」から「AAの防御力」を引いた数値になる。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_4)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_4)]];
+- (void)startAnimation033_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ダメージは「AAの攻撃力」から「AAの防御力」を引いた数値になる。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_4)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation033_4)]];
 
 }
 - (void)startAnimation033_4{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このターンに自分が食らったダメージは、" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation034)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation034)]];
@@ -6588,19 +6860,19 @@
     [self.view addSubview:app.arrow];
     if([YSDeviceHelper is568h]){
         app.arrow.right = 60;
-        app.arrow.top   = 140;
+        app.arrow.top   = 160;
     }else{
         app.arrow.right = 60;
-        app.arrow.top   = 100;
+        app.arrow.top   = 120;
     }
 }
 - (void)startAnimation035{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のギコの攻撃力３を差し引いた" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation035_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation035_2)]];
     if([YSDeviceHelper is568h]){
         app.arrow.right = 60;
-        app.arrow.top   = 300;
+        app.arrow.top   = 310;
     }else{
         app.arrow.right = 60;
-        app.arrow.top   = 260;
+        app.arrow.top   = 270;
     }
 }
 - (void)startAnimation035_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"２になっている。相手にも同じダメージを与えたな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation036)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation036)]];
@@ -6616,11 +6888,15 @@
     [app.arrow removeFromSuperview];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation037{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"２ターン目に入ったな。今度はカードを使ってみよう。まずは手札をタップしてくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation037{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"２ターン目に入ったな。このターンは、カードの使い方とAAの相性を説明しよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation037_1_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation037_1_2)]];
+}
+
+- (void)startAnimation037_1_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"まずは手札をタップしてくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:_myCardImageView.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 
-- (void)startAnimation037_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このターンはエネルギーを貯めよう。一番上のカードをタップしてくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+
+- (void)startAnimation037_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"カードを遣うにはエネルギーが必要だ。一番上のカードをタップしてくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
 }
 
 - (void)startAnimation038{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"エネルギーカードを使ったら、白エネルギーがひとつ増えたな！" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation039)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation039)]];
@@ -6629,10 +6905,11 @@
     app.pbImage.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100);
 }
 
-- (void)startAnimation039{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"エネルギーはカードを使用するのに不可欠だから、手札にあるならどんどん貯めていこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation040)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation040)]];
+- (void)startAnimation039{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"エネルギーは他のカードを使用するのに不可欠だから、手札にあるならどんどん貯めていこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation040)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation040)]];
 }
 - (void)startAnimation040{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあやる夫以外の好きなAAをタップして、次のフェーズに進めよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myYaruo, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
+    app.myYaruoAttackPermittedByMyself = NO;
 }
 
 - (void)startAnimation041{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"今度は自分がダメージを受けずに、相手のダメージが増えているな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation042)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation042)]];
@@ -6651,22 +6928,29 @@
     [aishouImageView removeFromSuperview];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation045{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"３ターン目。今度はさっき貯めたエネルギーを使って新しくカードを使おう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046)]];
+- (void)startAnimation045{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"３ターン目。このターンはさっき貯めたエネルギーを使って新しいカードを使おう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046)]];
 }
-- (void)startAnimation046{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"先ほどと同じように手札を開いて、今度は「オプーナ」というソーサリーカードを使ってくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation046{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"先ほどと同じように手札を開いて、今度は「オプーナ」という魔法カードを使ってくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
         [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation046_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"よし、これでカードが使えたな。後は、黒エネルギーカードを手札から使用しておこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_2)]];
+- (void)startAnimation046_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"よし、これでカードが使えたな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_0)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_0)]];
 }
-- (void)startAnimation046_2_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"手札を開いて、「黒エネルギーカード」のカードを使ってくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation046_2_0{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"魔法カードの効果は次のフェーズで発揮されるから、少しだけ待ってくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_1)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_1)]];
+}
+- (void)startAnimation046_2_1{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それと、魔法カードは一度だけの使いきりカードだから、使いどころをよく考えて使っていこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_2)]];
+}
+- (void)startAnimation046_2_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"後は、次のターンのために黒エネルギーカードを手札から使用しておこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation046_2_3)]];
+}
+- (void)startAnimation046_2_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"手札を開いて、「黒エネルギーカード」のカードを使ってくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation046_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このカードを使用するには白エネルギーが1つ必要だから、白エネルギーを選んでOKを押そう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation046_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このカードの使用には白エネルギーが1つ必要だから、白エネルギーの「→」を押してOKを押そう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
     [app.arrowR removeFromSuperview];
 }
 - (void)startAnimation047{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあまたやる夫以外のAAを選んでターンを進めよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myYaruo, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
+    app.myYaruoAttackPermittedByMyself = NO;
 }
 - (void)startAnimation048{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"今回はAAの相性が悪くて、自分が3ダメージ食らってしまったな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation049)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation049)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, _damageCaliculateView, nil] coveredView:self.view];
@@ -6676,15 +6960,27 @@
 - (void)startAnimation051{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ次のターンまで進めよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation051_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"４ターン目。また新しくエネルギーを貯めて、今度は場カードを使ってみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
+- (void)startAnimation051_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"４ターン目。さっきのターンは魔法カードを使ったから、" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation051_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation051_3)]];
 }
-- (void)startAnimation052{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"「緑エネルギーカード」と「サッカー日本代表」のカードを選んでみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation051_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"このターンはもう一種類のカードである場カードを使ってみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation051_4)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation051_4)]];
+}
+- (void)startAnimation051_4{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"場カードは魔法カードと違って、何度でも効果を発揮するのでお得だぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052)]];
+}
+- (void)startAnimation052{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それじゃあ「緑エネルギー」カードをつかってから、「サッカー日本代表」のカードを選んでくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 
+- (void)startAnimation052_1{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"必要コストに②と書かれているが、これは何色のエネルギーでも良いから２つ必要という意味なんだ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052_1_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052_1_2)]];
+}
+- (void)startAnimation052_1_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"つまり、このカードを使うには「黒エネルギー1つと好きな色のエネルギー2つが必要」なんだな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052_1_3)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation052_1_3)]];
+}
+- (void)startAnimation052_1_3{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"今保有しているエネルギーは白・黒・緑の３つだから、ぴったりだ。全て選んでOKボタンを押してくれ" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+}
+- (void)startAnimation052_1_4{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"それら全てを選んでOKボタンを押してくれ" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+}
 - (void)startAnimation052_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"よし、じゃあやる夫以外のAAを選んで、ターンを進行させてみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myYaruo, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
+    app.myYaruoAttackPermittedByMyself = NO;
 }
 
 - (void)startAnimation053{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"さっき選んだ場カードの効果が、ターン終了時に発揮されているな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation054)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation054)]];
@@ -6695,7 +6991,7 @@
 - (void)startAnimation055{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ロングタップを試してみたら、次のターンに進めよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation056{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"５ターン目。このターンでは今まで使ったカードを確認してみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation057)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation057)]];
+- (void)startAnimation056{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"５ターン目。このターンでは、詳しい対戦画面の見方と、やる夫の特殊能力について説明するぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation057)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation057)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 - (void)startAnimation057{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"まずは墓地を見てみようか。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
@@ -6706,8 +7002,9 @@
     app.arrow.top =_myTomb.top;
     [self.view addSubview:app.arrow];
 }
-- (void)startAnimation058{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"さっき使ったエネルギーカードとソーサリーカードが墓地に置かれているな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation059)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation059)]];
+- (void)startAnimation058{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"さっき使ったエネルギーカードと魔法カードが墓地に置かれているな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation059)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation059)]];
     [app.arrow removeFromSuperview];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 - (void)startAnimation059{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"見終わったら、墓地画面の一番下にあるキャンセルボタンを押してくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
 }
@@ -6722,23 +7019,25 @@
 
 - (void)startAnimation059_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"さっき使った場カードが置かれているな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation060)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation060)]];
     [app.arrow removeFromSuperview];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
-- (void)startAnimation060{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ソーサリーカードは使い切りだが、場カードは何度も効果を発揮するのでお得だぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation060_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation060_2)]];
-}
-
-- (void)startAnimation060_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"見終わったら、一番下のキャンセルボタンを押してくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+- (void)startAnimation060{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"見終わったら、一番下のキャンセルボタンを押してくれ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 
 - (void)startAnimation061{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"さて、それじゃあこのターンは緑エネルギーを貯めて、次のターンに備えよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 - (void)startAnimation062{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"今回はやる夫を選んでターンを進行させてみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myGiko, _chara_myMonar, _chara_mySyobon, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame,    nil] coveredView:self.view];
+    app.myGikoAttackPermittedByMyself = NO;
+    app.myMonarAttackPermittedByMyself = NO;
+    app.mySyobonAttackPermittedByMyself = NO;
 }
 - (void)startAnimation063{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"今回はやる夫で相手にダメージを与えられていないな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064)]];
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _damageCaliculateView, nil] coveredView:self.view];
 }
-- (void)startAnimation064{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"やる夫は全てに引き分けてしまうが、ターン終了時に追加でカードを1枚手札に入れられる。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064_2)]];
+- (void)startAnimation064{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"やる夫は全てに引き分けてしまう代わりに、ターン終了時に追加でカードを1枚手札に入れられる。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation064_2)]];
 }
 - (void)startAnimation064_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ダメージを与えるよりも手札を増やした方が良い場合もあるから、使いどころが重要だぞ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065)]];
 }
@@ -6754,17 +7053,20 @@
     [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 }
 - (void)startAnimation069{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"よし、最後はギコを選んでターンを進めてみよう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _chara_myMonar, _chara_mySyobon, _chara_myYaruo, nil] coveredView:self.view];
+    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame,   nil] coveredView:self.view];
+    app.myMonarAttackPermittedByMyself = NO;
+    app.mySyobonAttackPermittedByMyself = NO;
+    app.myYaruoAttackPermittedByMyself = NO;
 }
 
 - (void)startAnimation070{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ここでは、さっき選んだギコを選択しておこう。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
 }
 
-- (void)startAnimation099{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ちなみに、ここに出てくるダメージには相手に直接与えたダメージは出てこないから注意が必要だ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065_2)]];
-}
-- (void)startAnimation099_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のライフポイントは残り１点だが、ターン終了時に前のターンに使った場カードの効果が発動するから、その時点で０点になるな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
-    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
-}
+//- (void)startAnimation099{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ちなみに、ここに出てくるダメージには相手に直接与えたダメージは出てこないから注意が必要だ。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation065_2)]];
+//}
+//- (void)startAnimation099_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"相手のライフポイントは残り１点だが、ターン終了時に前のターンに使った場カードの効果が発動するから、その時点で０点になるな。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];
+//    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects: _myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, nil] coveredView:self.view];
+//}
 - (void)startAnimation100{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro3" imagePath:@"png" textString:@"ちょうどいま、相手のライフを０点にすることができた。俺達の勝ちだ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];
     app.pbImage.userInteractionEnabled = NO;
 }
@@ -7033,9 +7335,9 @@
 //- (void)startAnimation070{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro70" imagePath:@"png" textString:@"あれ？なにも起こらないお？" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071)]];
 //    [app.blackBack changeFrameAndPermittionView:self.view.frame forbidedArray:[[NSArray alloc] initWithObjects:_myCharacterView, _myCardImageView, _myTomb, _enemyTomb, _myField, _enemyField, _goodGame, _okButton, nil] coveredView:self.view];
 //}
-//- (void)startAnimation071{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro71" imagePath:@"png" textString:@"今使ったカードは「ソーサリー」という種類のカードなんだが、" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071_2)]];}
-//- (void)startAnimation071_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro71" imagePath:@"png" textString:@"ソーサリーカードは、ターンを進めることで効果を発揮する。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation072)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation072)]];}
-//- (void)startAnimation072{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro72" imagePath:@"png" textString:@"ソーサリーカードは一回きりの使い捨てカードだ。墓地フィールドを見てみろ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation073)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation073)]];
+//- (void)startAnimation071{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro71" imagePath:@"png" textString:@"今使ったカードは「魔法」という種類のカードなんだが、" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071_2)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation071_2)]];}
+//- (void)startAnimation071_2{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro71" imagePath:@"png" textString:@"魔法カードは、ターンを進めることで効果を発揮する。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation072)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation072)]];}
+//- (void)startAnimation072{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro72" imagePath:@"png" textString:@"魔法カードは一回きりの使い捨てカードだ。墓地フィールドを見てみろ。" characterIsOnLeft:NO];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation073)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startAnimation073)]];
 //    [app.blackBack changeFrame:_myTomb.frame coveredView:self.view];
 //}
 //- (void)startAnimation073{[app.pbImage removeFromSuperview];app.pbImage = [[PBImageView alloc] initWithImageNameAndText:@"pro73" imagePath:@"png" textString:@"見てみるお。" characterIsOnLeft:YES];[self.view addSubview:app.pbImage];[app.pbImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];[app.pbImage.textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewOnPrologue:)]];

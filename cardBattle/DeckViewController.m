@@ -83,11 +83,9 @@
     mainBundle = CFBundleGetMainBundle ();
     tapSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system49"),CFSTR ("mp3"),NULL);
     AudioServicesCreateSystemSoundID (tapSoundURL, &tapSoundID);
-    CFRelease (tapSoundURL);
     //キャンセルボタンタップ音
     cancelSoundURL  = CFBundleCopyResourceURL (mainBundle,CFSTR ("se_maoudamashii_system10"),CFSTR ("mp3"),NULL);
     AudioServicesCreateSystemSoundID (cancelSoundURL, &cancelSoundID);
-    CFRelease (cancelSoundURL);
     
     
     //広告枠の設置
@@ -110,7 +108,7 @@
     app.audio = [[AVAudioPlayer alloc]
                  initWithContentsOfURL:url error:nil];
     app.audio.numberOfLoops = -1;
-    app.audio.volume = 0.5f;
+    app.audio.volume = 0.2f;
     [app.audio play];
 }
 
@@ -203,13 +201,24 @@
 - (void)longTouchAcrion:(UILongPressGestureRecognizer *)sender
 {
     NSLog(@"感知 from %d",sender.view.tag);
-    detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",(int)sender.view.tag]];
-    [self.view addSubview:detailOfACard];
-    detailOfACard.userInteractionEnabled = YES;
-    [detailOfACard addGestureRecognizer:
-     [[UITapGestureRecognizer alloc]
-      initWithTarget:self action:@selector(removeDetailOfACard)]];
-    [self touchesPermittion:NO];
+    
+    if([[app.myCards objectAtIndex:sender.view.tag] intValue] == 0){
+        detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"deckHatena_big"]];
+        [self.view addSubview:detailOfACard];
+        detailOfACard.userInteractionEnabled = YES;
+        [detailOfACard addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(removeDetailOfACard)]];
+        [self touchesPermittion:NO];
+    }else{
+        detailOfACard.image = [UIImage imageNamed:[NSString stringWithFormat:@"card%d",(int)sender.view.tag]];
+        [self.view addSubview:detailOfACard];
+        detailOfACard.userInteractionEnabled = YES;
+        [detailOfACard addGestureRecognizer:
+         [[UITapGestureRecognizer alloc]
+          initWithTarget:self action:@selector(removeDetailOfACard)]];
+        [self touchesPermittion:NO];
+    }
 }
 
 - (void)removeDetailOfACard{
@@ -248,7 +257,7 @@
     
     UIImage *img;
     if([[app.myCards objectAtIndex:i] intValue] == 0){
-        img = [UIImage imageNamed:@"question.png"];
+        img = [UIImage imageNamed:@"deckHatena.png"];
     }else{
         img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_D.jpg",[app.cardList_pngName objectAtIndex:i]]];
     }

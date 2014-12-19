@@ -26,6 +26,7 @@
 #import "PBImageView.h"
 #import "AAButton.h"
 #import "SocialMediaViewController.h"
+#import "UILabel+kylib.h"
 #define GIKO 1
 #define MONAR 2
 #define SYOBON 3
@@ -92,6 +93,13 @@
     MBAnimationView *effect2;
     MBAnimationView *effect3;
     MBAnimationView *effect4;
+    
+    //選択までの残り時間を表示する
+    NSTimer *timer; //0.1秒ごとに制限時間更新のメソッドを実行させるためのNSTimer
+    int seigenTime; //制限時間
+    int seigenTimeMin; //制限時間のうち、「分」部分
+    int seigenTimeSec; //制限時間のうち、「秒」部分
+    UILabel *nokoriTime;
 
     
     /******初回起動用に用意した変数******/
@@ -166,6 +174,8 @@
 @property UILabel *enemyNickNameLabel;
 
 //キャラクタービュー
+@property UIImageView *migiYajirushi;
+@property UIImageView *hidariYajirushi;
 @property UIImageView *chara_myGiko;
 @property UIImageView *chara_myMonar;
 @property UIImageView *chara_mySyobon;
@@ -174,6 +184,7 @@
 @property UIImageView *chara_enemyMonar;
 @property UIImageView *chara_enemySyobon;
 @property UIImageView *chara_enemyYaruo;
+@property UIImageView *chara_hatena; //相手がキャラを選択するまえのハテナ画像
 
 //ライフゲージ画像ビュー
 @property UIImageView *myLifeImageView;

@@ -331,6 +331,19 @@
 		0FE0C28819DAD0E20061057D /* glyphicons_230_moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28319DAD0E20061057D /* glyphicons_230_moon.png */; };
 		0FE0C28919DAD0E20061057D /* glyphicons_231_sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28419DAD0E20061057D /* glyphicons_231_sun.png */; };
 		0FE0C28A19DAD0E20061057D /* glyphicons_310_flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE0C28519DAD0E20061057D /* glyphicons_310_flower.png */; };
+		0FE3D90B1A39EF6400552EBE /* battleBackGround.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D90A1A39EF6400552EBE /* battleBackGround.png */; };
+		0FE3D90D1A3A9A1600552EBE /* vs.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D90C1A3A9A1600552EBE /* vs.png */; };
+		0FE3D90F1A3C9AAE00552EBE /* hatena.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D90E1A3C9AAE00552EBE /* hatena.png */; };
+		0FE3D9111A3C9F3900552EBE /* deckHatena.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9101A3C9F3900552EBE /* deckHatena.png */; };
+		0FE3D9131A3CA13000552EBE /* deckHatena_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9121A3CA13000552EBE /* deckHatena_big.png */; };
+		0FE3D9181A3FDE0100552EBE /* giko_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9141A3FDE0100552EBE /* giko_small.png */; };
+		0FE3D9191A3FDE0100552EBE /* monar_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9151A3FDE0100552EBE /* monar_small.png */; };
+		0FE3D91A1A3FDE0100552EBE /* syobon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9161A3FDE0100552EBE /* syobon_small.png */; };
+		0FE3D91B1A3FDE0100552EBE /* yaruo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9171A3FDE0100552EBE /* yaruo_small.png */; };
+		0FE3D91E1A3FE23800552EBE /* UILabel+kylib.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3D91D1A3FE23800552EBE /* UILabel+kylib.m */; };
+		0FE3D9221A40E3D600552EBE /* battleBackGround-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9211A40E3D600552EBE /* battleBackGround-568h@2x.png */; };
+		0FE3D9251A40E3F300552EBE /* UIImage+H568.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3D9241A40E3F300552EBE /* UIImage+H568.m */; };
+		0FE3D9291A412DE600552EBE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D9281A412DE600552EBE /* Default-568h@2x.png */; };
 		0FF0B11719EBBFD000467217 /* pro1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF0B07719EBBFCF00467217 /* pro1.png */; };
 		0FF0B11819EBBFD000467217 /* pro2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF0B07819EBBFCF00467217 /* pro2.png */; };
 		0FF0B11919EBBFD000467217 /* pro3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF0B07919EBBFCF00467217 /* pro3.png */; };
@@ -1537,6 +1550,21 @@
 		0FE0C28319DAD0E20061057D /* glyphicons_230_moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_230_moon.png; sourceTree = "<group>"; };
 		0FE0C28419DAD0E20061057D /* glyphicons_231_sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_231_sun.png; sourceTree = "<group>"; };
 		0FE0C28519DAD0E20061057D /* glyphicons_310_flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_310_flower.png; sourceTree = "<group>"; };
+		0FE3D90A1A39EF6400552EBE /* battleBackGround.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battleBackGround.png; sourceTree = "<group>"; };
+		0FE3D90C1A3A9A1600552EBE /* vs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vs.png; sourceTree = "<group>"; };
+		0FE3D90E1A3C9AAE00552EBE /* hatena.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hatena.png; sourceTree = "<group>"; };
+		0FE3D9101A3C9F3900552EBE /* deckHatena.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deckHatena.png; sourceTree = "<group>"; };
+		0FE3D9121A3CA13000552EBE /* deckHatena_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deckHatena_big.png; sourceTree = "<group>"; };
+		0FE3D9141A3FDE0100552EBE /* giko_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = giko_small.png; sourceTree = "<group>"; };
+		0FE3D9151A3FDE0100552EBE /* monar_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monar_small.png; sourceTree = "<group>"; };
+		0FE3D9161A3FDE0100552EBE /* syobon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = syobon_small.png; sourceTree = "<group>"; };
+		0FE3D9171A3FDE0100552EBE /* yaruo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yaruo_small.png; sourceTree = "<group>"; };
+		0FE3D91C1A3FE23800552EBE /* UILabel+kylib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+kylib.h"; sourceTree = "<group>"; };
+		0FE3D91D1A3FE23800552EBE /* UILabel+kylib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+kylib.m"; sourceTree = "<group>"; };
+		0FE3D9211A40E3D600552EBE /* battleBackGround-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battleBackGround-568h@2x.png"; sourceTree = "<group>"; };
+		0FE3D9231A40E3F300552EBE /* UIImage+H568.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+H568.h"; sourceTree = "<group>"; };
+		0FE3D9241A40E3F300552EBE /* UIImage+H568.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+H568.m"; sourceTree = "<group>"; };
+		0FE3D9281A412DE600552EBE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0FF0B07719EBBFCF00467217 /* pro1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro1.png; sourceTree = "<group>"; };
 		0FF0B07819EBBFCF00467217 /* pro2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro2.png; sourceTree = "<group>"; };
 		0FF0B07919EBBFCF00467217 /* pro3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro3.png; sourceTree = "<group>"; };
@@ -2904,6 +2932,7 @@
 		0FDB980F18CB655100C7566E /* img */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D9281A412DE600552EBE /* Default-568h@2x.png */,
 				0FFF2CFC1A1461E20017C7B5 /* bigcard */,
 				0F8B4D0F19E4EA04005BCFC8 /* prologue */,
 				0FFD0B8F19DBABB4007D9BAD /* loadingAnimation */,
@@ -2921,6 +2950,10 @@
 		0FDB981018CB655100C7566E /* character */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D9141A3FDE0100552EBE /* giko_small.png */,
+				0FE3D9151A3FDE0100552EBE /* monar_small.png */,
+				0FE3D9161A3FDE0100552EBE /* syobon_small.png */,
+				0FE3D9171A3FDE0100552EBE /* yaruo_small.png */,
 				0F9F17A018F19BA8004E58BF /* giko.png */,
 				0F9F17A118F19BA8004E58BF /* monar.png */,
 				0F9F17A218F19BA8004E58BF /* syobon.png */,
@@ -2943,6 +2976,12 @@
 		0FDB985C18D0A92700C7566E /* else */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D9211A40E3D600552EBE /* battleBackGround-568h@2x.png */,
+				0FE3D9121A3CA13000552EBE /* deckHatena_big.png */,
+				0FE3D9101A3C9F3900552EBE /* deckHatena.png */,
+				0FE3D90E1A3C9AAE00552EBE /* hatena.png */,
+				0FE3D90A1A39EF6400552EBE /* battleBackGround.png */,
+				0FE3D90C1A3A9A1600552EBE /* vs.png */,
 				0F0FC0631A31F31700D02986 /* hikiwake.png */,
 				0F0FC0641A31F31700D02986 /* kati.png */,
 				0F0FC0651A31F31700D02986 /* make.png */,
@@ -3097,6 +3136,10 @@
 				0F3FF2E319FE816E00A184B0 /* SocialMediaViewController.m */,
 				0F3FF2E71A03AFAA00A184B0 /* UIView+Origin.h */,
 				0F3FF2E81A03AFAA00A184B0 /* UIView+Origin.m */,
+				0FE3D91C1A3FE23800552EBE /* UILabel+kylib.h */,
+				0FE3D91D1A3FE23800552EBE /* UILabel+kylib.m */,
+				0FE3D9231A40E3F300552EBE /* UIImage+H568.h */,
+				0FE3D9241A40E3F300552EBE /* UIImage+H568.m */,
 				0FFF2CF91A145ECF0017C7B5 /* costAddition.h */,
 				0FFF2CFA1A145ECF0017C7B5 /* costAddition.m */,
 				0FF2EFA419D11E7700C36C72 /* NendAd */,
@@ -3965,6 +4008,7 @@
 				0FFD0BCD19DBABB4007D9BAD /* gikoAnimation9_1.png in Resources */,
 				0FFF2FE11A1461E40017C7B5 /* サル.png in Resources */,
 				0FFF2EB71A1461E30017C7B5 /* card100.PNG in Resources */,
+				0FE3D90F1A3C9AAE00552EBE /* hatena.png in Resources */,
 				0FF5B4BE19A9D9DA00602A2C /* card16_D.jpg in Resources */,
 				0FFF2FDF1A1461E40017C7B5 /* コーレハヒ・ドイク=ソスレ.png in Resources */,
 				0FFF2FA41A1461E30017C7B5 /* やるじゃん.png in Resources */,
@@ -4075,6 +4119,7 @@
 				0F8B4D8E19E8DB96005BCFC8 /* pro_a21.png in Resources */,
 				0FFF302D1A1461E40017C7B5 /* 古代都市ワクテカ.png in Resources */,
 				0FFF2F721A1461E30017C7B5 /* ここ何て会社？.png in Resources */,
+				0FE3D9181A3FDE0100552EBE /* giko_small.png in Resources */,
 				0FF5B3DC19A8EECB00602A2C /* noColor2.png in Resources */,
 				0FFF2F771A1461E30017C7B5 /* ご冥福をお祈りします.png in Resources */,
 				0FFD0BB119DBABB4007D9BAD /* gikoAnimation10_2.png in Resources */,
@@ -4287,6 +4332,7 @@
 				0F169C01199A555F00221D19 /* card32_M.JPG in Resources */,
 				0FF5B4C619A9D9DA00602A2C /* card24_D.jpg in Resources */,
 				0FFF2FE91A1461E40017C7B5 /* スポポポポポポーン！！！.png in Resources */,
+				0FE3D9131A3CA13000552EBE /* deckHatena_big.png in Resources */,
 				0FFF303A1A1461E40017C7B5 /* 成功者に対して失礼だと思わないのかね？.png in Resources */,
 				0FFF2FCB1A1461E40017C7B5 /* キン・モー.png in Resources */,
 				0FFF302C1A1461E40017C7B5 /* 南快楽 捨幕斎.png in Resources */,
@@ -4339,6 +4385,7 @@
 				0FF0B15A19EBBFD000467217 /* pro68.png in Resources */,
 				0FFF2FCC1A1461E40017C7B5 /* キーボードです.png in Resources */,
 				0FFF2F121A1461E30017C7B5 /* card46.PNG in Resources */,
+				0FE3D9291A412DE600552EBE /* Default-568h@2x.png in Resources */,
 				0F0FC07B1A32ACEC00D02986 /* se_maoudamashii_onepoint09.mp3 in Resources */,
 				0FFF2ECA1A1461E30017C7B5 /* card118.PNG in Resources */,
 				0FFF2EC51A1461E30017C7B5 /* card113.PNG in Resources */,
@@ -4378,6 +4425,7 @@
 				0FFF2FD11A1461E40017C7B5 /* クスクス.png in Resources */,
 				0FF5B4E919A9D9DB00602A2C /* card59_D.jpg in Resources */,
 				0FF5B4C019A9D9DA00602A2C /* card18_D.jpg in Resources */,
+				0FE3D9191A3FDE0100552EBE /* monar_small.png in Resources */,
 				0FFF2F581A1461E30017C7B5 /* いいか、みんな 小五とロリでは単なる犯罪だが二つ合わされば悟りとなる.png in Resources */,
 				0FF5B48819A9D9DA00602A2C /* card108_D.jpg in Resources */,
 				0FFF302F1A1461E40017C7B5 /* 圧縮.png in Resources */,
@@ -4411,6 +4459,7 @@
 				0FF5B4CF19A9D9DA00602A2C /* card33_D.jpg in Resources */,
 				0FFF2EBB1A1461E30017C7B5 /* card104.PNG in Resources */,
 				0FF5B51119A9D9DB00602A2C /* card96_D.jpg in Resources */,
+				0FE3D9111A3C9F3900552EBE /* deckHatena.png in Resources */,
 				0FF5B4B519A9D9DA00602A2C /* card149_D.jpg in Resources */,
 				0FFF2EBD1A1461E30017C7B5 /* card106.PNG in Resources */,
 				0FF5B4A519A9D9DA00602A2C /* card134_D.jpg in Resources */,
@@ -4623,6 +4672,7 @@
 				0F6E1E1D19B615B00091BDDB /* pipo-battleffect046.png in Resources */,
 				0F169BBF199A555F00221D19 /* card111_M.JPG in Resources */,
 				0FFD0BB419DBABB4007D9BAD /* gikoAnimation1_1.png in Resources */,
+				0FE3D90D1A3A9A1600552EBE /* vs.png in Resources */,
 				0FFF2FE21A1461E40017C7B5 /* ジップデクレー.png in Resources */,
 				0F1699DF199902F000221D19 /* e_appear_240.png in Resources */,
 				0FF0B14D19EBBFD000467217 /* pro55.png in Resources */,
@@ -4713,6 +4763,7 @@
 				0FF5B4F019A9D9DB00602A2C /* card66_D.jpg in Resources */,
 				0FF0B14B19EBBFD000467217 /* pro53.png in Resources */,
 				0FFF2FEC1A1461E40017C7B5 /* ダレ.png in Resources */,
+				0FE3D91B1A3FDE0100552EBE /* yaruo_small.png in Resources */,
 				0FF0B11E19EBBFD000467217 /* pro8.png in Resources */,
 				0FFF2F821A1461E30017C7B5 /* たのしい休日おわり.png in Resources */,
 				0FFF2FFB1A1461E40017C7B5 /* パンチ.png in Resources */,
@@ -4738,6 +4789,7 @@
 				0FF5B4EA19A9D9DB00602A2C /* card60_D.jpg in Resources */,
 				0FF0B18C19EBBFD000467217 /* pro118.png in Resources */,
 				0F8B4D7B19E8D218005BCFC8 /* pro_a4.png in Resources */,
+				0FE3D90B1A39EF6400552EBE /* battleBackGround.png in Resources */,
 				0FFF2F181A1461E30017C7B5 /* card52.PNG in Resources */,
 				0FF0B17219EBBFD000467217 /* pro92.png in Resources */,
 				0F169C24199A555F00221D19 /* card67_M.JPG in Resources */,
@@ -4809,6 +4861,7 @@
 				0F0FC0661A31F31700D02986 /* hikiwake.png in Resources */,
 				0FF5B4EE19A9D9DB00602A2C /* card64_D.jpg in Resources */,
 				0FFF2FF51A1461E40017C7B5 /* トンファーキ～ック！.png in Resources */,
+				0FE3D91A1A3FDE0100552EBE /* syobon_small.png in Resources */,
 				0FFF2FAF1A1461E40017C7B5 /* ヴァーボーン・ハウス.png in Resources */,
 				0FFF2F0A1A1461E30017C7B5 /* card38.PNG in Resources */,
 				0FF0B15319EBBFD000467217 /* pro61.png in Resources */,
@@ -4845,6 +4898,7 @@
 				0FFF30301A1461E40017C7B5 /* 壁殴り代行始めました.png in Resources */,
 				0F169BC9199A555F00221D19 /* card120_M.JPG in Resources */,
 				0FFD0BC919DBABB4007D9BAD /* gikoAnimation7_2.png in Resources */,
+				0FE3D9221A40E3D600552EBE /* battleBackGround-568h@2x.png in Resources */,
 				0FF5B4ED19A9D9DB00602A2C /* card63_D.jpg in Resources */,
 				0F169BE5199A555F00221D19 /* card146_M.JPG in Resources */,
 				0FFF301D1A1461E40017C7B5 /* ワクワククマクマ.png in Resources */,
@@ -5046,6 +5100,7 @@
 				0F6EB47C1916B2E400BD0E41 /* SBJsonUTF8Stream.m in Sources */,
 				0F6EB47B1916B2E400BD0E41 /* SBJsonTokeniser.m in Sources */,
 				0F3FF2E419FE816E00A184B0 /* SocialMediaViewController.m in Sources */,
+				0FE3D9251A40E3F300552EBE /* UIImage+H568.m in Sources */,
 				0F6EB47D1916B2E400BD0E41 /* SBJsonWriter.m in Sources */,
 				0FDB981B18CF526100C7566E /* DeckViewController.m in Sources */,
 				0FF5B3AF19A86BD000602A2C /* Deck2.m in Sources */,
@@ -5059,6 +5114,7 @@
 				0FC9687019C08901001C4793 /* GikoGikoWaintngViewController.m in Sources */,
 				0F6EB4771916B2E400BD0E41 /* SBJsonStreamParserState.m in Sources */,
 				0F6EB4751916B2E400BD0E41 /* SBJsonStreamParserAccumulator.m in Sources */,
+				0FE3D91E1A3FE23800552EBE /* UILabel+kylib.m in Sources */,
 				0FDCA49718CACFC2003459F8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5193,6 +5249,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "cardBattle/cardBattle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/cardBattle/NendAd",
@@ -5213,6 +5270,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cardBattle/cardBattle-Prefix.pch";
 				INFOPLIST_FILE = "cardBattle/cardBattle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/cardBattle/NendAd",

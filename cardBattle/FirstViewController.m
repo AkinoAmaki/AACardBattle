@@ -183,7 +183,7 @@
         result= [NSURLConnection sendSynchronousRequest:request
                                       returningResponse:&response
                                                   error:&error];
-        NSLog(@"再度get処理実行中...");
+        NSLog(@"通信できませんでした。データのget処理を再度実行中...");
         if(loop == 10){
             [SVProgressHUD popActivity];
             notFoundForInternetBattle = [[UIAlertView alloc] initWithTitle:@"通信不能" message:@"通信できませんでした。電波が弱いか、サーバが応答していません" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];

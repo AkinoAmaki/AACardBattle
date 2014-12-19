@@ -32,16 +32,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //BGMの実装
-//    NSString* path = [[NSBundle mainBundle]
-//                      pathForResource:@"28_machi25b" ofType:@"mp3"];
-//    NSURL* url = [NSURL fileURLWithPath:path];
-//    _audio = [[AVAudioPlayer alloc]
-//              initWithContentsOfURL:url error:nil];
-//    _audio.numberOfLoops = -1;
-//    _audio.volume = 0.2f;
-//    [_audio play];
-    
     //タブバーを設置
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     tab1 = [[Deck1 alloc] init];
